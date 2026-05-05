@@ -1,0 +1,130 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.Koomba.Mollie" AppendRootKey="false">
+    <Value>Mollie</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.Koomba.Mollie" AppendRootKey="false">
+    <Value>Detaillierte Beschreibung zu Mollie</Value>
+  </LocaleResource>
+  
+  <!-- (Provider) will be displayed in frontend on payment selection page and in backend on payment configuration list -->
+  <LocaleResource Name="Plugins.FriendlyName.Payments.Mollie" AppendRootKey="false">
+    <Value>Mollie</Value>
+  </LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.creditcard" AppendRootKey="false">
+		<Value>Credit/Debit Card</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.sofort" AppendRootKey="false">
+		<Value>SOFORT Banking</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.giropay" AppendRootKey="false">
+		<Value>Giropay</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.redirect" AppendRootKey="false">
+		<Value>Mollie payment</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.klarnapaylater" AppendRootKey="false">
+		<Value>Klarna Pay Later</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.ideal" AppendRootKey="false">
+		<Value>iDeal</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.applepay" AppendRootKey="false">
+		<Value>Apple Pay</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.paypal" AppendRootKey="false">
+		<Value>PayPal</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.FriendlyName.Mollie.bancontact" AppendRootKey="false">
+		<Value>Bancontact</Value>
+	</LocaleResource>
+	
+	
+  <!-- (Provider) will be displayed in frontend on payment selection page and in backend on payment configuration list -->
+  <LocaleResource Name="Plugins.Description.Payments.Mollie" AppendRootKey="false">
+    <Value>Detallierte Beschreibung zu Mollie</Value>
+  </LocaleResource>
+
+	<LocaleResource Name="Fields.RedirectionTip">
+		<Value>After confirmation of the order, you will be redirected straight to Payment. Please provide your data for online banking.</Value>
+	</LocaleResource>
+  
+  <LocaleResource Name="Plugins.Koomba.Mollie" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="AdminInstruction">
+        <Value>
+          <![CDATA[
+            Geben Sie zur Einrichtung dieses Plugins nachfolgend Ihre Daten an.
+          ]]>
+        </Value>
+      </LocaleResource>
+		<LocaleResource Name="LocalHost">
+			<Value>local host</Value>
+		</LocaleResource>
+		<LocaleResource Name="LocalHost.Hint">
+			<Value>For testing on localhost, WebHook disabled</Value>
+		</LocaleResource>
+      
+      
+
+      
+      <LocaleResource Name="PaymentInfo">
+        <Value>Nach Abschluß der Bestellung werden Sie zu einem externen Zahlungsanbieter weitergeleitet, auf dessen Seite Sie die Zahlung für Ihre Bestellung durchführen können.</Value>
+      </LocaleResource>
+      <LocaleResource Name="Agreement">
+        <Value>Ich bin mir bewusst, dass meine Daten im Zuge des Zahlungsvorgangs an den Zahlungsanbieter übermittelt werden.</Value>
+      </LocaleResource>
+      <LocaleResource Name="Agreement.Message">
+        <Value>Bitte stimmen Sie zu, dass Ihre Daten im Zuge dieses Zahlungsvorgangs an den Zahlartanbieter übermittelt werden dürfen.</Value>
+      </LocaleResource>
+      <LocaleResource Name="UseSandbox">
+        <Value>Sandbox nutzen</Value>
+      </LocaleResource>
+      <LocaleResource Name="UseSandbox.Hint">
+        <Value>Bestimmt, ob die Zahlungen in der Sandbox des Payment-Anbieters ausgeführt werden.</Value>
+      </LocaleResource>
+      <LocaleResource Name="AccountId">
+        <Value>Account-Id</Value>
+      </LocaleResource>
+      <LocaleResource Name="AccountId.Hint">
+        <Value>Geben Sie hier die Account-ID an, die Ihnen vom Zahlungsanbieter übermittelt wurde.</Value>
+      </LocaleResource>
+      <LocaleResource Name="AccountPassword">
+        <Value>Passwort</Value>
+      </LocaleResource>
+      <LocaleResource Name="AccountPassword.Hint">
+        <Value>Geben Sie hier das Passwort an, das Ihnen vom Zahlungsanbieter übermittelt wurde.</Value>
+      </LocaleResource>
+      
+      <LocaleResource Name="AdditionalFee">
+        <Value>Zusätzliche Gebühren</Value>
+      </LocaleResource>
+      <LocaleResource Name="AdditionalFee.Hint">
+        <Value>Zusätzliche Gebühren, die dem Kunden für die Inanspruchnahme dieser Zahlart berechnet werden sollen.</Value>
+      </LocaleResource>
+      <LocaleResource Name="AdditionalFeePercentage">
+        <Value>Zusätzliche Gebühren (prozentual)</Value>
+      </LocaleResource>
+      <LocaleResource Name="AdditionalFeePercentage.Hint">
+        <Value>Zusätzliche prozentuale Gebühr. Die konfigurierte Gebühr wird als fester Wert verwendet, falls diese Option nicht aktiviert ist.</Value>
+      </LocaleResource>
+
+		<LocaleResource Name="DiscountItem">
+			<Value>Discount</Value>
+		</LocaleResource>
+		<LocaleResource Name="GiftCardItem">
+			<Value>Gift Card</Value>
+		</LocaleResource>
+		
+		<LocaleResource Name="RestrictionRole">
+			<Value>Customer role restriction</Value>
+		</LocaleResource>
+
+		
+
+
+	</Children>
+  </LocaleResource>
+</Language>

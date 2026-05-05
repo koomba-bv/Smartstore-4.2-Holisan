@@ -1,0 +1,84 @@
+﻿@model GradientOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Color, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.BrandColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Brightness, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Brightness, StoryModelHelper.SelectOptions.GradientBrightness(T), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Type, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.EditorFor(model => model.Type, new { size = "sm" })
+    </div>
+</div>
+<div class="form-group form-row@(Model.Type == GradientType.Radial ? " d-none" : "")" data-gradient-type="linear">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.LinearDir, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        <div class="row xs-gutters select-gradient-lineardir">
+            <div class="col">
+                @Html.EditorFor(model => model.LinearDir)
+            </div>
+            <div class="col-auto">
+                <div class="linear-gradient-preview" style="--angle: @(Model.LinearDir)deg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group form-row@(Model.Type == GradientType.Linear ? " d-none" : "")" data-gradient-type="radial">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.RadialDir, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.RadialDir, StoryModelHelper.SelectOptions.RadialDirs(T), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.StartPos, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.EditorFor(model => model.StartPos)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.EndPos, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.EditorFor(model => model.EndPos)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Repeat, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListForEnum(model => model.Repeat, new { @class = "form-control form-control-sm noskin select-gradient-repeat" })
+    </div>
+</div>
+<div class="form-group form-row@(Model.Repeat == GradientRepeat.NoRepeat ? " d-none" : "")" data-gradient-repeat="true">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.MidPos, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.EditorFor(model => model.MidPos)
+    </div>
+</div>

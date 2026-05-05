@@ -1,0 +1,229 @@
+﻿@model BlockContainer
+
+@using SmartStore.PageBuilder;
+@using SmartStore.PageBuilder.Models;
+
+@{
+    Layout = "_AdminPopupLayout";
+
+    Html.AddScriptParts(true, "~/Plugins/SmartStore.PageBuilder/Scripts/pagebuilder.utils.js");
+    Html.AddScriptParts(true, "~/Plugins/SmartStore.PageBuilder/Scripts/pagebuilder.overlays.js");
+
+    Html.AddBodyAttribute("data-file-manager-url", base.FileManagerUrl);
+
+    var isUpdate = Model.Id > 0;
+    var action = isUpdate ? "BlockEditPopup" : "BlockAddPopup";
+
+    ViewBag.Title = isUpdate
+        ? T("Plugins.SmartStore.PageBuilder.Block.EditBlock", Model.Metadata.FriendlyName).Text
+        : T("Plugins.SmartStore.PageBuilder.Block.AddBlock", Model.Metadata.FriendlyName).Text;
+}
+
+@using (Html.BeginForm(action, "Story", new { btnId = ViewBag.BtnId }, FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="section-header">
+		<div class="title">
+			<i class="@Model.Metadata.Icon"></i>
+			@ViewBag.Title
+		</div>
+		<div class="options">
+			<button type="submit" name="save" value="save" class="btn btn-@(isUpdate ? "warning" : "primary")">
+				<i class="fa fa-save"></i>
+				<span>@T("Admin.Common.Save")</span>
+			</button>
+			<button type="submit" name="save" value="save-continue" class="btn btn-secondary">
+				<span>@T("Admin.Common.SaveContinue")</span>
+			</button>
+		</div>
+	</div>
+
+	@Html.ValidationSummary(false)
+	@Html.HiddenFor(model => model.Id)
+	@Html.HiddenFor(model => model.StoryId)
+	@Html.HiddenFor(model => model.BlockType)
+	@Html.HiddenFor(model => model.BlockClrType.AssemblyQualifiedName)
+
+	//Model.RenderBlock(new[] { "Edit" }, this.Html);
+
+	@Html.SmartStore().TabStrip().Name("storyblock-edit").Style(TabsStyle.Material).Items(x =>
+    {
+        x.Add().Text(Model.Metadata.FriendlyName).Content(Model.BlockToHtmlString(new[] { "Edit" }, this.Html).ToHtmlString()).Selected(true);
+        x.Add().Text(T("Admin.Common.General").Text).Content(TabGeneral());
+        x.Add().Text(T("Plugins.SmartStore.PageBuilder.Block.TabHeading.Background").Text).Content(Html.Partial("_Block.Background", Model).ToHtmlString());
+        x.Add().Text(T("Plugins.SmartStore.PageBuilder.Block.TabHeading.Box").Text).Content(Html.Partial("_Block.Box", Model).ToHtmlString());
+        x.Add().Text(T("Plugins.SmartStore.PageBuilder.Block.TabHeading.Effects").Text).Content(Html.Partial("_Block.Effects", Model).ToHtmlString());
+
+        if (Model.BlockIsBindable && Model.DataBindingModel != null)
+        {
+            x.Add().Text(T("Plugins.SmartStore.PageBuilder.Block.TabHeading.DataBinding").Text).Content(Html.Partial("_Block.DataBinding", Model).ToHtmlString());
+        }
+
+		x.Add().Text(T("Common.Advanced").Text).Content(TabAdvanced());
+
+        // generate an event
+        EngineContext.Current.Resolve<IEventPublisher>().Publish(new TabStripCreated(x, "storyblock-edit", this.Html, this.Model));
+    })
+}
+
+@helper TabGeneral()
+{
+	<div class="adminContent">
+		@if (!Model.BlockEditsTitle)
+		{
+			@(Html.LocalizedEditor<BlockContainer, LocalizedBlockContainer>("storyblock-localized",
+					@<div class="adminRow">
+						<div class="adminTitle">
+							@*IMPORTANT: Do not delete, this hidden element contains the id to assign localized values to the corresponding language *@
+							@Html.HiddenFor(model => model.Locales[item].LanguageId)
+							@Html.SmartLabelFor(model => model.Locales[item].Title)
+						</div>
+						<div class="adminData">
+							@Html.TextBoxFor(model => model.Locales[item].Title)
+							@Html.ValidationMessageFor(model => model.Locales[item].Title)
+						</div>
+					</div>
+					,
+					@<div class="adminRow">
+						<div class="adminTitle">
+							@Html.SmartLabelFor(model => model.Title)
+						</div>
+						<div class="adminData">
+							@Html.TextBoxFor(model => model.Title)
+							@Html.ValidationMessageFor(model => model.Title)
+						</div>
+					</div>
+			))
+		}
+
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsInversed)
+			</div>
+			<div class="adminData">
+				@Html.CheckBoxFor(model => model.IsInversed)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.LinkHref)
+			</div>
+			<div class="adminData">
+				@Html.EditorFor(model => model.LinkHref)
+				@Html.ValidationMessageFor(model => model.LinkHref)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.MinHeight)
+			</div>
+			<div class="adminData">
+				@Html.DropDownListFor(model => model.MinHeight, StoryModelHelper.SelectOptions.MinHeights(T), T("Plugins.SmartStore.PageBuilder.NoMinHeight"))
+				@Html.ValidationMessageFor(model => model.MinHeight)
+			</div>
+		</div>
+		<div class="admin-config-group">
+			<div class="title">CSS</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.RootCssClass)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.RootCssClass)
+				@Html.ValidationMessageFor(model => model.RootCssClass)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.RootCssStyle)
+			</div>
+			<div class="adminData">
+				@Html.TextAreaFor(model => model.RootCssStyle)
+				@Html.ValidationMessageFor(model => model.RootCssStyle)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.CssClass)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.CssClass)
+				@Html.ValidationMessageFor(model => model.CssClass)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.CssStyle)
+			</div>
+			<div class="adminData">
+				@Html.TextAreaFor(model => model.CssStyle)
+				@Html.ValidationMessageFor(model => model.CssStyle)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.ContentCssClass)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.ContentCssClass)
+				@Html.ValidationMessageFor(model => model.ContentCssClass)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.ContentCssStyle)
+			</div>
+			<div class="adminData">
+				@Html.TextAreaFor(model => model.ContentCssStyle)
+				@Html.ValidationMessageFor(model => model.ContentCssStyle)
+			</div>
+		</div>
+		<div class="admin-config-group">
+            <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Misc")</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.Template)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.Template)
+				@Html.ValidationMessageFor(model => model.Template)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.HtmlId)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.HtmlId)
+				@Html.ValidationMessageFor(model => model.HtmlId)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.DisplayOrder)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.DisplayOrder)
+				@Html.ValidationMessageFor(model => model.DisplayOrder)
+			</div>
+		</div>
+	</div>
+}
+
+@helper TabAdvanced()
+{ 
+	<div class="adminContent">
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.DeviceStatesJson)
+			</div>
+			<div class="adminData wide">
+				@Html.TextAreaFor(model => model.DeviceStatesJson, 8, 0, null)
+				@Html.ValidationMessageFor(model => model.DeviceStatesJson)
+			</div>
+		</div>
+	</div>
+}

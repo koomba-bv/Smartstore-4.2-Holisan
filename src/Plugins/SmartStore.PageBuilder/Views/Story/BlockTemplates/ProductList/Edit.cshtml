@@ -1,0 +1,286 @@
+﻿@model ProductListBlock
+
+@using SmartStore.Web.Framework;
+@using SmartStore.Web.Framework.UI
+@using SmartStore.PageBuilder.Blocks
+
+<script>
+    $(function () {
+
+        // ProductPickingType
+        $("#@Html.FieldIdFor(model => model.ProductPickingType)").change(togglePickingType);
+
+        togglePickingType();
+
+        function togglePickingType() {
+            var selectedDisplayType = $("#@Html.FieldIdFor(model => model.ProductPickingType)").val();
+
+            if (selectedDisplayType == 'Custom') {
+                $('#category-picker').hide();
+                $('#product-picker').show();
+            }
+            else {
+                $('#category-picker').show();
+                $('#product-picker').hide();
+            }
+        }
+
+        // ProductDisplayType
+        $("#@Html.FieldIdFor(model => model.ProductListDisplayType)").change(toggleDisplayType);
+
+        toggleDisplayType();
+
+        function toggleDisplayType() {
+            var selectedDisplayType = $("#@Html.FieldIdFor(model => model.ProductListDisplayType)").val();
+
+            if (selectedDisplayType == 'Grid') {
+                $('.pnlItemsPerRow').show();
+                $('.pnlBoxedStyleItems').show();
+                $('.pnlSlideItemsDisplayCount').hide();
+                $('.pnlSlideItemsSlideCount').hide();
+                $('.product-prop-list').hide();
+                $('.pnlDisplayButtons').show();
+            }
+            else if (selectedDisplayType == 'Slider') {
+                $('.pnlItemsPerRow').hide();
+                $('.pnlBoxedStyleItems').show();
+                $('.pnlSlideItemsDisplayCount').show();
+                $('.pnlSlideItemsSlideCount').show();
+                $('.product-prop-list').hide();
+                $('.pnlDisplayButtons').hide();
+            }
+            else if (selectedDisplayType == 'List') {
+                $('.pnlBoxedStyleItems').hide();
+                $('.pnlItemsPerRow').hide();
+                $('.pnlSlideItemsDisplayCount').hide();
+                $('.pnlSlideItemsSlideCount').hide();
+                $('.product-prop-list').show();
+                $('.pnlDisplayButtons').show();
+            }
+        }
+    });
+</script>
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ProductPickingType)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.ProductPickingType)
+            @Html.ValidationMessageFor(model => model.ProductPickingType)
+        </div>
+    </div>
+
+    <div id="category-picker" class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CategoryId)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(x => x.CategoryId)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+    </div>
+
+    <div id="product-picker" class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ProductIds)
+        </div>
+        <div class="adminData">
+            <div class="input-group">
+                @Html.EditorFor(model => model.ProductIds)
+                <span class="input-group-append">
+                    <a class="btn btn-secondary" id="reset-block-product-ids" title="@T("Admin.Common.Reset")">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </span>
+                <span class="input-group-append">
+                    @(Html.SmartStore().EntityPicker()
+                        .For(x => x.ProductIds)
+                        .MaxItems(100)
+                        .EntityType("product")
+                        .DialogTitle(T("Common.Entity.SelectProduct").Text.EncodeJsString('\'', false))
+                        .Caption(T("Admin.Common.Search").Text.EncodeJsString('\'', false)))
+                </span>
+            </div>
+            @Html.ValidationMessageFor(model => model.ProductIds)
+        </div>
+    </div>
+
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ProductListDisplayType)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.ProductListDisplayType)
+            @Html.ValidationMessageFor(model => model.ProductListDisplayType)
+        </div>
+    </div>
+    <div class="adminRow pnlSlideItemsDisplayCount">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SlideItemsDisplayCount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SlideItemsDisplayCount)
+            @Html.ValidationMessageFor(model => model.SlideItemsDisplayCount)
+        </div>
+    </div>
+    <div class="adminRow pnlSlideItemsSlideCount">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SlideItemsSlideCount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SlideItemsSlideCount)
+            @Html.ValidationMessageFor(model => model.SlideItemsSlideCount)
+        </div>
+    </div>
+    <div class="adminRow pnlItemsPerRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ItemsPerRow)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ItemsPerRow)
+            @Html.ValidationMessageFor(model => model.ItemsPerRow)
+        </div>
+    </div>
+    <div class="adminRow pnlMaxItems">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.MaxItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.MaxItems)
+            @Html.ValidationMessageFor(model => model.MaxItems)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.GrayscaleItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.GrayscaleItems)
+            @Html.ValidationMessageFor(model => model.GrayscaleItems)
+        </div>
+    </div>
+    <div class="adminRow pnlBoxedStyleItems">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.BoxedStyleItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.BoxedStyleItems)
+            @Html.ValidationMessageFor(model => model.BoxedStyleItems)
+        </div>
+    </div>
+
+    <div class="admin-config-group">
+        <div class="title">@T("Plugins.SmartStore.PageBuilder.ProductList.ProductProperties")</div>
+    </div>
+
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayShortDesc)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayShortDesc)
+            @Html.ValidationMessageFor(model => model.DisplayShortDesc)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayPrice)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayPrice)
+            @Html.ValidationMessageFor(model => model.DisplayPrice)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayRatings)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayRatings)
+            @Html.ValidationMessageFor(model => model.DisplayRatings)
+        </div>
+    </div>
+    <div class="adminRow product-prop-list">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayBrand)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayBrand)
+            @Html.ValidationMessageFor(model => model.DisplayBrand)
+        </div>
+    </div>
+    <div class="adminRow product-prop-list">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayDimensions)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayDimensions)
+            @Html.ValidationMessageFor(model => model.DisplayDimensions)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayDeliveryTimes)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayDeliveryTimes)
+            @Html.ValidationMessageFor(model => model.DisplayDeliveryTimes)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayVariants)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayVariants)
+            @Html.ValidationMessageFor(model => model.DisplayVariants)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayLegalInfo)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayLegalInfo)
+            @Html.ValidationMessageFor(model => model.DisplayLegalInfo)
+        </div>
+    </div>
+    <div class="adminRow pnlDisplayButtons">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayButtons)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayButtons)
+            @Html.ValidationMessageFor(model => model.DisplayButtons)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayBadges)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayBadges)
+            @Html.ValidationMessageFor(model => model.DisplayBadges)
+        </div>
+    </div>
+    <div class="adminRow product-prop-list">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplaySku)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplaySku)
+            @Html.ValidationMessageFor(model => model.DisplaySku)
+        </div>
+    </div>
+    <div class="adminRow product-prop-list">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayWeight)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayWeight)
+            @Html.ValidationMessageFor(model => model.DisplayWeight)
+        </div>
+    </div>
+</div>

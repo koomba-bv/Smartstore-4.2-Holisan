@@ -1,0 +1,186 @@
+﻿@model SmartStore.TinyImage.Models.ConfigurationModel
+
+@{
+    Layout = "";
+}
+
+@{ Html.RenderAction("StoreScopeConfiguration", "Setting", new { area = "Admin" }); }
+	
+@using (Html.BeginForm())
+{
+	<div class="plugin-actions">
+		<button type="submit" name="save" value="save" class="btn btn-warning">
+			<i class="fa fa-check"></i>
+			@T("Admin.Common.Save")
+		</button>
+	</div>
+
+	if (!ViewData.ModelState.IsValid)
+	{
+		@Html.ValidationSummary(false)
+	}
+
+	<table class="adminContent">
+		<tr>
+			<td colspan="2">
+				<div class="admin-config-group">
+					<div class="title">@T("Plugins.Admin.TinyImage.Compress.Title")</div>
+					<p class="text-muted">
+						@T("Plugins.Admin.TinyImage.CompressInfo")
+					</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CompressUploads)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.CompressUploads)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CompressThumbnails)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.CompressThumbnails)
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="admin-config-group">
+					<div class="title">@T("Plugins.Admin.TinyImage.Formats.Title")</div>
+				</div>
+				<div class="alert alert-warning">
+					@T("Plugins.Admin.TinyImage.CompressFormatInfo")
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CompressPng)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.CompressPng)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CompressJpg)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.CompressJpg)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CompressGif)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.CompressGif)
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="admin-config-group">
+					<div class="title">@T("Plugins.Admin.TinyImage.WebP.Title")</div>
+					<p class="text-muted">
+						@T("Plugins.Admin.TinyImage.WebP.Info")
+					</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.WebPForPng)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.WebPForPng)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.WebPForJpg)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.WebPForJpg)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.WebPQuality)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.WebPQuality)
+				@Html.ValidationMessageFor(model => model.WebPQuality)
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="admin-config-group">
+					<div class="title">@T("Plugins.Admin.TinyImage.Tools.Title")</div>
+					<p class="text-muted">
+						@T("Plugins.Admin.TinyImage.ToolsInfo")
+					</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="muted" style="margin-bottom: 10px">
+					@T("Plugins.Admin.TinyImage.ToolsInfo.Tokens")
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="width:100px">pngquant</span>
+					</div>
+					@Html.TextBoxFor(model => model.PngQuantOptions, new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.PngQuantOptions)
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="width:100px">cjpeg</span>
+					</div>
+					@Html.TextBoxFor(model => model.CjpegOptions, new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.CjpegOptions)
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" style="width:100px">gifsicle</span>
+					</div>
+					@Html.TextBoxFor(model => model.GifsicleOptions, new { @class = "form-control" })
+					@Html.ValidationMessageFor(model => model.GifsicleOptions)
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="admin-config-group">
+					<div class="title">@T("Common.Misc")</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.NotifyOnUpload)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.NotifyOnUpload)
+				@Html.ValidationMessageFor(model => model.NotifyOnUpload)
+			</td>
+		</tr>
+	</table>
+}

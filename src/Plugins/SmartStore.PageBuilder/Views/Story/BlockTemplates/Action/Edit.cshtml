@@ -1,0 +1,15 @@
+﻿@model ActionBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.ActionRoute)
+		</div>
+		<div class="adminData wide">
+			@Html.TextAreaFor(model => model.ActionRoute, new { style = "height:250px" })
+			@Html.ValidationMessageFor(model => model.ActionRoute)
+		</div>
+	</div>
+</div>

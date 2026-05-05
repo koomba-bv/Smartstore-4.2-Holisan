@@ -1,0 +1,90 @@
+﻿@model ImageOverlay
+
+@using SmartStore.PageBuilder;
+
+@{ 
+    var parallaxPanelId = Html.Id(ViewData.TemplateInfo.HtmlFieldPrefix + "-pnl-parallax");
+}
+
+<div class="form-group form-row">
+    <div class="col-12">
+        @Html.EditorFor(model => model.PictureId, new { transientUpload = true, path = "pagebuilder" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.PictureSize, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.EditorFor(model => model.PictureSize, new { size = "sm" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Position, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Position, StoryModelHelper.SelectOptions.BackgroundPositions(T), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Repeat, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Repeat, StoryModelHelper.SelectOptions.BackgroundRepeats(T), T("Plugins.SmartStore.PageBuilder.BackgroundRepeat.NoRepeat"), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Attachment, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Attachment, StoryModelHelper.SelectOptions.BackgroundAttachments(T, false), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Size, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Size, StoryModelHelper.SelectOptions.BackgroundSizes(T, false), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Parallax, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8 switcher switcher-sm">
+        @Html.CheckBoxFor(model => model.Parallax, new { @class = "form-control", data_toggler_for = "#" + parallaxPanelId })
+    </div>
+</div>
+<div id="@parallaxPanelId">
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabelFor(model => model.ParallaxSpeedFactor, true, new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.EditorFor(model => model.ParallaxSpeedFactor, new { size = "sm" })
+            @Html.ValidationMessageFor(model => model.ParallaxSpeedFactor)
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabelFor(model => model.ParallaxOffset, true, new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.EditorFor(model => model.ParallaxOffset, new { size = "sm" })
+            @Html.ValidationMessageFor(model => model.ParallaxOffset)
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabelFor(model => model.ParallaxFilter, true, new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.TextBoxFor(model => model.ParallaxFilter, new { @class = "form-control form-control-sm", placeholder = "E.g. >md" })
+            @Html.ValidationMessageFor(model => model.ParallaxFilter)
+        </div>
+    </div>
+</div>

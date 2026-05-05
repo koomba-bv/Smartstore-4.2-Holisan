@@ -1,0 +1,30 @@
+﻿@model GoogleMapsBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+	if (!Model.ApiKey.HasValue() || !Model.Longitude.HasValue() || !Model.Latitude.HasValue())
+	{
+		return;
+	}
+
+    var elemId = "map-" + Model.EntityId;
+
+    Html.AddLinkPart("preconnect", "https://maps.googleapis.com");
+}
+
+<div id="@elemId" class="g-google-maps h-100 w-100">
+</div>
+
+@using (Html.BeginZoneContent("aftercontent", key: "g-google-maps-" + Model.EntityId))
+{    
+    <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=@(Model.ApiKey)&callback=initMap_@Model.EntityId"></script>
+
+    <script>
+        window['initMap_@Model.EntityId'] = function () {
+            var location = { lat: @Model.Latitude.Trim().Replace(",", "."), lng: @Model.Longitude.Trim().Replace(",", ".") };
+            var map = new google.maps.Map(document.getElementById('@elemId'), { zoom: @Model.Zoom, center: location, streetViewControl: @Model.DisplayStreetViewControl.ToString().ToLower() });
+            var marker = new google.maps.Marker({ position: location, map: map });
+        }
+    </script>
+}

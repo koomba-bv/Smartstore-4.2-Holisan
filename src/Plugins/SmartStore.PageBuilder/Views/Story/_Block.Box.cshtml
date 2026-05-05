@@ -1,0 +1,227 @@
+﻿@model BlockContainer
+
+@using SmartStore.PageBuilder;
+
+@{
+    var loadingBehaviours = new List<SelectListItem>()
+    {
+        new SelectListItem {Text = "lazy", Value = "lazy" },
+        new SelectListItem {Text = "eager", Value = "eager" }
+    };
+}
+<script>
+	$(function () {
+		var elBoxImage = $('#@Html.IdFor(x => x.BoxModel.PictureId)');
+		function toggleBoxImageProps() {
+			var show = parseInt(elBoxImage.val()) > 0;
+			$('#pnl-box-img-props').toggle(show);
+		}
+
+		elBoxImage.on('change', toggleBoxImageProps).trigger('change');
+	});
+</script>
+
+<div class="admin-config-group">
+	<div class="title">@T("Plugins.SmartStore.PageBuilder.BlockBox.Picture")</div>
+	<p class="text-muted">
+		@T("Plugins.SmartStore.PageBuilder.BlockBox.PictureInfo")
+	</p>
+</div>
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.PictureId)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.BoxModel.PictureId, new { transientUpload = true, path = "pagebuilder" })
+			@Html.ValidationMessageFor(model => model.BoxModel.PictureId)
+		</div>
+	</div>
+    <div id="pnl-box-img-props" style="display: none">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.PictureSize)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.BoxModel.PictureSize)
+                @Html.ValidationMessageFor(model => model.BoxModel.PictureSize)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ImagePlacement)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListForEnum(model => model.BoxModel.ImagePlacement)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.LoadingBehaviour)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.BoxModel.LoadingBehaviour, loadingBehaviours, T("Common.Auto"))
+                @Html.ValidationMessageFor(model => model.BoxModel.LoadingBehaviour)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ImageMaxWidthOrHeight)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.BoxModel.ImageMaxWidthOrHeight)
+                @Html.ValidationMessageFor(model => model.BoxModel.ImageMaxWidthOrHeight)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ScaleImageOnHover)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.BoxModel.ScaleImageOnHover, new { data_toggler_for = "#pnlScaleImageOnHover" })
+            </div>
+        </div>
+        <div class="adminRow" id="pnlScaleImageOnHover">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ScaleImageOnHoverRev)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.BoxModel.ScaleImageOnHoverRev)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ImageBlur)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.BoxModel.ImageBlur)
+                @Html.ValidationMessageFor(model => model.BoxModel.ImageBlur)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BoxModel.ImageGrayscale)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.BoxModel.ImageGrayscale)
+                @Html.ValidationMessageFor(model => model.BoxModel.ImageGrayscale)
+            </div>
+        </div>
+    </div>
+
+
+	<div class="admin-config-group">
+		<div class="title">@T("Plugins.SmartStore.PageBuilder.Block.BorderAndShadow")</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.BorderWidth)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.BoxModel.BorderWidth)
+			@Html.ValidationMessageFor(model => model.BoxModel.BorderWidth)
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.BorderColor)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.BoxModel.BorderColor, StoryModelHelper.SelectOptions.BorderColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+			@Html.ValidationMessageFor(model => model.BoxModel.BorderColor)
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.BorderRadius)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.BoxModel.BorderRadius, StoryModelHelper.SelectOptions.BorderRadii(T), T("Common.Unspecified"))
+			@Html.ValidationMessageFor(model => model.BoxModel.BorderRadius)
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.DropShadow)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.BoxModel.DropShadow, new { data_toggler_for = "#card-dropdhadow" })
+		</div>
+	</div>
+	<div id="card-dropdhadow">
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.BoxModel.DropShadowColor)
+			</div>
+			<div class="adminData">
+				@Html.DropDownListFor(model => model.BoxModel.DropShadowColor, StoryModelHelper.SelectOptions.DropShadowColors(T, GetThemeVariable("brand-colors")), T("Admin.Common.Standard"), new { @class = "theme-color-chooser" })
+				@Html.ValidationMessageFor(model => model.BoxModel.DropShadowColor)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.BoxModel.DropShadowSize)
+			</div>
+			<div class="adminData">
+				@Html.DropDownListFor(model => model.BoxModel.DropShadowSize, StoryModelHelper.SelectOptions.DropShadowSizes(T))
+				@Html.ValidationMessageFor(model => model.BoxModel.DropShadowSize)
+			</div>
+		</div>
+	</div>
+
+
+	<div class="admin-config-group">
+		<div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Flat")</div>
+		<p class="text-muted">
+			@T("Plugins.SmartStore.PageBuilder.BlockBox.FlatInfo")
+		</p>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.Flat)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.BoxModel.Flat, new { data_toggler_for = "#pnl-card-flat" })
+		</div>
+	</div>
+	<div class="adminRow" id="pnl-card-flat">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.FlatInverse)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.BoxModel.FlatInverse)
+		</div>
+	</div>
+
+	<div class="admin-config-group">
+		<div class="title">@T("Plugins.SmartStore.PageBuilder.BlockBox.Mega")</div>
+		<p class="text-muted">
+			@T("Plugins.SmartStore.PageBuilder.BlockBox.Mega.Intro")
+		</p>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.MegaSize)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.BoxModel.MegaSize)
+			@Html.ValidationMessageFor(model => model.BoxModel.MegaSize)
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.MegaSizeBreakpoint)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.BoxModel.MegaSizeBreakpoint, StoryModelHelper.SelectOptions.GridBreakpoints(T))
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BoxModel.MegaSizeType)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListForEnum(model => model.BoxModel.MegaSizeType)
+		</div>
+	</div>
+</div>

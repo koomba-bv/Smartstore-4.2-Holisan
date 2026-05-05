@@ -1,0 +1,26 @@
+﻿@model SmartStore.HtmlForms.Models.PublicInfoModel
+@{
+	Layout = "_Layout";
+
+	Html.AddTitleParts(!String.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : T("PageTitle.ContactUs").Text);
+	Html.AddMetaDescriptionParts(Model.MetaDescription);
+	Html.AddMetaKeywordParts(Model.MetaKeywords);
+}
+
+<div class="page contact-page">
+    <div class="page-title">
+        <h1 class="h2">@T("PageTitle.ContactUs")</h1>
+    </div>
+
+    @{ Html.RenderAction("TopicBlock", "Topic", new { systemName = "ContactUs", isLead = true, bodyOnly = true }); }
+
+    <div class="page-body">
+
+        @{ Html.RenderWidget("contactus_top"); }
+
+		@{ Html.RenderPartial("~/Plugins/ObjectCreator.Forms/Views/HtmlForms/PublicInfo.cshtml", Model); }
+        
+        @{ Html.RenderWidget("contactus_bottom"); }
+
+    </div>
+</div>

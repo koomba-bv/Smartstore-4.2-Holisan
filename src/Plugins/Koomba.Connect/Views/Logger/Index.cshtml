@@ -1,0 +1,56 @@
+﻿@model int
+
+@using Telerik.Web.Mvc.UI
+
+@if (Model > 0)
+{
+    @(Html.Telerik().Grid<ConnectionLogModel>()
+		.Name("LogGrid")
+		.DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+		.Columns(columns =>
+		{
+			columns.Bound(x => x.StateName);
+			columns.Bound(x => x.ShortMessage);
+			columns.Bound(x => x.FullMessage);
+			columns.Bound(x => x.Logger);
+			columns.Bound(x => x.CreatedOnUtc);
+		})
+		.Pageable(settings => settings.PageSize(20).Position(GridPagerPosition.Both))
+		.ToolBar(commands => commands.Template(ClearLogGridCommands))
+		.DataBinding(dataBinding => dataBinding
+			.Ajax()
+			.Select("List", "Logger", new { connectionId = Model })
+		)
+		.EnableCustomBinding(true)
+    )
+
+}
+else
+{
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @T("Admin.SaveBeforeEdit")
+    </div>
+}
+
+@helper ClearLogGridCommands(Grid<ConnectionLogModel> grid)
+{
+	<button type="button" id="btnClearLog" class="t-button" data-url="@Url.Action("Clear", new { connectionId = Model })">
+		<i class="fa fa-trash"></i>
+		<span>@T("Admin.System.Log.ClearLog")</span>
+	</button>
+}
+
+<script>
+	$(function() {
+		$('#btnClearLog').click(function () {
+			$(this).doAjax({
+				callbackSuccess: function (resp) {
+					$('#LogGrid').data('tGrid').ajaxRequest();
+				}
+			});
+		});
+	});
+</script>

@@ -1,0 +1,94 @@
+﻿@model CheckoutPaymentMethodModel
+
+@using SmartStore.Web.Models.Checkout;
+
+<style>
+    #payment-form {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div id="payment-form" class="page-body checkout-data">
+    @using (Html.BeginForm("ChangeOrderPaymentMethod", "OnePageCheckout", new { area = "Koomba.OnePageCheckout" }, FormMethod.Post))
+    {
+
+        if(Model.PaymentMethods.Count > 0)
+        {
+            <input type="hidden" name="orderId" value="@Model.CustomProperties.Get("orderId")"
+            <ul class="list-group opt-list payment-methods">
+                @for (int i = 0; i < Model.PaymentMethods.Count; i++)
+                {
+                    var paymentMethod = Model.PaymentMethods[i];
+                    var infoRoute = paymentMethod.PaymentInfoRoute;
+                    var description = paymentMethod.FullDescription?.Value;
+
+                    <li class="list-group-item opt-list-item payment-method-item@(paymentMethod.Selected ? " active" : "")">
+                        <div class="opt-data">
+                            <div class="form-check opt-control option-name radio">
+
+                                <input id="paymentmethod_@(i)" type="radio" name="paymentmethod"
+                                       @Html.Attr("checked", "checked", paymentMethod.Selected)
+                                       data-has-info='@(infoRoute != null ? "true" : "false")'
+                                       data-lazy-info='@(paymentMethod.RequiresInteraction ? "true" : "false")'
+                                       class="opt-radio form-check-input"
+                                       value="@(paymentMethod.PaymentMethodSystemName)" />
+
+                                <label class="form-check-label" for="paymentmethod_@(i)">
+                                    <span class="opt-name">@paymentMethod.Name</span>
+                                </label>
+                            </div>
+                            @if (paymentMethod.Fee.HasValue())
+                            {
+                                <small class="opt-fee payment-fee text-danger">@paymentMethod.Fee</small>
+                            }
+                        </div>
+
+                        @if (description.HasValue())
+                        {
+                            <div class="opt-info-item payment-method-description" @Html.LanguageAttributes(paymentMethod.FullDescription)>
+                                @Html.Raw(description)
+                            </div>
+                        }
+
+                        @if (!paymentMethod.RequiresInteraction || (paymentMethod.Selected && infoRoute != null))
+                        {
+                            <div class="opt-info payment-method-info"
+                                 @Html.Attr("data-lazy-info", "true", paymentMethod.RequiresInteraction)
+                                 data-system-name="@paymentMethod.PaymentMethodSystemName">
+
+                                @if (paymentMethod.Selected && !ViewData.ModelState.IsValid)
+                                {
+                                    <div id="payment-info-validation-summary">
+                                        @Html.ValidationSummary(false)
+                                    </div>
+                                }
+
+                                @if (!(description.HasValue() && !paymentMethod.RequiresInteraction))
+                                {
+                                    Html.RenderAction(infoRoute.Action, infoRoute.Controller, infoRoute.RouteValues);
+                                }
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                @T("Checkout.NoPaymentMethods")
+            </div>
+        }
+    }
+
+</div>
+
+
+<script>
+    $('#payment-form .opt-radio').on('click', function (e) {
+        console.log(e);
+        $("#payment-form form").submit();
+
+    });
+</script>

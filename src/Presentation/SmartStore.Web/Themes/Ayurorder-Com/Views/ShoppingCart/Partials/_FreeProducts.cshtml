@@ -1,0 +1,155 @@
+@model ShoppingCartModel.FreeProductsModel
+
+@using SmartStore.Web.Models.ShoppingCart;
+
+<div class="cart-action-freeproduct mt-3 m-3" id="free-products-container">
+    <h5 class="cart-action-title mb-3" id="free-products-heading">
+        @T("ShoppingCart.FreeProduct")
+    </h5>
+
+    @Html.AntiForgeryToken()
+        <fieldset class="freeproduct-products" role="radiogroup" aria-labelledby="free-products-heading">
+            <legend class="sr-only">@T("ShoppingCart.FreeProduct")</legend>
+            <div class="freeproduct-grid">
+                @foreach (var product in Model.FreeItems.Items)
+                {
+                    var artDetailUrl = Url.RouteUrl("Product", new RouteValueDictionary { { "SeName", product.SeName } });
+                    var picture = product.Picture;
+                    //var isDisabled = Model.ExistsInCart ? "disabled" : null;
+                    var addPictureClass = picture.PictureId == 0 ? " no-picture" : "";
+                    if (!picture.ImageUrl.HasValue())
+                    {
+                        addPictureClass += " no-default-picture";
+                    }
+                    <label class="art-card d-block" tabindex="0">
+                        <input type="radio" class="select-art" name="productId" value="@product.Id" data-cart-type="1" aria-label="@product.Name" @(Model.ExistsInCart ? "disabled" : "") />
+                        <div class="art-content">
+                            <div class="art-media ratio mb-2">
+                                @if (picture.ImageUrl.HasValue())
+                                {
+                                <img src="@picture.ImageUrl" alt="@picture.Title.HasValue() ? picture.Title: product.Name" title="@picture.Title.HasValue() ? picture.Title : product.Name)" loading="lazy" class="img-cover" />
+                                }
+                            </div>
+
+                            <h3 class="art-name" @Html.LanguageAttributes(product.Name)>
+                                <a href="@artDetailUrl" class="stretched-link text-reset text-decoration-none">
+                                    @product.Name
+                                </a>
+                            </h3>
+
+                            <div class="art-description text-muted small" @Html.LanguageAttributes(product.ShortDescription) title="@(product.ShortDescription?.ToString() ?? "")">
+                                @Html.Raw(product.ShortDescription.Truncate(160, "..."))
+                            </div>
+                            <div class="overlay" aria-hidden="true"></div>
+                        </div>
+                    </label>
+                }
+            </div>
+        </fieldset>
+    </div>
+
+
+<style>
+    .free-products {
+        background-color: rgba(129, 174, 68, 0.8);
+        color: #fff;
+    }
+
+    .freeproduct-grid { 
+        display: grid; 
+        gap: .75rem; 
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    }
+
+    .art-card {
+        border: 1px solid #ccc;
+        border-radius: .5rem;
+        padding: .875rem;
+        transition: box-shadow 0.3s ease, transform 0.2s ease, background-color 0.3s ease;
+        min-width: 0;
+        background: #fff;
+    }
+
+    .art-name, .art-description {
+        overflow-wrap: break-word;
+    }
+
+    .img-cover {
+        display:block;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .art-card:hover {
+        transform: translateY(-2px);
+        cursor: pointer;
+    }
+
+
+    .art-card input[type="radio"] {
+        display: none;
+    }
+
+    .art-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 123, 255, 0.2);
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .art-card input[type="radio"]:checked + .art-content .overlay {
+        opacity: 1;
+    }
+
+    .art-card input[type="radio"]:disabled + .art-content {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+</style>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", function () {
+        const radios = document.querySelectorAll(".select-art");
+        radios.forEach(radio => {
+            radio.addEventListener("change", function () {
+                radio.setAttribute("aria-checked", "true");
+                const productId = this.value;
+
+                fetch('@Url.Action("AddFreeProduct", "ShoppingCart")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        shoppingCartTypeId: 1
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Optional: redirect or show confirmation
+                        window.location.href = '@Url.Action("Index", "Cart")';
+                    } else {
+                        alert("Failed to add product.");
+                    }
+                });
+            });
+        });
+    });
+    </script>
+

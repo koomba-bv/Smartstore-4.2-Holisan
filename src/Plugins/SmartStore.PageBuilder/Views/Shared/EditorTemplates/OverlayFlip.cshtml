@@ -1,0 +1,47 @@
+﻿@model string
+
+@using SmartStore.PageBuilder;
+
+@{
+    var flipH = Model == "flip-h" || Model == "flip-hv";
+    var flipV = Model == "flip-v" || Model == "flip-hv";
+
+    var id = Html.IdFor(x => x);
+    var size = GetMetadata<string>("size");
+}
+
+<script>
+    $(function () {
+        $('#@id + .select-overlay-flip').on('change', 'input[type=checkbox]', function (e) {
+            var state = '';
+            var wrapper = $(this).closest('.select-overlay-flip');
+
+            wrapper.find('input[type=checkbox]').each(function () {
+                if ($(this).prop('checked')) {
+                    state += $(this).val();
+                }
+            });
+
+            var ctl = wrapper.prev();
+            ctl.val(!state ? null : 'flip-' + state).trigger('change');
+        });
+    });
+</script>
+
+@Html.HiddenFor(x => x, new { @class = "select-overlay-flip-hidden" })
+<div class="row xs-gutters select-overlay-flip">
+    <div class="col-6" data-flip="h">
+        <div class="btn-group btn-group-toggle d-block@(size.HasValue() ? " btn-group-" + size : "")" data-toggle="buttons">
+            <label class="btn btn-light d-block@(flipH ? " active" : "")" title="@T("Plugins.SmartStore.PageBuilder.Overlays.Flip.H")">
+                <input type="checkbox" value="h" autocomplete="off" @(flipH ? " checked" : "")> <i class="fa fa-hourglass-start fa-rotate-90"></i>
+            </label>
+        </div>
+    </div>
+    <div class="col-6" data-flip="v">
+        <div class="btn-group btn-group-toggle d-block@(size.HasValue() ? " btn-group-" + size : "")" data-toggle="buttons">
+            <label class="btn btn-light d-block@(flipV ? " active" : "")" title="@T("Plugins.SmartStore.PageBuilder.Overlays.Flip.V")">
+                <input type="checkbox" value="v" autocomplete="off" @(flipV ? " checked" : "")> <i class="fa fa-hourglass-start fa-rotate-180"></i>
+            </label>
+        </div>
+    </div>
+</div>

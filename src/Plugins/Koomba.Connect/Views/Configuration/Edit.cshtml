@@ -1,0 +1,64 @@
+﻿@model ConnectionModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = T("Plugins.Koomba.Connect.Connection.Edit").Text;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            @T("Plugins.Koomba.Connect.Connection.Edit") - @Model.Name
+            <a href="@Url.Action("ConfigurePlugin", "Plugin", new { area = "Admin", systemName = "Koomba.Connect" })">(@T("Plugins.Koomba.Connect.Connection.BackToList"))</a>
+        </div>
+        <div class="options">
+            @{ Html.RenderWidget("admin_button_toolbar_before"); }
+            <button type="submit" name="save" value="save" class="btn btn-warning">
+                <i class="fa fa-check"></i>
+                <span>@T("Admin.Common.Save")</span>
+            </button>
+            <button type="submit" name="save" value="save-continue" class="btn btn-secondary">
+                @T("Admin.Common.SaveContinue")
+            </button>
+            <button type="button" id="btnUpdateSapFields" class="btn btn-secondary" data-url="@Url.Action("UpdateSapFields", "Field", new { connectionId = Model.Id })">
+                <span>@T("Plugins.Koomba.Connect.UpdateSapFieldsBtn")</span>
+            </button>
+            <button type="button" id="btnRunTask" class="btn btn-secondary" data-url="@Url.Action("RunTask", new { id = Model.Id })">
+                <i class="fa fa-cogs"></i>
+                <span>@T("Plugins.Koomba.Connect.RunTaskBtn")</span>
+            </button>
+            <button type="submit" name="discount-delete" id="discount-delete" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+                <span>@T("Admin.Common.Delete")</span>
+            </button>
+            @{ Html.RenderWidget("admin_button_toolbar_after"); }
+        </div>
+    </div>
+
+    Html.RenderPartial("_CreateOrUpdate", Model);
+}
+
+@Html.DeleteConfirmation("discount-delete")
+
+<script>
+    $(function () {
+        $('#btnUpdateSapFields').click(function () {
+            $(this).doAjax({
+                callbackSuccess: function (resp) {
+					document.location.reload(true);
+
+					alert(resp.Message);
+                }
+            });
+		});
+
+        $('#btnRunTask').click(function (e) {
+			e.preventDefault();
+			$(this).doPostData({
+				ask: @T("Admin.Common.AskToProceed").JsText
+			});
+			return false;
+		});
+    });
+</script>

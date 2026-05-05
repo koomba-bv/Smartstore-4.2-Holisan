@@ -1,0 +1,186 @@
+﻿@model BlockContainer
+
+@using SmartStore.PageBuilder;
+
+@{
+}
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EffectsModel.HoverEffect)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.EffectsModel.HoverEffect, StoryModelHelper.SelectOptions.BoxHoverEffects(T), T("Common.Unspecified"))
+		</div>
+	</div>
+
+	<div class="admin-config-group">
+        <div class="title">@T("Plugins.SmartStore.PageBuilder.Parallax")</div>
+        <p class="text-muted">
+            @T("Plugins.SmartStore.PageBuilder.Parallax.Hint")
+        </p>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EffectsModel.Parallax)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.EffectsModel.Parallax, new { data_toggler_for = "#pnl-block-parallax" })
+		</div>
+	</div>
+    <div id="pnl-block-parallax">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.ParallaxSpeedFactor)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.EffectsModel.ParallaxSpeedFactor, new { ticks = T("Plugins.SmartStore.PageBuilder.Parallax.SpeedTicks").Text })
+                @Html.ValidationMessageFor(model => model.EffectsModel.ParallaxSpeedFactor)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.ParallaxSmooth)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.EffectsModel.ParallaxSmooth)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.ParallaxOffset)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.EffectsModel.ParallaxOffset)
+                @Html.ValidationMessageFor(model => model.EffectsModel.ParallaxOffset)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.ParallaxTarget)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.EffectsModel.ParallaxTarget, StoryModelHelper.SelectOptions.EffectTargets(T))
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.ParallaxFilter)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.EffectsModel.ParallaxFilter, new { placeholder = T("Plugins.SmartStore.PageBuilder.Parallax.Filter.Hint").Text })
+                @Html.ValidationMessageFor(model => model.EffectsModel.ParallaxFilter)
+            </div>
+        </div>
+    </div>
+
+	<div class="admin-config-group">
+        <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Reveal")</div>
+        <p class="text-muted">
+            @T("Plugins.SmartStore.PageBuilder.Block.Reveal.Intro")
+        </p>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EffectsModel.RevealEnabled)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.EffectsModel.RevealEnabled, new { data_toggler_for = "#pnl-fx-reveal" })
+		</div>
+	</div>
+    <div id="pnl-fx-reveal">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealEffect)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.EffectsModel.RevealEffect, StoryModelHelper.SelectOptions.RevealEffects(T))
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealEasing)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.EffectsModel.RevealEasing, StoryModelHelper.SelectOptions.RevealEasings(T))
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealDuration)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.EffectsModel.RevealDuration)
+                @Html.ValidationMessageFor(model => model.EffectsModel.RevealDuration)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealDelay)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.EffectsModel.RevealDelay)
+                @Html.ValidationMessageFor(model => model.EffectsModel.RevealDelay)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealDistance)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.EffectsModel.RevealDistance, new { placeholder = "100px" })
+                @Html.ValidationMessageFor(model => model.EffectsModel.RevealDistance)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealOffset)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.EffectsModel.RevealOffset, new { placeholder = "120", postfix = "px" })
+                @Html.ValidationMessageFor(model => model.EffectsModel.RevealOffset)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealOnce)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.EffectsModel.RevealOnce)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.EffectsModel.RevealTarget)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.EffectsModel.RevealTarget, StoryModelHelper.SelectOptions.EffectTargets(T))
+            </div>
+        </div>
+    </div>
+
+	<div class="admin-config-group">
+        <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Tint")</div>
+        <p class="text-muted">
+            @T("Plugins.SmartStore.PageBuilder.Block.Tint.Intro")
+        </p>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BackgroundModel.Tint)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.BackgroundModel.Tint, StoryModelHelper.SelectOptions.BackgroundTints(T), "none")
+			@Html.ValidationMessageFor(model => model.BackgroundModel.Tint)
+		</div>
+	</div>
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.BackgroundModel.TintRev)
+		</div>
+		<div class="adminData">
+			@Html.CheckBoxFor(model => model.BackgroundModel.TintRev)
+		</div>
+	</div>
+</div>

@@ -1,0 +1,49 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+
+	<LocaleResource Name="Plugins.FriendlyName.Koomba.FileExpansion" AppendRootKey="false">
+		<Value>File Expansion</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Title">
+		<Value>Title</Value>
+	</LocaleResource>
+	<LocaleResource Name="Name">
+		<Value>Name (optional)</Value>
+	</LocaleResource>
+	<LocaleResource Name="FileName">
+		<Value>Upload File</Value>
+	</LocaleResource>
+	<LocaleResource Name="Type">
+		<Value>Type</Value>
+	</LocaleResource>
+	<LocaleResource Name="Sort">
+		<Value>Icon</Value>
+	</LocaleResource>
+	<LocaleResource Name="Language">
+		<Value>Language</Value>
+	</LocaleResource>
+	<LocaleResource Name="DisplayOrder">
+		<Value>DisplayOrder</Value>
+	</LocaleResource>
+	<LocaleResource Name="IsActive">
+		<Value>IsActive</Value>
+	</LocaleResource>
+	<LocaleResource Name="File_Add_Button">
+		<Value>Add File</Value>
+	</LocaleResource>
+	<LocaleResource Name="File_upload_tab_name">
+		<Value>File Upload</Value>
+	</LocaleResource>
+	<LocaleResource Name="Documents_tab_name">
+		<Value>Documents</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="LicenceTrialTime">
+		<Value>Plugin is in trial mode. Trial mode will be expire at:</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="TrialExpired">
+		<Value>Trial time expired</Value>
+	</LocaleResource>
+
+</Language>

@@ -1,0 +1,10 @@
+﻿FriendlyName: HtmlForms
+SystemName: ObjectCreator.Forms
+Group: CMS
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: Michael Herzog
+DisplayOrder: 1
+FileName: SmartStore.Forms.dll
+ResourceRootKey: Plugins.SmartStore.Forms
+Url: http://community.smartstore.com/marketplace/file/143-form-configurator/

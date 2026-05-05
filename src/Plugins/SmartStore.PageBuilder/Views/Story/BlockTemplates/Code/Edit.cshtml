@@ -1,0 +1,15 @@
+﻿@model CodeBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+<div class="form-group">
+    @Html.SmartLabelFor(model => model.HeadMarkUp)
+    @Html.EditorFor(model => model.HeadMarkUp, "Liquid", new { height = "auto" })
+    @Html.ValidationMessageFor(model => model.HeadMarkUp)
+</div>
+
+<div class="form-group">
+    @Html.SmartLabelFor(model => model.MarkUp)
+    @Html.EditorFor(model => model.MarkUp, "Liquid", new { height = "auto" })
+    @Html.ValidationMessageFor(model => model.MarkUp)
+</div>

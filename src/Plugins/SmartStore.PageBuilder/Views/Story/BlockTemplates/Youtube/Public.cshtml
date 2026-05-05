@@ -1,0 +1,57 @@
+﻿@model YoutubeBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+    if (!Model.YoutubeId.HasValue())
+    {
+        return;
+    }
+
+    var url = "https://www.youtube.com/embed/";
+
+    if (Model.ActivateEnhancedPrivacyMode)
+    {
+        url = "https://www.youtube-nocookie.com/embed/";
+    }
+
+    url += Model.YoutubeId + "?rel=0";
+
+    if (Model.Start != 0)
+    {
+        url += "&amp;start=" + Model.Start;
+    }
+
+    if (Model.End != 0)
+    {
+        url += "&amp;end=" + Model.End;
+    }
+
+    if (!Model.DisplayPlayerControls)
+    {
+        url += "&amp;controls=0";
+    }
+
+    if (!Model.DisplayTitleInfos)
+    {
+        url += "&amp;showinfo=0";
+    }
+
+    if (!Model.AllowFullscreen)
+    {
+        url += "&amp;fs=0";
+    }
+
+    if (Model.AllowAutoPlay)
+    {
+        url += "&amp;autoplay=1";
+    }
+}
+
+<div class="embed-responsive embed-responsive-@Model.AspectRatio">
+    <iframe src="@url"
+            frameborder="0"
+            class="g-youtube-iframe embed-responsive-item"
+            allow="encrypted-media@(Model.AllowAutoPlay ? ";autoplay" : "")"
+            @(Model.AllowFullscreen ? "allowfullscreen" : "")></iframe>
+</div>

@@ -1,0 +1,476 @@
+﻿@model ConfigurationDetailsModel
+@using SmartStore.Web.Framework;
+@using SmartStore.HtmlForms.Models;
+@using SmartStore.Web.Framework.UI;
+@using SmartStore.HtmlForms.Domain;
+@using Telerik.Web.Mvc;
+@using Telerik.Web.Mvc.UI;
+@{
+	Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+	ViewBag.Title = T("Plugins.SmartStore.Forms.FormDetails").Text + ": " + Model.Name.Truncate(60, "...");
+}
+
+@using (Html.BeginForm())
+{
+	<div class="section-header">
+		<div class="title">
+			<i class="fa fa-link"></i>
+			@T("Plugins.SmartStore.Forms.FormDetails"): <span title="@Model.Name">@Model.Name.Truncate(60, "...")</span>
+			<a href="@Url.Action("ConfigurePlugin", "Plugin", new { area = "Admin", systemName = "ObjectCreator.Forms" })">(@T("Admin.Common.BackToList"))</a>
+		</div>
+		<div class="options">
+			<button type="submit" name="save" value="save" class="btn btn-warning">
+				<i class="fa fa-check"></i>
+				<span>@T("Admin.Common.Save")</span>
+			</button>
+			@if (Model.Id != 0)
+			{
+				<button type="submit" id="delete-single" name="delete-single" value="delete-single" class="btn btn-danger" onclick='return confirm(@T("Admin.Common.AskToProceed").JsText);'>
+					<span>@T("Admin.Common.Delete")</span>
+				</button>
+			}
+		</div>
+	</div>
+
+	@Html.SmartStore().TabStrip().Name("html-forms-edit").Style(TabsStyle.Material).Items(x =>
+	{
+		x.Add().Text(T("Plugins.SmartStore.Forms.TabTitleSettings").Text).Content(TabEdit()).Selected(true);
+		x.Add().Text(T("Plugins.SmartStore.Forms.TabTitleGrid").Text).Content(TabElementGrid());
+	})
+}
+
+@helper TabEdit()
+{
+	@Html.HiddenFor(model => model.Id)
+
+	<table class="adminContent">
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsActive)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.IsActive)
+				@Html.ValidationMessageFor(model => model.IsActive)
+			</td>
+		</tr>
+		<tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.SelectedStoreIds)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.SelectedStoreIds)
+                @Html.ValidationMessageFor(model => model.SelectedStoreIds)
+            </td>
+        </tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.Name)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
+			</td>
+		</tr>
+	</table>
+	@(Html.LocalizedEditor<ConfigurationDetailsModel, ConfigurationDetailsLocalizedModel>("form-localized",
+		@<table class="adminContent">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Locales[item].Title)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.Locales[item].Title)
+					@Html.ValidationMessageFor(model => model.Locales[item].Title)
+					@Html.HiddenFor(model => model.Locales[item].LanguageId)
+				</td>
+			</tr>
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Locales[item].IntroText)
+				</td>
+				<td class="adminData wide">
+					@Html.EditorFor(model => model.Locales[item].IntroText, "Html")
+					@Html.ValidationMessageFor(model => model.Locales[item].IntroText)
+				</td>
+			</tr>
+		</table>
+		,
+		@<table class="adminContent">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Title)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.Title)
+					@Html.ValidationMessageFor(model => model.Title)
+				</td>
+			</tr>
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.IntroText)
+				</td>
+				<td class="adminData wide">
+					@Html.EditorFor(model => model.IntroText, "Html")
+					@Html.ValidationMessageFor(model => model.IntroText)
+				</td>
+			</tr>
+		</table>
+	))
+	<table class="adminContent">
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.FormDisplayType)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.FormDisplayType, Html.DropDownListForEnum(model => model.FormDisplayType))
+				@Html.ValidationMessageFor(model => model.FormDisplayType)
+			</td>
+		</tr>
+		<tr class="pnlReplacementFor">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ReplacementFor)
+			</td>
+			<td class="adminData">
+				@Html.DropDownListFor(model => model.ReplacementFor, new SelectList(Model.AvailableReplacementTargets, "Value", "Text"))
+				@Html.ValidationMessageFor(model => model.ReplacementFor)
+			</td>
+		</tr>
+		<tr class="pnlEntityIds">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.EntityIds)
+			</td>
+			<td class="adminData">
+				<div class="input-group">
+					@Html.EditorFor(model => model.EntityIds)
+					<span class="input-group-append">
+						@(Html.SmartStore().EntityPicker()
+									.For(x => x.EntityIds)
+									.EntityType("Product")
+									.HtmlAttribute("id", "SearchProductButton")
+									.AppendMode(false)
+									.Caption(T("Admin.Common.Search").Text.EncodeJsString('\'', false))
+						)
+					</span>
+				</div>
+
+				@Html.ValidationMessageFor(model => model.EntityIds)
+			</td>
+		</tr>
+		<tr class="pnlProductTabIndex">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ProductTabIndex)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.ProductTabIndex)
+				@Html.ValidationMessageFor(model => model.ProductTabIndex)
+			</td>
+		</tr>
+		<tr class="pnlTopicSystemname">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.TopicSystemname)
+			</td>
+			<td class="adminData">
+				@Html.DropDownListFor(model => model.TopicSystemname, new SelectList(Model.AvailableTopicSystemNames, "Value", "Text"))
+				@Html.ValidationMessageFor(model => model.TopicSystemname)
+			</td>
+		</tr>
+		<tr class="pnlDeveloperData">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.Controller)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.Controller)
+				@Html.ValidationMessageFor(model => model.Controller)
+			</td>
+		</tr>
+		<tr class="pnlDeveloperData">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.Action)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.Action)
+				@Html.ValidationMessageFor(model => model.Action)
+			</td>
+		</tr>
+		<tr class="pnlDeveloperData">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.CustomView)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.CustomView)
+				@Html.ValidationMessageFor(model => model.CustomView)
+			</td>
+		</tr>
+		<tr class="pnlWidgetZone">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.WidgetZone)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.WidgetZone, "WidgetZone")
+				@Html.ValidationMessageFor(model => model.WidgetZone)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MessageTemplateCustomer)
+			</td>
+			<td class="adminData">
+				<div class="input-group">
+					@Html.EditorFor(model => model.MessageTemplateCustomer)
+					<div class="input-group-append">
+						<button type="submit" name="create-customer-message-template" id="create-customer-message-template" class="btn btn-secondary" value="save">
+							<span>@T("Plugins.SmartStore.Forms.CreateMessageTemplate")</span>
+						</button>
+					</div>
+				</div>
+				@Html.ValidationMessageFor(model => model.MessageTemplateCustomer)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MessageTemplateAdmin)
+			</td>
+			<td class="adminData">
+				<div class="input-group">
+					@Html.EditorFor(model => model.MessageTemplateAdmin)
+					<div class="input-group-append">
+						<button type="submit" name="create-admin-message-template" id="create-admin-message-template" class="btn btn-secondary" value="save">
+							<span>@T("Plugins.SmartStore.Forms.CreateMessageTemplate")</span>
+						</button>
+					</div>
+				</div>
+				@Html.ValidationMessageFor(model => model.MessageTemplateAdmin)
+			</td>
+		</tr>
+		@if (Model.FormControls.Count != 0)
+		{
+			<tr>
+				<td class="adminTitle"></td>
+				<td class="adminData">
+					<div>
+						<div class="mt-1">
+							<a id="TokenInfoLink" href="javascript:void(0)">@T("Plugins.SmartStore.Forms.ShowTokens")&hellip;</a>
+						</div>
+						<div id="TokenInfoDescription" class="d-none mt-3">
+							@TokenInfoDescription()
+						</div>
+					</div>
+				</td>
+			</tr>
+		}
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.HasCaptcha)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.HasCaptcha)
+				@Html.ValidationMessageFor(model => model.HasCaptcha)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.DisplayLabelsAboveElems)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.DisplayLabelsAboveElems)
+				@Html.ValidationMessageFor(model => model.DisplayLabelsAboveElems)
+			</td>
+		</tr>
+	</table>
+}
+
+@helper TabElementGrid()
+{
+	if (Model.Id == 0)
+	{
+		<p>@T("Admin.SaveBeforeEdit")</p>
+		return;
+	}
+
+	<div>
+		@(Html.Telerik().Grid<FormControlDetailsModel>()
+					.Name("html-form-control-grid")
+					//.BindTo(Model.FormControls)
+					.DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+					.DataBinding(dataBinding => dataBinding
+						.Ajax()
+						.Select("HtmlFormControlList", "HtmlForms", new { id = Model.Id })
+						.Delete("HtmlFormControlDelete", "HtmlForms", new { id = Model.Id })
+					)
+					.Columns(columns =>
+					{
+						columns.Bound(x => x.Name)
+							.ClientTemplate("<a href='" + @Url.Action("EditControl", "HtmlForms", new { area = "ObjectCreator.Forms" }) + "?id=<#= Id #>'><#= Name #></a>")
+							.Template(x => "<a href='" + @Url.Action("EditControl", "HtmlForms", new { id = x.Id, area = "ObjectCreator.Forms" }) + "'>" + x.Name + "</a>")
+							.Width(200);
+						columns.Bound(x => x.IsActive)
+							.Template(item => @Html.SymbolForBool(item.IsActive))
+							.ClientTemplate(@Html.SymbolForBool("IsActive"))
+							.Width(150)
+							.Centered();
+						columns.Bound(x => x.IsVisible)
+							.Template(item => @Html.SymbolForBool(item.IsVisible))
+							.ClientTemplate(@Html.SymbolForBool("IsVisible"))
+							.Width(150)
+							.Centered();
+						columns.Bound(x => x.IsMandatory)
+							.Template(item => @Html.SymbolForBool(item.IsMandatory))
+							.ClientTemplate(@Html.SymbolForBool("IsMandatory"))
+							.Width(150)
+							.Centered();
+			            //columns.Bound(x => x.ElementType.ToString());
+			            //columns.Bound(x => x.InputType.ToString());
+			            columns.Bound(x => x.ControlId).ReadOnly();
+						columns.Bound(x => x.DisplayOrder)
+							.Centered();
+						columns.Command(commands =>
+						{
+							commands.Custom("edit-html-form-control").Text(T("Common.Edit"));
+							commands.Delete().Localize(T);
+						}).Width("12%").HtmlAttributes(new { align = "right" });
+					})
+					.ToolBar(commands =>
+					{
+						commands.Custom()
+							.Text(T("Plugins.SmartStore.Forms.AddNewControl").Text)
+							.Action("CreateControl", "HtmlForms", new { formId = Model.Id })
+							.HtmlAttributes(new { @class = "btn btn-primary" });
+					}))
+	</div>
+
+	<script type="text/javascript">
+		$(function () {
+				//Categories
+			$('#html-form-control-grid').on('click', '.t-grid-edit-html-form-control', function (e) {
+				e.preventDefault();
+				var grid = $('#html-form-control-grid').data('tGrid');
+				var tr = $(this).closest('tr');
+				var id = grid.dataItem(tr).Id;
+				var href = '@Url.Action("EditControl", "HtmlForms", new { area = "ObjectCreator.Forms" })?id=' + id + '&btnId=btnRefresh&formId=html-form-control-grid';
+
+				location.replace(href);
+
+				return false;
+			});
+		});
+	</script>
+}
+
+@helper TokenInfoDescription()
+{
+	<div class="table-responsive">
+		<table class="table admin-table">
+			<thead>
+				<tr>
+					<th>@T("Plugins.SmartStore.Forms.ControlDetails")</th>
+					<th>@T("Admin.Common.Placeholder")</th>
+				</tr>
+			</thead>
+            <tbody>
+                @foreach (var elem in Model.FormControls)
+                {
+                    <tr>
+                        <td>@elem.Name</td>
+                        <td>{{ @(Model.Name + "." + (elem.MessageTokenName.HasValue() ? elem.MessageTokenName : elem.ControlId)) }}</td>
+                    </tr>
+                }
+
+                @if (Model.ReplacementFor != null && Model.ReplacementFor.Equals("EmailWishlist"))
+                {
+                    <tr>
+                        <td>Products</td>
+                        <td>{{ @(Model.Name + ".Products") }}</td>
+                    </tr>
+                    <tr>
+                        <td>WishlistUrl</td>
+                        <td>{{ @(Model.Name + ".WishlistUrl") }}</td>
+                    </tr>
+                }
+            </tbody>
+		</table>
+	</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+		// show/hide file name pattern descriptions
+		$('#TokenInfoLink').click(function () {
+			var descriptions = $('#TokenInfoDescription');
+			$('#TokenInfoLink').html((descriptions.is(':visible') ?
+				@T("Plugins.SmartStore.Forms.ShowTokens").JsText : @T("Plugins.SmartStore.Forms.HideTokens").JsText) + '…');
+			descriptions.toggleClass("d-none");
+		});
+
+        $("#@Html.FieldIdFor(model => model.FormDisplayType)").change(toggleReplacementData);
+        toggleReplacementData();
+
+        function toggleReplacementData() {
+
+			switch ($('#@Html.FieldIdFor(model => model.FormDisplayType)').val()) {
+			  case 'Replacement':
+				$('.pnlDeveloperData').hide();
+				$('.pnlEntityIds').hide();
+				$('.pnlTopicSystemname').hide();
+				$('.pnlProductTabIndex').hide();
+				$('.pnlWidgetZone').hide();
+				$('.pnlReplacementFor').show();
+				break;
+			  case 'Topic':
+				$('.pnlDeveloperData').hide();
+				$('.pnlEntityIds').hide();
+				$('.pnlProductTabIndex').hide();
+				$('.pnlReplacementFor').hide();
+				$('.pnlTopicSystemname').show();
+                $('.pnlWidgetZone').show();
+				break;
+			  case 'Categories':
+				$('.pnlDeveloperData').hide();
+				$('.pnlTopicSystemname').hide();
+				$('.pnlProductTabIndex').hide();
+				$('.pnlReplacementFor').hide();
+				$('.pnlEntityIds').show();
+                $('.pnlWidgetZone').show();
+				$('.pnlEntityIds .input-group-append').hide();
+				break;
+			  case 'Products':
+				$('.pnlDeveloperData').hide();
+				$('.pnlTopicSystemname').hide();
+				$('.pnlReplacementFor').hide();
+				$('.pnlProductTabIndex').show();
+				$('.pnlEntityIds').show();
+				$('.pnlEntityIds .input-group-append').show();
+                $('.pnlWidgetZone').show();
+				break;
+			  case 'ProductsInCategories':
+				$('.pnlDeveloperData').hide();
+				$('.pnlTopicSystemname').hide();
+				$('.pnlReplacementFor').hide();
+				$('.pnlProductTabIndex').show();
+				$('.pnlEntityIds').show();
+                $('.pnlWidgetZone').show();
+				$('.pnlEntityIds .input-group-append').hide();
+				break;
+			  case 'Widgetzone':
+				$('.pnlDeveloperData').hide();
+				$('.pnlTopicSystemname').hide();
+				$('.pnlEntityIds').hide();
+				$('.pnlProductTabIndex').hide();
+				$('.pnlReplacementFor').hide();
+                $('.pnlWidgetZone').show();
+				break;
+			  case 'Developer':
+				$('.pnlEntityIds').hide();
+				$('.pnlTopicSystemname').hide();
+                $('.pnlWidgetZone').hide();
+				$('.pnlProductTabIndex').hide();
+				$('.pnlReplacementFor').hide();
+				$('.pnlDeveloperData').show();
+				break;
+			  default:
+
+				break;
+			}
+        }
+    });
+</script>

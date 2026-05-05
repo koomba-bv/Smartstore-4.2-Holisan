@@ -1,0 +1,78 @@
+﻿@model FacetGroup
+
+@using SmartStore.Core.Search.Facets
+@using SmartStore.Services.Search.Extensions
+
+@{
+	var facets = Model.Facets.Where(x => x.Published && x.Key != "custom");
+	if (!facets.Any())
+	{
+		return;
+	}
+
+	var selected = Model.Facets.FirstOrDefault(x => x.Key == "custom" && x.Value.IsSelected);
+
+	FacetValue selectedMin = null, selectedMax = null;
+
+	if (selected != null)
+	{
+		selectedMin = new FacetValue(selected.Value.Value, selected.Value.TypeCode);
+		selectedMax = new FacetValue(selected.Value.UpperValue, selected.Value.TypeCode);
+	}
+}
+
+<div class="facet-body-inner">
+	<div class="facet-range-container d-flex align-items-end">
+		<div class="col p-0">
+			<div class="row xs-gutters">
+				<div class="col-6">
+					<div class="pb-2 text-muted">@T("Common.From")</div>
+					<div class="mf-dropdown d-block">
+						<button type="button" class="btn btn-secondary btn-sm btn-block has-caret">
+							<span class="font-weight-400" data-bind="text"></span>
+						</button>
+						<select class="facet-range-from form-control form-control-sm noskin">
+							<option value="">@T("Common.Any")</option>
+							@foreach (var facet in facets)
+							{
+								<option value="@facet.Value.ToString()" @Html.Attr("selected", "selected", facet.Value.Equals(selectedMin))>
+									@(facet.Value.Label ?? facet.Value.ToString())
+									@if (facet.HitCount > 0)
+									{
+										<text>&lrm;(&lrm;@(facet.HitCount)&lrm;)&lrm;</text>
+									}
+								</option>
+							}
+						</select>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="pb-2 text-muted">@T("Common.To")</div>
+					<div class="mf-dropdown d-block">
+						<button type="button" class="btn btn-secondary btn-sm btn-block has-caret">
+							<span class="font-weight-400" data-bind="text"></span>
+						</button>
+						<select class="facet-range-to form-control form-control-sm noskin">
+							<option value="">@T("Common.Any")</option>
+							@foreach (var facet in facets)
+							{
+								<option value="@facet.Value.ToString()" @Html.Attr("selected", "selected", facet.Value.Equals(selectedMax))>
+									@(facet.Value.Label ?? facet.Value.ToString())
+									@if (facet.HitCount > 0)
+									{
+										<text>&lrm;(&lrm;@(facet.HitCount)&lrm;)&lrm;</text>
+									}
+								</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-auto p-0 pl-2">
+			<button type="button" class="btn-custom-range btn btn-primary btn-sm btn-icon" data-qname="@Url.GetFacetQueryName(facets.First())">
+				<i class="fa fa-angle-right fs-h5"></i>
+			</button>
+		</div>
+	</div>
+</div>

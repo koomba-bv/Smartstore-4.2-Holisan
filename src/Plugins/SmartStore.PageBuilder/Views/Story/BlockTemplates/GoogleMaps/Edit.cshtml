@@ -1,0 +1,51 @@
+﻿@model GoogleMapsBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.ApiKey)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.ApiKey)
+			@Html.ValidationMessageFor(model => model.ApiKey)
+		</div>
+	</div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Longitude)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Longitude)
+            @Html.ValidationMessageFor(model => model.Longitude)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Latitude)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Latitude)
+            @Html.ValidationMessageFor(model => model.Latitude)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Zoom)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Zoom)
+            @Html.ValidationMessageFor(model => model.Zoom)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayStreetViewControl)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayStreetViewControl)
+            @Html.ValidationMessageFor(model => model.DisplayStreetViewControl)
+        </div>
+    </div>
+</div>

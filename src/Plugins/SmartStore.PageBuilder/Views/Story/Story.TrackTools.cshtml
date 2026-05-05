@@ -1,0 +1,53 @@
+﻿@{
+	Layout = "";
+}
+
+<div class="g-track-tools g-column-tools">
+	<a href="javascript:void(0)" class="g-track-tool g-add-column-left" data-op="add-column-left" title="@T("Plugins.SmartStore.PageBuilder.Story.InsertColumnLeft")">
+		<span><i class="fa fa-xs fa-plus"></i></span>
+	</a>
+	<a href="javascript:void(0)" class="g-track-tool g-delete-column" data-op="delete-column"
+	   title="@T("Plugins.SmartStore.PageBuilder.Story.DeleteColumn")" onclick='return confirm(@T("Admin.Common.AskToProceed").JsText);'>
+		<span><i class="fa fa-xs fa-times"></i></span>
+	</a>
+	<a href="javascript:void(0)" class="g-track-tool g-add-column-right" data-op="add-column-right" title="@T("Plugins.SmartStore.PageBuilder.Story.InsertColumnRight")">
+		<span><i class="fa fa-xs fa-plus"></i></span>
+	</a>
+</div>
+
+<div class="g-track-tools g-row-tools">
+	<a href="javascript:void(0)" class="g-track-tool g-add-row-above" data-op="add-row-above" title="@T("Plugins.SmartStore.PageBuilder.Story.InsertRowAbove")">
+		<span><i class="fa fa-xs fa-plus"></i></span>
+	</a>
+	<a href="javascript:void(0)" class="g-track-tool g-delete-row" data-op="delete-row"
+	   title="@T("Plugins.SmartStore.PageBuilder.Story.DeleteRow")" onclick='return confirm(@T("Admin.Common.AskToProceed").JsText);'>
+		<span><i class="fa fa-xs fa-times"></i></span>
+	</a>
+	<a href="javascript:void(0)" class="g-track-tool g-add-row-below" data-op="add-row-below" title="@T("Plugins.SmartStore.PageBuilder.Story.InsertRowBelow")">
+		<span><i class="fa fa-xs fa-plus"></i></span>
+	</a>
+</div>
+
+<div class="g-track-popup" data-col="0" data-row="0" data-validation-message="@T("Plugins.SmartStore.PageBuilder.Story.Value.ValidationMessage")">
+	<div class="form-row">
+		<div class="input-group col-6">
+			<input name="SizeValue" id="size-value" type="number" min="0" step="0.5" class="form-control form-control-sm" autocomplete="off" />
+			<input name="MaxValue" id="max-value" type="text" class="form-control form-control-sm hide" autocomplete="off"
+				   data-validation-message="@T("Plugins.SmartStore.PageBuilder.Story.MaxValue.ValidationMessage")" />
+		</div>
+		<div class="col-6 pr-0">
+			<select name="SizeUnit" id="size-unit" class="form-control form-control-sm noskin">
+				@foreach (var unit in new string[] { "fr", "px", "%", "vh", "vw", "rem", "em", "auto", "fit-content", "min-content", "max-content", "minmax" })
+				{
+					<option value="@unit">@unit</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="form-row mt-1">
+		<button type="button" class="btn btn-warning btn-block btn-sm btn-update-track">
+			<i class="fa fa-check"></i>
+			<span>@T("Common.Apply")</span>
+		</button>
+	</div>
+</div>

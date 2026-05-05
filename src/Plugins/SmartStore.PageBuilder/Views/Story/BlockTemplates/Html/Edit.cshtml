@@ -1,0 +1,877 @@
+﻿@model HtmlBlock
+
+@using SmartStore.PageBuilder.Blocks
+@using SmartStore.PageBuilder;
+
+@{
+}
+
+@(Html.LocalizedEditor<HtmlBlock, LocalizedHtmlBlock>("htmlblock-localized",
+    @<div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Locales[item].TagLine)
+            </div>
+            <div class="adminData">
+                @*IMPORTANT: Do not delete, this hidden element contains the id to assign localized values to the corresponding language *@
+                @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                @Html.EditorFor(model => model.Locales[item].TagLine)
+                @Html.ValidationMessageFor(model => model.Locales[item].TagLine)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Locales[item].Title)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.Locales[item].Title)
+                @Html.ValidationMessageFor(model => model.Locales[item].Title)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Locales[item].SubTitle)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.Locales[item].SubTitle)
+                @Html.ValidationMessageFor(model => model.Locales[item].SubTitle)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Locales[item].Body)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.Locales[item].Body, "Html")
+                @Html.ValidationMessageFor(model => model.Locales[item].Body)
+            </div>
+        </div>
+    </div>
+    ,
+    @<div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TagLine)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.TagLine)
+                @Html.ValidationMessageFor(model => model.TagLine)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Title)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.SubTitle)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.SubTitle)
+                @Html.ValidationMessageFor(model => model.SubTitle)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Body)
+            </div>
+            <div class="adminData wide">
+                @Html.EditorFor(model => model.Body, "Html")
+                @Html.ValidationMessageFor(model => model.Body)
+            </div>
+        </div>
+    </div>
+))
+
+@Html.SmartStore().TabStrip().Name("block-html-edit").Style(TabsStyle.Material).Items(x =>
+{
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.Title").Text).Content(TabTitle()).Selected(true);
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.Tagline").Text).Content(TabTagline());
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.SubTitle").Text).Content(TabSubTitle());
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.Body").Text).Content(TabBody());
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.Icon").Text).Content(TabIcon());
+    x.Add().Text(T("Plugins.SmartStore.PageBuilder.Heading.Settings.Button").Text).Content(TabButton());
+})
+
+@Html.HiddenFor(model => model.BindEntityId)
+@Html.HiddenFor(model => model.BindEntityName)
+
+@helper TabTitle()
+{
+    <div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.HideTitle)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.HideTitle, new { data_toggler_for = "#pnlTitle", data_toggler_reverse = "true" })
+            </div>
+        </div>
+        <div id="pnlTitle">
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.TitleTag)
+                </div>
+                <div class="adminData">
+
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        @foreach (var item in StoryModelHelper.SelectOptions.TitleTags(T))
+                        {
+                            <label class="btn btn-secondary @(item.Value == Model.TitleTag ? "active" : "")">
+                                <input type="radio"
+                                       name="@Html.FieldNameFor(x => x.TitleTag)"
+                                       value="@item.Value"
+                                       autocomplete="off" @(item.Value == Model.TitleTag ? "checked" : "")> @item.Text
+                                </label>
+                            }
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.TitleTag)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.TitleSize)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.TitleSize, StoryModelHelper.SelectOptions.TitleSizes(T), T("Common.Unspecified"))
+                    @Html.ValidationMessageFor(model => model.TitleSize)
+                </div>
+            </div>
+            <div>
+                @Html.EditorFor(model => model.TitleFontStylesModel, "FontStyles")
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="admin-config-group">
+                <div class="title">CSS</div>
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TitleCssClass)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.TitleCssClass)
+                @Html.ValidationMessageFor(model => model.TitleCssClass)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TitleCssStyle)
+            </div>
+            <div class="adminData">
+                @Html.TextAreaFor(model => model.TitleCssStyle)
+                @Html.ValidationMessageFor(model => model.TitleCssStyle)
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabTagline()
+{
+    <div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TaglineSize)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.TaglineSize, StoryModelHelper.SelectOptions.TitleSizes(T))
+                @Html.ValidationMessageFor(model => model.TaglineSize)
+            </div>
+        </div>
+        <div>
+            @Html.EditorFor(model => model.TaglineFontStylesModel, "FontStyles", new { DisplayBgColor = false })
+        </div>
+        <div class="adminRow">
+            <div class="admin-config-group">
+                <div class="title">CSS</div>
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TaglineCssClass)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.TaglineCssClass)
+                @Html.ValidationMessageFor(model => model.TaglineCssClass)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.TaglineCssStyle)
+            </div>
+            <div class="adminData">
+                @Html.TextAreaFor(model => model.TaglineCssStyle)
+                @Html.ValidationMessageFor(model => model.TaglineCssStyle)
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabSubTitle()
+{
+    <div class="adminContent">
+        <div>
+            @Html.EditorFor(model => model.SubTitleFontStylesModel, "FontStyles", new { DisplayTextItalic = false })
+        </div>
+        <div class="adminRow">
+            <div class="admin-config-group">
+                <div class="title">CSS</div>
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.SubTitleCssClass)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.SubTitleCssClass)
+                @Html.ValidationMessageFor(model => model.SubTitleCssClass)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.SubTitleCssStyle)
+            </div>
+            <div class="adminData">
+                @Html.TextAreaFor(model => model.SubTitleCssStyle)
+                @Html.ValidationMessageFor(model => model.SubTitleCssStyle)
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabBody()
+{
+    <div class="adminContent">
+        <div>
+            @Html.EditorFor(model => model.BodyFontStylesModel, "FontStyles", new { DisplaySpacing = false, DisplayBgColor = false })
+        </div>
+        <div class="adminRow">
+            <div class="admin-config-group">
+                <div class="title">CSS</div>
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.ContentCssClass)
+            </div>
+            <div class="adminData">
+                @Html.TextBoxFor(model => model.ContentCssClass)
+                @Html.ValidationMessageFor(model => model.ContentCssClass)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.ContentCssStyle)
+            </div>
+            <div class="adminData">
+                @Html.TextAreaFor(model => model.ContentCssStyle)
+                @Html.ValidationMessageFor(model => model.ContentCssStyle)
+            </div>
+        </div>
+    </div>
+}
+
+@helper TabIcon()
+{
+	<div class="adminContent">
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.IconDisplayType)
+			</div>
+			<div class="adminData">
+				@Html.DropDownListForEnum(model => model.IconDisplayType)
+				@Html.ValidationMessageFor(model => model.IconDisplayType)
+			</div>
+		</div>
+
+        <div class="icon-type-image">
+            <hr />
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.PictureId)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.PictureId, new { transientUpload = true, path = "pagebuilder" })
+                    @Html.ValidationMessageFor(model => model.PictureId)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.IconPictureSize)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.IconPictureSize, new { postfix = "px" })
+                    @Html.ValidationMessageFor(model => model.IconPictureSize)
+                </div>
+            </div>
+        </div>
+		<div class="icon-type-fa5">
+			<hr />
+			@Html.EditorFor(model => model.FontAwesome, "FontAwesome")
+		</div>
+
+		<div class="icon-options">
+			<hr />
+			<div class="adminRow icon-alignment">
+				<div class="adminTitle">
+					@Html.SmartLabelFor(model => model.IconAlignment)
+				</div>
+				<div class="adminData">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-secondary@(Model.IconAlignment.ToString().Equals("InlineLeft") ? " active" : "")">
+							<input type="radio"
+								   name="@Html.FieldNameFor(x => x.IconAlignment)"
+								   value="InlineLeft"
+								   autocomplete="off"
+								   @(Model.IconAlignment.ToString().Equals("InlineLeft") ? "checked" : "")>
+							<img src="~/Plugins/SmartStore.PageBuilder/Content/images/InlineLeft.png" />
+						</label>
+						<label class="btn btn-secondary@(Model.IconAlignment.ToString().Equals("Left") ? " active" : "")">
+							<input type="radio"
+								   name="@Html.FieldNameFor(x => x.IconAlignment)"
+								   value="Left"
+								   autocomplete="off"
+								   @(Model.IconAlignment.ToString().Equals("Left") ? "checked" : "")>
+							<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Left.png" />
+						</label>
+						<label class="btn btn-secondary@(Model.IconAlignment.ToString().Equals("Above") ? " active" : "")">
+							<input type="radio"
+								   name="@Html.FieldNameFor(x => x.IconAlignment)"
+								   value="Above"
+								   autocomplete="off"
+								   @(Model.IconAlignment.ToString().Equals("Above") ? "checked" : "")>
+							<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Above.png" />
+						</label>
+						<label class="btn btn-secondary@(Model.IconAlignment.ToString().Equals("Right") ? " active" : "")">
+							<input type="radio"
+								   name="@Html.FieldNameFor(x => x.IconAlignment)"
+								   value="Right"
+								   autocomplete="off"
+								   @(Model.IconAlignment.ToString().Equals("Right") ? "checked" : "")>
+							<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Right.png" />
+						</label>
+					</div>
+
+					@Html.ValidationMessageFor(model => model.IconAlignment)
+				</div>
+			</div>
+			<div class="adminRow icon-alignment responsive">
+				<div class="adminTitle">
+					@Html.SmartLabelFor(model => model.ResponsiveIconBreakpoint)
+				</div>
+				<div class="adminData">
+					<div class="form-row">
+						<div class="col">
+							@Html.DropDownListFor(model => model.ResponsiveIconBreakpoint, StoryModelHelper.SelectOptions.GridBreakpoints(T, T("Plugins.SmartStore.PageBuilder.DontChange")))
+						</div>
+						<div class="col-auto">
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<label class="btn btn-secondary iar-left@(Model.ResponsiveIconAlignment.ToString().Equals("Left") ? " active" : "")@(Model.IconAlignment == IconAlignment.Left ? " hide" : "")">
+									<input type="radio"
+										   name="@Html.FieldNameFor(x => x.ResponsiveIconAlignment)"
+										   value="Left"
+										   autocomplete="off"
+										   @(Model.ResponsiveIconAlignment.ToString().Equals("Left") ? "checked" : "")>
+									<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Left.png" />
+								</label>
+								<label class="btn btn-secondary iar-above@(Model.ResponsiveIconAlignment.ToString().Equals("Above") ? " active" : "")@(Model.IconAlignment == IconAlignment.Above ? " hide" : "")">
+									<input type="radio"
+										   name="@Html.FieldNameFor(x => x.ResponsiveIconAlignment)"
+										   value="Above"
+										   autocomplete="off"
+										   @(Model.ResponsiveIconAlignment.ToString().Equals("Above") ? "checked" : "")>
+									<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Above.png" />
+								</label>
+								<label class="btn btn-secondary iar-right@(Model.ResponsiveIconAlignment.ToString().Equals("Right") ? " active" : "")@(Model.IconAlignment == IconAlignment.Right ? " hide" : "")">
+									<input type="radio"
+										   name="@Html.FieldNameFor(x => x.ResponsiveIconAlignment)"
+										   value="Right"
+										   autocomplete="off"
+										   @(Model.ResponsiveIconAlignment.ToString().Equals("Right") ? "checked" : "")>
+									<img src="~/Plugins/SmartStore.PageBuilder/Content/images/Right.png" />
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="adminRow icon-spacing">
+				<div class="adminTitle">
+					@Html.SmartLabelFor(model => model.IconSpacing)
+				</div>
+				<div class="adminData">
+					<div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+						@foreach (var item in StoryModelHelper.SelectOptions.Margins(T))
+						{
+							<label class="btn btn-secondary tooltip-toggle@(Convert.ToInt16(item.Value) == Model.IconSpacing ? " active" : "")" data-placement="top" title="@item.Text">
+								<input type="radio"
+									   name="@Html.FieldNameFor(x => x.IconSpacing)"
+									   value="@item.Value"
+									   autocomplete="off" @(Convert.ToInt16(item.Value) == Model.IconSpacing ? "checked" : "")> @item.Value
+								</label>
+							}
+					</div>
+					@Html.ValidationMessageFor(model => model.IconSpacing)
+				</div>
+			</div>
+		</div>
+
+		<div class="adminRow">
+			<div class="admin-config-group">
+				<div class="title">CSS</div>
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.IconCssClass)
+			</div>
+			<div class="adminData">
+				@Html.TextBoxFor(model => model.IconCssClass)
+				@Html.ValidationMessageFor(model => model.IconCssClass)
+			</div>
+		</div>
+		<div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(model => model.IconCssStyle)
+			</div>
+			<div class="adminData">
+				@Html.TextAreaFor(model => model.IconCssStyle)
+				@Html.ValidationMessageFor(model => model.IconCssStyle)
+			</div>
+		</div>
+	</div>
+}
+
+@helper TabButton()
+{
+    <div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.IsButtonActive)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.IsButtonActive, new { data_toggler_for = "#htmlblock-button-settings" })
+                @Html.ValidationMessageFor(model => model.IsButtonActive)
+            </div>
+        </div>
+    </div>
+    <div id="htmlblock-button-settings">
+        @(Html.LocalizedEditor<HtmlBlock, LocalizedHtmlBlock>("button-localized",
+            @<div class="adminContent">
+                <div class="adminRow">
+                    <div class="adminTitle">
+                        @Html.SmartLabelFor(model => model.Locales[item].ButtonText)
+                    </div>
+                    <div class="adminData wide">
+                        @Html.EditorFor(model => model.Locales[item].ButtonText)
+                        @Html.ValidationMessageFor(model => model.Locales[item].ButtonText)
+                    </div>
+                </div>
+            </div>
+            ,
+            @<div class="adminContent">
+                <div class="adminRow">
+                    <div class="adminTitle">
+                        @Html.SmartLabelFor(model => model.ButtonText)
+                    </div>
+                    <div class="adminData wide">
+                        @Html.EditorFor(model => model.ButtonText)
+                        @Html.ValidationMessageFor(model => model.ButtonText)
+                    </div>
+                </div>
+            </div>
+        ))
+
+        <div class="adminContent">
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonLink)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.ButtonLink)
+                    @Html.ValidationMessageFor(model => model.ButtonLink)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonColor)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.ButtonColor, StoryModelHelper.SelectOptions.BrandColors(T, GetThemeVariable("brand-colors")), new { @class = "theme-color-chooser" })
+                    @Html.ValidationMessageFor(model => model.ButtonColor)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonSize)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.ButtonSize, StoryModelHelper.SelectOptions.ButtonSizes(T), T("Common.Unspecified"))
+                    @Html.ValidationMessageFor(model => model.ButtonSize)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonAlignment)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListForEnum(model => model.ButtonAlignment)
+                    @Html.ValidationMessageFor(model => model.ButtonAlignment)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonSpacing)
+                </div>
+                <div class="adminData">
+                    <div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+                        @foreach (var item in StoryModelHelper.SelectOptions.Margins(T))
+                        {
+                            <label class="btn btn-secondary tooltip-toggle@(Convert.ToInt16(item.Value) == Model.ButtonSpacing ? " active" : "")" data-placement="top" title="@item.Text">
+                                <input type="radio"
+                                       name="@Html.FieldNameFor(x => x.ButtonSpacing)"
+                                       value="@item.Value"
+                                       autocomplete="off" @(Convert.ToInt16(item.Value) == Model.ButtonSpacing ? "checked" : "")> @item.Value
+                                </label>
+                            }
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ButtonSpacing)
+                </div>
+            </div>
+
+            <div class="adminRow">
+                <div class="admin-config-group">
+                    <div class="title">@T("Plugins.SmartStore.PageBuilder.Html.ButtonStyle")</div>
+                </div>
+            </div>
+
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnOutline)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnOutline)
+
+                    <button type="button" class="btn btn-outline-@Model.ButtonColor btn-preview btn-min-width ml-4">
+                        <span>@Model.ButtonText</span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnOutline)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnThreeD)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnThreeD)
+
+                    <button type="button" class="btn btn-@Model.ButtonColor btn-3d btn-preview btn-min-width ml-4">
+                        <span>@Model.ButtonText</span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnThreeD)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnFlat)
+                </div>
+                <div class="adminData">
+                    @Html.CheckBoxFor(model => model.BtnFlat, new { data_toggler_for = "#btn-flat-is-light" })
+
+                    <button type="button" class="btn btn-@Model.ButtonColor btn-flat btn-preview btn-min-width ml-4">
+                        <span>@Model.ButtonText</span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnFlat)
+                </div>
+            </div>
+            <div id="btn-flat-is-light" class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnFlatIsLight)
+                </div>
+                <div class="adminData btn-valign-top">
+                    @Html.EditorFor(model => model.BtnFlatIsLight)
+
+                    <div class="@(Model.ButtonText.HasValue() ? "bg-primary" : "set-btn-bg") d-inline-block btn-min-width ml-4 px-2 py-1">
+                        <button type="button" class="btn btn-@Model.ButtonColor btn-flat btn-flat-light btn-block btn-preview">
+                            <span>@Model.ButtonText</span>
+                        </button>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.BtnFlatIsLight)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnBorderless)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnBorderless)
+
+                    <button type="button" class="btn btn-@Model.ButtonColor btn-no-border btn-preview btn-min-width ml-4">
+                        <span>@Model.ButtonText</span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnBorderless)
+                </div>
+            </div>
+            <div class="adminRow htmlblock-button-icon">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnLabeled)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnLabeled)
+
+                    <button type="button" class="btn btn-@Model.ButtonColor btn-labeled btn-preview btn-min-width ml-4">
+                        <b><i class="fa fa-power-off"></i></b>
+                        <span>
+                            @Model.ButtonText
+                        </span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnLabeled)
+                </div>
+            </div>
+            <div class="adminRow htmlblock-button-icon">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnAnimated)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnAnimated)
+
+                    <button type="button" class="btn btn-@Model.ButtonColor btn-animate btn-preview btn-min-width ml-4">
+                        <span>
+                            <i class="fa fa-download"></i>
+                            @Model.ButtonText
+                        </span>
+                    </button>
+
+                    @Html.ValidationMessageFor(model => model.BtnAnimated)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnClear)
+                </div>
+                <div class="adminData btn-valign-top">
+                    @Html.CheckBoxFor(model => model.BtnClear, new { data_toggler_for = "#btn-clear-is-dark" })
+
+                    <div class="@(Model.ButtonText.HasValue() ? "bg-primary" : "set-btn-bg") d-inline-block btn-preview btn-min-width ml-4 px-2 py-1">
+                        <button type="button" class="btn btn-clear btn-block">
+                            <span>@Model.ButtonText</span>
+                        </button>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.BtnClear)
+                </div>
+            </div>
+            <div id="btn-clear-is-dark" class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnClearIsDark)
+                </div>
+                <div class="adminData btn-valign-top">
+                    @Html.EditorFor(model => model.BtnClearIsDark)
+
+                    <div class="@(Model.ButtonText.HasValue() ? "bg-light" : "set-btn-bg-light") d-inline-block btn-min-width ml-4 px-2 py-1">
+                        <button type="button" class="btn btn-clear-dark btn-preview btn-block">
+                            <span>@Model.ButtonText</span>
+                        </button>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.BtnClearIsDark)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.BtnBlock)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.BtnBlock)
+
+                    <div class="d-inline-block col-9 pl-0 ml-4">
+                        <button type="button" class="btn btn-@Model.ButtonColor btn-block btn-preview">
+                            <span>@Model.ButtonText</span>
+                        </button>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.BtnBlock)
+                </div>
+            </div>
+
+            <div class="adminRow">
+                <div class="admin-config-group">
+                    <div class="title">Icon</div>
+                </div>
+            </div>
+
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.IsButtonIconActive)
+                </div>
+                <div class="adminData">
+                    @Html.CheckBoxFor(model => model.IsButtonIconActive, new { data_toggler_for = ".htmlblock-button-icon" })
+                    @Html.ValidationMessageFor(model => model.IsButtonIconActive)
+                </div>
+            </div>
+            <div class="adminRow htmlblock-button-icon">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonIcon)
+                </div>
+                <div class="adminData">
+                    @{
+                        var dict = new ViewDataDictionary();
+                        dict.TemplateInfo.HtmlFieldPrefix = "Block.ButtonIcon";
+                    }
+
+                    @Html.Partial("FontAwesomeIcon", Model.ButtonIcon, dict)
+                </div>
+            </div>
+
+            <div class="adminRow htmlblock-button-icon">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonIconAlignment)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListForEnum(model => model.ButtonIconAlignment)
+                    @Html.ValidationMessageFor(model => model.ButtonIconAlignment)
+                </div>
+            </div>
+            <div class="adminSeparator pt-3"><hr /></div>
+
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ButtonCssClass)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.ButtonCssClass)
+                    @Html.ValidationMessageFor(model => model.ButtonCssClass)
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+
+        $("input[name=@(Html.NameFor(model => model.IconAlignment).ToString().Replace(".", "\\\\."))]").change(toggleResponsiveIcon);
+        toggleResponsiveIcon();
+
+        function toggleResponsiveIcon() {
+            var value = this.value;
+            if (value == "InlineLeft") {
+                $('.icon-alignment.responsive').hide();
+            }
+            else {
+                $('.icon-alignment.responsive').show();
+
+                switch (value) {
+                    case "Left":
+                        $(".iar-left").hide();
+                        $(".iar-right").show();
+                        $(".iar-above").show();
+                        break;
+                    case "Right":
+                        $(".iar-left").show();
+                        $(".iar-right").hide();
+                        $(".iar-above").show();
+                        break;
+                    case "Above":
+                        $(".iar-left").show();
+                        $(".iar-right").show();
+                        $(".iar-above").hide();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        $("#@Html.FieldIdFor(model => model.IconDisplayType)").change(toggleIconData);
+        toggleIconData();
+
+        function toggleIconData() {
+            var value = $('#@Html.FieldIdFor(model => model.IconDisplayType)').val();
+
+            switch (value.toLowerCase()) {
+			    case 'none':
+					$('.icon-type-fa5').hide();
+					$('.icon-type-image').hide();
+					$('.icon-options').hide();
+				    break;
+				case 'fontawesome':
+					$('.icon-type-fa5').show();
+					$('.icon-type-image').hide();
+					$('.icon-options').show();
+                    break;
+				case 'picture':
+					$('.icon-type-fa5').hide();
+					$('.icon-type-image').show();
+					$('.icon-options').show();
+                    break;
+			    default:
+				    break;
+			}
+        }
+
+        $('#@(Html.FieldIdFor(x => x.TitleSize)), @(Html.FieldIdFor(x => x.TaglineSize))').selectWrapper({
+            templateResult: selectFontSize
+		});
+
+        function selectFontSize(item) {
+
+            try {
+				if (item.id.length > 0) {
+					var html = '<div class="' + item.id + '">';
+					html += item.text;
+					html += '</div>';
+                    return $(html);
+				}
+			}
+            catch (e) { }
+
+			return item.text;
+        }
+
+        var currentColor = $('#@Html.FieldIdFor(model => model.ButtonColor)').val();
+
+        $("#@Html.FieldIdFor(model => model.ButtonColor)").change(changePreviewButtons);
+
+        var text = $('#@Html.FieldIdFor(model => model.ButtonText)').val();
+        if (!text) {
+            text = @T("Plugins.SmartStore.PageBuilder.Html.DefaultButtonText").JsText;
+            $(".btn-preview").find("span").text(text);
+        }
+
+        $("#@Html.FieldIdFor(model => model.ButtonText)").change(function () {
+            text = $('#@Html.FieldIdFor(model => model.ButtonText)').val();
+
+            if (text) {
+                $(".btn-preview").find("span").text(text);
+                $(".set-btn-bg").addClass("bg-" + currentColor).removeClass("set-btn-bg");
+                $(".set-btn-bg-light").addClass("bg-light").removeClass("set-btn-bg-light");
+            }
+        });
+
+        function changePreviewButtons() {
+            var value = $('#@Html.FieldIdFor(model => model.ButtonColor)').val();
+
+            $(".btn-preview").each(function (i, e) {
+                var button = $(e);
+                var classes = button.attr("class");
+                button.attr("class", classes.replace(currentColor, value));
+            });
+
+            currentColor = value;
+        }
+    });
+</script>

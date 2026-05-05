@@ -1,0 +1,27 @@
+﻿@model InputIntExtraIntModel
+
+<tr class="wide">
+    <td class="adminTitle">
+        @Html.SmartLabelFor(model => model.Value)
+    </td>
+    <td class="adminData">
+        <div class="discount-rule-wrapper">
+            <div>
+                @Html.EditorFor(x => x.Value, null, Model.InputId + "Value_" + Model.RuleId)
+            </div>
+        </div>
+    </td>
+</tr>
+
+<tr class="wide">
+    <td class="adminTitle">
+        @Html.SmartLabelFor(model => model.ExtraData)
+    </td>
+    <td class="adminData">
+        <div class="discount-rule-wrapper">
+            <div>
+                @Html.EditorFor(x => x.ExtraData, null, Model.InputId + "ExtraData_" + Model.RuleId)
+            </div>
+        </div>
+    </td>
+</tr>

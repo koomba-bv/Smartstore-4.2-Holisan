@@ -1,0 +1,117 @@
+﻿@model BlockContainer
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+}
+
+<div class="admin-config-group">
+    <div class="title">@T("Plugins.SmartStore.PageBuilder.DataBinding.IntroTitle")</div>
+    <p class="text-muted mb-2">
+        @T("Plugins.SmartStore.PageBuilder.DataBinding.Intro")
+    </p>
+    @if (Model.Block is IBindableBlock)
+    {
+        <div class="text-muted mb-5">
+            <strong>@T("Plugins.SmartStore.PageBuilder.DataBinding.AvailableTokens")</strong>
+            @if (Model.Block is HtmlBlock)
+            {
+                <span>{{ Name }}, {{ TagLine }}, {{ Description }}, {{ Price }}, {{ RegularPrice }}, {{ Url }}</span>
+            }
+            else if (Model.Block is PictureBlock)
+            {
+                <span>{{ PictureId }}, {{ Url }}</span>
+            }
+        </div>
+    }
+</div>
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(x => x.DataBindingModel.BindEntity)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(x => x.DataBindingModel.BindEntity)
+            @Html.ValidationMessageFor(x => x.DataBindingModel.BindEntity)
+        </div>
+    </div>
+
+    @try
+    {
+        Model.RenderBlock(new[] { "BindingOptions" }, this.Html);
+    }
+    catch { }
+
+    <div class="adminRow">
+        <div class="adminTitle">
+        </div>
+        <div class="adminData">
+            <a id="bind-block" class="btn btn-primary" href="#">
+                <span>@T("Plugins.SmartStore.PageBuilder.DataBinding.ApplyBinding")</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function updateBindingBlockProperties(entityId, entityName) {
+        var inputId = $("#Block_BindEntityId");
+        var inputName = $("#Block_BindEntityName");
+
+        if (_.isEmpty(entityId)) {
+            inputId.val('');
+        }
+        else {
+            inputId.val(entityId);
+            inputName.val(entityName);
+        }
+    }
+
+    $(function () {
+
+        $(document).on("change", "#@Html.IdFor(x => x.DataBindingModel.BindEntity)" , function () {
+
+            var $el = $(this);
+            var linkresult = $el.val().split(":");
+            var val = linkresult[1];
+            var type = linkresult[0];
+
+            updateBindingBlockProperties(val, type);
+        });
+
+        $(document).on("click", ".link-builder[data-field-id='@Html.IdFor(x => x.DataBindingModel.BindEntity)']", function () {
+            updateBindingBlockProperties(0, "");
+        });
+
+        // bind by applying templates to corresponding properties
+        $("#bind-block").on("click", function (e) {
+            e.preventDefault();
+
+            // confirm overwriting
+            if (!confirm(@T("Admin.Common.AskToProceed").JsText))
+                return false;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("BlockTemplateMapping")',
+                data: { blockType: '@Model.Metadata.SystemName' },
+                success: function (response) {
+                    if (!_.isEmpty(response.message)) {
+                        displayNotification(response.message, response.success ? 'success' : 'error', response.success);
+                    }
+
+                    if (response.success) {
+                        // apply delegate
+                        if (typeof applyDataBinding === "function") {
+                            // safe to use the function
+                            applyDataBinding(response.mapping);
+                        }
+                    }
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+﻿@model CategoryListBlock
+
+@using SmartStore.PageBuilder.Blocks;
+@using SmartStore.Web.Models.Catalog;
+
+@{
+    if (Model.Categories == null || Model.Categories.Count == 0)
+    {
+        return;
+    }
+
+    var containerCssClasses = new List<string> { "g-block-category-list" };
+
+    if (Model.GrayscaleItems)
+    {
+        containerCssClasses.Add("grayscale-items");
+    }
+
+    if (Model.CategoryDisplayType == CategoryDisplayType.Slider)
+    {
+        containerCssClasses.Add("artlist-carousel");
+    }
+
+    var listCssClasses = new List<string> { "artlist", "artlist-grid" };
+
+    var colspan = (int)Model.ItemsPerRow;
+    listCssClasses.Add(colspan != 1 ? "artlist-{0}-cols".FormatInvariant(colspan) : "artlist-1-col");
+
+    if (Model.BoxedStyleItems)
+    {
+        listCssClasses.Add("artlist-boxed");
+    }
+
+    if (Model.TitleDisplayType == TitleDisplayType.Above)
+    {
+        listCssClasses.Add("artlist-title-ontop");
+    }
+}
+
+<div class="@String.Join(" ", containerCssClasses)">
+    <div class="@String.Join(" ", listCssClasses)" data-slides-to-show="@Model.SlideItemsDisplayCount" data-slides-to-scroll="@Model.SlideItemsSlideCount">
+        @foreach (var category in Model.Categories)
+        {
+            <article class="art" data-id="@category.Id">
+                @RenderCategory(category)
+            </article>
+        }
+    </div>
+</div>
+
+@helper RenderCategory(CategorySummaryModel category)
+{
+    var picture = category.PictureModel;
+    <div class="art-picture-block">
+        @if (picture != null && picture.ImageUrl.HasValue())
+        {
+            <a class="art-picture img-center-container" href="@category.Url" title="@picture.Title">
+                <img src="@picture.ImageUrl" alt="@picture.AlternateText" loading="lazy" />
+            </a>
+        }
+    </div>
+
+    if (Model.DisplayTitle)
+    {
+        <div class="art-name">
+            <a href="@category.Url" title="@category.Name">
+                <span @Html.LanguageAttributes(category.Name)>@category.Name</span>
+            </a>
+        </div>
+    }
+}

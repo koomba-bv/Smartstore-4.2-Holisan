@@ -1,0 +1,189 @@
+﻿@using SmartStore.Core.Infrastructure;
+@using SmartStore.Core.Events;
+@using SmartStore.Web.Framework.Events;
+@using SmartStore.MegaSearch;
+@using SmartStore.MegaSearch.Models;
+@model ConfigurationModel
+
+<div class="scope-settings-inner">
+	@(Html.SmartStore().TabStrip().Name("megasearch-catalog-settings").Style(TabsStyle.Material).Position(TabsPosition.Top).Items(x =>
+	{
+		x.Add().Text(T("Common.General").Text).Content(TabGeneral()).Selected(true);
+		x.Add().Text(T("Plugins.SmartStore.MegaSearch.FieldBoost").Text).Content(TabFieldBoost());
+		
+		EngineContext.Current.Resolve<IEventPublisher>().Publish(new TabStripCreated(x, "megasearch-catalog-settings", this.Html, this.Model));
+	}))
+</div>
+
+@helper TabGeneral()
+{
+    <div id="CatalogGeneralSettings" class="adminContent scope-settings-list">
+        <div class="adminRow">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(x => x.EnableVariantAttributeFilters)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.EnableVariantAttributeFilters)
+				@Html.ValidationMessageFor(x => x.EnableVariantAttributeFilters)
+			</div>
+        </div>
+        <div class="adminRow">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.EnableSpecificationAttributeFilters)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.EnableSpecificationAttributeFilters,
+					Html.CheckBoxFor(x => x.EnableSpecificationAttributeFilters, new { data_toggler_for = "#CatalogGeneralSettings .spec-attributes-setting" }))
+				@Html.ValidationMessageFor(x => x.EnableSpecificationAttributeFilters)
+			</div>
+        </div>
+        <div class="adminRow spec-attributes-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.IgnoreAttributeFilteringOnProductLevel)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.IgnoreAttributeFilteringOnProductLevel)
+				@Html.ValidationMessageFor(x => x.IgnoreAttributeFilteringOnProductLevel)
+			</div>
+        </div>
+        <div id="AttributesRebuildWarning" class="adminRow d-none">
+			<div class="adminTitle">
+				&nbsp;
+			</div>
+			<div class="adminData wide text-warning">
+                @T("Plugins.SmartStore.MegaSearch.AttributesNote")
+			</div>
+        </div>
+        <div class="adminRow">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.IsTopCategoriesActive)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.IsTopCategoriesActive,
+					Html.CheckBoxFor(x => x.IsTopCategoriesActive, new { data_toggler_for = "#CatalogGeneralSettings .top-categories-setting" }))
+				@Html.ValidationMessageFor(x => x.IsTopCategoriesActive)
+			</div>
+        </div>
+        <div class="adminRow top-categories-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.MaxTopCategories)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.MaxTopCategories)
+				@Html.ValidationMessageFor(x => x.MaxTopCategories)
+			</div>
+        </div>
+        <div class="adminRow">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.IsTopManufacturersActive)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.IsTopManufacturersActive,
+					Html.CheckBoxFor(x => x.IsTopManufacturersActive, new { data_toggler_for = "#CatalogGeneralSettings .top-manufacturers-setting" }))
+				@Html.ValidationMessageFor(x => x.IsTopManufacturersActive)
+			</div>
+        </div>
+        <div class="adminRow top-manufacturers-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.MaxTopManufacturers)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.MaxTopManufacturers)
+				@Html.ValidationMessageFor(x => x.MaxTopManufacturers)
+			</div>
+        </div>
+    </div>
+}
+
+@helper TabFieldBoost()
+{
+    <div id="CatalogBoostSettings" class="adminContent scope-settings-list">
+        <div class="adminRow">
+			<div class="alert alert-info">
+				@T("Plugins.SmartStore.MegaSearch.BoostNote")
+			</div>
+        </div>
+        <div class="adminRow">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.EnableBoost)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.EnableBoost,
+					Html.CheckBoxFor(x => x.EnableBoost, new { data_toggler_for = "#CatalogBoostSettings .boost-setting" }))
+				@Html.ValidationMessageFor(x => x.EnableBoost)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostName)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostName)
+				@Html.ValidationMessageFor(x => x.BoostName)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostSku)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostSku)
+				@Html.ValidationMessageFor(x => x.BoostSku)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostShortDescription)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostShortDescription)
+				@Html.ValidationMessageFor(x => x.BoostShortDescription)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostFullDescription)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostFullDescription)
+				@Html.ValidationMessageFor(x => x.BoostFullDescription)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostTagNames)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostTagNames)
+				@Html.ValidationMessageFor(x => x.BoostTagNames)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostManufacturers)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostManufacturers)
+				@Html.ValidationMessageFor(x => x.BoostManufacturers)
+			</div>
+        </div>
+        <div class="adminRow boost-setting">
+			<div class="adminTitle">
+                @Html.SmartLabelFor(x => x.BoostCategories)
+			</div>
+			<div class="adminData">
+				@Html.SettingEditorFor(x => x.BoostCategories)
+				@Html.ValidationMessageFor(x => x.BoostCategories)
+			</div>
+        </div>
+        @if (Model.IsBoostValueTouched)
+        {
+            <div class="adminRow boost-setting">
+				<button id="ResetBoostValues" type="button" class="btn btn-secondary" data-url="@Url.Action("ResetBoostValues", new { area = MegaSearchPlugin.SystemName })">
+					<i class="fa fa-sync"></i>
+					<span>@T("Admin.Common.Clear")</span>
+				</button>
+            </div>
+        }
+    </div>
+}

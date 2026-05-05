@@ -1,0 +1,490 @@
+﻿@using SmartStore.MegaMenu.Models;
+@using SmartStore.Web.Framework;
+@using SmartStore.Web.Framework.UI;
+@model DropdownConfigurationModel
+@{
+    Layout = "";
+}
+
+@Html.Hidden("__Type__", Model.GetType().AssemblyQualifiedName)
+
+@Html.HiddenFor(m => m.EntityId)
+
+@if (Model.EntityId == 0)
+{
+    <div class="alert alert-warning">
+        @T("Admin.SaveBeforeEdit")
+    </div>
+    return;
+}
+
+<div class="alert alert-info">
+    @Html.Raw(@T("Plugins.SmartStore.MegaMenu.AdminInstructionCatMain").Text.FormatInvariant(
+        Url.Action("ConfigurePlugin", "Plugin", new { area = "Admin", systemName = "SmartStore.MegaMenu" })
+    ))
+</div>
+
+<table class="adminContent">
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.IsActive)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.IsActive)
+            @Html.ValidationMessageFor(model => model.IsActive)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.FavorInMegamenu)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.FavorInMegamenu)
+            @Html.ValidationMessageFor(model => model.FavorInMegamenu)
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <div class="admin-config-group">
+                <div class="title">Layout</div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.MaxItemsPerColumn)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MaxItemsPerColumn)
+            @Html.ValidationMessageFor(model => model.MaxItemsPerColumn)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.MaxSubItemsPerCategory)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MaxSubItemsPerCategory)
+            @Html.ValidationMessageFor(model => model.MaxSubItemsPerCategory)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplaySubItemsInline)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DisplaySubItemsInline)
+            @Html.ValidationMessageFor(model => model.DisplaySubItemsInline)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.AllowSubItemsColumnWrap)
+        </td>
+        <td class="adminData">
+            @Html.CheckBoxFor(model => model.AllowSubItemsColumnWrap, new { data_toggler_for = ".item-wrap" })
+            @Html.ValidationMessageFor(model => model.AllowSubItemsColumnWrap)
+        </td>
+    </tr>
+    <tr class="item-wrap">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.SubItemsWrapTolerance)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.SubItemsWrapTolerance)
+            @Html.ValidationMessageFor(model => model.SubItemsWrapTolerance)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.MinChildCategoryThreshold)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MinChildCategoryThreshold)
+            @Html.ValidationMessageFor(model => model.MinChildCategoryThreshold)
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <div class="admin-config-group">
+                <div class="title">
+                    @T("Plugins.SmartStore.MegaMenu.BgPictures.Heading")
+                </div>
+
+                <p class="text-muted">
+                    @T("Plugins.SmartStore.MegaMenu.BgPictures.AdminInstruction")
+                </p>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayBgPicture)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DisplayBgPicture)
+            @Html.ValidationMessageFor(model => model.DisplayBgPicture)
+        </td>
+    </tr>
+    <tr class="bg-picture">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgPictureId)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.BgPictureId)
+            @Html.ValidationMessageFor(model => model.BgPictureId)
+        </td>
+    </tr>
+    <tr class="bg-picture">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgAlignX)
+        </td>
+        <td class="adminData">
+            @Html.DropDownListForEnum(model => model.BgAlignX)
+            @Html.ValidationMessageFor(model => model.BgAlignX)
+        </td>
+    </tr>
+    <tr class="bg-picture">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgAlignY)
+        </td>
+        <td class="adminData">
+            @Html.DropDownListForEnum(model => model.BgAlignY)
+            @Html.ValidationMessageFor(model => model.BgAlignY)
+        </td>
+    </tr>
+    <tr class="bg-picture">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgOffsetX)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.BgOffsetX)
+            @Html.ValidationMessageFor(model => model.BgOffsetX)
+        </td>
+    </tr>
+    <tr class="bg-picture">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgOffsetY)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.BgOffsetY)
+            @Html.ValidationMessageFor(model => model.BgOffsetY)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.LocalizedEditor<DropdownConfigurationModel, DropdownConfigurationLocalizedModel>("mm-bg-link-localized",
+                        @<table class="adminContent p-0">
+                            <tr>
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.Locales[item].BgLink)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.TextBoxFor(model => Model.Locales[item].BgLink)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].BgLink)
+                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                </td>
+                            </tr>
+                        </table>
+,
+                        @<table class="adminContent p-0">
+                            <tr>
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.BgLink)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.TextBoxFor(model => model.BgLink)
+                                    @Html.ValidationMessageFor(model => model.BgLink)
+                                </td>
+                            </tr>
+                        </table>
+))
+        </td>
+    </tr>
+</table>
+
+<table class="adminContent">
+    <tr>
+        <td colspan="2">
+            <div class="admin-config-group">
+                <div class="title">
+                    @T("Plugins.SmartStore.MegaMenu.ShortSummary.Heading")
+                </div>
+
+                <p class="text-muted">
+                    @T("Plugins.SmartStore.MegaMenu.ShortSummary.AdminInstruction")
+                </p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayCategoryPicture)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DisplayCategoryPicture)
+            @Html.ValidationMessageFor(model => model.DisplayCategoryPicture)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.LocalizedEditor<DropdownConfigurationModel, DropdownConfigurationLocalizedModel>("mm-short-summary",
+                        @<table class="adminContent p-0">
+                            <tr class="cat-picture">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => Model.Locales[item].Summary)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.TextAreaFor(model => Model.Locales[item].Summary, new { @style = "height: 120px;" })
+                                    @Html.ValidationMessageFor(model => Model.Locales[item].Summary)
+                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                </td>
+                            </tr>
+                        </table>
+,
+                        @<table class="adminContent p-0">
+                            <tr class="cat-picture">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.Summary)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.TextAreaFor(model => model.Summary, new { @style = "height: 120px;" })
+                                    @Html.ValidationMessageFor(model => model.Summary)
+                                </td>
+                            </tr>
+                        </table>
+))
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="admin-config-group">
+                <div class="title">
+                    @T("Plugins.SmartStore.MegaMenu.Teaser.Heading")
+                </div>
+
+                <p class="text-muted">
+                    @T("Plugins.SmartStore.MegaMenu.Teaser.AdminInstruction")
+                </p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.TeaserType)
+        </td>
+        <td class="adminData">
+            @Html.DropDownListForEnum(model => model.TeaserType)
+            @Html.ValidationMessageFor(model => model.TeaserType)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.LocalizedEditor<DropdownConfigurationModel, DropdownConfigurationLocalizedModel>("mm-teaser-html",
+                        @<table class="adminContent p-0">
+                            <tr class="toggle-teaser-html">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.Locales[item].TeaserHtml)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.EditorFor(model => model.Locales[item].TeaserHtml)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].TeaserHtml)
+                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                </td>
+                            </tr>
+                        </table>
+,
+                        @<table class="adminContent p-0">
+                            <tr class="toggle-teaser-html">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.TeaserHtml)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.EditorFor(model => model.TeaserHtml)
+                                    @Html.ValidationMessageFor(model => model.TeaserHtml)
+                                </td>
+                            </tr>
+                        </table>
+))
+        </td>
+    </tr>
+</table>
+
+<table class="adminContent">
+    <tr class="toggle-teaser-html">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.HtmlColumnSpan)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.HtmlColumnSpan)
+            @Html.ValidationMessageFor(model => model.HtmlColumnSpan)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.LocalizedEditor<DropdownConfigurationModel, DropdownConfigurationLocalizedModel>("mm-rotator-heading",
+                        @<table class="adminContent p-0">
+                            <tr class="toggle-teaser-rotator">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.Locales[item].RotatorHeading)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.EditorFor(model => model.Locales[item].RotatorHeading)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].RotatorHeading)
+                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                </td>
+                            </tr>
+                        </table>
+,
+                        @<table class="adminContent p-0">
+                            <tr class="toggle-teaser-rotator">
+                                <td class="adminTitle">
+                                    @Html.SmartLabelFor(model => model.RotatorHeading)
+                                </td>
+                                <td class="adminData wide">
+                                    @Html.EditorFor(model => model.RotatorHeading)
+                                    @Html.ValidationMessageFor(model => model.RotatorHeading)
+                                </td>
+                            </tr>
+                        </table>
+))
+        </td>
+    </tr>
+</table>
+
+<table class="adminContent">
+    <tr class="toggle-teaser-rotator">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.TeaserRotatorItemSelectType)
+        </td>
+        <td class="adminData">
+            @Html.DropDownListForEnum(model => model.TeaserRotatorItemSelectType)
+            @Html.ValidationMessageFor(model => model.TeaserRotatorItemSelectType)
+        </td>
+    </tr>
+    <tr id="teaser-rotator-product-ids" class="toggle-teaser-rotator">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.TeaserRotatorProductIds)
+        </td>
+        <td class="adminData">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.TeaserRotatorProductIds, new { data_routeparam = "productIds", @readonly = "readonly" })
+
+                <span class="input-group-append">
+                    <a class="btn btn-secondary" id="reset-rotator-productids" title="@T("Admin.Common.Reset")">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </span>
+
+                <span class="input-group-append">
+                    @(Html.SmartStore().EntityPicker()
+                        .For(x => x.TeaserRotatorProductIds)
+                        .Caption(T("Admin.Common.Search").Text.EncodeJsString('\'', false)))
+                </span>
+            </div>
+
+            @Html.ValidationMessageFor(model => model.TeaserRotatorProductIds)
+        </td>
+    </tr>
+    <tr id="max-rotator-items" class="toggle-teaser-rotator">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(model => model.MaxRotatorItems)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MaxRotatorItems)
+            @Html.ValidationMessageFor(model => model.MaxRotatorItems)
+        </td>
+    </tr>
+</table>
+
+<script>
+    $(function () {
+        // display bg picture
+        $("#@Html.FieldIdFor(model => model.DisplayBgPicture)").click(toggleBgPicture);
+
+        function toggleBgPicture() {
+            if ($('#@Html.FieldIdFor(model => model.DisplayBgPicture)').is(':checked')) {
+                $('.bg-picture').show();
+                $('#mm-bg-link-localized').closest('tr').show();
+            }
+            else {
+                $('.bg-picture').hide();
+				$('#mm-bg-link-localized').closest('tr').hide();
+            }
+        }
+
+        // display cat pic
+        $("#@Html.FieldIdFor(model => model.DisplayCategoryPicture)").click(toggleCategoryPicture);
+
+        function toggleCategoryPicture() {
+            if ($('#@Html.FieldIdFor(model => model.DisplayCategoryPicture)').is(':checked')) {
+                $('.cat-picture').show();
+				$('#mm-short-summary').closest('tr').show();
+            }
+            else {
+                $('.cat-picture').hide();
+				$('#mm-short-summary').closest('tr').hide();
+            }
+        }
+
+        // teaser
+        var fieldTeaserType = $("#@Html.FieldIdFor(model => model.TeaserType)");
+        fieldTeaserType.on("change", toogleTeaserControls);
+
+        function toogleTeaserControls() {
+            var type = fieldTeaserType.val();
+
+            switch (type) {
+                case 'Html':
+                    $('.toggle-teaser-html').show();
+					$('#mm-teaser-html').closest('tr').show();
+                    $('.toggle-teaser-rotator').hide();
+					$('#mm-rotator-heading').closest('tr').hide();
+                    break;
+                case 'Rotator':
+                    $('.toggle-teaser-html').hide();
+					$('#mm-teaser-html').closest('tr').hide();
+                    $('.toggle-teaser-rotator').show();
+					$('#mm-rotator-heading').closest('tr').show();
+                    fieldTeaserRotatorSelectType.trigger("change");
+                    break;
+                default:
+                    $('.toggle-teaser-html, .toggle-teaser-rotator').hide();
+					$('#mm-rotator-heading, #mm-teaser-html').closest('tr').hide();
+                    break;
+            }
+        }
+
+        var fieldTeaserRotatorSelectType = $("#@Html.FieldIdFor(model => model.TeaserRotatorItemSelectType)");
+        fieldTeaserRotatorSelectType.on("change", toogleTeaserRotatorSelectTypeControls);
+
+        function toogleTeaserRotatorSelectTypeControls() {
+            var type = fieldTeaserRotatorSelectType.val();
+
+            if (type == "Custom") {
+                $("#teaser-rotator-product-ids").show();
+                $("#max-rotator-items").hide();
+            }
+            else {
+                $("#max-rotator-items").show();
+                $("#teaser-rotator-product-ids").hide();
+            }
+        }
+
+        // init
+        $('.toggle-teaser-html, .toggle-teaser-rotator').hide();
+        toggleBgPicture();
+        toggleCategoryPicture();
+        fieldTeaserRotatorSelectType.trigger("change");
+		fieldTeaserType.trigger("change");
+
+		// reset rotator product ids
+		$("#reset-rotator-productids").on("click", function (e) {
+			e.preventDefault();
+			$("#@Html.FieldIdFor(model => model.TeaserRotatorProductIds)").val("");
+		});
+    });
+</script>

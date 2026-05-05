@@ -1,0 +1,19 @@
+﻿@model CodeBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+    if (Model.HeadMarkUp.HasValue())
+    {
+        Html.AddCustomHeadParts(Model.HeadMarkUp);
+    }
+
+    if (!Model.MarkUp.HasValue())
+    {
+        return;
+    }
+}
+
+<div class="g-code">
+    @Html.Raw(Model.MarkUp)
+</div>

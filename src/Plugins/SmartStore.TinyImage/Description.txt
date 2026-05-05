@@ -1,0 +1,10 @@
+﻿FriendlyName: TinyImage
+SystemName: SmartStore.TinyImage
+Description: Scores ultra-high image compression rates and enables WebP support
+Group: Performance
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: SmartStore AG
+DisplayOrder: 1
+FileName: SmartStore.TinyImage.dll
+ResourceRootKey: Plugins.Admin.TinyImage

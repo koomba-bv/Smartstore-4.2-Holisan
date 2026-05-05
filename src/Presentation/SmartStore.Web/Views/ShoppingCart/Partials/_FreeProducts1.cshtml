@@ -1,0 +1,132 @@
+@model ShoppingCartModel.FreeProductsModel
+
+@using SmartStore.Web.Models.ShoppingCart;
+
+@{
+
+}
+
+<style>
+    .art-card {
+        position: relative;
+        display: block;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .art-card:hover {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+    .art-card input[type="radio"] {
+        display: none;
+    }
+
+    .art-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 123, 255, 0.2);
+        border-radius: 8px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .art-card input[type="radio"]:checked + .art-content .overlay {
+        opacity: 1;
+    }
+
+    .art-card input[type="radio"]:disabled + .art-content {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+</style>
+
+<div class="cart-action cart-action-freeproduct"  id="free-products-container">
+    <h5 class="cart-action-title" data-target="#cart-action-freeproduct-body" aria-controls="cart-action-freeproduct-body">
+        @T("ShoppingCart.FreeProduct")
+    </h5>
+
+    @Html.AntiForgeryToken()
+    <div class="freeproduct-products">
+        @foreach (var product in Model.FreeItems.Items)
+        {
+            var artDetailUrl = Url.RouteUrl("Product", new RouteValueDictionary { { "SeName", product.SeName } });
+            var picture = product.Picture;
+            var addPictureClass = picture.PictureId == 0 ? " no-picture" : "";
+            if (!picture.ImageUrl.HasValue())
+            {
+                addPictureClass += " no-default-picture";
+            }
+
+            <div role="radio" aria-checked="false" data-id="@product.Id">
+                <label class="art-card" tabindex="0">
+                    <input type="radio" class="select-art" name="productId" value="@product.Id" data-cart-type="1" @(Model.ExistsInCart ? "disabled" : "")/>
+                    <div class="art-content" role="radio" aria-checked="false" tabindex="0">
+                        @if (picture.Title.HasValue())
+                        {
+                            var linkTitle = string.Format(T("Media.Product.ImageLinkTitleFormat"), product.Name);
+                            <img src="@picture.ImageUrl" alt="@picture.AlternateText" title="@picture.Title" loading="lazy" />
+                        }
+
+                        <h3 @Html.LanguageAttributes(product.Name) class="art-name">
+                            <span>@product.Name</span>
+                        </h3>
+
+                        <div class="art-description" @Html.LanguageAttributes(product.ShortDescription) title="@(product.ShortDescription?.ToString() ?? "")">
+                            @Html.Raw(product.ShortDescription.Truncate(160, "..."))
+                        </div>
+                        <div class="overlay"></div>
+                    </div>
+                </label>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        const radios = document.querySelectorAll(".select-art");
+        radios.forEach(radio => {
+            radio.addEventListener("change", function () {
+                radio.setAttribute("aria-checked", "true");
+                const productId = this.value;
+
+                fetch('@Url.Action("AddFreeProduct", "ShoppingCart")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        shoppingCartTypeId: 1
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Optional: redirect or show confirmation
+                        window.location.href = '@Url.Action("Index", "Cart")';
+                    } else {
+                        alert("Failed to add product.");
+                    }
+                });
+            });
+        });
+    });
+</script>
+

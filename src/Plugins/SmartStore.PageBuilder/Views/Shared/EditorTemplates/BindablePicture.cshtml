@@ -1,0 +1,50 @@
+﻿@model string
+
+@{
+    int result;
+    var isInt = int.TryParse(Model, out result);
+
+    var id = ViewData.TemplateInfo.GetFullHtmlFieldId(string.Empty);
+    var name = ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty);
+}
+
+<div class="binding-info hide">
+    <i class="fa fa-link text-success"></i>
+    <span class="template-info pl-2">@Model</span>
+    <p class="text-muted mt-1">
+        @T("Plugins.SmartStore.PageBuilder.DataBinding.BindingInfo")
+    </p>
+</div>
+
+@if (isInt || Model == null)
+{
+    @Html.HiddenFor(model => result)
+    @Html.EditorFor(model => result, "Media", "", new { transientUpload = true, path = "pagebuilder" })
+}
+else
+{
+    // Render input field for liquid template
+    @Html.HiddenFor(model => model)
+
+    // Render picture editor template to enable overwriting of current binding
+    <div class="mt-2">
+        @Html.EditorFor(model => result, "Media", "RemoveBinding", new { transientUpload = true, path = "pagebuilder" })
+    </div>
+
+    <script>
+        $(function () {
+
+            // show binding info
+            $(".binding-info").removeClass("hide");
+
+            // switch input field names for correct modelbinding
+            $(document).on("change", "#@(id)_RemoveBinding", function () {
+                var template = $("#@(id)");
+                var uploader = $(this);
+
+                template.attr("name", "@(name).Template");
+                uploader.attr("name", "@name");
+            })
+        });
+    </script>
+}

@@ -1,0 +1,119 @@
+﻿@model StoryModel
+
+@using SmartStore.PageBuilder;
+
+@{
+    var resRoot = "Plugins.SmartStore.PageBuilder.SideBar.";
+}
+
+<div class="se-container pb-0">
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabel("spacing", T(resRoot + "Spacing"), T(resRoot + "Spacing.Hint"), new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            <div class="embed-responsive embed-responsive-4by3" style="overflow: visible">
+                <div class="embed-responsive-item">
+                    <div class="dvc-spacing shadow-sm">
+                        <div class="dvc-spacing-margin" data-prop="m">
+                            <span class="dvc-spacing-label text-muted pl-2 pt-1">@T("Plugins.SmartStore.PageBuilder.SideBar.Margin")</span>
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-t" data-side="t" data-opposite="b" min="0" max="6" step="1" name="mt" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-r" data-side="r" data-opposite="l" min="0" max="6" step="1" name="mr" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-b" data-side="b" data-opposite="t" min="0" max="6" step="1" name="mb" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-l" data-side="l" data-opposite="r" min="0" max="6" step="1" name="ml" readonly />
+                        </div>
+                        <div class="dvc-spacing-padding" data-prop="p">
+                            <span class="dvc-spacing-label text-muted">@T("Plugins.SmartStore.PageBuilder.SideBar.Padding")</span>
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-t" data-side="t" data-opposite="b" min="0" max="6" step="1" name="pt" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-r" data-side="r" data-opposite="l" min="0" max="6" step="1" name="pr" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-b" data-side="b" data-opposite="t" min="0" max="6" step="1" name="pb" readonly />
+                            <input type="text" class="form-control dvc dvc-spacing dvc-spacing-l" data-side="l" data-opposite="r" min="0" max="6" step="1" name="pl" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="se-container mb-0">
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabel("align", T(resRoot + "HorizontalAlignment"), null, new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.DropDownList("align", StoryModelHelper.SelectOptions.GridBlockAligns(T), "", new { @class = "form-control form-control-sm noskin dvc", data_default = "start" })
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabel("valign", T(resRoot + "VerticalAlignment"), null, new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.DropDownList("valign", StoryModelHelper.SelectOptions.GridBlockVAligns(T), "", new { @class = "form-control form-control-sm noskin dvc", data_default = "stretch" })
+        </div>
+    </div>
+	<div class="form-group form-row">
+		<label class="col-4 col-form-label col-form-label-sm">@T("Plugins.SmartStore.PageBuilder.SideBar.TextAlignment")</label>
+		<div class="col-8">
+			@Html.DropDownList("textAlign", StoryModelHelper.SelectOptions.TextAligns(T), "", new { @class = "form-control form-control-sm noskin dvc", data_default = "left" })
+		</div>
+	</div>
+	<div class="form-group form-row">
+		<label class="col-4 col-form-label col-form-label-sm">@T("Plugins.SmartStore.PageBuilder.SideBar.ZIndex")</label>
+		<div class="col-8">
+			<input type="number" class="form-control form-control-sm dvc" name="zindex" min="0" />
+		</div>
+	</div>
+</div>
+
+<div class="admin-config-group">
+	<span class="title fs-h6 font-weight-medium my-0">@T("Common.Advanced")</span>
+</div>
+<div class="se-container">
+    <div class="form-group form-row mb-3">
+        <div class="col-lg-8 offset-4">
+            <div class="row sm-gutters">
+                <div class="col-6">
+                    <label>@T("Plugins.SmartStore.PageBuilder.SideBar.Column")</label>
+                    <div class="row xs-gutters">
+                        <div class="col-6">
+                            <input type="text" class="form-control form-control-sm dvc" name="colstart" />
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control form-control-sm dvc" name="colend" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label>@T("Plugins.SmartStore.PageBuilder.SideBar.Row")</label>
+                    <div class="row xs-gutters">
+                        <div class="col-6">
+                            <input type="text" class="form-control form-control-sm dvc" name="rowstart" />
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control form-control-sm dvc" name="rowend" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabel("boxAlign", T(resRoot + "BoxHorizontalAlignment"), T(resRoot + "BoxHorizontalAlignment.Hint"), new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.DropDownList("boxAlign", StoryModelHelper.SelectOptions.GridBlockAligns(T), "", new { @class = "form-control form-control-sm noskin dvc", data_default = "stretch" })
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-4">
+            @Html.SmartLabel("boxValign", T(resRoot + "BoxVerticalAlignment"), T(resRoot + "BoxVerticalAlignment.Hint"), new { @class = "col-form-label col-form-label-sm" })
+        </div>
+        <div class="col-8">
+            @Html.DropDownList("boxValign", StoryModelHelper.SelectOptions.GridBlockVAligns(T), "", new { @class = "form-control form-control-sm noskin dvc", data_default = "stretch" })
+        </div>
+    </div>
+</div>

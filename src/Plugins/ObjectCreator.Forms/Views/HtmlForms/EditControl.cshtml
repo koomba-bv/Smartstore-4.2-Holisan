@@ -1,0 +1,7 @@
+﻿@model SmartStore.HtmlForms.Models.FormControlDetailsModel
+@{
+    Layout = "";
+    ViewBag.Title = T("Admin.AddNew").Text;
+}
+
+@{ Html.RenderPartial("_CreateOrUpdateControl", Model); }

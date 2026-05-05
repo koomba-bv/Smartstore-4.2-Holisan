@@ -1,0 +1,173 @@
+﻿@model MediaGalleryBlock
+@using SmartStore.PageBuilder.Blocks;
+@using SmartStore.Core.Domain.Media;
+@using SmartStore.Services.Media;
+@{
+    if (Model.MediaGalleryModel == null || Model.MediaGalleryModel.Files.IsNullOrEmpty())
+    {
+        return;
+    }
+    Html.AppendScriptParts(true, "~/Plugins/SmartStore.PageBuilder/Scripts/pagebuilder.mediagallery.js");
+    var mediaSettings = CommonServices.Resolve<MediaSettings>();
+    var htmlParts = Model.RenderModel;
+}
+
+<div class="g-media-gallery-data" @htmlParts.GalleryContainerAttr>
+    @if (Model.Style == GalleryStyle.Slider)
+    {
+        var sliderId = "slider-" + CommonHelper.GenerateRandomInteger();
+        <div class="g-media-gallery d-flex" @Html.Attr("style", htmlParts.GalleryContainerStyle)>
+            <div class="g-gallery-slider carousel slide bg-@Model.BackgroundColor @htmlParts.GalleryContainerClass" id="@sliderId">
+                <ul class="g-gallery-indicator carousel-indicators@(Model.DisplayIndicators ? " d-none d-md-flex" : " d-none")">
+                    @for (int i = 0; i < Model.MediaGalleryModel.Files.Count; i++)
+                    {
+                        <li data-target="#@sliderId" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                    }
+                </ul>
+                <div class="g-gallery-slider-inner @htmlParts.ContainerClass" @htmlParts.ContainerAttr
+                     @Html.Attr("style", string.Format(htmlParts.ContainerStyle, Model.RevealDelay))>
+                    @for (int i = 0; i < Model.MediaGalleryModel.Files.Count; i++)
+                    {
+                        var mediaFileInfo = Model.MediaGalleryModel.Files[i];
+                        <figure class="@htmlParts.FileClass carousel-item@(i == 0 ? " active" : "")">
+                            <picture class="@htmlParts.PictureClass rounded-0">
+                                <div class="bg-overlay bg-@Model.BackgroundColor"></div>
+
+                                @if (mediaFileInfo.MediaType == SmartStore.Services.Media.MediaType.Video)
+                                {
+                                    <video class="@htmlParts.ImageClass" alt="@mediaFileInfo.Alt" title="@mediaFileInfo.Title" autoplay loop>
+                                        <source src="@(mediaFileInfo.GetUrl())" type="@mediaFileInfo.MimeType" />
+                                    </video>
+                                }
+                                else
+                                {
+                                    <img class="@htmlParts.ImageClass" src="@(mediaFileInfo.GetUrl())"
+                                         alt="@mediaFileInfo.Alt" title="@mediaFileInfo.Title" loading="lazy">
+                                }
+                            </picture>
+                        </figure>
+                    }
+                </div>
+                <a class="g-gallery-control carousel-control-prev" href="#@sliderId" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="g-gallery-control carousel-control-next" href="#@sliderId" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    }
+    else if (Model.Style == GalleryStyle.Gallery)
+    {
+        <div class="g-media-gallery" @Html.Attr("style", htmlParts.GalleryContainerStyle)>
+            <div class="g-gallery-@Model.Style.ToString().ToLower() row">
+                <div class="@htmlParts.ContainerClass" @Html.Attr("style", htmlParts.ContainerStyle)>
+                    @{ Html.RenderPartial("MediaGallery", Model.MediaGalleryModel); }
+                </div>
+
+                @if (Model.Zoomer)
+                {
+                    <aside class="d-none d-lg-block col-lg-5 zoom-window-container @htmlParts.GalleryContainerClass"></aside>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        var isGrid = Model.Style == GalleryStyle.Grid;
+        var isMasonry = Model.Style == GalleryStyle.Masonry;
+        var isJustify = Model.Style == GalleryStyle.Justify;
+        var masonryCols = isMasonry ? " g-gallery-masonry-" + Model.ColumnCount : "";
+        var justifyAlign = isJustify ? " justify-content-" + Model.HorizontalAlign.ToLower() : "";
+        <div class="g-media-gallery" @Html.Attr("style", htmlParts.GalleryContainerStyle)>
+            <div class="g-gallery-@Model.Style.ToString().ToLower()@justifyAlign@masonryCols">
+                @for (int i = 0; i < Model.MediaGalleryModel.Files.Count; i++)
+                {
+                    var ratio = 1f;
+                    var requestedSize = Model.MediaSize;
+                    var mediaFileInfo = Model.MediaGalleryModel.Files[i];
+                    var masonryDataRatio = "";
+                    var gridPictureClass = "";
+                    var gridImageClass = "";
+
+                    if (isMasonry)
+                    {
+                        requestedSize = Model.ColumnCount > 6
+                            ? MediaSettings.ThumbnailSizeMd
+                            : MediaSettings.ThumbnailSizeLg;
+                    }
+
+                    var imageWidth = mediaFileInfo.File?.Width ?? 0;
+                    var imageHeight = mediaFileInfo.File?.Height ?? 0;
+                    if (imageWidth > 0 && imageHeight > 0)
+                    {
+                        if (imageHeight > imageWidth && !isJustify)
+                        {
+                            if (isGrid && Model.Fit == "contain")
+                            {
+                                gridPictureClass += " w-auto";
+                                gridImageClass += " w-auto";
+                            }
+                            else
+                            {
+                                ratio = imageHeight / (float)imageWidth;
+                                requestedSize = (int)Math.Ceiling(requestedSize * ratio);
+                            }
+
+                        }
+                        else if (imageWidth > imageHeight)
+                        {
+                            if (isGrid && Model.Fit == "contain")
+                            {
+                                gridPictureClass += " h-auto";
+                            }
+                            else if (isJustify || (isGrid && Model.Fit == "cover"))
+                            {
+                                ratio = imageWidth / (float)imageHeight;
+                                requestedSize = (int)Math.Ceiling(requestedSize * ratio);
+                            }
+                            else if (isMasonry)
+                            {
+                                ratio = imageHeight / (float)imageWidth;
+                            }
+                        }
+                    }
+                    else if (mediaFileInfo.MediaType == MediaType.Video && isGrid && Model.Fit == "contain")
+                    {
+                        gridPictureClass += " h-auto";
+                    }
+
+                    requestedSize = mediaSettings.GetNextValidThumbnailSize(requestedSize);
+
+                    if (isMasonry)
+                    {
+                        masonryDataRatio = " data-ratio=" + ratio.ToString("G", System.Globalization.CultureInfo.InvariantCulture);
+                    }
+
+                    <div class="@htmlParts.ContainerClass" @htmlParts.ContainerAttr
+                         @Html.Attr("style", string.Format(htmlParts.ContainerStyle, (Model.RevealDelay + Model.AccumulateDelay * i)) + "; order:" + i)>
+                        <figure class="@htmlParts.FileClass" @masonryDataRatio>
+                            <picture class="@htmlParts.PictureClass@gridPictureClass">
+                                <div class="bg-overlay bg-@Model.BackgroundColor"></div>
+
+                                @if (mediaFileInfo.MediaType == SmartStore.Services.Media.MediaType.Video)
+                                {
+                                    <video class="@htmlParts.ImageClass@gridImageClass" alt="@mediaFileInfo.Alt" title="@mediaFileInfo.Title" autoplay loop>
+                                        <source src="@(mediaFileInfo.GetUrl())" type="@mediaFileInfo.MimeType" />
+                                    </video>
+                                }
+                                else
+                                {
+                                    <img class="@htmlParts.ImageClass@gridImageClass" src="@(mediaFileInfo.GetUrl() + "?size=" + requestedSize)"
+                                         alt="@mediaFileInfo.Alt" title="@mediaFileInfo.Title" loading="lazy">
+                                }
+                            </picture>
+                        </figure>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

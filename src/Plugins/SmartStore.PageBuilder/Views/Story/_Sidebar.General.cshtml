@@ -1,0 +1,262 @@
+﻿@model StoryModel
+
+@using SmartStore.PageBuilder;
+
+@{ 
+    var editMode = Model.Id > 0;
+    var isRtl = WorkContext.WorkingLanguage.Rtl;
+}
+
+<div class="accordion" id="se-layout-editor">
+	<!-- General -->
+	<a class="admin-config-group@(editMode ? " collapsed" : "")" data-toggle="collapse" href="#pnl-general" role="button" aria-expanded="@((editMode == false).ToString().ToLower())">
+		<span class="title fs-h6 font-weight-medium my-0">@T("Common.General")</span>
+	</a>
+    <div id="pnl-general" class="collapse se-container@(editMode ? "" : " show")" data-parent="#se-layout-editor">
+        <div class="form-group form-row">
+            <div class="col-4">
+                @Html.SmartLabelFor(model => model.SystemName, true, new { @class = "col-form-label col-form-label-sm required" })
+            </div>
+            <div class="col-8">
+                @Html.TextBoxFor(model => model.SystemName, new { @class = "form-control form-control-sm" })
+                @Html.ValidationMessageFor(model => model.SystemName)
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-4">
+                @Html.SmartLabelFor(model => model.IsPublished, true, new { @class = "col-form-label col-form-label-sm" })
+            </div>
+            <div class="col-8 switcher switcher-sm">
+                @Html.CheckBoxFor(model => model.IsPublished, new { data_toggler_for = "#pnl-story-publish" })
+            </div>
+        </div>
+        <div id="pnl-story-publish">
+            <div class="form-group form-row">
+                <div class="col-4">
+                    @Html.SmartLabel("PublishFrom", T("Plugins.SmartStore.PageBuilder.SideBar.PublishFromUntil"), null, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8">
+                    <div class="form-row">
+                        <div class="col-12">
+                            @Html.EditorFor(model => model.PublishFrom, new { pickTime = true, size = "sm" })
+                        </div>
+                        <div class="col-12 pt-1">
+                            @Html.EditorFor(model => model.PublishUntil, new { pickTime = true, size = "sm" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.PublishFrom)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-4">
+                    @Html.SmartLabelFor(model => model.DisplayOrder, true, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.DisplayOrder, new { @class = "form-control", size = "sm" })
+                    @Html.ValidationMessageFor(model => model.DisplayOrder)
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-4">
+                    @Html.SmartLabelFor(model => model.ShowInSubPages, true, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8 switcher switcher-sm">
+                    @Html.CheckBoxFor(model => model.ShowInSubPages)
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Id > 0 && Model.AvailableStores.Count() > 1)
+        {
+            <div class="form-group form-row">
+                <div class="col-12">
+                    @Html.SmartLabelFor(model => model.LimitedToStores, true, new { @class = "col-form-label col-form-label-sm mb-0" })
+                </div>
+                <div class="col-12">
+                    @Html.ListBoxFor(x => x.SelectedStoreIds,
+                        new MultiSelectList(Model.AvailableStores, "Value", "Text"),
+                        new { multiple = "multiple", @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(model => model.LimitedToStores)
+                </div>
+            </div>
+        }
+        <div class="form-group form-row">
+            <div class="col-12">
+                @Html.SmartLabelFor(model => model.WidgetZones, true, new { @class = "col-form-label col-form-label-sm required mb-0" })
+            </div>
+            <div class="col-12">
+                @Html.EditorFor(model => model.WidgetZones, "WidgetZone", new { size = "sm", @class = "form-control form-control-sm" })
+                @Html.ValidationMessageFor(model => model.WidgetZones)
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-12">
+                @Html.SmartLabelFor(model => model.Targets, true, new { @class = "col-form-label col-form-label-sm mb-0" })
+            </div>
+            <div class="col-12">
+                <div id="targets-container" class="x-mt-2">
+
+                </div>
+                <div class="dropdown text-center">
+                    <button class="btn btn-secondary btn-flat dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-plus"></i>
+                        <span>@T("Plugins.SmartStore.PageBuilder.SideBar.AddTarget")</span>
+                    </button>
+                    <div class="dropdown-menu @(isRtl ? "dropdown-menu-right" : "dropdown-menu-left")">
+                        <a class="dropdown-item add-target" href="#" data-type="topic">@T("Common.Entity.Topic")</a>
+                        <a class="dropdown-item add-target" href="#" data-type="url">@T("Common.Url")</a>
+                        <a class="dropdown-item add-target" href="#" data-type="category">@T("Common.Entity.Category")</a>
+                        <a class="dropdown-item add-target" href="#" data-type="manufacturer">@T("Common.Entity.Manufacturer")</a>
+                        <a class="dropdown-item add-target" href="#" data-type="product">@T("Common.Entity.Product")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!-- Grid -->
+	<a class="admin-config-group collapsed" data-toggle="collapse" href="#pnl-grid" role="button" aria-expanded="false">
+		<span class="title fs-h6 font-weight-medium my-0">@T("Plugins.SmartStore.PageBuilder.SideBar.Grid")</span>
+	</a>
+	<div id="pnl-grid" class="collapse se-container" data-parent="#se-layout-editor">
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridGap, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.GridGap, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.GridGap)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridContainer, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.GridContainer, StoryModelHelper.SelectOptions.Containers(T), T("Plugins.SmartStore.PageBuilder.Options.Fullsize"), new { @class = "form-control form-control-sm noskin" })
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridContentContainer, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.GridContentContainer, StoryModelHelper.SelectOptions.Containers(T), T("Plugins.SmartStore.PageBuilder.Options.Fullsize"), new { @class = "form-control form-control-sm noskin" })
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridJustifyContent, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.GridJustifyContent, StoryModelHelper.SelectOptions.GridJustifyContent(T), new { @class = "form-control form-control-sm noskin" })
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridAlignContent, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.GridAlignContent, StoryModelHelper.SelectOptions.GridAlignContent(T), new { @class = "form-control form-control-sm noskin" })
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridAutoFlow, true, new { @class = "col-form-label col-form-label-sm text-muted" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.GridAutoFlow, StoryModelHelper.SelectOptions.GridAutoFlows(T), "", new { @class = "form-control form-control-sm noskin" })
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridTemplateColumns, true, new { @class = "col-form-label col-form-label-sm text-muted" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.GridTemplateColumns, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.GridTemplateColumns)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridTemplateRows, true, new { @class = "col-form-label col-form-label-sm text-muted" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.GridTemplateRows, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.GridTemplateRows)
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Stil -->
+	<a class="admin-config-group collapsed" data-toggle="collapse" href="#pnl-style" role="button" aria-expanded="false">
+		<span class="title fs-h6 font-weight-medium my-0">@T("Plugins.SmartStore.PageBuilder.SideBar.Style")</span>
+	</a>
+	<div id="pnl-style" class="collapse se-container" data-parent="#se-layout-editor">
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.IsInversed, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8 switcher switcher-sm">
+				@Html.CheckBoxFor(model => model.IsInversed)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.MinHeight, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.DropDownListFor(model => model.MinHeight, StoryModelHelper.SelectOptions.MinHeights(T), T("Plugins.SmartStore.PageBuilder.NoMinHeight"), new { @class = "form-control form-control-sm noskin" })
+				@Html.ValidationMessageFor(model => model.MinHeight)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.HtmlId, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.HtmlId, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.HtmlId)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.CssClass, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.CssClass, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.CssClass)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.CssStyle, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextAreaFor(model => model.CssStyle, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.CssStyle)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridCssClass, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextBoxFor(model => model.GridCssClass, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.GridCssClass)
+			</div>
+		</div>
+		<div class="form-group form-row">
+			<div class="col-4">
+				@Html.SmartLabelFor(model => model.GridCssStyle, true, new { @class = "col-form-label col-form-label-sm" })
+			</div>
+			<div class="col-8">
+				@Html.TextAreaFor(model => model.GridCssStyle, new { @class = "form-control form-control-sm" })
+				@Html.ValidationMessageFor(model => model.GridCssStyle)
+			</div>
+		</div>
+	</div>
+</div>
+

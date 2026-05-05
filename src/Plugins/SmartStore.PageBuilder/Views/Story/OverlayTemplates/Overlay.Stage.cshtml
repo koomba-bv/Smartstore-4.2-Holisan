@@ -1,0 +1,78 @@
+﻿@model BackgroundOverlay
+
+@using SmartStore.PageBuilder;
+
+@{
+    var collectionName = $"{nameof(BackgroundModel)}.{nameof(BackgroundModel.Overlays)}";
+    var pnlId = "pnl-overlay-" + Model.Ordinal;
+    var expanded = ViewBag.Expanded == true;
+}
+
+<div class="overlay-editor-item sortable-item" data-order="@Model.Ordinal">
+@{
+    using (Html.BeginCollectionItem(collectionName))
+    {
+        <div class="admin-config-group@(expanded ? "" : " collapsed")" data-toggle="collapse" href="#@pnlId" role="button" aria-expanded="@(expanded ? "true" : "false")">
+            <div class="title fs-h6 font-weight-medium my-0">
+                <div class="sortable-grip" title="@T("Plugins.SmartStore.PageBuilder.Overlays.DragDropInfo")"></div>
+
+                <span class="d-block">@T(Model.TitleResKey)</span>
+
+                <div class="ml-auto mr-3 d-flex align-items-center">
+                    <div class="switcher switcher-sm mr-2">
+                        @Html.CheckBoxFor(x => x.Visible)
+                    </div>
+                    <button type="button" data-action="remove" class="overlay-action btn btn-danger btn-flat px-2 py-1" title="@T("Common.Remove")">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="@pnlId" class="overlay-editor se-container collapse@(expanded ? " show" : "")" data-parent="#se-overlays-editor">
+            @Html.Partial((string)ViewBag.Template, Model)
+
+            @Html.Hidden("OverlayType", Model.GetType().AssemblyQualifiedName)
+            @Html.HiddenFor(x => x.Key)
+            @Html.HiddenFor(x => x.Ordinal, new { @class = "overlay-ordinal" })
+
+            <div class="form-group form-row mt-3">
+                <div class="col-4">
+                    @Html.SmartLabelFor(model => model.Opacity, true, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Opacity, new { @class = "color-opacity-slider select-overlay-opacity", size = "sm" })
+                    @Html.ValidationMessageFor(model => model.Opacity)
+                </div>
+            </div>
+            @if (Model.FlipEnabled)
+            {
+                <div class="form-group form-row">
+                    <div class="col-4">
+                        @Html.SmartLabelFor(model => model.Flip, true, new { @class = "col-form-label col-form-label-sm" })
+                    </div>
+                    <div class="col-8">
+                        @Html.EditorFor(model => model.Flip, new { size = "sm" })
+                        @Html.ValidationMessageFor(model => model.Flip)
+                    </div>
+                </div>
+            }
+            <div class="form-group form-row">
+                <div class="col-4">
+                    @Html.SmartLabelFor(model => model.CssClass, true, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.CssClass, new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-4">
+                    @Html.SmartLabelFor(model => model.CssStyle, true, new { @class = "col-form-label col-form-label-sm" })
+                </div>
+                <div class="col-8">
+                    @Html.TextAreaFor(model => model.CssStyle, 2, 0, new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+        </div>
+    }
+}
+</div>

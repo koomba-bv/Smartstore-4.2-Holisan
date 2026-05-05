@@ -1,0 +1,68 @@
+﻿@model int
+@using Telerik.Web.Mvc.UI;
+@using Koomba.Connect.Domain;
+
+@{
+    Layout = null;
+}
+@if (Model > 0)
+{
+    @(Html.Telerik().Grid<MultiRuleListModel>()
+                        .Name("MultiRule")
+                        .DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(x => x.Description);
+
+                            columns.Bound(x => x.ConditionCount).Centered()
+                            .ClientTemplate("<a href=\"" + Url.Action("Index", "MultiRule") + "/index/?id=<#= Id #>&Type=" + RuleType.Condition + "\" class=\"t-button\">" + "<#= ConditionCount #>" + "</a>")
+                            .Title("Condition").ReadOnly();
+
+                            columns.Bound(x => x.ActionCount).Centered()
+                            .ClientTemplate("<a href=\"" + Url.Action("Index", "MultiRule") + "/index/?id=<#= Id #>&Type=" + RuleType.Action + "\" class=\"t-button\">" + "<#= ActionCount #>" + "</a>")
+                            .Title("Action").ReadOnly();
+
+                            columns.Command(command =>
+                            {
+                                command.Delete();
+                                command.Edit();
+                            }).Width(50);
+
+                        })
+                        .Editable(x =>
+                        {
+                            x.Mode(GridEditMode.InLine);
+                        })
+                        .ToolBar(x => x.Insert().Text("Create"))
+                        .DataBinding(dataBinding => dataBinding
+                            .Ajax()
+                            .Select("List", "MultiRule", new { connectionId = Model })
+                            .Insert("Create", "MultiRule", new { connectionId = Model })
+                            .Update("Update", "MultiRule", new { connectionId = Model })
+                            .Delete("Delete", "MultiRule", new { connectionId = Model })
+                            )
+                            .EnableCustomBinding(true)
+    )
+    <script>
+         $('#fieldmap-grid').on('click', '.t-grid-edit-action', function (e) {
+					e.preventDefault();
+                    var grid = $('#fieldmap-grid').data('tGrid');
+					var tr = $(this).closest('tr');
+                    var id = grid.dataItem(tr).Id;
+                    var connectionId = $("#Id").val();
+                    var href = '@Url.Action("FieldRules","Field")?id=' + id + '&connectionId=' + connectionId;
+                    window.location = href;
+
+					return false;
+				});
+    </script>
+}
+else
+{
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @T("Admin.SaveBeforeEdit")
+    </div>
+}

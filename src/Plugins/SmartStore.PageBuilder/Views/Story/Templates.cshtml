@@ -1,0 +1,135 @@
+﻿@model IList<StoryTemplate>
+
+@using SmartStore.PageBuilder
+@using SmartStore.PageBuilder.Models
+
+
+@{
+	Layout = "";
+}
+
+<form id="create-story-form" action="@Url.Action("CreateStoryFromTemplate", "Story", new { area = "SmartStore.PageBuilder" })" method="POST">
+	<input type="hidden" name="path" value="" />
+</form>
+
+<p class="text-muted">@Html.Raw(T("Plugins.SmartStore.PageBuilder.Story.SelectTemplateNote"))</p>
+
+<div id="story-templates">
+	@foreach (var group in Model.OrderBy(x => x.Group).GroupBy(x => x.Group))
+	{
+		var groupName = group.Any() ? group.First().GroupName : "";
+        <div class="template-group-container">
+		    @if (groupName.HasValue())
+		    {
+			    <h3 class="template-group-header mt-5 mb-4">@groupName</h3>
+		    }
+		    <div class="template-group w-100">
+			    @foreach (var item in group.OrderBy(x => x.DisplayOrder).ThenBy(x => x.Name))
+			    {
+				    @RenderTemplate(item);
+			    }
+		    </div>
+        </div>
+	}
+</div>
+
+@helper RenderTemplate(StoryTemplate item)
+{
+	var addUrl = item.IsForEmptyStory ? Url.Action("Editor", new { area = "SmartStore.PageBuilder" }) : "";
+	var thumbnailUrl = item.ThumbnailUrl.HasValue()
+		? item.ThumbnailUrl
+		: (item.Path.HasValue() ? Url.Action("GetStoryThumbnail", "Story", new { path = item.Path, area = "SmartStore.PageBuilder" }) : "");
+	var thumbnail = thumbnailUrl.HasValue() ? "url('{0}')".FormatInvariant(thumbnailUrl) : "none";
+
+	<div class="template-item card shadow-sm">
+		<div class="template-thumbnail-wrap card-img-top embed-responsive embed-responsive-16by9" data-toggle="tooltip" title="@item.Description">
+			<div class="template-thumbnail embed-responsive-item" style="background-image: @thumbnail"></div>
+		</div>
+
+		<div class="card-body p-3">
+			<div class="template-name h6 font-weight-medium text-truncate" title="@item.Name">
+				@item.Name.NaIfEmpty()
+			</div>
+			<div class="template-info fs-xs text-truncate">
+				@if (item.Author.HasValue())
+				{
+					<span>@T("Plugins.SmartStore.PageBuilder.Story.Author"): </span><span class="text-muted" title="@item.Author">@item.Author</span>
+				}
+				else
+				{
+					<span>&nbsp;</span>
+				}
+			</div>
+			<div class="template-buttons d-flex mt-3">
+				<a href="@(addUrl ?? "#")" class="btn btn-@(item.IsForEmptyStory ? "primary" : "outline-primary") btn-create-template" data-path="@item.Path">
+					<span>@T(item.IsForEmptyStory ? "Common.New" : "Common.Apply")</span>
+				</a>
+				<div class="btn-group ml-auto">
+					@if (item.Group == StoryTemplateGroup.MyTemplates && item.Path.HasValue())
+					{
+						<button type="button" class="btn btn-danger btn-flat btn-delete-template" title="@T("Admin.Common.Delete")"
+                                data-url="@Url.Action("DeleteTemplate", "Story", new { path = item.Path, area = "SmartStore.PageBuilder" })">
+							<i class="far fa-trash-alt"></i>
+						</button>
+					}
+				</div>
+			</div>
+		</div>
+		@if (item.Error.HasValue())
+		{
+			<div class="broken-badge" title="@item.Error">
+				<i class="fa fa-exclamation"></i>
+			</div>
+		}
+	</div>
+}
+
+<script>
+    $(function () {
+        var templates = $('#story-templates');
+
+        // Optional description as tooltip.
+        templates.find('.template-thumbnail-wrap').tooltip({
+            container: templates,
+            placement: 'top'
+        });
+
+        // Create story from template.
+        templates.on('click', 'a.btn-create-template', function (e) {
+            var path = $(this).data('path');
+            if (_.isEmpty(path)) {
+                return true;
+            }
+
+            e.preventDefault();
+            var form = $('#create-story-form');
+            form.find('input[name=path]').val(path);
+            form.submit();
+            return false;
+        });
+
+        // Delete template.
+        templates.on('click', '.btn-delete-template', function () {
+            if (confirm(@T("Admin.Common.AskToProceed").JsText)) {
+                var btn = $(this);
+                $.ajax({
+                    type: 'POST',
+                    url: btn.data('url'),
+                    success: function (response) {
+                        if (response.success) {
+                            var group = btn.closest('.template-group-container');
+                            btn.closest('.template-item').remove();
+                            if (group.find('.template-item').length === 0) {
+                                group.remove();
+                            }
+                        }
+
+                        if (!_.isEmpty(response.message)) {
+                            displayNotification(response.message, response.success ? 'success' : 'error', response.success);
+                        }
+                    }
+                });
+            }
+        });
+	});
+</script>

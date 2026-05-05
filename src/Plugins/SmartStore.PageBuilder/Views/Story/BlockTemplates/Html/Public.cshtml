@@ -1,0 +1,446 @@
+﻿@model HtmlBlock
+
+@using System.Globalization;
+@using SmartStore.PageBuilder.Blocks
+
+@{
+    Layout = "";
+    var hasAnyTitle = (Model.Title.HasValue() && !Model.HideTitle) || Model.SubTitle.HasValue() || Model.TagLine.HasValue();
+
+    var outerContainerClass = string.Empty;
+    var containerClass = string.Empty;
+    var iconClass = string.Empty;
+    var contentClass = string.Empty;
+    var buttonContainerClass = string.Empty;
+
+    if (Model.ButtonText.HasValue() && Model.ButtonLink.HasValue())
+    {
+        if (Model.ButtonAlignment == ButtonAlignment.Left)
+        {
+            outerContainerClass = "d-flex w-100 align-items-center";
+            containerClass = "order-2 flex-grow-1 ml-" + Model.ButtonSpacing;
+            buttonContainerClass = "order-1";
+        }
+        else if (Model.ButtonAlignment == ButtonAlignment.Right)
+        {
+            outerContainerClass = "d-flex w-100 align-items-center";
+            containerClass = "order-1 flex-grow-1 mr-" + Model.ButtonSpacing;
+            buttonContainerClass = "order-2";
+        }
+        else if (Model.ButtonAlignment == ButtonAlignment.Below)
+        {
+            outerContainerClass = "w-100";
+            buttonContainerClass += "mt-" + Model.ButtonSpacing;
+        }
+    }
+
+    if (Model.HasIcon())
+    {
+        containerClass += " g-icon-{0}".FormatWith(Model.IconAlignment.ToString().ToLower());
+
+        if (Model.ResponsiveIconBreakpoint.HasValue())
+        {
+            containerClass += " g-icon-{0}-{1}".FormatWith(Model.ResponsiveIconBreakpoint.ToString(), Model.ResponsiveIconAlignment.ToString().ToLower());
+        }
+    }
+
+    // Title classes
+    var titleRootClass = "g-title" + Model.TitleFontStylesModel.Color.LeftPad() + Model.TitleCssClass.LeftPad() + contentClass.LeftPad();
+    var titleClass = GetFontClasses(Model.TitleFontStylesModel, Model.IconAlignment != IconAlignment.InlineLeft, false);
+    var subTitleClass = GetFontClasses(Model.SubTitleFontStylesModel);
+    var taglineClass = GetFontClasses(Model.TaglineFontStylesModel);
+    var bodyClass = GetFontClasses(Model.BodyFontStylesModel);
+
+    // Tagline
+    if (Model.TaglineSize.HasValue())
+    {
+        taglineClass += " " + Model.TaglineSize;
+    }
+
+    if (Model.TaglineCssClass.HasValue())
+    {
+        taglineClass += " " + Model.TaglineCssClass;
+    }
+
+    // Subtitle
+    if (Model.SubTitleCssClass.HasValue())
+    {
+        subTitleClass += " " + Model.SubTitleCssClass;
+    }
+
+    // Title size
+    if (Model.TitleSize.HasValue())
+    {
+        titleClass += " " + Model.TitleSize;
+    }
+
+    if (Model.TitleFontStylesModel.BgColor.HasValue())
+    {
+        titleClass += " g-text-boxed bg-" + Model.TitleFontStylesModel.BgColor;
+    }
+
+    // TitleTag
+    string title = string.Empty;
+    if (!Model.HideTitle && Model.Title.HasValue())
+    {
+        title = "<{2} class=\"{0}\"{3}>{1}</{2}>".FormatWith(
+            titleClass,
+            Model.Title.Replace("\\n", "<br/>"),
+            Model.TitleTag,
+            Model.TitleCssStyle.HasValue() ? " style='" + Model.TitleCssStyle + "'" : "");
+    }
+}
+
+@functions{
+    public string GetFontClasses(FontStylesModel model, bool withSpacing = true, bool applyColor = true)
+    {
+        var classes = new List<string>();
+
+        // Spacing
+        if (withSpacing && model.Spacing != null)
+        {
+            classes.Add("mb-" + model.Spacing.ToString());
+        }
+
+        // Weight
+        if (model.Weight.HasValue())
+        {
+            classes.Add(model.Weight);
+        }
+
+        // Color
+        if (applyColor && model.Color.HasValue())
+        {
+            classes.Add(model.Color);
+        }
+
+        // TextTransform
+        if (model.TextTransform.HasValue())
+        {
+            classes.Add(model.TextTransform);
+        }
+
+        // TextItalic
+        if (model.TextItalic == true)
+        {
+            classes.Add("font-italic");
+        }
+
+        return string.Join(" ", classes);
+    }
+}
+
+@helper FontAwesomeIcon()
+{
+	var fa = Model.FontAwesome;
+
+	// Icon
+    var iconClassList = new List<string> { EngineContext.Current.Resolve<IIconExplorer>().GetIconByName(fa.Icon).GetCssClass(fa.Style) };
+
+	var frameOnTop = false;
+	if (fa.FrameIcon.HasValue() && (fa.FrameIcon.StartsWith("far") || (new[] { "fas fa-ban", "fas fa-tv", "fas fa-laptop", "fas fa-tablet-alt" }).Contains(fa.FrameIcon)))
+	{
+		frameOnTop = true;
+	}
+
+	// Size
+	if (fa.Size.HasValue() && !fa.FrameIcon.HasValue())
+	{
+        iconClassList.Add(fa.Size);
+	}
+
+	// Color
+	if (fa.Color.HasValue())
+	{
+        iconClassList.Add("text-" + fa.Color);
+	}
+
+	// AnimationType
+	if (fa.AnimationType.HasValue())
+	{
+        iconClassList.Add(fa.AnimationType);
+	}
+
+	// Rotation
+	if (fa.Rotation.HasValue())
+	{
+        iconClassList.Add(fa.Rotation);
+	}
+
+    var opacityStyle = Html.Attr("style", "opacity:" + fa.IconOpacity.ToString(CultureInfo.InvariantCulture), fa.IconOpacity != 1).ToString();
+
+	if (fa.FrameIcon.HasValue())
+	{
+		<span class="fa-stack @(fa.Size.HasValue() ? fa.Size : "fa-lg")">
+            @if (!frameOnTop)
+            {
+                @FrameIcon()
+            }
+
+			<i class="@string.Join(" ", iconClassList) fa-stack-1x"@Html.Raw(opacityStyle.LeftPad())></i>
+
+            @if (frameOnTop)
+            {
+                @FrameIcon()
+            }
+		</span>
+	}
+	else
+	{
+		<i class="@string.Join(" ", iconClassList)"@Html.Raw(opacityStyle.LeftPad())></i>
+	}
+}
+
+@helper RenderIcon(string iconClass)
+{
+    var attrs = new RouteValueDictionary().AppendCssClass("g-icon");
+    if (Model.IconCssClass.HasValue())
+    {
+        //iconClass += " " + Model.IconCssClass;
+        attrs.AppendCssClass(Model.IconCssClass);
+    }
+
+    if (Model.IconCssStyle.HasValue())
+    {
+        attrs.AppendInValue("style", "; ", Model.IconCssStyle);
+    }
+
+    if (Model.IconPictureSize.HasValue) 
+    {
+        attrs.AppendInValue("style", "; ", "--g-icon-size: {0}px".FormatInvariant(Model.IconPictureSize.Value));
+    }
+
+	<div @Html.Attrs(attrs)>
+		@if (Model.IconDisplayType == IconDisplayType.Fontawesome && Model.FontAwesome.Icon.HasValue())
+		{
+			@FontAwesomeIcon()
+		}
+		else if (Model.IconDisplayType == IconDisplayType.Picture && Model.PictureModel != null)
+		{
+			<img class="g-icon-img" src="@Model.PictureModel.ImageUrl" />
+		}
+	</div>
+
+    <div class="g-icon-spacer mr-@Model.IconSpacing mb-@Model.IconSpacing"></div>
+}
+
+@helper FrameIcon()
+{
+    if (!Model.FontAwesome.FrameIcon.HasValue()) {
+        return;
+    }
+
+    <i class="@Model.FontAwesome.FrameIcon@(Model.FontAwesome.FrameColor.HasValue() ? " text-" + Model.FontAwesome.FrameColor : "") fa-stack-2x"
+       @Html.Attr("style", "opacity:" + Model.FontAwesome.FrameOpacity.ToString(CultureInfo.InvariantCulture), Model.FontAwesome.FrameOpacity != 1)>
+    </i>
+}
+
+@helper RenderTitle(string title, string classes)
+{
+    <div class="@classes">
+        @Html.Raw(title)
+    </div>
+}
+
+@helper RenderButtonIcon(string iconClasses)
+{
+    if (!Model.IsButtonIconActive) {
+        return;
+    }
+
+    if (Model.BtnLabeled && !Model.BtnAnimated)
+    {
+        <b><i class="@iconClasses"></i></b>
+    }
+    else
+    {
+        <i class="@iconClasses"></i>
+    }
+}
+
+@helper RenderButton()
+{
+    if (Model.IsButtonActive && (Model.ButtonText.HasValue() && Model.ButtonLink.HasValue()) || (Model.ButtonIcon.Icon.HasValue() && Model.ButtonLink.HasValue()))
+    {
+        var iconClasses = string.Empty;
+
+        if (Model.ButtonIcon.Icon.HasValue())
+        {
+            iconClasses = EngineContext.Current.Resolve<IIconExplorer>().GetIconByName(Model.ButtonIcon.Icon).GetCssClass(Model.ButtonIcon.Style);
+        }
+
+        var btnClassList = new List<string>(20) { "btn" };
+
+        if (Model.BtnBlock) 
+        {
+            btnClassList.Add("btn-block");
+        }
+
+        if (!Model.BtnOutline && !Model.BtnClear)
+        {
+            btnClassList.Add("btn-" + Model.ButtonColor);
+        }
+
+        if (Model.ButtonSize.HasValue())
+        {
+            btnClassList.Add(Model.ButtonSize);
+        }
+
+        if (Model.ButtonCssClass.HasValue())
+        {
+            btnClassList.Add(Model.ButtonCssClass);
+        }
+
+        if (Model.BtnLabeled && Model.ButtonIconAlignment == ButtonIconAlignment.Right)
+        {
+            btnClassList.Add("icon-right");
+        }
+
+        if (Model.BtnOutline) 
+        {
+            btnClassList.Add("btn-outline-" + Model.ButtonColor);
+        }
+
+        if (Model.BtnThreeD) 
+        {
+            btnClassList.Add("btn-3d");
+        }
+
+        if (Model.BtnFlat) 
+        {
+            btnClassList.Add("btn-flat");
+            if (Model.BtnFlatIsLight) 
+            {
+                btnClassList.Add("btn-flat-light");
+            }
+        }
+
+        if (Model.BtnBorderless) 
+        {
+            btnClassList.Add("btn-no-border");
+        }
+
+        if (Model.BtnClear) 
+        {
+            btnClassList.Add(Model.BtnClearIsDark ? "btn-clear-dark" : "btn-clear");
+        }
+
+        if (Model.IsButtonIconActive) 
+        {
+            if (Model.BtnLabeled)
+            {
+                btnClassList.Add("btn-labeled");
+            }
+
+            if (Model.BtnAnimated)
+            {
+                btnClassList.Add("btn-animate");
+                if (Model.ButtonIconAlignment == ButtonIconAlignment.Right)
+                {
+                    btnClassList.Add("btn-animate-right");
+                }
+            }
+        }
+
+        <a href="@Model.ButtonLink" class="@string.Join(" ", btnClassList)" @Html.Attr("style", Model.ButtonCssStyle, Model.ButtonCssStyle.HasValue())>
+
+            @if (Model.BtnAnimated)
+            {
+                @:<span> 
+            }
+            
+            @if (Model.ButtonIcon.Icon.HasValue() && Model.ButtonIconAlignment == ButtonIconAlignment.Left)
+            {
+                @RenderButtonIcon(iconClasses)
+            }
+
+            <span>@Model.ButtonText</span>
+
+            @if (Model.ButtonIcon.Icon.HasValue() && Model.ButtonIconAlignment == ButtonIconAlignment.Right)
+            {
+                @RenderButtonIcon(iconClasses)
+            }
+
+            @if (Model.BtnAnimated)
+            {
+                @:</span> 
+            }
+        </a>
+    }
+}
+
+<div class="g-block-html-outer@(outerContainerClass.Trim().LeftPad())">
+
+    <div class="g-block-html-inner@(containerClass.Trim().LeftPad())">
+
+        @if (Model.HasIcon() && Model.IconAlignment != IconAlignment.InlineLeft)
+        {
+            @RenderIcon(iconClass)
+        }
+
+        @if (hasAnyTitle || Model.Body.HasValue() || (Model.IsButtonActive && Model.ButtonAlignment == ButtonAlignment.Below))
+        {
+            <div class="g-html-content@(Model.IconAlignment != IconAlignment.InlineLeft ? contentClass.Trim().LeftPad() : "")">
+                @if (hasAnyTitle)
+			    {
+                    <div class="g-heading">
+                        @if (Model.TagLine.HasValue())
+				        {
+                            <div class="g-tagline@(taglineClass.HasValue() ? " " + taglineClass : "")" @Html.Attr("style", Model.TaglineCssStyle, Model.TaglineCssStyle.HasValue())>
+                                @Html.Raw(Model.TagLine)
+                            </div>
+				        }
+                        @if (title.HasValue() && !Model.HideTitle)
+                        {
+                            if (Model.HasIcon() && Model.IconAlignment == IconAlignment.InlineLeft)
+                            {
+                                <div class="g-heading-icon d-inline-flex align-items-end@(Model.TitleFontStylesModel.Spacing != null ? " mb-" + Model.TitleFontStylesModel.Spacing : "")">
+                                    @RenderIcon(iconClass)
+                                    @RenderTitle(title, titleRootClass)
+                                </div>
+                            }
+                            else
+                            {
+                                @RenderTitle(title, titleRootClass)
+                            }
+                        }
+                        @if (Model.SubTitle.HasValue())
+			            {
+                            <p class="g-subtitle@(subTitleClass.HasValue() ? " " + subTitleClass : "")" @Html.Attr("style", Model.SubTitleCssStyle, Model.SubTitleCssStyle.HasValue())>
+                                @if (Model.SubTitleFontStylesModel.BgColor.HasValue())
+                                {
+                                    <span class="g-text-boxed bg-@Model.SubTitleFontStylesModel.BgColor">@Html.Raw(Model.SubTitle)</span>
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.SubTitle)
+                                }
+                            </p>
+				        }
+                    </div>
+			    }
+
+                @if (Model.Body.HasValue())
+			    {
+                    <div class="g-body@(Model.ContentCssClass.LeftPad())@(bodyClass.LeftPad())" @Html.Attr("style", Model.ContentCssStyle, Model.ContentCssStyle.HasValue())>
+                        @Html.Raw(Model.Body)
+                    </div>
+			    }
+
+                @if (Model.IsButtonActive && Model.ButtonAlignment == ButtonAlignment.Below)
+                {
+                    <div class="g-button@(buttonContainerClass.LeftPad())">
+                        @RenderButton()
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    @if (Model.IsButtonActive && Model.ButtonAlignment != ButtonAlignment.Below)
+    {
+        <div class="g-button@(buttonContainerClass.LeftPad())">
+            @RenderButton()
+        </div>
+    }
+</div>

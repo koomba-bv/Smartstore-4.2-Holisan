@@ -1,0 +1,678 @@
+﻿/// <reference path="public.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/shared/_variables-shared.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/shared/_mixins.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Themes/Flex/Content/_variables.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/bs4/scss/bootstrap.scss" />
+
+$cell-border-color:  #4b0082;
+$block-toolbar-bg:   #18509f;
+
+// Editor Frame
+// ------------------------------------
+
+.story-page {
+    padding: 0 !important;
+    padding-bottom: 20px !important;
+}
+
+.story-page-edit {
+    padding-top: 28px !important;
+    padding-left: 50px !important;
+    padding-right: 28px !important;
+    overflow-x: auto !important;
+    min-height: 100%;
+
+    // Reset some styles
+    .g-stage {
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+}
+
+
+// Story templates
+// ------------------------------------
+
+.story-thumbnail-mode {
+    &.story-page,
+    #content,
+    .g-stage {
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    .g-stage {
+        min-width: 600px;
+        min-height: 338px;
+    }
+
+    .g-block-edit,
+    .g-block-empty {
+        display: none !important;
+    }
+}
+
+
+// Grid & Layout
+// ------------------------------------
+
+.g-stage,
+.g-story,
+.g-block-inner {
+    position: relative; 
+}
+
+.g-stage,
+.g-block-inner,
+.bg-img {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;  
+}
+
+.g-stage {
+    display: flex;
+}
+
+.g-stage-child {
+    // Interrupt the CSS variable inheritance chain, otherwise a block within a child story
+    // may inherit a variable from the parent (wrapper) block.
+    --g-gap: initial;
+    --g-auto-rows: initial;
+    --g-auto-flow: initial;
+    --g-mega: initial;
+    --row: initial;
+    --row-sm: initial;
+    --row-md: initial;
+    --row-lg: initial;
+    --row-xl: initial;
+    --col: initial;
+    --col-sm: initial;
+    --col-md: initial;
+    --col-lg: initial;
+    --col-xl: initial;
+    --zix: initial;
+    --zix-sm: initial;
+    --zix-md: initial;
+    --zix-lg: initial;
+    --zix-xl: initial;
+    --aos-duration: 1000ms;
+    --aos-delay: 0ms;
+    --aos-distance: 100px;
+}
+
+.g-stage-container {
+    position: relative;
+    width: 100%;
+}
+
+.g-story {
+    display: grid;
+    grid-gap: var(--g-gap, 1rem);
+    grid-template-columns: var(--g-template-columns, repeat(6, 1fr));
+    grid-template-rows: var(--g-template-rows, auto);
+    grid-auto-columns: var(--g-auto-columns);
+    grid-auto-rows: var(--g-auto-rows);
+    grid-auto-flow: var(--g-auto-flow);
+    width: 100%;
+}
+
+.g-block {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    /*grid-column: var(--g-column);
+    grid-row: var(--g-row);
+    z-index: var(--g-zindex);*/
+
+    &.dim:not(.dragging) {
+        opacity: 0.15;
+        transition: opacity 0.15s ease-out;
+    }
+
+    &.dragging {
+        z-index: $zindex-dropdown - 1 !important;
+        outline-color: $warning !important;
+        outline-width: 1px;
+        background-color: white;
+        opacity: 0.9;
+        box-shadow: 0 0 1.25rem rgba($warning, 0.75);
+
+        // 0 0.3125rem 1rem rgba(#000, 0.22)
+    }
+}
+
+.g-block-inner {
+    position: relative;
+    display: flex;
+    height: 100%; // stretch main box vertically by default
+
+    &.rounded,
+    &[class*="rounded-"] {
+        overflow: hidden;
+    }
+}
+
+.g-block-content {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    flex-grow: 0; // overwrite .card-body style
+}
+
+.g-block-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+[class*="order-"] ~ .g-block-link {
+    z-index: 1;
+}
+
+
+// Block responsive positioning via CSS variables:
+// For each breakpoint set corresponding variables and fallback
+// to the variables of the base viewport (lg falls back to md etc.)
+// ------------------------------------------------------
+
+@include media-breakpoint-up(xs) {
+    .g-block {
+        --g-column: var(--col, auto / auto);
+        --g-row: var(--row, auto / auto);
+        --g-zindex: var(--zix, initial);
+        grid-column: var(--g-column);
+        grid-row: var(--g-row);
+        z-index: var(--g-zindex);
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .g-block {
+        --g-column-sm: var(--col-sm, var(--g-column));
+        --g-row-sm: var(--row-sm, var(--g-row));
+        --g-zindex-sm: var(--zix-sm, var(--g-zindex));
+        grid-column: var(--g-column-sm);
+        grid-row: var(--g-row-sm);
+        z-index: var(--g-zindex-sm);
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .g-block {
+        --g-column-md: var(--col-md, var(--g-column-sm));
+        --g-row-md: var(--row-md, var(--g-row-sm));
+        --g-zindex-md: var(--zix-md, var(--g-zindex-sm));
+        grid-column: var(--g-column-md);
+        grid-row: var(--g-row-md);
+        z-index: var(--g-zindex-md);
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .g-block {
+        --g-column-lg: var(--col-lg, var(--g-column-md));
+        --g-row-lg: var(--row-lg, var(--g-row-md));
+        --g-zindex-lg: var(--zix-lg, var(--g-zindex-md));
+        grid-column: var(--g-column-lg);
+        grid-row: var(--g-row-lg);
+        z-index: var(--g-zindex-lg);
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .g-block {
+        --g-column-xl: var(--col-xl, var(--g-column-lg));
+        --g-row-xl: var(--row-xl, var(--g-row-lg));
+        --g-zindex-xl: var(--zix-xl, var(--g-zindex-lg));
+        grid-column: var(--g-column-xl);
+        grid-row: var(--g-row-xl);
+        z-index: var(--g-zindex-xl);
+    }
+}
+
+
+// Story grid edit mode
+// ------------------------------------
+
+.g-block-outline {
+    display: none;
+}
+
+.g-block-editmode {
+    margin: 1px;
+    cursor: move;
+
+    .g-block-edit-icon {
+        color: $gray-700;
+    }
+
+    .g-block-edit-buttons {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        min-height: 100%;
+        display: flex;
+        flex-flow: column;
+        background-color: #307abe;
+        background-color: $block-toolbar-bg;
+        > .btn {
+            display: block;
+            border-radius: 0 !important;
+        }
+    }
+
+    .g-sizebar {
+        position: absolute;
+        visibility: hidden;
+        background-color: $gray-200;
+        background-color: rgba(#000, 0.1);
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        &.g-sizebar-n,
+        &.g-sizebar-s {
+            height: 8px;
+            width: 100%;
+            background-image: url('~/Content/Images/grip-h.png');
+        }
+
+        &.g-sizebar-n {
+            top: 1px;
+        }
+
+        &.g-sizebar-s {
+            bottom: 1px;
+        }
+
+        &.g-sizebar-e {
+            right: 1px;
+            width: 8px;
+            top: 9px;
+            bottom: 9px;
+            background-image: url('~/Content/Images/grip-v.png');
+        }
+
+        .g-sizebar-ne, 
+        .g-sizebar-se {
+            position: absolute;
+            right: 0;
+            height: 8px;
+            width: 8px;
+            
+            &.g-sizebar-ne {
+                top: 0;
+                background: url('~/Content/Images/grip-ne.png') center no-repeat;
+            }
+
+            &.g-sizebar-se {
+                bottom: 0;
+                background: url('~/Content/Images/grip-se.png') center no-repeat;
+            }
+        }
+    }
+
+    &.active:not(.dim),
+    &:hover:not(.dim) {
+        z-index: $zindex-dropdown - 1;
+    }
+
+    &:hover:not(.active):not(.dim) .g-block-inner {
+        opacity: 0.65;
+    }
+
+    &.active {
+        outline: 2px solid $block-toolbar-bg;
+
+        .g-sizebar {
+            visibility: visible;
+        }
+    }
+
+    &:not(.moving) .g-sizebar-e {
+        cursor: ew-resize;
+    }
+
+    &:not(.moving) .g-sizebar-n,
+    &:not(.moving) .g-sizebar-s {
+        cursor: ns-resize;
+    }
+
+    &:not(.moving) .g-sizebar-ne {
+        cursor: ne-resize;
+    }
+
+    &:not(.moving) .g-sizebar-se {
+        cursor: se-resize;
+    }
+
+    &:hover:not(.active) .g-block-outline {
+        display: block;
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        width: calc(100% + 1px);
+        height: calc(100% + 1px);
+        padding: 0 1px;
+        background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+        background-position: 0 0, 0 100%, 0 0,100% 0;
+        background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+        background-image: 
+    	    linear-gradient(90deg,rgba(0,0,0,.5) 50%, hsla(0,0%,100%,.5) 0),
+    	    linear-gradient(90deg,rgba(0,0,0,.5) 50%,hsla(0,0%,100%,.5) 0),
+    	    linear-gradient(180deg,rgba(0,0,0,.5) 50%,hsla(0,0%,100%,.5) 0),
+    	    linear-gradient(180deg,rgba(0,0,0,.5) 50%,hsla(0,0%,100%,.5) 0);
+        animation: animated-block-outline 0.5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-play-state: running;
+    }
+}
+
+@keyframes animated-block-outline {
+    0% {
+        background-position: 0 0, 0 100%, 0 0, 100% 0;
+    }
+
+    to {
+        background-position: 16px 0, -16px 100%, 0 -16px, 100% 16px;
+    }
+}
+
+.g-block-empty {
+    position: relative;
+    justify-self: stretch;
+    align-self: stretch;
+    border: 1px dashed $primary;
+    border-color: $cell-border-color; // Chrome inspector border color
+    z-index: 0;
+
+    .g-story-empty & {
+        min-height: 100px;
+    }
+
+    &.highlight {
+        border-style: solid;
+        box-shadow: 0 0 14px 1px rgba($cell-border-color, .5);
+        transition: box-shadow 0.1s linear;
+    }
+
+    &.min-height {
+        min-height: 50px;
+    }
+
+    &.min-width {
+        //min-width: 50px;
+        min-width: 20px;
+    }
+}
+
+.g-block-edit,
+.g-track-edit {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+}
+
+.g-block-edit {
+    z-index: 9;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease-out;
+
+    .g-block.active:not(.dragging):not(.dim) &,
+    .g-block:hover:not(.dragging):not(.dim) & {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .g-block:hover:not(.active) & {
+        background-color: rgba(#fff, 0.7);
+    }
+
+    .g-block.active & {
+        background-color: rgba(#fff, 0);
+    }
+}
+
+.g-track-size {
+    position: relative;
+    line-height: 16px;
+    height: 16px;
+}
+
+.g-track-size-label {
+    color: $text-muted;
+    font-size: 12px;
+}
+
+.g-track-header {
+    display: flex;
+    justify-content: space-between;
+
+    &.hover {
+        background-color: $gray-200;
+    }
+
+    &.hover,
+    &.active {
+        cursor: pointer;
+        .g-track-size-label {
+            color: inherit;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    &.active {
+        background-color: $gray-400;
+        box-shadow: 1px 1px 3px rgba(#000, 0.35) inset, 0 0 0 rgba(#000, 0.25) inset;
+        .g-track-size {
+            transform: translate(1px, 1px);
+        }   
+    }
+}
+
+.g-column-header {
+    position: absolute;
+    transform: translateY(-100%);
+    padding: 6px 0;
+    width: 100%;
+}
+
+.g-row-header {
+    position: absolute;
+    flex-flow: column;
+    left: 0;
+    transform: translateX(-28px);
+    width: 28px;
+    padding: 0 6px;
+    height: 100%;
+
+    .g-track-size {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    .g-track-size-label {
+        writing-mode: tb;
+        line-height: 1;
+        display: block;
+        transform: translateX(-50%) translateY(-50%) rotate(-180deg);       
+    }
+}
+
+.g-track-popup-backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0;
+    z-index: $zindex-popover - 1;
+}
+
+.g-track-tools {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.g-track-tool {
+    $tool-bg: $gray-600;
+    $tool-bg-hover: $block-toolbar-bg;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: block;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    z-index: $zindex-dropdown - 1;
+    height: 28px;
+    min-width: 1px;
+
+    > span {
+        display: block;
+        position: relative;
+        width: 20px;
+        min-width: 20px;
+        height: 18px;
+        line-height: 20px;
+        text-align: center;
+        vertical-align: middle;
+        color: #fff !important;
+        background-color: $tool-bg;
+        border-radius: 3px 3px 0 0;
+        @include bubble(bottom, far, 10, $tool-bg, $tool-bg, 0);
+    }
+
+    &:hover > span {
+        background-color: $tool-bg-hover;
+        &:after,
+        &:before {
+            border-top-color: $tool-bg-hover;
+        }
+    }
+
+    &.g-add-column-left {
+        left: 0;
+        right: auto;
+        transform: translateX(-100%);
+    }
+
+    &.g-add-column-right {
+        right: 0;
+        left: auto;
+        transform: translateX(100%);
+    }
+
+    &.g-add-row-above,
+    &.g-add-row-below,
+    &.g-delete-row {
+        left: 0;
+        right: 0;
+        align-items: center;
+        justify-content: flex-start;
+
+        > span {
+            transform: rotate(-90deg);
+        }
+    }
+
+    &.g-add-row-above {
+        top: 0;
+        bottom: auto;
+        transform: translateY(-100%);
+    }
+
+    &.g-add-row-below {
+        bottom: 0;
+        top: auto;
+        transform: translateY(100%);
+    }
+
+    &.g-delete-column,
+    &.g-delete-row {
+        > span {
+            background-color: $danger;
+            &:after,
+            &:before {
+                border-top-color: $danger;
+            }
+        }
+
+        &:hover > span {
+            background-color: darken($danger, 10%);
+            &:after,
+            &:before {
+                border-top-color: darken($danger, 10%);
+            }
+        }
+    }
+
+    &.g-delete-column {
+        width: 40px;
+        left: 50%;
+        transform: translate(-50%, -22px);
+    }
+
+    &.g-delete-row {
+        width: 28px;
+        height: 40px;
+        left: 0;
+        top: 50%;
+        transform: translate(-22px, -50%);
+    }
+}
+
+
+.g-track-popup {
+    display: none;
+}
+
+
+// Misc
+// ------------------------------------
+
+.btn-edit-story {
+    display: none;
+    position: absolute !important;
+    right: 0;
+    top: var(--edit-story-top, 32px);
+    z-index: 9999999;
+
+    .g-stage:hover & {
+        display: block;
+    }
+}
+
+
+// RTL
+// ------------------------------------
+
+[dir=rtl] {
+    .g-row-tools > .g-track-tool {
+        justify-content: flex-end;
+    }
+
+    .g-row-header .g-track-size {
+        left: 0;
+    }
+
+    .g-row-header .g-track-size-label {
+        line-height: inherit;
+    }
+}

@@ -1,0 +1,2539 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.PageBuilder" AppendRootKey="false">
+    <Value>Page Builder</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.PageBuilder" AppendRootKey="false">
+    <Value>Seiteninhalte aus Produkten, Warengruppen, Bildern, Videos, Texten etc. gestalten.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.PageBuilder" AppendRootKey="false">
+    <Value>Page Builder</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.DisplayStory" AppendRootKey="false">
+    <Value>Stories anzeigen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.EditTemplate" AppendRootKey="false">
+    <Value>Vorlagen bearbeiten</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.AddBlock" AppendRootKey="false">
+    <Value>Blöcke erstellen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.DeleteBlock" AppendRootKey="false">
+    <Value>Blöcke löschen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.OrganizeBlock" AppendRootKey="false">
+    <Value>Blöcke organisieren</Value>
+  </LocaleResource>
+
+  <!-- Metadata / Friendly names -->
+  <LocaleResource Name="BlockMetadata.FriendlyName" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="html">
+        <Value>Text</Value>
+      </LocaleResource>
+      <LocaleResource Name="picture">
+        <Value>Bild</Value>
+      </LocaleResource>
+      <LocaleResource Name="productlist">
+        <Value>Produktliste</Value>
+      </LocaleResource>
+      <LocaleResource Name="categorylist">
+        <Value>Warengruppen</Value>
+      </LocaleResource>
+      <LocaleResource Name="brandlist">
+        <Value>Herstellerliste</Value>
+      </LocaleResource>
+      <LocaleResource Name="iframe">
+        <Value>IFrame</Value>
+      </LocaleResource>
+      <LocaleResource Name="video">
+        <Value>Video</Value>
+      </LocaleResource>
+      <LocaleResource Name="googlemaps">
+        <Value>Google Maps</Value>
+      </LocaleResource>
+      <LocaleResource Name="blog">
+        <Value>Blog</Value>
+      </LocaleResource>
+      <LocaleResource Name="code">
+        <Value>Code</Value>
+      </LocaleResource>
+      <LocaleResource Name="action">
+        <Value>MVC Route</Value>
+      </LocaleResource>
+      <LocaleResource Name="story">
+        <Value>Story</Value>
+      </LocaleResource>
+      <LocaleResource Name="mediagallery">
+        <Value>Galerie</Value>
+      </LocaleResource>
+      <LocaleResource Name="news">
+        <Value>News</Value>
+      </LocaleResource>
+      <LocaleResource Name="newsletter">
+        <Value>Newsletter</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+
+  <LocaleResource Name="Plugins.SmartStore.PageBuilder" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="BrowseFiles">
+        <Value>Durchsuchen...</Value>
+      </LocaleResource>
+      <LocaleResource Name="SaveContinue">
+        <Value>Speichern und fortsetzen (Strg+S)</Value>
+      </LocaleResource>
+      <LocaleResource Name="Copy">
+        <Value>Kopieren</Value>
+      </LocaleResource>
+      <LocaleResource Name="Clone">
+        <Value>Klonen</Value>
+      </LocaleResource>
+      <LocaleResource Name="Undo">
+        <Value>Rückgängig (Strg+Z)</Value>
+      </LocaleResource>
+      <LocaleResource Name="Redo">
+        <Value>Wiederholen (Strg+Y)</Value>
+      </LocaleResource>
+      <LocaleResource Name="PreviewMode">
+        <Value>Vorschaumodus (Strg+Alt+P)</Value>
+      </LocaleResource>
+      <LocaleResource Name="FullScreen">
+        <Value>Vollbild (Strg+F11)</Value>
+      </LocaleResource>
+      <LocaleResource Name="EditBlock">
+        <Value>Bearbeiten (Eingabe)</Value>
+      </LocaleResource>
+      <LocaleResource Name="DeleteBlock">
+        <Value>Löschen (Entf)</Value>
+      </LocaleResource>
+      <LocaleResource Name="Background">
+        <Value>Hintergrund</Value>
+      </LocaleResource>
+      <LocaleResource Name="NoMinHeight">
+        <Value>Keine Mindesthöhe</Value>
+      </LocaleResource>
+      <LocaleResource Name="DontChange">
+        <Value>Nicht ändern</Value>
+      </LocaleResource>
+      <LocaleResource Name="Size.Hint">
+        <Value>Z.B. 80%. Beeinflusst Breite oder Höhe je nach Richtung.</Value>
+      </LocaleResource>
+      <LocaleResource Name="CssClass">
+        <Value>CSS Klasse</Value>
+      </LocaleResource>
+      <LocaleResource Name="CssClass.Hint">
+        <Value>Extra CSS Klasse(n) für das Element.</Value>
+      </LocaleResource>
+      <LocaleResource Name="CssStyle">
+        <Value>CSS Style</Value>
+      </LocaleResource>
+      <LocaleResource Name="CssStyle.Hint">
+        <Value>Inline CSS für das Element.</Value>
+      </LocaleResource>
+
+      <!-- Gallery -->
+      <LocaleResource Name="Gallery">
+        <Children>
+          <LocaleResource Name="Style">
+            <Value>Galerie-Stil</Value>
+          </LocaleResource>
+          <LocaleResource Name="Zoomer">
+            <Value>Vergrößern beim Maus-Hover</Value>
+          </LocaleResource>
+          <LocaleResource Name="Zoomer.Hint">
+            <Value>Zeigt eine vergrößerte Detailansicht des Mediums an der Zeigerposition.</Value>
+          </LocaleResource>
+          <LocaleResource Name="HideNavigation">
+            <Value>Navigation ausblenden</Value>
+          </LocaleResource>
+          <LocaleResource Name="HideNavigation.Hint">
+            <Value>Blendet die Vorschau-Navigationsleiste am linken Rand aus.</Value>
+          </LocaleResource>
+          <LocaleResource Name="HidePreviewPanel">
+            <Value>Vorschaubilderanzeige umschalten</Value>
+          </LocaleResource>
+          <LocaleResource Name="ColumnCount">
+            <Value>Spaltenanzahl</Value>
+          </LocaleResource>
+          <LocaleResource Name="ColumnCount.Hint">
+            <Value>Maximale Anzahl von Spalten bei Desktop-Auflösung (mindestens 1200px). Wird bei niedrigeren Auflösungen verringert, hat aber mindestens 2 Spalten bei mobiler Auflösung.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Padding">
+            <Value>Innere Abstände</Value>
+          </LocaleResource>
+          <LocaleResource Name="Padding.Hint">
+            <Value>Abstand zwischen den Medien und dem Rand der Zelle.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Background">
+            <Value>Hintergrundfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Background.Hint">
+            <Value>Legt die Hintergrundfarbe fest. Ist nur sichtbar, wenn ein innerer Abstand definiert ist.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AccumulateDelay">
+            <Value>Akkumulierte Verzögerung</Value>
+          </LocaleResource>
+          <LocaleResource Name="AccumulateDelay.Hint">
+            <Value>Akkumuliert den Wert, multipliziert mit dem Index des Elements, zur Gesamtverzögerung (in ms).</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideInterval">
+            <Value>Slide-Intervall</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideInterval.Hint">
+            <Value>Bestimmt, ob sich die Slides durch einen festgelegten Intervall (in ms) automatisch ändern. Kein Wert = kein Intervall.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayIndicators">
+            <Value>Slide-Indikatoren anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayIndicators.Hint">
+            <Value>Bestimmt, ob innerhalb der Galerie Punkte für jeden Slide als Indikatoren dargestellt werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fit">
+            <Value>Bildanpassung</Value>
+          </LocaleResource>
+          <LocaleResource Name="AspectRatio">
+            <Value>Bildformat</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <!-- SideBar -->
+      <LocaleResource Name="SideBar">
+        <Children>
+          <LocaleResource Name="Layout">
+            <Value>Layout</Value>
+          </LocaleResource>
+          <LocaleResource Name="AddTarget">
+            <Value>Ziel hinzufügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="PublishFromUntil">
+            <Value>Veröffentlichen von...bis</Value>
+          </LocaleResource>
+          <LocaleResource Name="Grid">
+            <Value>Raster</Value>
+          </LocaleResource>
+          <LocaleResource Name="Style">
+            <Value>Stil</Value>
+          </LocaleResource>
+          <LocaleResource Name="Column">
+            <Value>Spalte</Value>
+          </LocaleResource>
+          <LocaleResource Name="Row">
+            <Value>Zeile</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZIndex">
+            <Value>z-index</Value>
+          </LocaleResource>
+          <LocaleResource Name="HorizontalAlignment">
+            <Value>Hor. Ausrichtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="VerticalAlignment">
+            <Value>Vert. Ausrichtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxHorizontalAlignment">
+            <Value>Box hor. Ausrichtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxHorizontalAlignment.Hint">
+            <Value>Richtet die äußere Box (NICHT den Inhalt) horizontal innerhalb der Zelle aus.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxVerticalAlignment">
+            <Value>Box vert. Ausrichtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxVerticalAlignment.Hint">
+            <Value>Richtet die äußere Box (NICHT den Inhalt) vertikal innerhalb der Zelle aus.</Value>
+          </LocaleResource>
+          <LocaleResource Name="TextAlignment">
+            <Value>Textausrichtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Spacing">
+            <Value>Abstände</Value>
+          </LocaleResource>
+          <LocaleResource Name="Spacing.Hint">
+            <Value>Linke Maustaste gedrückt halten und leicht nach oben oder unten ziehen, um einen Wert zwischen 0 (kein Abstand) und 6 (großer Abstand) einzustellen. STRG-Taste gedrückt halten, um auch gegenüberliegende Seite synchron zu halten. STRG+ALT, um alle Seiten synchron zu halten.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Margin">
+            <Value>margin</Value>
+          </LocaleResource>
+          <LocaleResource Name="Padding">
+            <Value>padding</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient">
+            <Value>Verlauf</Value>
+          </LocaleResource>
+          <LocaleResource Name="Shade">
+            <Value>Schattierung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Video">
+            <Value>Video</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <!-- Parallax -->
+      <LocaleResource Name="Parallax">
+        <Value>Parallax</Value>
+        <Children>
+          <LocaleResource Name="Hint">
+            <Value>Simuliert Räumlichkeit oder Bewegung, indem das Objekt während des Seiten-Scrollings mit anderer Geschwindigkeit bewegt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SpeedFactor">
+            <Value>Geschwindigkeit</Value>
+          </LocaleResource>
+          <LocaleResource Name="Smooth">
+            <Value>Sanfte Animation</Value>
+          </LocaleResource>
+          <LocaleResource Name="Smooth.Hint">
+            <Value>Wendet einen Smooth-Scrolling Effekt an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Offset">
+            <Value>Versatz</Value>
+          </LocaleResource>
+          <LocaleResource Name="Offset.Hint">
+            <Value>Ein nummerischer Versatz (in Pixeln).</Value>
+          </LocaleResource>
+          <LocaleResource Name="Filter">
+            <Value>Filter</Value>
+          </LocaleResource>
+          <LocaleResource Name="Filter.Hint">
+            <Value>Ein Ausdruck, der die Bildschirmauflösung bestimmt, bei der der Parallax-Effekt aktiv werden soll (z.B. '&gt;md', '&lt;=xl' etc.)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SpeedTicks">
+            <Value>Scrollrichtung,Aus,Gegenläufig</Value>
+          </LocaleResource>
+          <LocaleResource Name="Target">
+            <Value>Ziel</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <!-- Story editing -->
+      <LocaleResource Name="Story">
+        <Children>
+          <LocaleResource Name="SaveStory">
+            <Value>Bitte speichern Sie die Story zunächst.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SaveStoryConfirm">
+            <Value>Sie haben ungespeicherte Änderungen. Möchten Sie jetzt speichern und fortfahren?</Value>
+          </LocaleResource>
+          <LocaleResource Name="NoDuplicateStories">
+            <Value>Stories nicht mehrfach importieren (Prüfung anhand des Systemnamen)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SaveBeforeAddingBlocks">
+            <Value>Sie müssen die Story speichern, bevor Sie Blöcke hinzufügen können.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Copied">
+            <Value>Die Story wurde erfolgreich kopiert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AddNew">
+            <Value>Neue Story hinzufügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Edit">
+            <Value>Story bearbeiten</Value>
+          </LocaleResource>
+          <LocaleResource Name="Import">
+            <Value>Story importieren</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImportNote">
+            <Value>Laden Sie bitte eine Story-Importdatei hoch.</Value>
+          </LocaleResource>
+          <LocaleResource Name="FileMissing">
+            <Value>Die Datei "{0}" fehlt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Empty">
+            <Value>Leere Story</Value>
+          </LocaleResource>
+          <LocaleResource Name="Name">
+            <Value>Name</Value>
+          </LocaleResource>
+          <LocaleResource Name="Author">
+            <Value>Autor</Value>
+          </LocaleResource>
+          <LocaleResource Name="Description">
+            <Value>Beschreibung</Value>
+          </LocaleResource>
+          <LocaleResource Name="AnchorPosition">
+            <Value>Thumbnail Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="AnchorPosition.Hint">
+            <Value>Legt die Position des Ausschnittes für das Erstellen des Thumbnails fest. Bereiche außerhalb des Ausschnittes werden abgeschnitten.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SelectTemplateNote">
+            <Value>
+              <![CDATA[Zum Erstellen einer neuen Story wählen Sie eine Vorlage aus, die Ihren Vorstellungen am ehesten entspricht. Verwenden Sie <b class="font-weight-medium">Leere Story</b>, wenn Sie keine Vorlage benutzen möchten.]]>
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="SaveAsTemplate">
+            <Value>Als Vorlage speichern...</Value>
+          </LocaleResource>
+          <LocaleResource Name="SaveAsTemplateSucceeded">
+            <Value>Die Story wurde erfolgreich als Vorlage gespeichert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AutoCreateThumbnail">
+            <Value>Thumbnail automatisch erzeugen</Value>
+          </LocaleResource>
+          <LocaleResource Name="UploadThumbnail">
+            <Value>Thumbnail hochladen</Value>
+          </LocaleResource>
+          <LocaleResource Name="UploadThumbnailNote">
+            <Value>Bitte laden Sie zuvor ein Thumbnail hoch.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ThumbnailMinSize">
+            <Value>Die empfohlene Mindestgröße beträgt 600 x 338 Pixel.</Value>
+          </LocaleResource>
+          <LocaleResource Name="NoBlocksExist">
+            <Value>Keine Blöcke vorhanden</Value>
+          </LocaleResource>
+          <LocaleResource Name="InsertRowAbove">
+            <Value>Zeile oberhalb einfügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="InsertRowBelow">
+            <Value>Zeile unterhalb einfügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DeleteRow">
+            <Value>Zeile entfernen</Value>
+          </LocaleResource>
+          <LocaleResource Name="InsertColumnLeft">
+            <Value>Spalte links einfügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="InsertColumnRight">
+            <Value>Spalte rechts einfügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DeleteColumn">
+            <Value>Spalte entfernen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Blocks">
+            <Value>Blöcke</Value>
+          </LocaleResource>
+          <LocaleResource Name="EditMode">
+            <Value>Modus bearbeiten</Value>
+          </LocaleResource>
+          <LocaleResource Name="Mobile">
+            <Value>Mobile</Value>
+          </LocaleResource>
+          <LocaleResource Name="MobileLandscape">
+            <Value>Mobile Landscape</Value>
+          </LocaleResource>
+          <LocaleResource Name="MobileLandscapeFormatted">
+            <Value>
+              <![CDATA[<span class="font-weight-medium">Mobile</span> Landscape]]>
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="Tablet">
+            <Value>Tablet</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabletLandscape">
+            <Value>Tablet Landscape</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabletLandscapeFormatted">
+            <Value>
+              <![CDATA[<span class="font-weight-medium">Tablet</span> Landscape]]>
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="Desktop">
+            <Value>Desktop</Value>
+          </LocaleResource>
+          <LocaleResource Name="Visible">
+            <Value>Sichtbar</Value>
+          </LocaleResource>
+          <LocaleResource Name="NotVisible">
+            <Value>Nicht sichtbar</Value>
+          </LocaleResource>
+          <LocaleResource Name="UnspecifiedVisibility">
+            <Value>Unbestimmt (Sichtbarkeit erben)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Value.ValidationMessage">
+            <Value>Bitte geben Sie den Wert für dieses Element an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxValue.ValidationMessage">
+            <Value>Bitte geben Sie den maximalen Wert für dieses Element an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Inherited">
+            <Value>geerbt</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <!-- Block editing -->
+      <LocaleResource Name="Block">
+        <Children>
+          <LocaleResource Name="Added">
+            <Value>Der Block wurde erfolgreich hinzugefügt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Updated">
+            <Value>Der Block wurde erfolgreich aktualisiert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Deleted">
+            <Value>Der Block wurde erfolgreich gelöscht.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Copied">
+            <Value>Der Block wurde erfolgreich kopiert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="EditBlock">
+            <Value>{0} Block bearbeiten</Value>
+          </LocaleResource>
+          <LocaleResource Name="AddBlock">
+            <Value>{0} Block hinzufügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ConfigurationNotRequired">
+            <Value>Der {0} Block benötigt keine weitergehende Konfiguration.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Misc">
+            <Value>Sonstiges</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabHeading.Background">
+            <Value>Hintergrund</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabHeading.Box">
+            <Value>Box</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabHeading.Effects">
+            <Value>Effekte</Value>
+          </LocaleResource>
+          <LocaleResource Name="TabHeading.DataBinding">
+            <Value>Datenbindung</Value>
+          </LocaleResource>
+          <LocaleResource Name="RootCssClass">
+            <Value>Root CSS Klasse</Value>
+          </LocaleResource>
+          <LocaleResource Name="RootCssClass.Hint">
+            <Value>Extra CSS Klasse(n) für den äußeren Root Block-Container (.g-block).</Value>
+          </LocaleResource>
+          <LocaleResource Name="RootCssStyle">
+            <Value>Root CSS Style</Value>
+          </LocaleResource>
+          <LocaleResource Name="RootCssStyle.Hint">
+            <Value>Inline CSS für den äußeren Root Block-Container (.g-block).</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssClass">
+            <Value>CSS Klasse</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssClass.Hint">
+            <Value>Extra CSS Klasse(n) für den inneren Block-Container (.g-block-inner).</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssStyle">
+            <Value>CSS Style</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssStyle.Hint">
+            <Value>Inline CSS für den inneren Block-Container (.g-block-inner).</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayOrder">
+            <Value>Sortierung</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayOrder.Hint">
+            <Value>Bestimmt die Anordnung der Blöcke in der Ausgabe des HTML-Codes.</Value>
+          </LocaleResource>
+
+          <LocaleResource Name="Reveal">
+            <Value>Reveal</Value>
+          </LocaleResource>
+          <LocaleResource Name="Reveal.Intro">
+            <Value>Versteckt den Block beim Laden der Seite und blendet ihn erst beim Scrollen mit einem Effekt ein.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Tint">
+            <Value>Tint</Value>
+          </LocaleResource>
+          <LocaleResource Name="Tint.Intro">
+            <Value>Verändert die Transparenz der Hintergrund-Overlays bei Maus-Hover. Dieser Effekt hat keine Auswirkung, wenn kein transparenter Hintergrund festgelegt wurde.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BorderAndShadow">
+            <Value>Rahmen &amp; Schatten</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flat">
+            <Value>Flat</Value>
+          </LocaleResource>
+          <LocaleResource Name="Shade">
+            <Value>Schattierung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Shade.Intro">
+            <Value>Erzeugt eine in den Hintergrund verlaufende Schattierung, um Text lesbarer zu machen.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Field">
+        <Children>
+          <LocaleResource Name="TagLine">
+            <Value>Tagline</Value>
+          </LocaleResource>
+          <LocaleResource Name="TagLine.Hint">
+            <Value>Kurzes Motto bzw. kurzer Slogan über dem Titel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Title">
+            <Value>Titel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Title.Hint">
+            <Value>Ist zwecks SEO erforderlich, kann aber ausgeblendet werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SubTitle">
+            <Value>Intro</Value>
+          </LocaleResource>
+          <LocaleResource Name="SubTitle.Hint">
+            <Value>Intro / Einleitung unterhalb des Titels</Value>
+          </LocaleResource>
+          <LocaleResource Name="Body">
+            <Value>Text</Value>
+          </LocaleResource>
+          <LocaleResource Name="Body.Hint">
+            <Value>Der Body Content des Blockes</Value>
+          </LocaleResource>
+          <LocaleResource Name="Template">
+            <Value>Template</Value>
+          </LocaleResource>
+          <LocaleResource Name="Template.Hint">
+            <Value>Dateiname des Razor-Templates. Template muss sich im Ordner 'BlockTemplates' befinden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="LimitedToStores">
+            <Value>Auf Shops begrenzen</Value>
+          </LocaleResource>
+          <LocaleResource Name="LimitedToStores.Hint">
+            <Value>Legt fest, ob die Story nur für bestimmte Shops verfügbar ist.</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsInversed">
+            <Value>Invertieren</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsInversed.Hint">
+            <Value>Invertiert Textfarbe und Ausblendeffekt (weiß). Sollte bei dunklen Hintergrundfarben oder -bildern aktiviert werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MinHeight">
+            <Value>Mindesthöhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="MinHeight.Hint">
+            <Value>Sinnvoll, wenn zwar ein Hintergrund-, aber kein Content-Bild festgelegt wurde und wenig Text vorhanden ist.</Value>
+          </LocaleResource>
+          <LocaleResource Name="HtmlId">
+            <Value>HTML ID</Value>
+          </LocaleResource>
+          <LocaleResource Name="HtmlId.Hint">
+            <Value>Legt die HTML ID des Blocks fest.</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssClass">
+            <Value>CSS Klasse</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssClass.Hint">
+            <Value>Extra CSS Klasse(n) für den äußeren Container '.g-stage'.</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssStyle">
+            <Value>CSS Style</Value>
+          </LocaleResource>
+          <LocaleResource Name="CssStyle.Hint">
+            <Value>Inline CSS für den äußeren Container '.g-stage'.</Value>
+          </LocaleResource>
+          <LocaleResource Name="WidgetZones">
+            <Value>Widget Zonen</Value>
+          </LocaleResource>
+          <LocaleResource Name="WidgetZones.Hint">
+            <Value>Legt fest, in welchen Zonen einer Shop-Seite die Story ausgegeben werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Targets">
+            <Value>Ziele</Value>
+          </LocaleResource>
+          <LocaleResource Name="Targets.Hint">
+            <Value>Legt die Zielseiten fest, in denen die Story in den angegebenen Widget Zonen ausgegeben werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayOrder">
+            <Value>Sortierung</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayOrder.Hint">
+            <Value>Bezieht sich stets auf einzelne Widget Zonen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsPublished">
+            <Value>Veröffentlicht</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowInSubPages">
+            <Value>In Unterseiten anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowInSubPages.Hint">
+            <Value>Unterseite: Listenindex größer 1 oder mind. ein aktiver Filter.</Value>
+          </LocaleResource>
+          <LocaleResource Name="NumBlocks">
+            <Value>Anzahl Blöcke</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridTemplateColumns">
+            <Value>Spalten</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridTemplateColumns.Hint">
+            <Value>(grid-template-columns) Nur für erfahrene Anwender!</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridTemplateRows">
+            <Value>Zeilen</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridTemplateRows.Hint">
+            <Value>(grid-template-rows) Nur für erfahrene Anwender!</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoRows">
+            <Value>Auto Zeilengröße</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridGap">
+            <Value>Zellenabstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridGap.Hint">
+            <Value>(grid-gap) Abstand der Zellen zueinander.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridJustifyContent">
+            <Value>Zellen hor. verteilen</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridJustifyContent.Hint">
+            <Value>(justify-content) Legt fest, wie Zellen horizonal verteilt werden, wenn der Container breiter ist als alle Zellen zusammen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAlignContent">
+            <Value>Zellen vert. verteilen</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAlignContent.Hint">
+            <Value>(align-content) Legt fest, wie Zellen vertikal verteilt werden, wenn der Container höher ist als alle Zellen zusammen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlow">
+            <Value>Auto flow</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlow.Hint">
+            <Value>(grid-auto-flow) Nur für erfahrene Anwender.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridWidth">
+            <Value>Breite</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridHeight">
+            <Value>Höhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridContainer">
+            <Value>Container</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridContainer.Hint">
+            <Value>Legt die Breite des äußeren Containers fest (Hintergrund-Ebene).</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridContentContainer">
+            <Value>Inhalt Container</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridContentContainer.Hint">
+            <Value>Legt die Breite des inneren Containers fest (Raster-Ebene).</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridCssClass">
+            <Value>Grid CSS Klasse</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridCssClass.Hint">
+            <Value>Extra CSS Klasse(n) für den Story-Container '.g-story'.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridCssStyle">
+            <Value>Grid CSS Style</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridCssStyle.Hint">
+            <Value>Inline CSS für den Story-Container '.g-story'.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DeviceStatesJson">
+            <Value>Device Konfiguration JSON</Value>
+          </LocaleResource>
+          <LocaleResource Name="DeviceStatesJson.Hint">
+            <Value>Nur für erfahrene Anwender. Konfiguration für alle Breakpoints (xs, sm, md, lg und xl)</Value>
+          </LocaleResource>
+          <LocaleResource Name="LinkHref">
+            <Value>Link</Value>
+          </LocaleResource>
+          <LocaleResource Name="LinkHref.Hint">
+            <Value>Optionales Verweisziel für den ganzen Block.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ContentCssClass">
+            <Value>Content CSS Klasse</Value>
+          </LocaleResource>
+          <LocaleResource Name="ContentCssClass.Hint">
+            <Value>Extra CSS Klasse(n) für den inneren Content Block-Container '.g-block-content'.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ContentCssStyle">
+            <Value>Content CSS Style</Value>
+          </LocaleResource>
+          <LocaleResource Name="ContentCssStyle.Hint">
+            <Value>Inline CSS für den inneren Content Block-Container '.g-block-content'.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Breakpoints">
+        <Children>
+          <LocaleResource Name="Xs">
+            <Value>Mobile (xs)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Sm">
+            <Value>Mobile Landscape (sm)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Md">
+            <Value>Tablet (md)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Lg">
+            <Value>Tablet Landscape (lg)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Xl">
+            <Value>Desktop (xl)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Spacing">
+        <Value>Abstand</Value>
+        <Children>
+          <LocaleResource Name="Hint">
+            <Value>Der Abstand (margin), den das Element zu seinem Nachfolger haben soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="0">
+            <Value>Kein Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="1">
+            <Value>Sehr geringer Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="2">
+            <Value>Geringer Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="3">
+            <Value>Moderater Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="4">
+            <Value>Großer Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="5">
+            <Value>Sehr großer Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="6">
+            <Value>Riesiger Abstand</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Heading">
+        <Children>
+          <LocaleResource Name="Settings.Title">
+            <Value>Titel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.Tagline">
+            <Value>Tagline</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.SubTitle">
+            <Value>Intro</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.Body">
+            <Value>Text</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.Icon">
+            <Value>Icon</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.Button">
+            <Value>Schaltfläche</Value>
+          </LocaleResource>
+          <LocaleResource Name="Settings.Css">
+            <Value>CSS</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="DataBinding">
+        <Children>
+          <LocaleResource Name="IntroTitle">
+            <Value>Element binden</Value>
+          </LocaleResource>
+          <LocaleResource Name="Intro">
+            <Value>
+              Bindet ein Element (Produkt, Warengruppe oder Hersteller) an den Block. Beim Überschreiben werden Platzhalter als Werte der Blockeigenschaften (Titel, Tagline, etc.) hinterlegt,
+              die zur Laufzeit aufgelöst werden und die Werte des gebundenen Elements ausgeben.
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="BindingApplied">
+            <Value>Die Zuordnung wurde erfolgreich durchgeführt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ApplyBinding">
+            <Value>Bindung anwenden</Value>
+          </LocaleResource>
+          <LocaleResource Name="BindEntity">
+            <Value>Gebundenes Objekt</Value>
+          </LocaleResource>
+          <LocaleResource Name="BindEntity.Hint">
+            <Value>Wählen Sie hier das Objekt (Produkt, Warengruppe oder Hersteller), dessen Werte zur Laufzeit in diesem Block angezeigt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BindingInfo">
+            <Value>
+              Dieses Feld ist gebunden und gibt das Bild der gebundenen Entität (Produkt, Warengruppe oder Hersteller) aus.
+              Um Die Bindung aufzuheben, laden Sie nachfolgend ein neues Bild hoch.
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="AvailableTokens">
+            <Value>Verfügbare Platzhalter für diesen Block:</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <!-- Blocks -->
+      <LocaleResource Name="Html">
+        <Children>
+          <LocaleResource Name="HideTitle">
+            <Value>Titel verstecken</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleTag">
+            <Value>HTML-Tag</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleSize">
+            <Value>Schriftgröße</Value>
+          </LocaleResource>
+          <LocaleResource Name="TaglineSize">
+            <Value>Schriftgröße</Value>
+          </LocaleResource>
+          <LocaleResource Name="IconDisplayType">
+            <Value>Typ</Value>
+          </LocaleResource>
+          <LocaleResource Name="IconAlignment">
+            <Value>Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureId">
+            <Value>Icon</Value>
+          </LocaleResource>
+          <LocaleResource Name="ResponsiveIconBreakpoint">
+            <Value>Position ändern ab</Value>
+          </LocaleResource>
+          <LocaleResource Name="ResponsiveIconBreakpoint.Hint">
+            <Value>Ändert ab einem festgelegten Breakpoint die Position des Icons für eine responsive Darstellung.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonStyle">
+            <Value>Schaltflächenstil</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsButtonActive">
+            <Value>Schaltfläche anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonText">
+            <Value>Text</Value>
+          </LocaleResource>
+          <LocaleResource Name="DefaultButtonText">
+            <Value>Mehr erfahren</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonLink">
+            <Value>Link</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonColor">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonSize">
+            <Value>Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonAlignment">
+            <Value>Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonSpacing">
+            <Value>Abstand</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnOutline">
+            <Value>Umrahmt</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnOutline.Hint">
+            <Value>Stellt den Button ohne Hintergrundfarbe dar. Diese Option sollte nicht mit den Themefarben 'secondary' oder 'light' verwendet werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnThreeD">
+            <Value>3D-Effekt anwenden</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnThreeD.Hint">
+            <Value>Hebt den Button leicht an, wenn man mit der Maus darüber geht (hover), um einen 3D-Effekt zu erzeugen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnFlat">
+            <Value>Flach</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnFlat.Hint">
+            <Value>Entfernt den Button-Border. Diese Option lässt sich perfekt mit der 'Outline'-Option kombinieren.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnFlatIsLight">
+            <Value>Flach (hell)</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnFlatIsLight.Hint">
+            <Value>Auf dunkleren Hintergründen sollte zusätzlich diese Option aktiviert werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnBorderless">
+            <Value>Rahmenlos</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnBorderless.Hint">
+            <Value>
+              Entfernt den Button-Border. Diese Option lässt sich perfekt mit der Outline-Option kombinieren.
+              Der Unterschied zu der Option 'Flat' ist, dass die gewählte Farbe auch als Textfarbe verwendet wird.
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnLabeled">
+            <Value>Labeled</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnLabeled.Hint">
+            <Value>Gibt den Button mit einer Abgrenzung des Icons aus.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnAnimated">
+            <Value>Animiert</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnAnimated.Hint">
+            <Value>Animiert das Schaltflächen-Icon und blendet es erst bei Button-Hover ein.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnClear">
+            <Value>Klar</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnClear.Hint">
+            <Value>Gibt den Button ohne Hintergrundfarbe aus. Dieser Stil ist gut geeignet für dunkle Hintergründe.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnClearIsDark">
+            <Value>Klar (dunkel)</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnClearIsDark.Hint">
+            <Value>Gibt den Button ohne Hintergrundfarbe aus. Dieser Stil ist gut geeignet für helle Hintergründe.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnBlock">
+            <Value>Strecken</Value>
+          </LocaleResource>
+          <LocaleResource Name="BtnBlock.Hint">
+            <Value>Streckt den Button über die gesamte verfügbare Fläche.</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsButtonIconActive">
+            <Value>Icon anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonIcon">
+            <Value>Icon</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonIconAlignment">
+            <Value>Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonSize.Small">
+            <Value>Klein (btn-sm)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ButtonSize.Large">
+            <Value>Groß (btn-lg)</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteTitle">
+            <Value>Titel überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteTagline">
+            <Value>Tagline überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteSubtitle">
+            <Value>Intro überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteBody">
+            <Value>Text überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteButtonTarget">
+            <Value>Button-Ziel überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteLinkTarget">
+            <Value>Link überschreiben</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Action">
+        <Children>
+          <LocaleResource Name="ActionRoute">
+            <Value>Template Route (JSON)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ActionRoute.Hint">
+            <Value>Rendert den Block per benutzerdefinierter Child Action. Wert ist RouteValueDictionary als JSON und muss mind. 'controller' und 'action' beinhalten. Die aktuelle BlockModel-Instanz wird als 'model' automatisch übergeben.</Value>
+          </LocaleResource>
+          <LocaleResource Name="RouteJsonNotValid">
+            <Value>Der JSON-String muss für den Typ 'RouteValueDictionary' deserialisierbar sein.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Blog">
+        <Children>
+          <LocaleResource Name="RenderHeading">
+            <Value>Zeige Blogkopf an</Value>
+          </LocaleResource>
+          <LocaleResource Name="RenderHeading.Hint">
+            <Value>Legt fest, ob die Blogüberschrift und die RSS-Schaltfläche dargestellt werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AltHeading.Hint">
+            <Value>Nutzen Sie das 'Titel'-Feld im 'Allgemein'-Tab, um eine alternative Überschrift darzustellen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisableCommentCount">
+            <Value>Kommentaranzahl deaktiviert</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisableCommentCount.Hint">
+            <Value>Legt fest, ob die Anzahl an Kommentaren innerhalb des Blogbildes deaktiviert wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxPostAmount">
+            <Value>Maximalanzahl</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxPostAmount.Hint">
+            <Value>Legt die Maximalanzahl der gleichzeitig dargestellten Blogeinträge fest. Ohne eingetragenem Wert liegt die Obergrenze bei 100.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxAgeInDays">
+            <Value>Maximalalter</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxAgeInDays.Hint">
+            <Value>Legt das Maximalalter von dargestellten Blogeinträgen in Tagen fest.</Value>
+          </LocaleResource>
+          <LocaleResource Name="PostsWithTag">
+            <Value>Mit Tag</Value>
+          </LocaleResource>
+          <LocaleResource Name="PostsWithTag.Hint">
+            <Value>Legt fest, ob nur Blogeinträge mit dem ausgewählten Tag dargestellt werden.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Code">
+        <Children>
+          <LocaleResource Name="HeadMarkUp">
+            <Value>Code für HTML &lt;head&gt;</Value>
+          </LocaleResource>
+          <LocaleResource Name="HeadMarkUp.Hint">
+            <Value>
+              <![CDATA[
+                Schreiben Sie hier den Code, der im <head>-Tag des Dokumentes ausgegeben werden soll. Bitte geben Sie auch die umschließenden Tags an (<script>...</script>). 
+                Um Intellisense zu nutzen, drücken Sie einfach STRG + Space, während Sie Ihren Code schreiben.
+                ]]>
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="MarkUp">
+            <Value>Code</Value>
+          </LocaleResource>
+          <LocaleResource Name="MarkUp.Hint">
+            <Value>
+              <![CDATA[
+                Schreiben Sie hier den Code, der ausgegeben werden soll.
+                Um Intellisense zu nutzen, drücken Sie einfach STRG + Space, während Sie Ihren Code schreiben.
+                ]]>
+            </Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Frame">
+        <Children>
+          <LocaleResource Name="Src">
+            <Value>URL</Value>
+          </LocaleResource>
+          <LocaleResource Name="Src.Hint">
+            <Value>
+              <![CDATA[
+                Geben Sie hier die vollständige URL der Ressource an, die im IFrame geladen werden soll. 
+                z.B.: http://www.meinshop.de
+                ]]>
+            </Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Youtube">
+        <Children>
+          <LocaleResource Name="YoutubeId">
+            <Value>Youtube-ID</Value>
+          </LocaleResource>
+          <LocaleResource Name="AspectRatio">
+            <Value>Bildformat</Value>
+          </LocaleResource>
+          <LocaleResource Name="AllowAutoPlay">
+            <Value>Video automatisch abspielen</Value>
+          </LocaleResource>
+          <LocaleResource Name="AllowAutoPlay.Hint">
+            <Value>Bestimmt, ob das Video beim Laden der Seite automatisch abgespielt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AllowFullscreen">
+            <Value>Vollbild anbieten</Value>
+          </LocaleResource>
+          <LocaleResource Name="Start">
+            <Value>Startzeit (in Sekunden)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Start.Hint">
+            <Value>Legt die Startzeit in Sekunden fest, ab der das Video beginnen soll. Geben Sie 0 an, wenn der Parameter nicht gesetzt werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="End">
+            <Value>Endzeit (in Sekunden)</Value>
+          </LocaleResource>
+          <LocaleResource Name="End.Hint">
+            <Value>Legt die Endzeit in Sekunden fest, bei der das Video beendet werden soll. Geben Sie 0 an, wenn der Parameter nicht gesetzt werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ActivateEnhancedPrivacyMode">
+            <Value>Erweiterten Datenschutzmodus aktivieren</Value>
+          </LocaleResource>
+          <LocaleResource Name="ActivateEnhancedPrivacyMode.Hint">
+            <Value>Geben Sie an, ob der erweiterte Datenschutzmodus aktiviert werden soll. In diesem Fall wird der Player über eine URL geladen, die keine Cookies speichert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayPlayerControls">
+            <Value>Player-Steuerelemente anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayTitleInfos">
+            <Value>Videotitel und Player-Aktionen anzeigen</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Video">
+        <Children>
+          <LocaleResource Name="Mp4Url">
+            <Value>MP4 Datei (empfohlen)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Mp4Url.Hint">
+            <Value>Das MP4 Video Format kann von nahezu allen Browsern abgespielt werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="WebMUrl">
+            <Value>WebM-Datei</Value>
+          </LocaleResource>
+          <LocaleResource Name="WebMUrl.Hint">
+            <Value>Bieten Sie auf jeden Fall ein MP4 Fallback an, weil WebM nicht von allen Browsern abgespielt werden kann.</Value>
+          </LocaleResource>
+          <LocaleResource Name="OggUrl">
+            <Value>Ogg-Datei</Value>
+          </LocaleResource>
+          <LocaleResource Name="OggUrl.Hint">
+            <Value>Bieten Sie auf jeden Fall ein MP4 Fallback an, weil Ogg nicht von allen Browsern abgespielt werden kann.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Loop">
+            <Value>Loop</Value>
+          </LocaleResource>
+          <LocaleResource Name="Loop.Hint">
+            <Value>Gibt das Video in einer Dauerschleife wieder.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Autoplay">
+            <Value>Video automatisch abspielen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Autoplay.Hint">
+            <Value>Bestimmt, ob das Video beim Laden der Seite automatisch abgespielt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayControls">
+            <Value>Player-Steuerelemente anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsMuted">
+            <Value>Stumm schalten</Value>
+          </LocaleResource>
+          <LocaleResource Name="IsMuted.Hint">
+            <Value>Bestimmt, ob die Audiospur des Videos stumm geschaltet werden soll.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="SoundCloud">
+        <Children>
+          <LocaleResource Name="Src">
+            <Value>Media URL</Value>
+          </LocaleResource>
+          <LocaleResource Name="Src.Hint">
+            <Value>Die vollständige URL des SoundCloud-Media-Items. Dies kann ein Benutzerprofil, ein einzelner Track oder eine Playlist sein.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Autoplay">
+            <Value>Automatisch abspielen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Autoplay.Hint">
+            <Value>Bestimmt, ob Tracks beim Laden der Seite automatisch abgespielt werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color.Hint">
+            <Value>Bestimmt die Farbe des Play-Buttons und anderer Steuerelemente.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Buying">
+            <Value>Kaufen-Button anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Sharing">
+            <Value>Teilen-Button anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Download">
+            <Value>Download-Button anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowArtwork">
+            <Value>Artwork anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowArtwork.Hint">
+            <Value>Bestimmt, ob die hinterlegte Grafik des Accounts angezeigt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowPlaycount">
+            <Value>Playcount anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowPlaycount.Hint">
+            <Value>Zeigt die Anzahl der erfolgten Wiedergaben an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShowUser">
+            <Value>Benutzerprofil anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="StartTrack">
+            <Value>Start</Value>
+          </LocaleResource>
+          <LocaleResource Name="StartTrack.Hint">
+            <Value>Bestimmt, welcher Track einer Liste order eines Benutzerprofils zuerst wiedergegeben wird. Der Index startet bei 0. Wenn also z.B. der dritte Track einer Liste zuerst wiedergegeben werden soll, geben Sie hier eine 2 an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SingleActive">
+            <Value>Andere Player bei Wiedergabe stoppen</Value>
+          </LocaleResource>
+          <LocaleResource Name="SingleActive.Hint">
+            <Value>Bestimmt, ob andere Player auf der gleichen Seite gestoppt werden sollen, sobald die Wiedergabe dieses Players gestartet wird.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="GoogleMaps">
+        <Children>
+          <LocaleResource Name="ApiKey">
+            <Value>API key</Value>
+          </LocaleResource>
+          <LocaleResource Name="ApiKey.Hint">
+            <Value>
+              <![CDATA[
+                Geben Sie Ihren Google API key an. Weitere Informationen zu diesen Thema finden Sie unter https://developers.google.com/maps/documentation/javascript/get-api-key
+                ]]>
+            </Value>
+          </LocaleResource>
+          <LocaleResource Name="Longitude">
+            <Value>Längengrad (Longitude)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Latitude">
+            <Value>Breitengrad (Latitude)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Zoom">
+            <Value>Zoom</Value>
+          </LocaleResource>
+          <LocaleResource Name="Zoom.Hint">
+            <Value>Legen Sie den initialen Zoom an. Hierbei handelt es sich um einen Wert zwischen 0 und dem maximal unterstützten Zoom, der je nach Karte variieren kann. Die meisten Regionen unterstützen einen Zoom von bis zu 20.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayStreetViewControl">
+            <Value>Street-View Steuerelement anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Validation.MustBeDouble">
+            <Value>Bitte geben Sie eine Fließkommazahl an.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="ProductList">
+        <Children>
+          <LocaleResource Name="ProductProperties">
+            <Value>Anzeigen...</Value>
+          </LocaleResource>
+          <LocaleResource Name="ProductPickingType">
+            <Value>Auswahl</Value>
+          </LocaleResource>
+          <LocaleResource Name="ProductIds">
+            <Value>Produkte</Value>
+          </LocaleResource>
+          <LocaleResource Name="ProductIds.Hint">
+            <Value>Wählen Sie die Produkte, die in der Liste angezeigt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="CategoryId">
+            <Value>Warengruppe</Value>
+          </LocaleResource>
+          <LocaleResource Name="CategoryId.Hint">
+            <Value>Wählen Sie die Warengruppe, deren Produkte in der Liste angezeigt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayShortDesc">
+            <Value>Kurzbeschreibung</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayPrice">
+            <Value>Preis</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayRatings">
+            <Value>Bewertungen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayBrand">
+            <Value>Hersteller</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayDimensions">
+            <Value>Abmessungen</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayDeliveryTimes">
+            <Value>Lieferzeit</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayVariants">
+            <Value>Attribute</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayLegalInfo">
+            <Value>Rechtliche Hinweise</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayButtons">
+            <Value>Aktions-Buttons</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayButtons.Hint">
+            <Value>In den Warenkorb, Wunschliste, Produkt vergleichen etc.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayBadges">
+            <Value>Badges</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayBadges.Hint">
+            <Value>Legt fest, ob Badges für 'Neu', 'Rabatt' usw. angezeigt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplaySku">
+            <Value>Artikelnummer</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayWeight">
+            <Value>Gewicht</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="Picture">
+        <Children>
+          <LocaleResource Name="PictureId">
+            <Value>Bild</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureSize">
+            <Value>Max. Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureSize.Hint">
+            <Value>Die maximale Größe des Bildes in Pixeln. Das Bild wird serverseitig verarbeitet.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fit">
+            <Value>Anpassung (object-fit)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fit.Hint">
+            <Value>Entspricht dem object-fit HTML-Attribut. Unwirksam, wenn Block vertikal nicht gestreckt ist.</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteLinkTarget">
+            <Value>Link überschreiben</Value>
+          </LocaleResource>
+          <LocaleResource Name="OverwriteLinkTarget.Hint">
+            <Value>Legt fest, ob der Link des Blocks überschrieben werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="NoFit">
+            <Value>Keine Anpassung</Value>
+          </LocaleResource>
+          <LocaleResource Name="LoadingBehaviour">
+            <Value>Laden von Bildern</Value>
+          </LocaleResource>
+          <LocaleResource Name="LoadingBehaviour.Hint">
+            <Value>Legt das Verhalten beim Laden von Bildern fest, die sich außerhalb des visuellen Darstellungsbereichs befinden.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="CategoryList">
+        <Children>
+          <LocaleResource Name="CategoryPickingType">
+            <Value>Auswahl</Value>
+          </LocaleResource>
+          <LocaleResource Name="ParentCategoryId">
+            <Value>Übergeordnete Warengruppe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ParentCategoryId.Hint">
+            <Value>Bestimmen Sie die Warengruppe, deren untergeordnete Warengruppen dargestellt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="CategoryIds">
+            <Value>Warengruppen</Value>
+          </LocaleResource>
+          <LocaleResource Name="CategoryIds.Hint">
+            <Value>Bestimmen Sie die Warengruppen explizit, die in der Liste dargestellt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayTitle">
+            <Value>Namen anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleDisplayType">
+            <Value>Position des Namens</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleDisplayType.Hint">
+            <Value>Legt fest, ob der Warengruppenname ober- oder unterhalb des Warengruppenbildes angezeigt wird.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="BrandList">
+        <Children>
+          <LocaleResource Name="BrandIds">
+            <Value>Hersteller</Value>
+          </LocaleResource>
+          <LocaleResource Name="BrandIds.Hint">
+            <Value>Bestimmen Sie die Hersteller, die in der Liste dargestellt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DisplayTitle">
+            <Value>Namen anzeigen</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleDisplayType">
+            <Value>Position des Namens</Value>
+          </LocaleResource>
+          <LocaleResource Name="TitleDisplayType.Hint">
+            <Value>Legt fest, ob der Herstellername ober- oder unterhalb des Herstellerlogos angezeigt wird.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="List">
+        <Children>
+          <LocaleResource Name="DisplayType">
+            <Value>Listendarstellung</Value>
+          </LocaleResource>
+          <LocaleResource Name="ItemsPerRow">
+            <Value>Elemente pro Zeile</Value>
+          </LocaleResource>
+          <LocaleResource Name="ItemsPerRow.Hint">
+            <Value>Anzahl der Listenelemente pro Zeile.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideItemsDisplayCount">
+            <Value>Elemente pro Slide</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideItemsDisplayCount.Hint">
+            <Value>Anzahl der Listenelemente pro sichtbarem Slide.</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideItemsSlideCount">
+            <Value>Anzahl zu slidender Elemente</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideItemsSlideCount.Hint">
+            <Value>Anzahl der Listenelemente, die pro Slide-Vorgang bewegt werden sollen.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxItems">
+            <Value>Maximale Anzahl</Value>
+          </LocaleResource>
+          <LocaleResource Name="MaxItems.Hint">
+            <Value>Max. Anzahl der Elemente in der gesamten Liste.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GrayscaleItems">
+            <Value>Grayscale</Value>
+          </LocaleResource>
+          <LocaleResource Name="GrayscaleItems.Hint">
+            <Value>Wendet einen Graustufen-Effekt auf die Listenelemente an. Bei Hover über ein Element wird der Effekt wieder aufgehoben.</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxedStyleItems">
+            <Value>In Box darstellen</Value>
+          </LocaleResource>
+          <LocaleResource Name="BoxedStyleItems.Hint">
+            <Value>Legt einen sichtbaren Rahmen um die Listenelemente an.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <!-- Editor Templates -->
+      <LocaleResource Name="FontStyles">
+        <Children>
+          <LocaleResource Name="Weight">
+            <Value>Schriftstärke</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="TextTransform">
+            <Value>Umwandlung</Value>
+          </LocaleResource>
+          <LocaleResource Name="TextTransform.Hint">
+            <Value>(text-transform)</Value>
+          </LocaleResource>
+          <LocaleResource Name="TextItalic">
+            <Value>Kursiv</Value>
+          </LocaleResource>
+          <LocaleResource Name="BackgroundColor">
+            <Value>Hintergrundfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="BackgroundColor.Hint">
+            <Value>Legt die Hintergrundfarbe des Textes fest.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="FontAwesome">
+        <Children>
+          <LocaleResource Name="Icon">
+            <Value>Icon</Value>
+          </LocaleResource>
+          <LocaleResource Name="Size">
+            <Value>Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="AnimationType">
+            <Value>Animation</Value>
+          </LocaleResource>
+          <LocaleResource Name="Rotation">
+            <Value>Drehen &amp; Spiegeln</Value>
+          </LocaleResource>
+          <LocaleResource Name="FrameIcon">
+            <Value>Rahmen Icon</Value>
+          </LocaleResource>
+          <LocaleResource Name="FrameIcon.Hint">
+            <Value>Bestimmt das Icon zur Umrahmung des Haupt-Icons.</Value>
+          </LocaleResource>
+          <LocaleResource Name="FrameColor">
+            <Value>Rahmenfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Opacity">
+            <Value>Deckkraft</Value>
+          </LocaleResource>
+          <LocaleResource Name="FrameOpacity">
+            <Value>Rahmen Deckkraft</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="IconRotation">
+        <Children>
+          <LocaleResource Name="Rotate90">
+            <Value>Um 90 Grad drehen (fa-rotate-90)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Rotate180">
+            <Value>Um 180 Grad drehen (fa-rotate-180)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Rotate270">
+            <Value>Um 270 Grad drehen (fa-rotate-270)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipH">
+            <Value>Horizontal spiegeln (fa-flip-horizontal)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipV">
+            <Value>Vertikal spiegeln (fa-flip-vertical)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="IconAnimation">
+        <Children>
+          <LocaleResource Name="Spin">
+            <Value>Gleichmäßig drehen (fa-spin)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Pulse">
+            <Value>Pulsierend drehen (fa-pulse)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="IconSize">
+        <Children>
+          <LocaleResource Name="Xs">
+            <Value>Sehr klein (fa-xs)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Sm">
+            <Value>Etwas kleiner (fa-sm)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Lg">
+            <Value>Etwas größer (fa-lg)</Value>
+          </LocaleResource>
+          <LocaleResource Name="nx">
+            <Value>{0}x größer (fa-{0}x)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="BackgroundPosition">
+        <Children>
+          <LocaleResource Name="CenterCenter">
+            <Value>Zentriert</Value>
+          </LocaleResource>
+          <LocaleResource Name="LeftTop">
+            <Value>Links oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="CenterTop">
+            <Value>Mitte oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="RightTop">
+            <Value>Rechts oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="RightCenter">
+            <Value>Rechts mittig</Value>
+          </LocaleResource>
+          <LocaleResource Name="RightBottom">
+            <Value>Rechts unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="CenterBottom">
+            <Value>Mitte unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="LeftBottom">
+            <Value>Links unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="LeftCenter">
+            <Value>Links mittig</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="BackgroundRepeat">
+        <Children>
+          <LocaleResource Name="NoRepeat">
+            <Value>Nicht wiederholen (no-repeat)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Repeat">
+            <Value>Wiederholen (repeat)</Value>
+          </LocaleResource>
+          <LocaleResource Name="RepeatX">
+            <Value>Horizontal wiederholen (repeat-x)</Value>
+          </LocaleResource>
+          <LocaleResource Name="RepeatY">
+            <Value>Vertikal wiederholen (repeat-y)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="BackgroundAttachment">
+        <Children>
+          <LocaleResource Name="Scroll">
+            <Value>Scrollen (scroll)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fixed">
+            <Value>Fixiert (fixed)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Local">
+            <Value>Am Block ausgerichtet (local)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="BackgroundSize">
+        <Children>
+          <LocaleResource Name="Cover">
+            <Value>Kürzere Seite angleichen (cover)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Auto">
+            <Value>Reale Größe (auto)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Contain">
+            <Value>Längere Seite angleichen (contain)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="GradientBrightness">
+        <Children>
+          <LocaleResource Name="Dark">
+            <Value>[Farbe] > dunklerer Farbton</Value>
+          </LocaleResource>
+          <LocaleResource Name="DarkRev">
+            <Value>Dunklerer Farbton > [Farbe]</Value>
+          </LocaleResource>
+          <LocaleResource Name="Light">
+            <Value>Hellerer Farbton > [Farbe]</Value>
+          </LocaleResource>
+          <LocaleResource Name="LightRev">
+            <Value>[Farbe] > hellerer Farbton</Value>
+          </LocaleResource>
+          <LocaleResource Name="Hue">
+            <Value>Angepasster Farbton > [Farbe]</Value>
+          </LocaleResource>
+          <LocaleResource Name="HueRev">
+            <Value>[Farbe] > angepasster Farbton</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="GradientDirs">
+        <Children>
+          <LocaleResource Name="ToLeft">
+            <Value>Nach links</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToLeftTop">
+            <Value>Nach links oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToLeftBottom">
+            <Value>Nach links unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToRight">
+            <Value>Nach rechts</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToRightTop">
+            <Value>Nach rechts oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToRightBottom">
+            <Value>Nach rechts unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToTop">
+            <Value>Nach oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="ToBottom">
+            <Value>Nach unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtLeftTop">
+            <Value>Links oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtCenterTop">
+            <Value>Mitte oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtRightTop">
+            <Value>Rechts oben</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtRightCenter">
+            <Value>Rechts mitte</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtRightBottom">
+            <Value>Rechts unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtCenterBottom">
+            <Value>Mitte unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtLeftBottom">
+            <Value>Links unten</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtLeftCenter">
+            <Value>Links mitte</Value>
+          </LocaleResource>
+          <LocaleResource Name="CircleAtCenter">
+            <Value>Zentriert</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="BackgroundTints">
+        <Children>
+          <LocaleResource Name="Dark">
+            <Value>Dunkel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Medium">
+            <Value>Mittel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Light">
+            <Value>Hell</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+      <LocaleResource Name="RevealEffect">
+        <Children>
+          <LocaleResource Name="Fade">
+            <Value>Einblenden (fade)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeUp">
+            <Value>Nach oben einblenden (fade-up)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeDown">
+            <Value>Nach unten einblenden (fade-down)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeLeft">
+            <Value>Nach links einblenden (fade-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeRight">
+            <Value>Nach rechts einblenden (fade-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeUpRight">
+            <Value>Nach rechts oben einblenden (fade-up-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeUpLeft">
+            <Value>Nach links oben einblenden (fade-up-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeDownRight">
+            <Value>Nach rechts unten einblenden (fade-down-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FadeDownLeft">
+            <Value>Nach links unten einblenden (fade-down-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipUp">
+            <Value>Nach oben drehend einblenden (flip-up)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipDown">
+            <Value>Nach unten drehend einblenden (flip-down)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipLeft">
+            <Value>Nach links drehend einblenden (flip-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlipRight">
+            <Value>Nach rechts drehend einblenden (flip-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideUp">
+            <Value>Nach oben gleitend (slide-up)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideDown">
+            <Value>Nach unten gleitend (slide-down)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideLeft">
+            <Value>Nach links gleitend (slide-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="SlideRight">
+            <Value>Nach rechts gleitend (slide-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomIn">
+            <Value>Hereinzoomen (zoom-in)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomInUp">
+            <Value>Nach oben hereinzoomen (zoom-in-up)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomInDown">
+            <Value>Nach unten hereinzoomen (zoom-in-down)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomInLeft">
+            <Value>Nach link hereinzoomen (zoom-in-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomInRight">
+            <Value>Nach rechts hereinzoomen (zoom-in-right)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomOut">
+            <Value>Herauszoomen (zoom-out)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomOutUp">
+            <Value>Nach oben herauszoomen (zoom-out-up)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomOutDown">
+            <Value>Nach unten herauszoomen (zoom-out-down)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomOutLeft">
+            <Value>Nach links herauszoomen (zoom-out-left)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ZoomOutRight">
+            <Value>Nach rechts herauszoomen (zoom-out-right)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="BorderRadii">
+        <Children>
+          <LocaleResource Name="Small">
+            <Value>Klein</Value>
+          </LocaleResource>
+          <LocaleResource Name="Medium">
+            <Value>Mittel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Large">
+            <Value>Groß</Value>
+          </LocaleResource>
+          <LocaleResource Name="ExtraLarge">
+            <Value>Sehr groß</Value>
+          </LocaleResource>
+          <LocaleResource Name="Circle">
+            <Value>Kreis</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="BoxHoverEffect">
+        <Children>
+          <LocaleResource Name="Rise">
+            <Value>Erhöhen (rise)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Scale">
+            <Value>Leicht heranzoomen (scale)</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="EffectTarget">
+        <Children>
+          <LocaleResource Name="Block">
+            <Value>Ganzer Block</Value>
+          </LocaleResource>
+          <LocaleResource Name="Content">
+            <Value>Nur Block-Inhalt</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Background">
+        <Children>
+          <LocaleResource Name="PictureId">
+            <Value>Bild</Value>
+          </LocaleResource>
+          <LocaleResource Name="Position">
+            <Value>Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="Position.Hint">
+            <Value>Bestimmt die Position im Bild, das in der linken oberen Ecke des Hintergrundes angezeigt werden soll</Value>
+          </LocaleResource>
+          <LocaleResource Name="Repeat">
+            <Value>Wiederholung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Repeat.Hint">
+            <Value>Bestimmt, ob das Hintergrundbild gekachelt werden soll, wenn der Container größer ist.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Attachment">
+            <Value>Attachment</Value>
+          </LocaleResource>
+          <LocaleResource Name="Attachment.Hint">
+            <Value>Bestimmt, ob das Hintergrundbild beim Scrollen mitgeht oder an einer festen Position fixiert bleibt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Size">
+            <Value>Ausdehnung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Size.Hint">
+            <Value>(background-size) Bestimmt die Größe bzw. Ausdehnung des Hintergrundbildes.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Color">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientColor">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientDir">
+            <Value>Richtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientDir.Hint">
+            <Value>Bestimmt die Richtung (linear) oder die Position (radial) des Verlaufs.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientBrightness">
+            <Value>Helligkeit</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientBrightness.Hint">
+            <Value>Bestimmt die Helligkeit des Verlaufs.</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientSize">
+            <Value>Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="GradientSize.Hint">
+            <Value>Ausdehnung des Verlaufs (0.5 = 50% ... 1 = 100% ... 2 = 200%)</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadeColor">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadeDir">
+            <Value>Richtung oder Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadeDir.Hint">
+            <Value>Bestimmt die Richtung (linear) oder die Position (radial) des Schattens.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadeSize">
+            <Value>Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadeSize.Hint">
+            <Value>Ausdehnung der Schattierung (0.5 = 50% ... 1 = 100% ... 2 = 200%)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Tint">
+            <Value>Stärke</Value>
+          </LocaleResource>
+          <LocaleResource Name="TintRev">
+            <Value>Effekt umdrehen</Value>
+          </LocaleResource>
+          <LocaleResource Name="TintRev.Hint">
+            <Value>Dreht den Tint-Effekt um, sodass der Hintergrund erst bei Hover verdunkelt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Shadow">
+            <Value>Schatten</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadowColor">
+            <Value>Farbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ShadowBlur">
+            <Value>Unschärfe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Body">
+            <Value>Seitenhintergrund</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="BlockBox">
+        <Children>
+          <LocaleResource Name="BorderColor">
+            <Value>Rahmenfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="BorderWidth">
+            <Value>Rahmenstärke</Value>
+          </LocaleResource>
+          <LocaleResource Name="BorderRadius">
+            <Value>Rahmenradius</Value>
+          </LocaleResource>
+          <LocaleResource Name="DropShadow">
+            <Value>Schatten</Value>
+          </LocaleResource>
+          <LocaleResource Name="DropShadow.Hint">
+            <Value>Bestimmt, ob der Block einen Schatten wirft.</Value>
+          </LocaleResource>
+          <LocaleResource Name="DropShadowSize">
+            <Value>Schattengröße</Value>
+          </LocaleResource>
+          <LocaleResource Name="DropShadowColor">
+            <Value>Schattenfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Picture">
+            <Value>Boxbild</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureInfo">
+            <Value>Anders als das Hintergrundbild beansprucht ein Boxbild Raum, d.h. die Bildgröße kann Einfluss auf die Block-Größe haben. Außerdem können Boxbilder neben Blockinhalten platziert und mit diversen Effekten versehen werden.</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureId">
+            <Value>Bild</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureSize">
+            <Value>Max. Größe</Value>
+          </LocaleResource>
+          <LocaleResource Name="PictureSize.Hint">
+            <Value>Die maximale Größe des Bildes in Pixeln. Das Bild wird serverseitig verarbeitet.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImagePlacement">
+            <Value>Position</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImagePlacement.Hint">
+            <Value>Bestimmt die Position des Bildes innerhalb der Box.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageMaxWidthOrHeight">
+            <Value>Maximale Breite oder Höhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageMaxWidthOrHeight.Hint">
+            <Value>Bestimmt die maximale Breite oder Höhe des Bildes als CSS Größenangabe. Ob der Wert auf die Breite oder die Höhe angewendet wird, ergibt sich aus der Position des Bildes.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ScaleImageOnHover">
+            <Value>Vergrößerung bei Hover</Value>
+          </LocaleResource>
+          <LocaleResource Name="ScaleImageOnHover.Hint">
+            <Value>Bestimmt, ob das Bild bei Maus-Hover leicht vergrößert wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ScaleImageOnHoverRev">
+            <Value>Vergrößerung bei Hover umdrehen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ScaleImageOnHoverRev.Hint">
+            <Value>Dreht den Vergrößerungseffekt um, so dass das Bild beim Laden der Seite vergrößert angezeigt und erst verkleinert wird, wenn der Besucher mit der Maus darüber fährt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageBlur">
+            <Value>Unschärfe</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageBlur.Hint">
+            <Value>Wendet einen Unschärfe-Effekt auf das Bild an. 0 = keine Unschärfe, 50px = extrem unscharf.</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageGrayscale">
+            <Value>Graustufen</Value>
+          </LocaleResource>
+          <LocaleResource Name="ImageGrayscale.Hint">
+            <Value>Wendet eine Graustufen-Konvertierung auf das Bild an. 0 = keine Konvertierung, 100% = graustufig.</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlatInfo">
+            <Value>Entfernt Hintergrund, Rahmen und Schatten und zeigt diese erst bei Hover an.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flat">
+            <Value>Flat Effekt anwenden</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlatInverse">
+            <Value>Textfarben bei Hover invertieren</Value>
+          </LocaleResource>
+          <LocaleResource Name="FlatInverse.Hint">
+            <Value>Aktivieren Sie diese Option, wenn der Hover-Hintergrund dunkel ist. Damit werden die Farben von Block-Inhaltstexten bei Hover zu weiß transformiert.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Mega">
+            <Value>Mega</Value>
+          </LocaleResource>
+          <LocaleResource Name="Mega.Intro">
+            <Value>Verändert die Größe des Blocks und schiebt diesen gemäß Einstellung ggf. über den rechten, den linken oder beide Bildschirmränder hinaus.</Value>
+          </LocaleResource>
+          <LocaleResource Name="MegaSize">
+            <Value>Block vergrößern</Value>
+          </LocaleResource>
+          <LocaleResource Name="MegaSizeType">
+            <Value>Ausdehnung</Value>
+          </LocaleResource>
+          <LocaleResource Name="MegaSizeBreakpoint">
+            <Value>Breakpoint für die Vergrößerung</Value>
+          </LocaleResource>
+          <LocaleResource Name="MegaSizeBreakpoint.Hint">
+            <Value>Bestimmt, ab welchem Breakpoint die Vergrößerung angewendet wird.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="BlockEffects">
+        <Children>
+          <LocaleResource Name="HoverEffect">
+            <Value>Effekt bei Hover</Value>
+          </LocaleResource>
+          <LocaleResource Name="HoverEffect.Hint">
+            <Value>Bestimmt den Effekt, der bei Maus-Hover auf den Block angewendet werden soll.</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealEnabled">
+            <Value>Reveal aktivieren</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealEffect">
+            <Value>Reveal Effekt</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealEffect.Hint">
+            <Value>Bestimmt den Effekt, der zum Einblenden des Blocks benutzt wird.</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealEasing">
+            <Value>Easing</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealEasing.Hint">
+            <Value>Bestimmt den zeitlichen Ablauf der Animation (Beschleunigung bei Start, Abbremsen zum Ende).</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealOffset">
+            <Value>Auslöseversatz</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealOffset.Hint">
+            <Value>Grundsätzlich wird der Effekt ausgelöst, wenn die obere Kante des Blockes den unteren Bildschirmrand trifft. Mit einem Versatz in Pixeln lässt sich dieser Auslösepunkt justieren. Negative Werte sind möglich. Standard: 120.</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDistance">
+            <Value>Distanz</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDistance.Hint">
+            <Value>Distanz zwischen Start- und End-Position des Blockes während der Animation (CSS Größenangabe, Standard: 100px)</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDelay">
+            <Value>Verzögerung</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDelay.Hint">
+            <Value>Bestimmt die Verzögerung bis zum Beginn der Animation (in ms).</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDuration">
+            <Value>Dauer</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealDuration.Hint">
+            <Value>Bestimmt die Dauer der Animation (in ms).</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealOnce">
+            <Value>Nur 1x einblenden</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealOnce.Hint">
+            <Value>Wenn aus, wird der Effekt jedesmal, wenn der Block in Erscheinung tritt, erneut angewendet.</Value>
+          </LocaleResource>
+          <LocaleResource Name="RevealTarget">
+            <Value>Effekt anwenden auf</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Search">
+        <Children>
+          <LocaleResource Name="SearchSystemName">
+            <Value>Systemname</Value>
+          </LocaleResource>
+          <LocaleResource Name="SearchWidgetZones">
+            <Value>Widget Zone</Value>
+          </LocaleResource>
+          <LocaleResource Name="SearchPublished">
+            <Value>Veröffentlicht</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Validation">
+        <Children>
+          <LocaleResource Name="RepeatUnsupported">
+            <Value>Der 'repeat' Ausdruck wird nicht unterstützt. Bitte machen Sie pro Track eine separate Angabe.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Options">
+        <Children>
+          <LocaleResource Name="Flex.Start">
+            <Value>Anfang (start)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.Center">
+            <Value>Mitte (center)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.End">
+            <Value>Ende (end)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.SpaceBetween">
+            <Value>Leerraum zwischen Elementen (space-between)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.SpaceAround">
+            <Value>Leerraum um Elemente (space-around)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.Stretch">
+            <Value>Ausdehnen (stretch)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flex.Baseline">
+            <Value>Basislinie (baseline)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Black">
+            <Value>Schwarz</Value>
+          </LocaleResource>
+          <LocaleResource Name="White">
+            <Value>Weiß</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlows.Row">
+            <Value>Reihen (row)</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlows.Column">
+            <Value>Spalten (column)</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlows.RowDense">
+            <Value>Reihen ohne Leeräume (row-dense)</Value>
+          </LocaleResource>
+          <LocaleResource Name="GridAutoFlows.ColumnDense">
+            <Value>Spalten ohne Leeräume (column-dense)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Left">
+            <Value>Links</Value>
+          </LocaleResource>
+          <LocaleResource Name="Center">
+            <Value>Mittig</Value>
+          </LocaleResource>
+          <LocaleResource Name="Right">
+            <Value>Rechts</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fullsize">
+            <Value>Volle Breite</Value>
+          </LocaleResource>
+          <LocaleResource Name="Fluid">
+            <Value>Adaptiv</Value>
+          </LocaleResource>
+          <LocaleResource Name="Boxed">
+            <Value>Boxed</Value>
+          </LocaleResource>
+          <LocaleResource Name="Medium">
+            <Value>Mittel</Value>
+          </LocaleResource>
+          <LocaleResource Name="Tall">
+            <Value>Hoch</Value>
+          </LocaleResource>
+          <LocaleResource Name="Small">
+            <Value>Klein</Value>
+          </LocaleResource>
+          <LocaleResource Name="Large">
+            <Value>Weit</Value>
+          </LocaleResource>
+          <LocaleResource Name="Lowercase">
+            <Value>Lowercase</Value>
+          </LocaleResource>
+          <LocaleResource Name="Uppercase">
+            <Value>Uppercase</Value>
+          </LocaleResource>
+          <LocaleResource Name="Capitalize">
+            <Value>Capitalize</Value>
+          </LocaleResource>
+          <LocaleResource Name="Strong">
+            <Value>Stark</Value>
+          </LocaleResource>
+          <LocaleResource Name="Light">
+            <Value>Leicht</Value>
+          </LocaleResource>
+          <LocaleResource Name="Translucent">
+            <Value>Durchsichtig</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+
+      <LocaleResource Name="Overlays">
+        <Children>
+          <LocaleResource Name="DragDropInfo">
+            <Value>Ziehen und Ablegen, um Reihenfolge zu ändern.</Value>
+          </LocaleResource>
+          <LocaleResource Name="AddLayer">
+            <Value>Ebene hinzufügen</Value>
+          </LocaleResource>
+          <LocaleResource Name="Opacity">
+            <Value>Deckkraft</Value>
+          </LocaleResource>
+          <LocaleResource Name="Opacity.Hint">
+            <Value>Bestimmt die Deckkraft (opacity) der Ebene.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flip">
+            <Value>Spiegeln</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flip.Hint">
+            <Value>Spiegelt die Ebene horizontal und/oder vertikal.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flip.H">
+            <Value>Horizontal</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flip.V">
+            <Value>Vertikal</Value>
+          </LocaleResource>
+          <LocaleResource Name="Flip.HV">
+            <Value>Horizontal &amp; Vertikal</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider">
+            <Value>Trenner</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.Name">
+            <Value>Stil</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.Color">
+            <Value>Füllfarbe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.Color.Hint">
+            <Value>Füllfarbe der Form. Wählen Sie hier die Hintergrundfarbe der direkten Nachbarsektion für einen weichen Übergang.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.Height">
+            <Value>Höhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.Height.Hint">
+            <Value>Höhe des Trenn-Elementes (als CSS Größenengabe)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.MinHeight">
+            <Value>Mindesthöhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.MinHeight.Hint">
+            <Value>Mindesthöhe des Trenn-Elementes (als CSS Größenengabe)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.MaxHeight">
+            <Value>Max. Höhe</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.MaxHeight.Hint">
+            <Value>Maximale Höhe des Trenn-Elementes (als CSS Größenengabe)</Value>
+          </LocaleResource>
+          <LocaleResource Name="Divider.BoxImage.Info">
+            <Value>Wenn Sie ein Boxbild hochgeladen haben, das oberhalb oder unterhalb des Inhaltes positioniert wird, trennt dieses Element nicht den Block, sondern das Boxbild vom Block-Inhalt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.Type">
+            <Value>Typ</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.Linear">
+            <Value>Linear</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.LinearDir">
+            <Value>Richtung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.LinearDir.Hint">
+            <Value>Ausgangsposition in einem 360-Grad-Bereich.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.Radial">
+            <Value>Radial</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.RadialDir">
+            <Value>Mittelpunkt</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.StartPos">
+            <Value>Startposition</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.StartPos.Hint">
+            <Value>Legt fest, wo der Farbübergang beginnt.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.EndPos">
+            <Value>Endposition</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.EndPos.Hint">
+            <Value>Legt fest, wo der Farbübergang endet.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.MidPos">
+            <Value>Streifenbreite</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.MidPos.Hint">
+            <Value>Legt die Breite der ungeraden Streifen in Relation zur Verlaufsgröße fest.</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.Repeat">
+            <Value>Wiederholung</Value>
+          </LocaleResource>
+          <LocaleResource Name="Gradient.Repeat.Hint">
+            <Value>Legt fest, ob und wie ein Verlauf wiederholt bzw. gekachelt werden soll. Die Wiederholung wird erst wirksam, wenn der Verlauf kleiner als 100% ist.</Value>
+          </LocaleResource>
+        </Children>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Models.GradientRepeat" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="NoRepeat">
+        <Value>Nicht wiederholen</Value>
+      </LocaleResource>
+      <LocaleResource Name="Repeat">
+        <Value>Wiederholen</Value>
+      </LocaleResource>
+      <LocaleResource Name="Striped">
+        <Value>Streifen</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.IconDisplayType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="None">
+        <Value>Kein Icon</Value>
+      </LocaleResource>
+      <LocaleResource Name="Fontawesome">
+        <Value>Fontawesome Icon</Value>
+      </LocaleResource>
+      <LocaleResource Name="Picture">
+        <Value>Bild hochladen</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.IconAlignment" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="InlineLeft">
+        <Value>Links neben dem Titel</Value>
+      </LocaleResource>
+      <LocaleResource Name="Left">
+        <Value>Links neben dem Block</Value>
+      </LocaleResource>
+      <LocaleResource Name="Right">
+        <Value>Rechts neben dem Block</Value>
+      </LocaleResource>
+      <LocaleResource Name="Above">
+        <Value>Oben</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Models.MegaSizeTypes" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Left">
+        <Value>Nach links vergrößern</Value>
+      </LocaleResource>
+      <LocaleResource Name="Right">
+        <Value>Nach rechts vergrößern</Value>
+      </LocaleResource>
+      <LocaleResource Name="Center">
+        <Value>Zentriert vergrößern (in beide Richtungen)</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.StoryTemplateGroup" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="MyTemplates">
+        <Value>Eigene Vorlagen</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.ProductPickingType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Custom">
+        <Value>Produkte selbst bestimmen</Value>
+      </LocaleResource>
+      <LocaleResource Name="Top">
+        <Value>Top-Produkte der gewählten Warengruppe</Value>
+      </LocaleResource>
+      <LocaleResource Name="Random">
+        <Value>Zufällige Produkt-Auswahl der gewählten Warengruppe</Value>
+      </LocaleResource>
+      <LocaleResource Name="DeepTop">
+        <Value>Top-Produkte der gewählten Warengruppe (inkl. Unterwarengruppen)</Value>
+      </LocaleResource>
+      <LocaleResource Name="DeepRandom">
+        <Value>Zufällige Produkt-Auswahl der gewählten Warengruppe (inkl. Unterwarengruppen)</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.ProductListDisplayType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Slider">
+        <Value>Slider</Value>
+      </LocaleResource>
+      <LocaleResource Name="Grid">
+        <Value>Rasteransicht</Value>
+      </LocaleResource>
+      <LocaleResource Name="List">
+        <Value>Listenansicht</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.CategoryPickingType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Parent">
+        <Value>Übergeordnete Warengruppe</Value>
+      </LocaleResource>
+      <LocaleResource Name="Explicit">
+        <Value>Warengruppen selbst bestimmen</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.CategoryDisplayType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Slider">
+        <Value>Slider</Value>
+      </LocaleResource>
+      <LocaleResource Name="Grid">
+        <Value>Rasteransicht</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.BrandListDisplayType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Slider">
+        <Value>Slider</Value>
+      </LocaleResource>
+      <LocaleResource Name="Grid">
+        <Value>Rasteransicht</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.TitleDisplayType" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Above">
+        <Value>Oben</Value>
+      </LocaleResource>
+      <LocaleResource Name="Below">
+        <Value>Unten</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Models.BoxImagePlacement" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Background">
+        <Value>Hinter dem Blockinhalt</Value>
+      </LocaleResource>
+      <LocaleResource Name="Top">
+        <Value>Über dem Blockinhalt</Value>
+      </LocaleResource>
+      <LocaleResource Name="Bottom">
+        <Value>Unter dem Blockinhalt</Value>
+      </LocaleResource>
+      <LocaleResource Name="Left">
+        <Value>Links vom Blockinhalt</Value>
+      </LocaleResource>
+      <LocaleResource Name="Right">
+        <Value>Rechts vom Blockinhalt</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.ButtonAlignment" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Left">
+        <Value>Links</Value>
+      </LocaleResource>
+      <LocaleResource Name="Right">
+        <Value>Rechts</Value>
+      </LocaleResource>
+      <LocaleResource Name="Below">
+        <Value>Unten</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.ButtonIconAlignment" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Left">
+        <Value>Links</Value>
+      </LocaleResource>
+      <LocaleResource Name="Right">
+        <Value>Rechts</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+  <LocaleResource Name="Enums.SmartStore.PageBuilder.Blocks.GalleryStyle" AppendRootKey="false">
+    <Children>
+      <LocaleResource Name="Grid">
+        <Value>Raster</Value>
+      </LocaleResource>
+      <LocaleResource Name="Justify">
+        <Value>Horizontal (Reihen)</Value>
+      </LocaleResource>
+      <LocaleResource Name="Masonry">
+        <Value>Masonry (Spalten)</Value>
+      </LocaleResource>
+      <LocaleResource Name="Gallery">
+        <Value>Ga­le­rie</Value>
+      </LocaleResource>
+      <LocaleResource Name="Slider">
+        <Value>Slideshow</Value>
+      </LocaleResource>
+    </Children>
+  </LocaleResource>
+</Language>

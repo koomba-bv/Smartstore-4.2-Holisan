@@ -1,0 +1,305 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.MediaManager" AppendRootKey="false">
+    <Value>Media Manager</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.MediaManager" AppendRootKey="false">
+    <Value>Powerful explorer for media files</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.MediaManager" AppendRootKey="false">
+    <Value>Media Manager</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ShortName">
+    <Value>Media</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="AllFiles">
+    <Value>All files</Value>
+  </LocaleResource>
+  <LocaleResource Name="Albums">
+    <Value>Albums</Value>
+  </LocaleResource>
+  <LocaleResource Name="Folders">
+    <Value>Folders</Value>
+  </LocaleResource>
+  <LocaleResource Name="OrphanedFiles">
+    <Value>Orphaned</Value>
+  </LocaleResource>
+  <LocaleResource Name="OrphanedFiles.Hint">
+    <Value>Files that are not referenced by any entity.</Value>
+  </LocaleResource>
+  <LocaleResource Name="TransientFiles">
+    <Value>Transient</Value>
+  </LocaleResource>
+  <LocaleResource Name="TransientFiles.Hint">
+    <Value>Files that will be deleted during next cleaned up.</Value>
+  </LocaleResource>
+  <LocaleResource Name="UnassignedFiles">
+    <Value>Unassigned</Value>
+  </LocaleResource>
+  <LocaleResource Name="UnassignedFiles.Hint">
+    <Value>Files that are not assigned to a folder.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="CreateFolder">
+    <Value>New folder</Value>
+  </LocaleResource>
+  <LocaleResource Name="CreateFolderDialog">
+    <Value>Create new folder in {0}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="RenameFolder">
+    <Value>Rename folder</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolder">
+    <Value>Delete folder</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolderDialog">
+    <Value>Are you sure you want to delete the folder {0}?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolderContentDialog">
+    <Value>This operation deletes {0} and all subfolders. Please specify how to handle any files contained in this folder.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderCopied">
+    <Value>Folder {0} was successfully copied to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderMoved">
+    <Value>Folder {0} was successfully moved to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderWithFileDeleted">
+    <Value>The folder {0} and the file {1} have been deleted.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderWithFilesDeleted">
+    <Value>The folder {0} and {1} files have been  deleted.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoldersWithFileDeleted">
+    <Value>{0} folders and the file {1} have been deleted.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoldersWithFilesDeleted">
+    <Value>{0} folders and {1} files have been deleted.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="RenameFile">
+    <Value>Rename file</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFile">
+    <Value>Are you sure you want to delete the file {0} PERMANENTLY?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFiles">
+    <Value>Are you sure you want to delete these {0} selected files PERMANENTLY?</Value>
+  </LocaleResource>
+  <LocaleResource Name="TrashFile">
+    <Value>Do you really want to move the file {0} to the trash?</Value>
+  </LocaleResource>
+  <LocaleResource Name="TrashFiles">
+    <Value>Do you really want to move these {0} selected files to the trash?</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="MoveFilesToTrash">
+    <Value>Move files to the trash bin</Value>
+  </LocaleResource>
+  <LocaleResource Name="MoveFilesToAlbum">
+    <Value>Move files to the album root folder</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFilesPermanent">
+    <Value>Delete files permanently</Value>
+  </LocaleResource>  
+
+  <LocaleResource Name="FileSaved">
+    <Value>File {0} has been successfully updated.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesSaved">
+    <Value>{0} files have been successfully updated.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileTrashed">
+    <Value>The file {0} has been successfully moved to the trash.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesTrashed">
+    <Value>{0} files have been successfully moved to the trash.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDeleted">
+    <Value>The file {0} has been successfully deleted.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesDeleted">
+    <Value>{0} files have been successfully deleted.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileMoved">
+    <Value>The file {0} has been successfully moved to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesMoved">
+    <Value>{0} files have been successfully moved to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileCopied">
+    <Value>The file {0} has been successfully copied to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesCopied">
+    <Value>{0} files have been successfully copied to {1}.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileRestored">
+    <Value>The file {0} has been successfully restored.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesRestored">
+    <Value>{0} files have been successfully restored.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileInUse">
+    <Value>The file {0} could not be deleted because it is in use.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesInUse">
+    <Value>{0} files could not be deleted because they are in use.</Value>
+  </LocaleResource>
+  <LocaleResource Name="RestoreFileError">
+    <Value>The file {0} cannot be restored because it is not assigned to a folder. Please copy this file manually into a folder of your choice.</Value>
+  </LocaleResource>
+  <LocaleResource Name="RestoreFilesError">
+    <Value>{0} files cannot be restored because they are not assigned to a folder. Please copy these files manually into a folder of your choice.</Value>
+  </LocaleResource>
+  <LocaleResource Name="MustCopyFileToAlbum">
+    <Value>The file {0} needs to be copied to the designated album {1}. Do you want to proceed?.</Value>
+  </LocaleResource>
+  <LocaleResource Name="MustCopyFilesToAlbum">
+    <Value>{0} files need to be copied to the designated album {1}. Do you want to proceed?</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ViewMode.List">
+    <Value>Details</Value>
+  </LocaleResource>
+  <LocaleResource Name="ViewMode.Grid">
+    <Value>Thumbnails</Value>
+  </LocaleResource>
+  <LocaleResource Name="ViewMode.Tiles">
+    <Value>Tiles</Value>
+  </LocaleResource>
+  <LocaleResource Name="ThumbSize">
+    <Value>Thumbnail size</Value>
+  </LocaleResource>
+  <LocaleResource Name="BrowseMedia">
+    <Value>Browse media...</Value>
+  </LocaleResource>
+  <LocaleResource Name="SelectMedia">
+    <Value>Select</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="NoFilesFound">
+    <Value>No Files found.</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvertSelection">
+    <Value>Invert selection</Value>
+  </LocaleResource>
+  <LocaleResource Name="RestoreFile">
+    <Value>Restore</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeletePermanent">
+    <Value>Delete permanently</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="FileName">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileSize">
+    <Value>Size</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDimensions">
+    <Value>Dimensions</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDate">
+    <Value>Date</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileUpdatedDate">
+    <Value>Modified date</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileUrl">
+    <Value>URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="AltAttribute">
+    <Value>ALT attribute</Value>
+  </LocaleResource>
+  <LocaleResource Name="Title">
+    <Value>Title</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tags">
+    <Value>Tags</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tracks">
+    <Value>Tracks</Value>
+  </LocaleResource>
+  <LocaleResource Name="NoTracksFound">
+    <Value>No tracks found.</Value>
+  </LocaleResource>
+  <LocaleResource Name="NoFileSelected">
+    <Value>No file selected.</Value>
+  </LocaleResource>
+  <LocaleResource Name="BatchEdit">
+    <Value>Edit all</Value>
+  </LocaleResource>
+  <LocaleResource Name="ConfirmAndSave">
+    <Value>You have unsaved changes pending. Would you like to save them now?</Value>
+  </LocaleResource>
+  <LocaleResource Name="CancelUpload">
+    <Value>Are you sure you want to cancel the current upload process?</Value>
+  </LocaleResource>
+  <LocaleResource Name="ConcurrentSelectionError">
+    <Value>Cannot select more than 500 elements at once.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ImgSize.Xs">
+    <Value>Very small</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Sm">
+    <Value>Small</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Md">
+    <Value>Medium</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Lg">
+    <Value>Big</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Xl">
+    <Value>Very Big</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Type">
+    <Value>Type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Extension">
+    <Value>Extension</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Tag">
+    <Value>Tag</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.ImgSize">
+    <Value>Image size</Value>
+  </LocaleResource>
+  <LocaleResource Name="SearchTermPlaceholder">
+    <Value>Browse files. Wildcards: * = any number of characters, ? = exactly 1 character.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SortByX">
+    <Value>Sort by: {0}</Value>
+  </LocaleResource>
+  <LocaleResource Name="ReverseSortDir">
+    <Value>Reverse sort order</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracks">
+    <Value>Detect orphaned files</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracksInfo">
+    <Value>This operation checks for each file in album {0} whether it is referenced by at least one data entity. This operation may take some time for very large data sets. Do you want to continue?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracksComplete">
+    <Value>The Scan for orphaned files has been completed successfully.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Msg.NoFilesToDownload">
+    <Value>File list was empty.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Msg.TooManyFilesToDownload">
+    <Value>File list was too large and has been limited to 1,000 entries.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FuMessage">
+    <Value>To upload files drop them here.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ErrorHidden">
+    <Value>{0} further error was hidden.</Value>
+  </LocaleResource>
+  <LocaleResource Name="ErrorsHidden">
+    <Value>{0} further errors were hidden.</Value>
+  </LocaleResource>
+</Language>

@@ -1,0 +1,80 @@
+//
+// Customize the (child) theme here with css overrides
+// or new selectors (for users)
+// --------------------------------------------------
+
+// Colors
+// Green: #81ae44;
+// Purple: ##a46497;
+
+// General
+// Géén account aanmaken mogelijk
+.register-block {
+    display: none;
+}
+
+// Header
+// Footer
+#newsletter-subscribe-block .form-check-label, #newsletter-subscribe-block .form-check-label a {
+    color: #fff;
+}
+
+
+.container.footer-bottom a {
+    color: #fff;
+}
+
+.usp-section {
+    //background-color: #faf7f3;
+    color: #81ae44;
+}
+
+.menubar-link {
+    padding: .50em 0.8em;
+    text-transform: unset;
+}
+
+.pd-section-bottom div.choice-control {
+    display: unset;
+}
+
+// Homepage
+.lead {
+    font-size: .9375rem;
+}
+
+// Partlist
+
+// Partdetail
+.pd-section-bottom div.choice-control {
+    display: none;
+}
+
+.pd-variant .pd-price {
+    font-size: unset;
+}
+
+// Childs
+.pd-variant .pd-name {
+    font-size: 0.8rem !important;
+}
+
+@media (min-width: 1200px) {
+    .pd-variant .row.pd-offer-actions .pd-offer-action-qty {
+        max-width: 90px;
+        min-width: 90px;
+    }
+
+/*    .pd-variant .btn-primary > span {
+        display: none;
+    }*/
+
+
+    .pd-variant .btn-lg {
+        padding: .875rem 0.9rem;
+    }
+
+    .pd-variant .btn-block {
+        //width: 50%;
+    }
+}

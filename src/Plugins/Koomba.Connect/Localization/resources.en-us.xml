@@ -1,0 +1,250 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+	<LocaleResource Name="Plugins.FriendlyName.Koomba.Connect" AppendRootKey="false">
+		<Value>KOOMBA.Connect</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="AdminInstruction">
+		<Value>
+			<![CDATA[<p>Admin Instruction.</p>]]>
+		</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="UpdateSapFieldsBtn">
+		<Value>Update SAP fields</Value>
+	</LocaleResource>
+	<LocaleResource Name="UpdateSapFieldsMsg">
+		<Value>Update was successful</Value>
+	</LocaleResource>
+	<LocaleResource Name="RunTaskBtn">
+		<Value>Run Task</Value>
+	</LocaleResource>
+	<LocaleResource Name="RunTaskMsg">
+		<Value>The task is now running in the background.</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Connection">
+		<Children>
+			<LocaleResource Name="Create">
+				<Value>Add a new connection</Value>
+			</LocaleResource>
+			<LocaleResource Name="Edit">
+				<Value>Edit connection details</Value>
+			</LocaleResource>
+			<LocaleResource Name="BackToList">
+				<Value>back to connection list</Value>
+			</LocaleResource>
+			<LocaleResource Name="EditTaskBtn">
+				<Value>Edit task</Value>
+			</LocaleResource>
+			<LocaleResource Name="NoConnections">
+				<Value>There were no connections found.</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="SchedulingTaskId">
+				<Value>Execution</Value>
+			</LocaleResource>
+			<LocaleResource Name="Name">
+				<Value>Name</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsActive">
+				<Value>Is active</Value>
+			</LocaleResource>
+			<LocaleResource Name="OnlyUpdate">
+				<Value>Only update</Value>
+			</LocaleResource>
+			<LocaleResource Name="SmartType">
+				<Value>Smart type</Value>
+			</LocaleResource>
+			<LocaleResource Name="SynchronizeType">
+				<Value>Synchronize type</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapUserName">
+				<Value>B1WebAPI Username</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapPassword">
+				<Value>B1WebAPI Password</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapUrl">
+				<Value>B1WebAPI URL</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapCompany">
+				<Value>SAP company</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapCategory">
+				<Value>B1WebAPI Folder</Value>
+			</LocaleResource>
+			<LocaleResource Name="SapQuery">
+				<Value>SAP query</Value>
+			</LocaleResource>
+			<LocaleResource Name="NewCardCodeQuery">
+				<Value>New card code query</Value>
+			</LocaleResource>
+			<LocaleResource Name="InsertQuery">
+				<Value>Insert query</Value>
+			</LocaleResource>
+			<LocaleResource Name="UpdateQuery">
+				<Value>Update query</Value>
+			</LocaleResource>
+			<LocaleResource Name="AllowCreate">
+				<Value>Allow create</Value>
+			</LocaleResource>
+			<LocaleResource Name="AllowEdit">
+				<Value>Allow edit</Value>
+			</LocaleResource>
+			<LocaleResource Name="CardCode">
+				<Value>Query parameters</Value>
+			</LocaleResource>
+            <LocaleResource Name="GetOrderNumberQuery">
+                <Value>Get order number query</Value>
+            </LocaleResource>
+            <LocaleResource Name="OrderNumberField">
+                <Value>Order number field</Value>
+            </LocaleResource>
+            <LocaleResource Name="CustomerNumberField">
+                <Value>Customer number field</Value>
+            </LocaleResource>
+			<LocaleResource Name="ParseFromXml">
+				<Value>Parse from XML</Value>
+			</LocaleResource>
+			<LocaleResource Name="ColumnXml">
+				<Value>Column XML</Value>
+			</LocaleResource>
+			<LocaleResource Name="LogOnlyErrors">
+				<Value>Log only errors</Value>
+			</LocaleResource>
+            <LocaleResource Name="SendErrorEmail">
+                <Value>Send error email</Value>
+            </LocaleResource>
+			<LocaleResource Name="ConnectionsBefore">
+				<Value>Run these connections before</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="KeyLogic">
+				<Value>Key logic</Value>
+			</LocaleResource>
+            <LocaleResource Name="AllowDeleteProductSpecificationAttribute">
+                <Value>Delete product specification attribute</Value>
+            </LocaleResource>
+            <LocaleResource Name="IgnoredProductIds">
+                <Value>Ignored product IDs</Value>
+            </LocaleResource>
+			<LocaleResource Name="AllConnections">
+				<Value>All connections</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="FieldMap">
+		<Children>
+			<LocaleResource Name="SapField">
+				<Value>SAP field</Value>
+			</LocaleResource>
+			<LocaleResource Name="SmartField">
+				<Value>SmartStore field</Value>
+			</LocaleResource>
+			<LocaleResource Name="DefaultValue">
+				<Value>Default value</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsIgnored">
+				<Value>Ignore</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsKeyColumn">
+				<Value>Key</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="EditRuleBtn">
+				<Value>Rules</Value>
+			</LocaleResource>
+			<LocaleResource Name="EditRule">
+				<Value>Edit Rules</Value>
+			</LocaleResource>
+			<LocaleResource Name="BackToList">
+				<Value>back to connection</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="Requirement">
+		<Children>
+			<LocaleResource Name="EditTitle">
+				<Value>Edit requirements</Value>
+			</LocaleResource>
+			<LocaleResource Name="Create">
+				<Value>Add a new requirement</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="Rule">
+		<Children>
+			<LocaleResource Name="SystemName">
+				<Value>System Name</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsOpposite">
+				<Value>Opposite</Value>
+			</LocaleResource>
+			<LocaleResource Name="ActionSystemName">
+				<Value>Action System Name</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsActionToField">
+				<Value>To Field</Value>
+			</LocaleResource>
+			<LocaleResource Name="IsConditionToField">
+				<Value>To Field</Value>
+			</LocaleResource>
+			<LocaleResource Name="From">
+				<Value>From</Value>
+			</LocaleResource>
+			<LocaleResource Name="To">
+				<Value>To</Value>
+			</LocaleResource>
+			<LocaleResource Name="ToOtp">
+				<Value>To (optional)</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="Enums.Koomba.Connect.Domain" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="SmartType">
+				<Children>
+					<LocaleResource Name="Order">
+						<Value>Order</Value>
+					</LocaleResource>
+					<LocaleResource Name="Customer">
+						<Value>Customer</Value>
+					</LocaleResource>
+					<LocaleResource Name="Product">
+						<Value>Product</Value>
+					</LocaleResource>
+					<LocaleResource Name="Address">
+						<Value>Address</Value>
+					</LocaleResource>
+					<LocaleResource Name="DependingPrice">
+						<Value>Depending price</Value>
+					</LocaleResource>
+					<LocaleResource Name="TierPrice">
+						<Value>Tier price</Value>
+					</LocaleResource>
+					<LocaleResource Name="RelatedProduct">
+						<Value>Related product</Value>
+					</LocaleResource>
+					<LocaleResource Name="MinimizedProduct">
+						<Value>Minimized product</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+
+			<LocaleResource Name="SynchronizeType">
+				<Children>
+					<LocaleResource Name="Export">
+						<Value>Export</Value>
+					</LocaleResource>
+					<LocaleResource Name="Import">
+						<Value>Import</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+</Language>

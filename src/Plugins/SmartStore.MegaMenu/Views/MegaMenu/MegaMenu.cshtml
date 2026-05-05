@@ -1,0 +1,430 @@
+﻿@model MegaMenuNavigationModel
+@using SmartStore.Collections;
+@using SmartStore.MegaMenu.Domain;
+@using SmartStore.MegaMenu.Models;
+@using SmartStore.Web.Models.Catalog;
+@using SmartStore.Core.Domain.Media;
+
+@{
+    Layout = "";
+
+    var newNavMenuItem = new TreeNode<MenuItem>(new MenuItem { EntityId = -1, Id = "-1" });
+    var cutOffItems = Model.NavigationModel.Root.Children
+        .Where(x => x.Value.Id != "brand" && x.GetMetadata<bool>("spare", false))
+        .ToList();
+    
+    var moreMegaMenuDropdownModel = new MegaMenuDropdownModel
+    {
+        IsActive = true,
+        MinChildCategoryThreshold = 0,
+        MaxItemsPerColumn = 20,
+        MaxSubItemsPerCategory = 6
+    };
+}
+
+@functions {
+
+    private int currentColumnItemCount = 0;
+    private int currentColumnCount = 1;
+    private int maxColumnCount = 4;
+    private int remainingItems = 0;
+
+    private TreeNode<MenuItem> GetNextMainCat(TreeNode<MenuItem> mainCat, MegaMenuDropdownModel dropdownModel)
+    {
+        if(mainCat.Children.Count < dropdownModel.MinChildCategoryThreshold && mainCat.Next != null)
+        {
+            return GetNextMainCat(mainCat.Next, dropdownModel);
+        }
+
+        return mainCat;
+    }
+
+    private bool CloseColumn(TreeNode<MenuItem> currentNavItem, TreeNode<MenuItem> nextCat, MegaMenuDropdownModel dropdownModel)
+    {
+        // children only
+        if (nextCat != null && !dropdownModel.AllowSubItemsColumnWrap)
+        {
+            var nextMainCat = GetNextMainCat(nextCat, dropdownModel);
+            var nextMainCatItemCount = nextMainCat.Children.Count > dropdownModel.MaxSubItemsPerCategory ? dropdownModel.MaxSubItemsPerCategory : nextMainCat.Children.Count;
+            nextMainCatItemCount++; // plus parent
+            var fitsWithNextCat = currentNavItem.Parent.Children.Count + 1 + nextMainCatItemCount <= dropdownModel.MaxItemsPerColumn;
+            var isLastChild = currentNavItem.Next == null;
+
+            if (currentColumnItemCount + nextMainCatItemCount >= dropdownModel.MaxItemsPerColumn && isLastChild)
+            {
+                if (currentColumnCount == maxColumnCount)
+                {
+                    return false;
+                }
+                currentColumnCount++;
+                currentColumnItemCount = 0;
+                return true;
+            }
+        }
+
+        // helper to add parent to count without actually incrementing it, needed to ensure main cats will never be rendered as last items 
+        // so if the last item is a main cat it will render it in the next column an leave the current column with one item less then configured
+        var temp = (nextCat == null ? 1 : 0);
+
+        // parents only
+        if (nextCat == null)
+        {
+            remainingItems = currentNavItem.Children.Count;
+            if (currentColumnItemCount > dropdownModel.MaxItemsPerColumn)
+            {
+                if (currentColumnCount == maxColumnCount)
+                {
+                    return false;
+                }
+
+                currentColumnCount++;
+                currentColumnItemCount = 1;
+                return true;
+            }
+        }
+
+        // wrap
+        if (currentColumnItemCount + temp >= dropdownModel.MaxItemsPerColumn && dropdownModel.AllowSubItemsColumnWrap && currentNavItem.Depth != 2)
+        {
+            // tolerance
+            var tolorate = remainingItems > 0 && remainingItems < dropdownModel.SubItemsWrapTolerance;
+
+            if (currentColumnCount == maxColumnCount || tolorate)
+            {
+                return false;
+            }
+
+            remainingItems = 0;
+            currentColumnCount++;
+            currentColumnItemCount = 0;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool ShouldRender(TreeNode<MenuItem> node, MegaMenuDropdownModel dropdownModel)
+    {
+        if (!node.Value.Visible)
+        {
+            return false;
+        }
+
+        var itemKey = node.Value.EntityName.IsCaseInsensitiveEqual("Category") ? node.Value.EntityId + "-Category" : node.Value.MenuItemId + "-MenuItem";
+        if (dropdownModel.ActiveSubItemMap != null && dropdownModel.ActiveSubItemMap.TryGetValue(itemKey, out bool isActive))
+        {
+            if (!isActive)
+                return false;
+        }
+
+        var nodeChildren = node.Children.Count > dropdownModel.MaxSubItemsPerCategory ? dropdownModel.MaxSubItemsPerCategory : node.Children.Count;
+        var itemsFitInCurrentColumn = nodeChildren + 1 + currentColumnItemCount <= dropdownModel.MaxItemsPerColumn;
+
+        if (currentColumnCount == maxColumnCount && !itemsFitInCurrentColumn)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool ShouldMoveToNextColumn(TreeNode<MenuItem> node, MegaMenuDropdownModel dropdownModel)
+    {
+        // to debug a certain category uncomment and enter the correct EntityId 
+        //if (node.Value.EntityId == 2585)
+        //{
+        //    var test = String.Empty;
+        //}
+
+        if (!node.Value.Visible)
+        {
+            return false;
+        }
+
+        var nodeChildren = node.Children.Count > dropdownModel.MaxSubItemsPerCategory ? dropdownModel.MaxSubItemsPerCategory : node.Children.Count;
+        nodeChildren++; // add parent
+
+        var itemsFitInCurrentColumn = nodeChildren + currentColumnItemCount <= dropdownModel.MaxItemsPerColumn;
+
+        if (dropdownModel.AllowSubItemsColumnWrap)
+        {
+            itemsFitInCurrentColumn = 1 + currentColumnItemCount <= dropdownModel.MaxItemsPerColumn;
+        }
+
+        if (((dropdownModel.MaxItemsPerColumn >= currentColumnItemCount || dropdownModel.AllowSubItemsColumnWrap)
+            && node.Children.Count >= dropdownModel.MinChildCategoryThreshold)
+            && itemsFitInCurrentColumn)
+        {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+<style type="text/css">
+    .mega-menu-dropdown { min-height: @(Model.Settings.MenuMinHeight)px; }
+</style>
+
+<div class="mainmenu megamenu megamenu-blend--next">
+	@{ Html.RenderPartial("Menus/Navbar", Model.NavigationModel); }
+</div>
+
+<div class="megamenu-dropdown-container container" style="--y: 16px">
+    @foreach (var node in Model.NavigationModel.Root.Children)
+    {
+        currentColumnItemCount = 0;
+
+        var dropdownModel = node.GetMetadata<MegaMenuDropdownModel>("MegamenuModel", true);
+        if (dropdownModel != null && dropdownModel.IsActive)
+        {
+            var partialPath = node.GetMetadata<string>("PartialPath", true);
+
+            if (partialPath.HasValue())
+            {
+                Html.RenderPartial(partialPath, node);
+            }
+            else
+            {
+                @CreateDropdownMenu(node.Children, node, dropdownModel)
+            }
+        }
+    }
+
+    @if (cutOffItems.Count > 0)
+    {
+        @CreateDropdownMenu(cutOffItems, newNavMenuItem, moreMegaMenuDropdownModel)
+    }
+</div>
+
+@helper CreateDropdownMenu(IEnumerable<TreeNode<MenuItem>> nodes, TreeNode<MenuItem> parent, MegaMenuDropdownModel dropdownModel)
+{
+    var partialPath = parent.GetMetadata<string>("PartialFooterPath", true);
+    var i = 1;
+    currentColumnCount = 1;
+    maxColumnCount = parent.Value.ImageId.HasValue && dropdownModel.DisplayCategoryPicture ? 3 : 4;
+
+    if (dropdownModel.TeaserType == TeaserType.Rotator)
+    {
+        maxColumnCount = maxColumnCount - 1;
+    }
+    else if (dropdownModel.TeaserType == TeaserType.Html)
+    {
+        maxColumnCount = maxColumnCount - dropdownModel.HtmlColumnSpan;
+    }
+
+    <div id="dropdown-menu-@parent.Value.Id" data-id="@parent.Value.Id" 
+         data-entity-id="@(parent.Value.EntityName.HasValue() && parent.Value.EntityName == "Category" ? parent.Value.EntityId : parent.Value.MenuItemId)" 
+         data-entity-name="@(parent.Value.EntityName.HasValue() && parent.Value.EntityName == "Category" ? "Category" : "MenuItem")"
+         data-display-rotator="@((dropdownModel.TeaserType == TeaserType.Rotator && dropdownModel.TeaserRotatorProductIds.HasValue()).ToString().ToLower())">
+        <div class="dropdown-menu mega-menu-dropdown@(dropdownModel.DisplaySubItemsInline ? " comma-separated" : "")@(partialPath.HasValue() ? " has-footer" : "")">
+            @{ Html.RenderWidget("megamenu_dropdown_top"); }
+            @if (dropdownModel.DisplayBgPicture)
+            {
+                var imageUrl = Url.Media(dropdownModel.BgPictureId, 0, null, false);
+                <div class="picture-container" style="@dropdownModel.BgCss">
+                    @if (dropdownModel.BgLink.HasValue())
+                    {
+                        <a href="@dropdownModel.BgLink" style="@dropdownModel.BgPictureCss"></a>
+                        <img src="@imageUrl" border="0" alt="@parent.Value.Text" />
+                    }
+                    else
+                    {
+                        <img src="@imageUrl" style="@dropdownModel.BgPictureCss" border="0" alt="@parent.Value.Text" loading="lazy" />
+                    }
+                </div>
+            }
+
+            <div class="row mega-menu-dropdown-row">
+                @if (parent.Value.ImageId.HasValue && dropdownModel.DisplayCategoryPicture)
+				{
+					var imageUrl = Url.Media(parent.Value.ImageId, MediaSettings.ThumbnailSizeLg, null, false);
+					if (imageUrl.HasValue())
+					{
+						<div class="col-md-3 col-sm-6 text-md-center megamenu-cat-img">
+							<img src="@imageUrl" alt="@parent.Value.Text" loading="lazy" />
+
+							<div class="below-preview-pic-text text-left">
+								@Html.Raw(dropdownModel.Summary)
+							</div>
+						</div>
+					}
+                }
+
+                <div class="col-md-3 col-sm-6">
+                    @foreach (var node in nodes)
+                    {
+                        var item = node.Value;
+
+                        if (dropdownModel.MaxItemsPerColumn == 0)
+                        {
+                            break;
+                        }
+
+                        if (!ShouldMoveToNextColumn(node, dropdownModel))
+                        {
+                            i = dropdownModel.MaxItemsPerColumn - 1;
+                        }
+
+                        if (!ShouldRender(node, dropdownModel))
+                        {
+                            continue;
+                        }
+
+                        currentColumnItemCount++;
+                        var itemUrl = item.GenerateUrl(this.Url);
+                        var itemState = node.GetNodePathState(Model.NavigationModel.Path);
+
+                        if (CloseColumn(node, null, dropdownModel))
+                        {
+                            @:</div><div class="col-md-3 col-sm-6">
+                        }
+
+                        var linkAttrs = item.GetCombinedAttributes().PrependCssClass("mega-menu-dropdown-heading" + ((itemState & NodePathState.Selected) == NodePathState.Selected ? " active" : ""));
+
+                        <a href="@itemUrl" id="dropdown-heading-@item.Id" data-id="@item.Id" @Html.Attrs(linkAttrs, "id")>
+                            <span>@item.Text</span>
+
+                            @if (!String.IsNullOrEmpty(item.BadgeText))
+                            {
+                                <label class="badge badge-@item.BadgeStyle.ToString().ToLower()">@item.BadgeText</label>
+                            }
+                        </a>
+
+                        @CreateSubMenu(node.Children, dropdownModel);
+
+                        if (i++ == dropdownModel.MaxItemsPerColumn)
+                        {
+                            continue;
+                        }
+                    }
+                </div>
+
+                @if (dropdownModel.TeaserType == TeaserType.Html)
+                {
+                    var colWidth = 3 * dropdownModel.HtmlColumnSpan;
+                    <div class="col-md-@colWidth col-sm-@(colWidth *2) megamenu-html-text">
+                        @Html.Raw(dropdownModel.TeaserHtml)
+                    </div>
+                }
+                else if (dropdownModel.TeaserType == TeaserType.Rotator && dropdownModel.TeaserRotatorProductIds.HasValue())
+                {
+                    if (currentColumnCount <= 3)
+                    {
+                        var colWidth = 3 * (maxColumnCount - currentColumnCount);
+                        if (colWidth != 0)
+                        {
+                            <div class="col-md-@colWidth.ToString()"></div>
+                        }
+                    }
+
+                    <div class="col-md-3 col-sm-6">
+						<div class="rotator-container rotator-@parent.Value.Id">
+							<div class="rotator-heading text-center">
+								<h4>@dropdownModel.RotatorHeading</h4>
+							</div>
+							<div class="rotator-content">
+								<div class="placeholder"></div>
+							</div>
+						</div>
+                    </div>
+                }
+            </div>
+
+            @{ 
+                Html.RenderWidget("megamenu_dropdown_bottom");
+                
+                if (partialPath.HasValue())
+                {
+                    Html.RenderPartial(partialPath, parent);
+                }
+            }
+        </div>
+    </div>
+}
+
+@helper CreateSubMenu(IEnumerable<TreeNode<MenuItem>> nodes, MegaMenuDropdownModel dropdownModel)
+{
+    var i = 1;
+
+    if(dropdownModel.DisplaySubItemsInline)
+    {
+        @:<div class="inline-container">
+    }
+
+    foreach (var node in nodes)
+    {
+        var item = node.Value;
+
+        if (!item.Visible || dropdownModel.MaxSubItemsPerCategory == 0)
+        {
+            continue;
+        }
+
+        currentColumnItemCount++;
+        remainingItems--;
+        
+        var itemUrl = node.Value.GenerateUrl(this.Url);
+        var itemState = node.GetNodePathState(Model.NavigationModel.Path);
+        // CloseColumn resets remainingItems so we have to validate and temporaryly store whether there are remaining items before we close the column
+        var empty = remainingItems == 0;
+        var closeColumn = CloseColumn(node, node.Parent.Next, dropdownModel);
+        var linkAttrs = item.GetCombinedAttributes().PrependCssClass("mega-menu-subitem" + ((itemState & NodePathState.Selected) == NodePathState.Selected ? " active" : ""));
+
+        <span class="mega-menu-subitem-wrap">
+            <a href="@itemUrl" id="megamenu-subitem-@item.Id" data-id="@item.Id" @Html.Attrs(linkAttrs, "id")>
+                <span>@item.Text</span>
+                @if (item.BadgeText.HasValue() && !dropdownModel.DisplaySubItemsInline)
+                {
+                    <label class="badge badge-@item.BadgeStyle.ToString().ToLower()">@item.BadgeText</label>
+                }
+            </a>
+
+            @*@if (node.Value.EntityId == 1)
+            {
+                var test = String.Empty;
+            }*@
+
+            @if (dropdownModel.DisplaySubItemsInline && (i != dropdownModel.MaxSubItemsPerCategory) && (i != nodes.Count()) && !closeColumn)
+            {
+                <text>,</text>
+            }
+        </span>
+        
+        if (++i > dropdownModel.MaxSubItemsPerCategory)
+        {
+            // don't render more link if all categories are already visible
+            if (i - 1 == node.Parent.Children.Count) { break; }
+
+            <a class='mega-menu-subitem more-link' href="@node.Parent.Value.GenerateUrl(this.Url)">@T("Plugins.SmartStore.MegaMenu.More")</a>
+            break;
+        }
+        
+        if (closeColumn)
+        {
+            if(dropdownModel.DisplaySubItemsInline)
+            {
+                @:</div></div><div class="col-md-3 col-sm-6"><div class="@(empty ? "empty" : "inline-container")">
+            }
+            else {
+                @:</div><div class="col-md-3 col-sm-6">
+            }
+        }
+    }
+
+    if(dropdownModel.DisplaySubItemsInline)
+    {
+        @:</div>
+    }
+}
+
+<script>
+    $(function () {
+        var megamenuContainer = $(".megamenu-container").megaMenu({
+            productRotatorAjaxUrl:      "@(Url.Action("RotatorProducts", "Megamenu", new { area = "SmartStore.MegaMenu" }))",
+            productRotatorInterval:     @Model.Settings.ProductRotatorInterval,
+            productRotatorDuration:     @Model.Settings.ProductRotatorDuration,
+            productRotatorCycle:        @(Model.Settings.ProductRotatorCycle ? "true" : "false"),
+        }); 
+    });
+</script>               

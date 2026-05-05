@@ -1,0 +1,83 @@
+﻿@model Koomba.MultiTool.Models.ConfigurationModel
+@using SmartStore.Web.Framework;
+@{
+    Layout = "";
+}
+
+<div class="plugin-actions">
+    <button type="submit" name="save" value="save" class="btn btn-warning">
+        <i class="fa fa-check"></i>
+        <span>@T("Admin.Common.Save")</span>
+    </button>
+</div>	
+
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+<div class="alert alert-info">
+    @Html.Raw(@T("Plugins.Koomba.MultiTool.AdminInstruction"))
+</div>
+
+@using (Html.BeginForm())
+{
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.SafetyQuantity)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.SafetyQuantity)
+			@Html.ValidationMessageFor(model => model.SafetyQuantity)
+		</div>
+	</div>
+
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EnabledAddressFilter)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.EnabledAddressFilter)
+			@Html.ValidationMessageFor(model => model.EnabledAddressFilter)
+		</div>
+	</div>
+
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.HidePriceToGuest)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.HidePriceToGuest)
+			@Html.ValidationMessageFor(model => model.HidePriceToGuest)
+		</div>
+	</div>
+
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EnableAddressType)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.EnableAddressType)
+			@Html.ValidationMessageFor(model => model.EnableAddressType)
+		</div>
+	</div>
+
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EnableAddressTitle)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.EnableAddressTitle)
+			@Html.ValidationMessageFor(model => model.EnableAddressTitle)
+		</div>
+	</div>
+
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.EnableSalutation)
+		</div>
+		<div class="adminData">
+			@Html.SettingEditorFor(model => model.EnableSalutation)
+			@Html.ValidationMessageFor(model => model.EnableSalutation)
+		</div>
+	</div>
+</div>
+}

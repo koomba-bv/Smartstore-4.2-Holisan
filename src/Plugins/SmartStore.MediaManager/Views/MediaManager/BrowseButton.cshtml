@@ -1,0 +1,31 @@
+﻿@model FileUploader
+
+@using SmartStore.Utilities
+
+@{ 
+    var btnId = "btn-browse-media" + CommonHelper.GenerateRandomDigitCode(10);
+}
+
+<a href="@Url.Action("Index", "MediaManager", new { popup = true, pickMode = true, multiSelect = Model.Multifile, path = Model.Path, typeFilter = Model.TypeFilter })" id="@btnId" class="btn btn-primary mt-3">
+    <span>@T("Plugins.MediaManager.BrowseMedia")</span>
+</a>
+
+<script>
+    $(function () {
+        $('#@(btnId)').on('click', function (e) {
+            e.preventDefault();
+            openPopup({
+                url: $(this).attr('href'),
+                large: true,
+                flex: true,
+                //backdrop: false,
+                onMessage: function (files) {
+                    var fuContainer = $("#@Model.Id").closest(".fu-container");
+                    fuContainer.trigger("mediaselected", [files]);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+

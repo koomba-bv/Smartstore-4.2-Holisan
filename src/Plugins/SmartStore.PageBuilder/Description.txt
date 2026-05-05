@@ -1,0 +1,10 @@
+﻿FriendlyName: Page Builder
+SystemName: SmartStore.PageBuilder
+Group: CMS
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: SmartStore AG
+DisplayOrder: 1
+FileName: SmartStore.PageBuilder.dll
+ResourceRootKey: Plugins.SmartStore.PageBuilder
+Url: http://community.smartstore.com/index.php?/files/file/163-cms-page-builder/

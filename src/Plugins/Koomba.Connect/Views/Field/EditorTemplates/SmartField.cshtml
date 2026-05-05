@@ -1,0 +1,13 @@
+﻿<select
+    name="SmartField"
+    id="SmartField"
+    class="form-control"
+    style="min-width: 200px"
+    data-select-url='@Url.Action("AllSmartFields", "Field", new { connectionId = Request.Params["id"] })'>
+</select>
+
+<script>
+    $(function () {
+        $('#SmartField').selectWrapper();
+    });
+</script>

@@ -1,0 +1,12 @@
+﻿@model ColorOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Color, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.BackgroundColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "form-control form-control-sm noskin" })
+    </div>
+</div>

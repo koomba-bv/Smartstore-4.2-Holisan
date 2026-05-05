@@ -1,0 +1,370 @@
+﻿@model ConnectionModel
+
+@using Koomba.Connect.Domain
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.SchedulingTaskId)
+
+<table class="adminContent">
+    @if (Model != null && Model.SchedulingTaskId > 0)
+    {
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(x => x.SchedulingTaskId)
+            </td>
+            <td class="adminData">
+                @{ Html.RenderAction("MinimalTask", "ScheduleTask", new { taskId = Model.SchedulingTaskId, returnUrl = Request.RawUrl, cancellable = true, reloadPage = true, area = "admin" }); }
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.SmartStore().TabStrip().Name("discount-edit").Style(TabsStyle.Material).Items(x =>
+{
+	x.Add().Text("Connection").Content(TabConnection()).Selected(true);
+	x.Add().Text("Field Mapping").Content("Index", "Field", null);
+	x.Add().Text("Requirements").Content("Index", "Requirement", Model);
+	x.Add().Text("MultiRules").Content("MultiRule", "MultiRule", Model);
+	x.Add().Text("Log").Content("Index", "Logger", Model);
+})
+
+@helper TabConnection()
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.Name)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </td>
+        </tr>
+        @if (Model == null)
+        {
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(m => m.SynchronizeType)
+                </td>
+                <td class="adminData">
+                    @Html.DropDownListForEnum(x => x.SynchronizeType)
+                    @Html.ValidationMessageFor(m => m.SynchronizeType)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(m => m.SmartType)
+                </td>
+                <td class="adminData">
+                    @Html.DropDownListForEnum(x => x.SmartType)
+                    @Html.ValidationMessageFor(m => m.SmartType)
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(m => m.SmartType)
+                </td>
+                <td class="adminData">
+                    @Html.TextBoxFor(x => x.SmartType, new { @readonly = "readonly", @class = "form-control-plaintext" })
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(m => m.SynchronizeType)
+                </td>
+                <td class="adminData">
+                    @Html.TextBoxFor(x => x.SynchronizeType, new { @readonly = "readonly", @class = "form-control-plaintext" })
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.IsActive)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.IsActive)
+                @Html.ValidationMessageFor(m => m.IsActive)
+            </td>
+        </tr>
+        <tr class="pnlOnlyUpdate">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.OnlyUpdate)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.OnlyUpdate)
+                @Html.ValidationMessageFor(m => m.OnlyUpdate)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapUserName)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapUserName)
+                @Html.ValidationMessageFor(m => m.SapUserName)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapPassword)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapPassword)
+                @Html.ValidationMessageFor(m => m.SapPassword)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapUrl)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapUrl)
+                @Html.ValidationMessageFor(m => m.SapUrl)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapCompany)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapCompany)
+                @Html.ValidationMessageFor(m => m.SapCompany)
+            </td>
+        </tr>
+        <tr class="pnlSapCategory">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapCategory)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapCategory)
+                @Html.ValidationMessageFor(m => m.SapCategory)
+            </td>
+        </tr>
+        <tr class="pnlSapQuery">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SapQuery)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SapQuery)
+                @Html.ValidationMessageFor(m => m.SapQuery)
+            </td>
+        </tr>
+        <tr class="pnlNewCardCodeQuery">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.NewCardCodeQuery)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.NewCardCodeQuery)
+                @Html.ValidationMessageFor(m => m.NewCardCodeQuery)
+            </td>
+        </tr>
+        <tr class="pnlAllowCreate">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.AllowCreate)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.AllowCreate)
+                @Html.ValidationMessageFor(m => m.AllowCreate)
+            </td>
+        </tr>
+        <tr class="pnlInsertQuery">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.InsertQuery)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.InsertQuery)
+                @Html.ValidationMessageFor(m => m.InsertQuery)
+            </td>
+        </tr>
+        <tr class="pnlAllowEdit">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.AllowEdit)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.AllowEdit)
+                @Html.ValidationMessageFor(m => m.AllowEdit)
+            </td>
+        </tr>
+        <tr class="pnlUpdateQuery">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.UpdateQuery)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.UpdateQuery)
+                @Html.ValidationMessageFor(m => m.UpdateQuery)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.CardCode)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.CardCode)
+                @Html.ValidationMessageFor(m => m.CardCode)
+            </td>
+        </tr>
+        <tr class="getOrderNumber">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.GetOrderNumberQuery)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.GetOrderNumberQuery)
+                @Html.ValidationMessageFor(m => m.GetOrderNumberQuery)
+            </td>
+        </tr>
+        <tr class="getOrderNumber">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.OrderNumberField)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.OrderNumberField)
+                @Html.ValidationMessageFor(m => m.OrderNumberField)
+            </td>
+        </tr>
+        <tr class="pnlCustomerNumber">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.CustomerNumberField)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.CustomerNumberField)
+                @Html.ValidationMessageFor(m => m.CustomerNumberField)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.ParseFromXml)
+            </td>
+            <td class="adminData">
+                @Html.CheckBoxFor(m => m.ParseFromXml, new { data_toggler_for = "#pnlColumnXml" })
+                @Html.ValidationMessageFor(m => m.ParseFromXml)
+            </td>
+        </tr>
+        <tr id="pnlColumnXml">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.ColumnXml)
+            </td>
+            <td class="adminData">
+                @Html.TextAreaFor(m => m.ColumnXml, new { rows = "5" })
+                @Html.ValidationMessageFor(m => m.ColumnXml)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SelectedConnectionsIds)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SelectedConnectionsIds)
+                @Html.ValidationMessageFor(m => m.SelectedConnectionsIds)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SelectedStoreIds)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SelectedStoreIds)
+                @Html.ValidationMessageFor(m => m.SelectedStoreIds)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.LogOnlyErrors)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.LogOnlyErrors)
+                @Html.ValidationMessageFor(m => m.LogOnlyErrors)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.SendErrorEmail)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.SendErrorEmail)
+                @Html.ValidationMessageFor(m => m.SendErrorEmail)
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        $(function () {
+            $("#@Html.FieldIdFor(m => m.SynchronizeType)").change(toggleSyncType);
+			$("#@Html.FieldIdFor(m => m.SmartType)").change(toggleType);
+
+            toggleSyncType();
+
+            function toggleSyncType() {
+                var selectedItem = $("#@Html.FieldIdFor(m => m.SynchronizeType)").val();
+                var smartTypes = $("#@Html.FieldIdFor(m => m.SmartType)")
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.Action("GetSmartTypesBySyncType", "Configuration"))",
+                    data: { "synchronizeType": selectedItem },
+                    success: function (data) {
+                        smartTypes.html('');
+                        $.each(data, function (id, option) {
+                            smartTypes.append($('<option></option>').val(option.Value).html(option.Text));
+                        });
+                        smartTypes.trigger("change");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve smart types.')
+                    }
+                });
+            }
+
+            function toggleType() {
+				var selectedSynchronizeType = $("#@Html.FieldIdFor(m => m.SynchronizeType)").val();
+                var selectedSmartType = $("#@Html.FieldIdFor(m => m.SmartType)").val();
+
+                $('.pnlUpdateQuery').hide();
+                $('.pnlNewCardCodeQuery').hide();
+                $('.pnlAllowCreate').hide();
+                $('.pnlAllowEdit').hide();
+                $('.getOrderNumber').hide();
+                $('.pnlCustomerNumber').hide();
+
+				if (selectedSynchronizeType == "@SynchronizeType.Export") {
+                    $('.pnlInsertQuery').show();
+
+					$('.pnlOnlyUpdate').hide();
+                    $('.pnlKeyLogic').hide();
+                    $('.pnlSapQuery').hide();
+
+                    if (selectedSmartType == "@SmartType.Customer") {
+                        $('.pnlNewCardCodeQuery').show();
+
+                        $('.pnlUpdateQuery').show();
+                        $('.pnlAllowCreate').show();
+                        $('.pnlAllowEdit').show();
+                    }
+
+                    if (selectedSmartType == "@SmartType.Address") {
+                        $('.pnlUpdateQuery').show();
+                        $('.pnlAllowCreate').show();
+                        $('.pnlAllowEdit').show();
+                    }
+
+                    if (selectedSmartType == "@SmartType.Order") {
+                        $('.getOrderNumber').show();
+                    }
+				} else {
+                    $('.pnlInsertQuery').hide();
+
+					$('.pnlOnlyUpdate').show();
+                    $('.pnlKeyLogic').show();
+                    $('.pnlSapQuery').show();
+
+                    if (selectedSmartType == "@SmartType.Address") {
+                        $('.pnlCustomerNumber').show();
+                    }
+				}
+			}
+		});
+    </script>
+}

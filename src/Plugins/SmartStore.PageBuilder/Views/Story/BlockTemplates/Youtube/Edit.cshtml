@@ -1,0 +1,88 @@
+﻿@model YoutubeBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.YoutubeId)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.YoutubeId)
+			@Html.ValidationMessageFor(model => model.YoutubeId)
+		</div>
+	</div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.AspectRatio)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.AspectRatio, Model.AvailableRatios)
+            @Html.ValidationMessageFor(model => model.AspectRatio)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.AllowAutoPlay)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.AllowAutoPlay)
+            @Html.ValidationMessageFor(model => model.AllowAutoPlay)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.AllowFullscreen)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.AllowFullscreen)
+            @Html.ValidationMessageFor(model => model.AllowFullscreen)
+        </div>
+    </div>
+
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Start)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Start)
+            @Html.ValidationMessageFor(model => model.Start)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.End)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.End)
+            @Html.ValidationMessageFor(model => model.End)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ActivateEnhancedPrivacyMode)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ActivateEnhancedPrivacyMode)
+            @Html.ValidationMessageFor(model => model.ActivateEnhancedPrivacyMode)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayPlayerControls)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayPlayerControls)
+            @Html.ValidationMessageFor(model => model.DisplayPlayerControls)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayTitleInfos)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayTitleInfos)
+            @Html.ValidationMessageFor(model => model.DisplayTitleInfos)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model DividerOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="form-group mb-3">
+    @Html.SmartLabelFor(model => model.Name, true, new { @class = "col-form-label col-form-label-sm" })
+    @Html.EditorFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+</div>
+
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Color, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.DividerColors(T, GetThemeVariable("brand-colors")), new { @class = "form-control form-control-sm noskin" })
+        @Html.ValidationMessageFor(model => model.Color)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.Height, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.TextBoxFor(model => model.Height, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(model => model.Height)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.MinHeight, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.TextBoxFor(model => model.MinHeight, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(model => model.MinHeight)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-4">
+        @Html.SmartLabelFor(model => model.MaxHeight, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-8">
+        @Html.TextBoxFor(model => model.MaxHeight, new { @class = "form-control form-control-sm" })
+        @Html.ValidationMessageFor(model => model.MaxHeight)
+    </div>
+</div>

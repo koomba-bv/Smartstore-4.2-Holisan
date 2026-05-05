@@ -1,0 +1,53 @@
+﻿@model DividerOverlay
+
+@using SmartStore.PageBuilder;
+
+<p class="text-muted">
+    @T("Plugins.SmartStore.PageBuilder.Overlays.Divider.BoxImage.Info")
+</p>
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Name)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Color)
+    </div>
+    <div class="adminData">
+        @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.DividerColors(T, GetThemeVariable("brand-colors")), new { @class = "theme-color-chooser" })
+        @Html.ValidationMessageFor(model => model.Color)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Height)
+    </div>
+    <div class="adminData">
+        @Html.TextBoxFor(model => model.Height)
+        @Html.ValidationMessageFor(model => model.Height)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.MinHeight)
+    </div>
+    <div class="adminData">
+        @Html.TextBoxFor(model => model.MinHeight)
+        @Html.ValidationMessageFor(model => model.MinHeight)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.MaxHeight)
+    </div>
+    <div class="adminData">
+        @Html.TextBoxFor(model => model.MaxHeight)
+        @Html.ValidationMessageFor(model => model.MaxHeight)
+    </div>
+</div>

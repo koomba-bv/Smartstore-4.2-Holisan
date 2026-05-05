@@ -1,0 +1,14 @@
+﻿@model FrameBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+	if (!Model.Src.HasValue())
+	{
+		return;
+	}
+}
+
+<div class="g-frame">
+    <div class="h-100" style="width:100%">IFrame-Url: @Model.Src</div>
+</div>

@@ -1,0 +1,334 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+    <LocaleResource Name="Plugins.FriendlyName.SmartStore.MegaSearch" AppendRootKey="false">
+        <Value>MegaSearch</Value>
+    </LocaleResource>
+    <LocaleResource Name="Plugins.Description.SmartStore.MegaSearch" AppendRootKey="false">
+        <Value>Components for the catalog search, including Lucene.Net full-text search.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Plugins.Permissions.DisplayName.MegaSearch" AppendRootKey="false">
+        <Value>MegaSearch</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="AdminInstruction">
+        <Value>
+            <![CDATA[General search settings can be specified under <a href="{0}" class="alert-link">Settings &gt; Search</a>.]]>
+        </Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexNotExists">
+        <Value>The search index does not exist.</Value>
+    </LocaleResource>
+    <LocaleResource Name="CollectorNotExists">
+        <Value>A collector for indexing scope '{0}' does not exist.</Value>
+    </LocaleResource>
+    <LocaleResource Name="TaskName">
+        <Value>Update catalog search index</Value>
+    </LocaleResource>
+    <LocaleResource Name="ForumTaskName">
+        <Value>Update forum search index</Value>
+    </LocaleResource>
+    <LocaleResource Name="BuildIndexAlreadyInUse">
+        <Value>Could not build search index, because it is already in use.</Value>
+    </LocaleResource>
+    <LocaleResource Name="DeleteIndexAlreadyInUse">
+        <Value>Could not delete search index, because it is already in use.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Rebuild">
+        <Value>Rebuild</Value>
+    </LocaleResource>
+    <LocaleResource Name="ContinueRebuild">
+        <Value>Continue rebuild</Value>
+    </LocaleResource>
+    <LocaleResource Name="CreateIndexNow">
+        <Value>Create index now</Value>
+    </LocaleResource>
+    <LocaleResource Name="ProgressInfo">
+        <Value>{0}: indexing {1} {2} of {3}</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerProgressInfo">
+        <Value>{0} suggestions at segment {1} of {2} with {3} documents</Value>
+    </LocaleResource>
+    <LocaleResource Name="Selection">
+        <Value>Selection</Value>
+    </LocaleResource>
+    <LocaleResource Name="FieldBoost">
+        <Value>Boost search fields</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysis">
+        <Value>Text analysis</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostNote">
+        <Value>Boost fields to influence the order of search hits. A higher value joins a hit earlier in the list of search hits if there is a match in the field.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexRebuildWarning">
+        <Value>Changes will take effect after a full index rebuild.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AdvancedTextAnalysisNote">
+      <Value>
+        <![CDATA[These settings control how the searched texts are processed internally during indexing and search. Changes for text analysis are only effective after index rebuild!]]>
+      </Value>
+    </LocaleResource>
+    <LocaleResource Name="AttributesNote">
+        <Value>Changes to the settings for attributes will take effect after a full index rebuild!</Value>
+    </LocaleResource>
+    <LocaleResource Name="NoFurtherSettings">
+        <Value>No further settings available.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowSettings">
+        <Value>Show settings</Value>
+    </LocaleResource>
+    <LocaleResource Name="HideSettings">
+        <Value>Hide settings</Value>
+    </LocaleResource>
+    <LocaleResource Name="TopCategories">
+        <Value>Categories</Value>
+    </LocaleResource>
+    <LocaleResource Name="TopManufacturers">
+        <Value>Brands</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Standard" AppendRootKey="false">
+        <Value>Standard (Lucene.Net standard splitting and filtering)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Whitespace" AppendRootKey="false">
+        <Value>Whitespace (split only for blanks, no filtering)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Keyword" AppendRootKey="false">
+        <Value>Keyword (no splitting, no filtering)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Classic" AppendRootKey="false">
+        <Value>Classic (Lucene.Net classic splitting and filtering)</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="SearchIndex">
+        <Value>Search index</Value>
+    </LocaleResource>
+    <LocaleResource Name="Status">
+        <Value>Status</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShouldRebuild">
+        <Value>Rebuild required</Value>
+    </LocaleResource>
+    <LocaleResource Name="DocumentCount">
+        <Value>Documents</Value>
+    </LocaleResource>
+    <LocaleResource Name="LastIndexedDate">
+        <Value>Last indexing</Value>
+    </LocaleResource>
+    <LocaleResource Name="LastIndexingDuration">
+        <Value>Duration</Value>
+    </LocaleResource>
+    <LocaleResource Name="Fields">
+        <Value>Fields</Value>
+    </LocaleResource>
+    <LocaleResource Name="Terms">
+        <Value>Terms</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="MustRebuildNoIndex">
+        <Value>Performing index rebuild, although an update was requested. Reason: index '{0}' does not exist.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildGlobalChanges">
+        <Value>Performing index rebuild, although an update was requested. Reason: some global settings have changed since last indexing.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildManyBacklogs">
+        <Value>Performing index rebuild, although an update was requested. Reason: too many changes that affect the index '{0}'.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildExpiration">
+        <Value>Performing index rebuild, although an update was requested. Reason: index '{0}' has not been updated for too long.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SkippingUpdateNoItems">
+        <Value>Skipping index update. Reason: no items to process.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexNotModified">
+        <Value>Index was not modified. Reason: no items to process.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="ActiveScopes">
+        <Value>Active indexes</Value>
+    </LocaleResource>
+    <LocaleResource Name="ActiveScopes.Hint">
+        <Value>Specifies the active search indexes.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AlwaysRebuildIndex">
+        <Value>Always rebuild index</Value>
+    </LocaleResource>
+    <LocaleResource Name="AlwaysRebuildIndex.Hint">
+        <Value>Specifies whether to always rebuild the search index rather than updating it.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AutomaticProductUpdatedEnabled">
+        <Value>Observe data changes</Value>
+    </LocaleResource>
+    <LocaleResource Name="AutomaticProductUpdatedEnabled.Hint">
+        <Value>Specifies whether to observe data changes in order to update index documents at the next indexing.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowHitCounts">
+        <Value>Show hit counts</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowHitCounts.Hint">
+        <Value>Specifies whether to show the hit count for filters.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableVariantAttributeFilters">
+        <Value>Enable product attribute filters</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableVariantAttributeFilters.Hint">
+        <Value>Specifies whether to enable filters for product variant attributes. This setting only takes effect after installing the 'MegaSearchPlus' plugin.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableSpecificationAttributeFilters">
+        <Value>Enable specification attribute filters</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableSpecificationAttributeFilters.Hint">
+        <Value>Specifies whether to enable filters for specification attributes. This setting only takes effect after installing the 'MegaSearchPlus' plugin.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IgnoreAttributeFilteringOnProductLevel">
+        <Value>Ignore "Allow filtering" on product level</Value>
+    </LocaleResource>
+    <LocaleResource Name="IgnoreAttributeFilteringOnProductLevel.Hint">
+        <Value>Specifies whether to ignore "Allow filtering" on product level. This can speed up attribute facets.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndentCategoryFilters">
+        <Value>Indent category filters</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndentCategoryFilters.Hint">
+        <Value>Specifies whether to indent category filters.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="IsSpellCheckerActive">
+        <Value>Enable suggestions</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsSpellCheckerActive.Hint">
+        <Value>Specifies whether to display suggestions with similar terms for the entered search phrase under "Did you mean" or "Related search terms".</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxIndexedSuggestions">
+        <Value>Maximum number of indexed suggestions</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxIndexedSuggestions.Hint">
+        <Value>Specifies the maximum number of indexed suggestions. 0 means that all suggestions are indexed.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxSuggestions">
+        <Value>Maximum number of suggestions</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxSuggestions.Hint">
+        <Value>Specifies the maximum number of displayed suggestions.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMinQueryLength">
+        <Value>Minimum length of search term</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMinQueryLength.Hint">
+        <Value>Specifies the minimum length of a search term. For shorter terms no suggestions will be provided.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxHitCount">
+        <Value>Maximum number of hits</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxHitCount.Hint">
+        <Value>Specifies the maximum number of product hits up to which suggestions are provided.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerRelatedTerms">
+        <Value>Show related search terms</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerRelatedTerms.Hint">
+        <Value>Specifies whether or not to display related search terms in a successful search.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="IsTopCategoriesActive">
+        <Value>Enable top categories</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopCategoriesActive.Hint">
+        <Value>Specifies whether to display suggestions for categories for the entered search phrase.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopCategories">
+        <Value>Maximum number of suggestions</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopCategories.Hint">
+        <Value>Specifies the maximum number of category suggestions.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopManufacturersActive">
+        <Value>Enable top manufacturers</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopManufacturersActive.Hint">
+        <Value>Specifies whether to display suggestions for manufacturers/brands for the entered search phrase.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopManufacturers">
+        <Value>Maximum number of suggestions</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopManufacturers.Hint">
+        <Value>Specifies the maximum number of manufacturer/brand suggestions.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="DefaultAnalysisPlaceholder">
+        <Value>Automatic (language specific processing)</Value>
+    </LocaleResource>
+    <LocaleResource Name="DefaultAnalysis">
+        <Value>Text analysis</Value>
+    </LocaleResource>
+    <LocaleResource Name="DefaultAnalysis.Hint">
+        <Value>Specifies which text analysis to use. "Automatic (language specific processing)" is recommended. For some fields, such as SKU and Product Tag, an analysis appropriate to that field is predefined. This setting is only effective for the catalog index. The forum index is always processed language specifically.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MinTermLength">
+        <Value>Minimum word length</Value>
+    </LocaleResource>
+    <LocaleResource Name="MinTermLength.Hint">
+        <Value>Specifies the minimum length of words to be considered (so called terms). "2" is the recommended value. Words with a shorter length are ignored. An increased value drastically reduces the number of search hits.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsAdvancedTextAnalysisActive">
+        <Value>Enable advanced text analysis</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsAdvancedTextAnalysisActive.Hint">
+        <Value>Specifies whether to enable the advanced text analysis.</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysisType">
+        <Value>Differing text analysis</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysisType.Hint">
+        <Value>Allows you to specify a different text analysis for the product name (catalog index), as well as the subject and post text (forum index).</Value>
+    </LocaleResource>
+    <LocaleResource Name="Abbreviations">
+        <Value>Abbreviations</Value>
+    </LocaleResource>
+    <LocaleResource Name="Abbreviations.Hint">
+        <Value>Specifies abbreviations (like inch, oz) to get more search hits. Search phrases with and without space characters will be found.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Synonyms">
+        <Value>Synonyms</Value>
+    </LocaleResource>
+    <LocaleResource Name="Synonyms.Hint">
+        <Value>Allows specification of synonym groups. Enter all words of one group in one row separated by comma. Example: notebook,laptop,convertible.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterCustomWords">
+        <Value>Custom words</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterCustomWords.Hint">
+        <Value>You can add custom words to the standard dictionary. The dictionary is necessary in order to be able to split compound words meaningfully so that all subwords are found. Enter one word per line.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterExceptionWords">
+        <Value>Excluded compound words</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterExceptionWords.Hint">
+        <Value>Specifies compound words to be excluded from splitting. Enter one word per line. Use the pipe character | to mark the correct place to split the word, example Techniker|kranken|kasse.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableBoost">
+        <Value>Enable boost</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableBoost.Hint">
+        <Value>Enables or disables boost of certain search fields.</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostName">
+        <Value>Product name</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostSku">
+        <Value>SKU</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostShortDescription">
+        <Value>Short description</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostFullDescription">
+        <Value>Full description</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostTagNames">
+        <Value>Product tags</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostManufacturers">
+        <Value>Manufacturer</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostCategories">
+        <Value>Categories</Value>
+    </LocaleResource>
+</Language>

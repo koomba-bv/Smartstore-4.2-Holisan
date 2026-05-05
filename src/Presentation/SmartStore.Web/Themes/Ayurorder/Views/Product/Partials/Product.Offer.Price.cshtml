@@ -1,0 +1,157 @@
+﻿@model ProductDetailsModel
+
+@using System.Globalization;
+@using SmartStore.Services.Localization;
+@using SmartStore.Web.Models.Catalog;
+@using SmartStore.Core.Domain.Catalog;
+
+@{
+    if (Model.AddToCart.DisableBuyButton && Model.AddToCart.DisableWishlistButton && !Model.ProductPrice.ShowLoginNote)
+    {
+        return;
+    }
+}
+
+<div class="pd-offer-price">
+	@if (Model.ProductPrice.ShowLoginNote)
+	{
+		<h4 class="pd-price pd-loginforprice">@T("Products.LoginForPrice")</h4>
+        <div>
+            <p>@T("Products.LoginForPrice.Text")</p>					<!-- KB -->
+            <a class="btn btn-primary btn-lg btn-block btn-login" href="/login">
+                <span>@T("Account.Login.LoginButton")</span>
+            </a>
+        </div>
+		<div class="mt-2">
+			<p>@T("Products.LoginForPrice.Textform")</p>				
+			<a class="btn btn-primary btn-lg btn-block btn-login" href="/aanmeldfomulier-wederverkopers">
+				<span>@T("Account.CreateAccount")</span>
+			</a>
+		</div>
+        <h4 class="pd-price pd-loginforprice mt-3">@T("Products.LoginForPrice.B2CTitle")</h4>
+        <p>@T("Products.LoginForPrice.B2CText")</p>
+	}
+    else if (Model.ProductPrice.CallForPrice)
+	{
+		<h4 class="pd-price pd-callforprice">@T("Products.CallForPrice")</h4>
+	}
+	else
+	{
+        var isBundleItem = Model.IsBundlePart;
+        var priceModel = Model.ProductPrice;
+        var currentPrice = priceModel.PriceWithDiscount.NullEmpty() ?? priceModel.Price;
+        var currentPriceValue = priceModel.PriceWithDiscountValue > 0 ? priceModel.PriceWithDiscountValue : priceModel.PriceValue;
+        var currentPriceLabel = priceModel.NoteWithDiscount;
+
+        var oldPrice1 = priceModel.OldPrice;
+        var oldPrice1Label = T("Products.Price.OldPrice").Text;
+
+        var oldPrice2 = priceModel.PriceWithDiscountValue < priceModel.PriceValue ? priceModel.Price : "";
+        var oldPrice2Label = priceModel.NoteWithoutDiscount;
+
+        var basePriceEnabled = isBundleItem ? priceModel.BundleItemShowBasePrice : Model.IsBasePriceEnabled;
+
+        if (oldPrice2.HasValue() && !oldPrice1.HasValue())
+        {
+            oldPrice1 = oldPrice2;
+            oldPrice2 = null;
+            oldPrice2Label = null;
+        }
+
+        if (priceModel.PriceValue == 0 && Model.DisplayTextForZeroPrices)
+        {
+            currentPrice = T("Products.Free").Text;
+            oldPrice1 = null;
+            oldPrice2 = null;
+            oldPrice2Label = null;
+        }
+
+        var blocksHaveLabel = currentPriceLabel.HasValue() && oldPrice2Label.HasValue();
+
+        var artPriceClasses = "pd-price";
+        if (isBundleItem)
+        {
+            artPriceClasses += " pd-price-sm";
+        }
+        if (priceModel.OldPrice.HasValue())
+        {
+            artPriceClasses += " pd-price--offer";
+        }
+
+        var badgeClasses = "";
+        if (Model.PriceDisplayStyle == PriceDisplayStyle.BadgeAll || (Model.PriceDisplayStyle == PriceDisplayStyle.BadgeFreeProductsOnly && priceModel.PriceValue == 0))
+        {
+            badgeClasses = Model.PriceDisplayStyle == PriceDisplayStyle.BadgeAll && priceModel.SavingAmount.HasValue() ?  "text-danger" : "text-success";
+        }
+
+		<!-- Current price -->
+		<div class="pd-group clearfix">
+			<div class="row sm-gutters pd-price-group">
+				<div class="col-auto pd-price-block">
+					@if (!isBundleItem)
+					{
+						<meta itemprop="priceCurrency" content="@WorkContext.WorkingCurrency.CurrencyCode" />
+					}
+					@if (blocksHaveLabel)
+					{
+						<div class="pd-price-label">@currentPriceLabel</div>
+					}
+					<div class="@artPriceClasses">
+						@if (!priceModel.CallForPrice && !isBundleItem)
+						{
+							<meta itemprop="price" content="@currentPriceValue.ToString("F", CultureInfo.InvariantCulture)" />
+						}
+
+                    <span class="@badgeClasses">
+                        @T("Product.Resale.Price"):<br />
+                        @Html.Raw(currentPrice)
+                    </span>
+					</div>
+				</div>
+				@if (oldPrice2.HasValue())
+				{
+					<div class="col-auto pd-price-block">
+						@if (blocksHaveLabel)
+						{
+							<div class="pd-price-label">@oldPrice2Label</div>
+						}
+						<div class="pd-price@(isBundleItem ? " pd-price-sm" : "")">
+							@Html.Raw(oldPrice2)
+						</div>
+					</div>
+				}
+			</div>
+
+            
+            @{ Html.RenderWidget("productdetails_add_info{0}".FormatWith(isBundleItem ? "_bundle" : "")); }
+
+		</div>
+
+		<!-- Tier prices -->
+        if (!isBundleItem)
+        {
+            <div class="pd-tierprices">
+                @{ Html.RenderAction("ProductTierPrices", new { productId = Model.Id }); }
+            </div>
+		}
+
+		<!-- Pangv & legal info -->
+		if ((basePriceEnabled && Model.BasePriceInfo.HasValue()) || (Model.ShowLegalInfo && Model.LegalInfo.HasValue()))
+		{
+			<div class="pd-group">
+				@if (basePriceEnabled && Model.BasePriceInfo.HasValue())
+				{
+					<div class="pd-pangv">
+						@Html.Raw(LocalizedValue.FixBrackets(Model.BasePriceInfo, WorkContext.WorkingLanguage))
+					</div>
+				}
+				@if (Model.ShowLegalInfo && Model.LegalInfo.HasValue() && currentPriceValue != 0)
+				{
+					<div class="pd-legalinfo">
+						@Html.Raw(Model.LegalInfo)
+					</div>
+				}
+			</div>
+		}
+	}
+</div>

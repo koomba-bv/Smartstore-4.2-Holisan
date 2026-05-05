@@ -1,0 +1,10 @@
+﻿FriendlyName: KOOMBA.Connect
+Description: KOOMBA.Connect
+SystemName: KOOMBA.Connect
+Group: Data
+Version: 4.2.0.10
+MinAppVersion: 4.2.0
+DisplayOrder: 1
+FileName: Koomba.Connect.dll
+ResourceRootKey: Plugins.Koomba.Connect
+Url: 

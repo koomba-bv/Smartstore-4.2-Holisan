@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "";
+    string method = ViewBag.PaymentMethod;
+    if(method == null)
+    {
+        method = "redirect";
+    }
+}
+@using SmartStore.Web.Framework;
+
+<div class="media">
+    <img style="height:38px;" class="media-object  img-fluid pr-2" src="@Url.Content("~/Plugins/Koomba.Mollie/Content/icon-Mollie."+method+".png")" alt="Mollie" />
+    <div class="media-body">
+        @T("Plugins.Koomba.Mollie.Fields.RedirectionTip")
+    </div>
+</div>

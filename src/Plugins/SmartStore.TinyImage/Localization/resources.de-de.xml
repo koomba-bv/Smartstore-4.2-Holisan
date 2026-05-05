@@ -1,0 +1,116 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.TinyImage" AppendRootKey="false">
+    <Value>TinyImage</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.TinyImage" AppendRootKey="false">
+    <Value>Erzielt höchste Kompressionsraten für Bilder und bietet WebP-Support</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Compress.Title">
+    <Value>Komprimierung</Value>
+  </LocaleResource>
+  <LocaleResource Name="Formats.Title">
+    <Value>Formate</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tools.Title">
+	<Value>Tools</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="WebP.Title">
+    <Value>WebP</Value>
+  </LocaleResource>
+  <LocaleResource Name="WebP.Info">
+    <Value>
+      <![CDATA[
+      WebP ist ein relativ neues Format für die verlustfreie Komprimierung von Bildern und wird derzeit von Chrome, Chrome Mobile und Opera unterstützt (ca. 70 % Markanteil Stand 2018).
+      TinyImage kann dem Browser Bilder im WebP Format liefern, sofern er dies unterstützt. Anderen Browsern werden Bilder in ihrem Ursprungsformat (PNG oder JPG) geliefert.
+      Je nach Bild ist es aber möglich, dass für PNG- und JPG-Dateien bessere Komprimierungsraten erzielt werden. Daher empfehlen wir für Formate, die bereits komprimiert werden, WebP zu deaktivieren.
+      Wenn Sie jedoch Wert auf insgesamt schnelle Bildverarbeitung und minimale Speicherauslastung legen, dann schalten Sie WebP ein, und PNG- sowie JPG-Komprimierung aus.
+      ]]></Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPForPng">
+    <Value>WebP statt PNG</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPForPng.Hint">
+    <Value>Generiert und liefert WebP- statt PNG-Dateien an WebP-fähige Browser aus.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPForJpg">
+    <Value>WebP statt JPG</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPForJpg.Hint">
+    <Value>Generiert und liefert WebP- statt JPG-Dateien an WebP-fähige Browser aus.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPQuality">
+    <Value>WebP Qualität</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.WebPQuality.Hint">
+    <Value>Ein Wert zwischen 10 (sehr verlustreich) und 100 (verlustfrei).</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="CompressInfo">
+    <Value>
+      <![CDATA[
+      TinyImage wendet intelligente Komprimierungstechniken auf Bilder an, um ihre Dateigröße um bis zu 80% zu reduzieren. 
+      Beachten Sie jedoch, dass dadurch die Verarbeitungs-Geschwindigkeit für Bilder, die noch nicht im Cache liegen, leicht abnimmt.
+      Beachten Sie außerdem, dass während der Komprimierung - je nach Bild - die Speicherauslastung temporär mehrere hundert MB steigen kann.
+      ]]>
+    </Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressThumbnails">
+    <Value>Thumbnails komprimieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressThumbnails.Hint">
+    <Value>Wendet Komprimierung auf dynamisch generierte Thumbnails an.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressUploads">
+    <Value>Uploads komprimieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressUploads.Hint">
+    <Value>Wendet Komprimierung auf hochgeladene Bilder an.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="CompressFormatInfo">
+    <Value>Wenn Sie alle Formate deaktivieren, findet - unabhängig von anderen Optionen - keine Komprimierung mehr statt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressPng">
+    <Value>PNG Dateien komprimieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressPng.Hint">
+    <Value>Reduziert die Größe von PNG-Dateien, indem die Anzahl der Farben selektiv verringert wird.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressJpg">
+    <Value>JPG Dateien komprimieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressJpg.Hint">
+    <Value>Reduziert die Größe von JPG-Dateien. Generiert außerdem 'progressive' JPEGs, wenn die Quelldatei größer als 10 KB ist.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressGif">
+    <Value>GIF Dateien komprimieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CompressGif.Hint">
+    <Value>Reduziert die Größe von (animierten) GIF-Dateien.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ToolsInfo">
+    <Value>TinyImage verwendet im Hintergrund verschiedene Drittanbieter-Tools für die Komprimierung, wobei die Auswahl vom Dateiformat abhängt. Jedes Tool bietet diverse Optionen zum Festlegen der Ausgabequalität. Die TinyImage Voreinstellungen bieten den besten Kompromiss zwischen Dateigröße und Qualität. Sollten Sie dennoch Anpassungen vornehmen wollen, besuchen Sie die Anbieter-Seiten für mehr Informationen.</Value>
+  </LocaleResource>
+  <LocaleResource Name="ToolsInfo.Tokens">
+    <Value>{0} = Quelldatei, {1} = Zieldatei</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.CjpegOptions.Hint">
+    <Value>Für 'progressive' JPEG Dateien.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Setting.NotifyOnUpload">
+    <Value>Benachrichtigungen anzeigen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Setting.NotifyOnUpload.Hint">
+    <Value>Blendet nach einem Datei-Upload eine kurze Zusammenfassung über die erzielte Komprimierungs-Rate ein.</Value>
+  </LocaleResource>
+  <LocaleResource Name="CompressSuccessNotification">
+    <Value><![CDATA[TinyImage konnte die Dateigröße von {0} auf {1} verkleinern (<b>- {2} %</b>).]]></Value>
+  </LocaleResource>
+  <LocaleResource Name="CompressTimeoutNotification">
+    <Value>Oops! TinyImage braucht zu lange, um das Bild zu komprimieren. Das Ausgangsbild wird stattdessen verwendet.</Value>
+  </LocaleResource>
+</Language>

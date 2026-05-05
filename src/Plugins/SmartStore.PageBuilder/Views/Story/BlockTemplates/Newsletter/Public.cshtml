@@ -1,0 +1,78 @@
+﻿@model NewsletterBlock
+@using SmartStore.PageBuilder.Blocks
+@{
+    var random = CommonHelper.GenerateRandomInteger();
+}
+<div class="g-newsletter mb-3">
+    <h5>@T("Newsletter.Title")</h5>
+    <div id="g-newsletter-block-@random" class="small">
+        <div class="input-group">
+            <input name="g-newsletter-email-@random" type="text" class="form-control form-control-sm" placeholder="@T("Newsletter.Email")" />
+			<div class="input-group-append">
+				<button id="g-newsletter-btn-@random" class="btn btn-sm btn-primary btn-icon" title="@T("Newsletter.Button")">
+					<i class="fa fa-angle-right"></i>
+				</button>
+			</div>
+        </div>
+        <div>
+            <div class="form-inline">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="g-newsletter-subscribe-@random" name="g-newsletter-options-@random" value="newsletter-subscribe" checked="checked" />
+                    <label class="col-form-label" for="g-newsletter-subscribe-@random">
+                        @T("Newsletter.Subscribe")
+                    </label>
+                </div>
+                <div class="form-check form-check-inline mr-0">
+                    <input class="form-check-input" type="radio" id="g-newsletter-unsubscribe-@random" name="g-newsletter-options-@random" value="newsletter-unsubscribe" />
+                    <label class="col-form-label" for="g-newsletter-unsubscribe-@random">
+                        @T("Newsletter.Unsubscribe")
+                    </label>
+                </div>
+            </div>
+            @if (Model.GdprConsentRequired)
+            {
+		        <div class="form-check mr-0">
+                    <input class="form-check-input" type="checkbox" id="g-gdpr-consent-@random" name="g-gdpr-consent-check" />
+			        <label class="d-flex mb-0" for="g-gdpr-consent-@random" style="flex-flow: column;">
+				        @Html.Raw(T("Gdpr.Consent.DetailText.Small", Url.Topic("privacyinfo")))
+			        </label>
+		        </div>
+            }
+        </div>
+    </div>
+    <div id="g-newsletter-message-@random" class="alert alert-success d-none small mt-2 mb-0"></div>
+</div>
+<script>
+    $(function () {
+        $('#g-newsletter-btn-@random').on('click', function () {
+            var email = $('input[name="g-newsletter-email-@random"]').val();
+            var subscribe = $('input[name="g-newsletter-options-@random"]:checked').val() === 'newsletter-subscribe';
+            var elAlert = $('#g-newsletter-message-@random');
+            var elGdprConsent = $('#g-gdpr-consent-@random');
+            var gdprConsent = elGdprConsent.length == 0 ? null : elGdprConsent.is(':checked');
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@Url.RouteUrl("SubscribeNewsletter", new { area = "" })',
+                data: { "subscribe": subscribe, "email": email, "GdprConsent": subscribe ? gdprConsent : true },
+                success: function (data) {
+                    elAlert.html(data.Result || '');
+
+                    if (data.Success) {
+                        $('#g-newsletter-block-@random').hide();
+                        elAlert.removeClass('alert-danger d-none').addClass('alert-success d-inline-block');
+                    }
+                    else if (data.Result.length > 0) {
+                        elAlert.removeClass('alert-success d-none').addClass('alert-danger d-inline-block').fadeIn('slow').delay(2000).fadeOut('slow');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    elAlert.html('@T("Newsletter.SubscriptionFailed")').removeClass('alert-success d-none').addClass('alert-danger d-inline-block');
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,8 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.MegaSearchPlus" AppendRootKey="false">
+    <Value>MegaSearch</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.MegaSearchPlus" AppendRootKey="false">
+    <Value>Enhancements of the MegaSearch plugin. Completes the product data of the search index with localized data and with multi store and access restrictions.</Value>
+  </LocaleResource>
+</Language>

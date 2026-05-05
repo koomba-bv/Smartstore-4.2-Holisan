@@ -1,0 +1,73 @@
+﻿@using SmartStore.PageBuilder
+@using SmartStore.PageBuilder.Models
+@model StoryTemplate
+@using (Html.BeginForm("SaveAsTemplate", "Story", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.Group)
+    @Html.HiddenFor(x => x.ThumbnailData)
+    @Html.HiddenFor(x => x.Width)
+    @Html.HiddenFor(x => x.Height)
+
+	<div class="adminContent p-0">
+        <div class="adminRow wide">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(x => x.Name)
+			</div>
+			<div class="adminData">
+				@Html.EditorFor(x => x.Name)
+                @Html.ValidationMessageFor(x => x.Name)
+			</div>
+        </div>
+        <div class="adminRow wide">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(x => x.Author)
+			</div>
+			<div class="adminData">
+				@Html.EditorFor(x => x.Author)
+                @Html.ValidationMessageFor(x => x.Author)
+			</div>
+        </div>
+        <div class="adminRow wide">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(x => x.Description)
+			</div>
+			<div class="adminData">
+				@Html.TextAreaFor(x => x.Description, new { @class = "form-control", style = "height: 160px;" })
+                @Html.ValidationMessageFor(x => x.Description)
+			</div>
+        </div>
+        <div class="adminRow wide">
+			<div class="adminData">
+			    <div class="form-check">
+				    <input type="radio" class="form-check-input" id="ThumbnailCreation_1" name="ThumbnailCreation" value="auto" checked="checked" />
+				    <label for="ThumbnailCreation_1" class="form-check-label">
+					    @T("Plugins.SmartStore.PageBuilder.Story.AutoCreateThumbnail")
+				    </label>
+			    </div>
+			    <div class="form-check mt-1">
+				    <input type="radio" class="form-check-input" id="ThumbnailCreation_2" name="ThumbnailCreation" value="upload" />
+				    <label for="ThumbnailCreation_2" class="form-check-label">
+					    @T("Plugins.SmartStore.PageBuilder.Story.UploadThumbnail")
+				    </label>
+			    </div>
+			</div>
+        </div>
+        <div class="adminRow wide picture-upload" style="display: none;">
+            <div class="adminData">
+                @Html.EditorFor(x => x.ThumbnailId, new { transientUpload = true, path = "pagebuilder" })
+                @Html.ValidationMessageFor(x => x.ThumbnailId)
+                <p class="text-muted mb-0">@T("Plugins.SmartStore.PageBuilder.Story.ThumbnailMinSize")</p>
+            </div>
+        </div>
+        <div class="adminRow wide">
+			<div class="adminTitle">
+				@Html.SmartLabelFor(x => x.AnchorPosition)
+			</div>
+			<div class="adminData">
+				@Html.DropDownListFor(model => model.AnchorPosition, StoryModelHelper.SelectOptions.AnchorPositions(T))
+                @Html.ValidationMessageFor(x => x.AnchorPosition)
+			</div>
+        </div>
+	</div>
+}

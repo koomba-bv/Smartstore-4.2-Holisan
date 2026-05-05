@@ -1,0 +1,170 @@
+﻿@model SmartStore.HtmlForms.Models.PublicInfoModel
+@{
+    Layout = "";
+}
+
+@using SmartStore.Core;
+@using SmartStore.Core.Infrastructure;
+@using SmartStore.Web.Framework;
+@using SmartStore.Web.Framework.Security
+
+@using (Html.BeginForm())
+{
+    <div class="smartstore-forms-form-ctn">
+
+        <div class="mt-5 row">
+            <div class="col-sm-12">
+                <h4>Bestellanfrage</h4>
+            </div>
+        </div>
+
+        <div class="form-group mt-1 row">
+            <div class="col-sm-12">
+                <div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon2">
+							<i class="fa fa-envelope-o"></i>
+						</span>
+					</div>
+					<input class="form-control" data-val="true" data-val-email="Falsche E-Mail" data-val-required="E-Mail eingeben" id="Email" name="Email" placeholder="E-Mail-Adresse" type="text" value="">
+				</div>
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon2">
+							<i class="fa fa-user"></i>
+						</span>
+					</div>
+					<input class="form-control" data-val="true" data-val-required="Bitte geben Sie Ihren Namen an" id="FullName" name="FullName" placeholder="Name" type="text" value="">
+				</div>
+                <span class="field-validation-valid" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon2">
+							<i class="fa fa-building-o"></i>
+						</span>
+					</div>
+                    <input class="form-control" data-val="true" id="Company" name="Company" placeholder="Ihre Firma" type="text" value="">
+                </div>
+                <span class="field-validation-valid" data-valmsg-for="Company" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon2">
+							<i class="fa fa-list"></i>
+						</span>
+					</div>
+					<input class="form-control" data-val="true" id="ProductNumber" name="ProductNumber" placeholder="Produkt-Nummer" type="text" value="">
+				</div>
+                <span class="field-validation-valid" data-valmsg-for="ProductNumber" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+		<div class="row justify-content-end">
+			<div class="col">
+				@{ Html.RenderWidget("gdpr_consent_small"); }
+			</div>
+		</div>
+
+		@if (Model.DisplayCaptcha)
+		{
+			<div class="form-group row">
+				<div class="col-sm-offset-2 col-sm-10 captcha-box">
+					@Html.Raw(Html.GenerateCaptcha())
+				</div>
+			</div>
+		}
+
+        <input type="hidden" id="Origin" name="Origin" value="" />
+
+        <div class="form-group row">
+            <div class="col col-sm-auto">
+                <button type="button" name="send-email" class="btn btn-primary btn-lg btn-block smartstore-forms-btn-send">
+                    Absenden
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+	$(function() {
+		var sku = $(".pd-attrs [itemprop='sku']").text();
+		var form = $(".smartstore-forms-form-ctn");
+		form.find("#ProductNumber").val("@Model.ProductId")
+	});
+
+    $(".smartstore-forms-btn-send").on("click", function (e) {
+        var form = $(e.target).closest(".smartstore-forms-form-ctn");
+        sendForm(form);
+    });
+
+    function sendForm(form) {
+
+	    var elemGdprConsent = $(".smartstore-forms-form-ctn #GdprConsent")
+        var gdprConsent = elemGdprConsent.length == 0 ? null : elemGdprConsent.is(':checked');
+
+        $.ajax({
+			cache: false,
+			type: "POST",
+			//url: "@(Url.Action("PublicInfoPost", "HtmlForms", new { area = "ObjectCreator.Forms" }))",
+			url: "@(Url.Action("PublicInfoPostHartung", "HtmlForms", new { area = "ObjectCreator.Forms" }))",
+			data: {
+                Email: form.find("#Email").val(),
+                FullName: form.find("#FullName").val(),
+                Company: form.find("#Company").val(),
+                ProductNumber: form.find("#ProductNumber").val(),
+				GdprConsent: gdprConsent
+            },
+            success: function (data) {
+
+                $.each(data, function (idx, errorMessage) {
+                    var key = errorMessage["Key"];
+                    var value = errorMessage["Value"];
+
+					//console.log(key, value);
+
+                    var formElem = $("#" + key);
+                    var frmCtn = formElem.closest(".row");
+                    var validationMessageElem = frmCtn.find(".field-validation-valid");
+
+                    if (formElem.data("val"))
+                    {
+                        frmCtn.addClass("has-danger");
+                        validationMessageElem.html(value);
+                        validationMessageElem.addClass("field-validation-error");
+                    }
+                });
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError);
+            }
+        });
+    }
+
+    $(".smartstore-forms-form-ctn input").on("change", function (e) {
+        var form = $(e.target).closest(".smartstore-forms-form-ctn");
+
+        form.parents("form").validate({
+            submitHandler: function (form) {
+                sendForm(form);
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,26 @@
+﻿@model SoundCloudBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+    if (!Model.Src.HasValue())
+    {
+        return;
+    }
+
+    var url = "https://w.soundcloud.com/player/?url={0}&auto_play={1}&color={2}&buying={3}&download={4}&sharing={5}&show_artwork={6}&show_playcount={7}&show_user={8}&start_track={9}&single_active={10}&callback=true".FormatWith(
+        Model.Src,
+        Model.Autoplay.ToString().ToLower(),
+        Model.Color,
+        Model.Buying.ToString().ToLower(),
+        Model.Download.ToString().ToLower(),
+        Model.Sharing.ToString().ToLower(),
+        Model.ShowArtwork.ToString().ToLower(),
+        Model.ShowPlaycount.ToString().ToLower(),
+        Model.ShowUser.ToString().ToLower(),
+        Model.StartTrack.ToString(),
+        Model.SingleActive.ToString().ToLower()
+    );
+}
+
+<iframe scrolling="no" frameborder="no" src="@url"></iframe>

@@ -1,0 +1,63 @@
+﻿@model ShadeOverlay
+
+@using SmartStore.PageBuilder;
+
+<p class="text-muted mt-3">@T("Plugins.SmartStore.PageBuilder.Block.Shade.Intro")</p>
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Color)
+    </div>
+    <div class="adminData">
+        @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.ShadeColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+        @Html.ValidationMessageFor(model => model.Color)
+    </div>
+</div>
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Type)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.Type)
+    </div>
+</div>
+<div class="adminRow@(Model.Type == GradientType.Radial ? " d-none" : "")" data-gradient-type="linear">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.LinearDir)
+    </div>
+    <div class="adminData">
+        <div class="row xs-gutters select-gradient-lineardir">
+            <div class="col">
+                @Html.EditorFor(model => model.LinearDir)
+            </div>
+            <div class="col-auto">
+                <div class="linear-gradient-preview" style="--angle: @(Model.LinearDir)deg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="adminRow@(Model.Type == GradientType.Linear ? " d-none" : "")" data-gradient-type="radial">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.RadialDir)
+    </div>
+    <div class="adminData">
+        @Html.DropDownListFor(model => model.RadialDir, StoryModelHelper.SelectOptions.RadialDirs(T))
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.StartPos)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.StartPos)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.EndPos)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.EndPos)
+    </div>
+</div>

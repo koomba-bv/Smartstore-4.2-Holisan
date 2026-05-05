@@ -1,0 +1,15 @@
+﻿@model FormBlock
+
+@using SmartStore.HtmlForms.Blocks
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.FormId)
+		</div>
+		<div class="adminData">
+			@Html.DropDownListFor(model => model.FormId, Model.AvailableForms)
+			@Html.ValidationMessageFor(model => model.FormId)
+		</div>
+	</div>
+</div>

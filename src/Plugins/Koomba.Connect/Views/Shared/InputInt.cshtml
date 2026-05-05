@@ -1,0 +1,14 @@
+﻿@model InputIntModel
+
+<tr class="wide">
+    <td class="adminTitle">
+        @Html.SmartLabelFor(model => model.Value)
+    </td>
+    <td class="adminData">
+        <div class="discount-rule-wrapper">
+            <div>
+                @Html.EditorFor(x => x.Value, null, Model.InputId + "Value_" + Model.RuleId)
+            </div>
+        </div>
+    </td>
+</tr>

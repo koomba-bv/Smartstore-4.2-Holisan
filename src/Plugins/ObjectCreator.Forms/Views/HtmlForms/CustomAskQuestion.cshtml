@@ -1,0 +1,25 @@
+﻿@model SmartStore.HtmlForms.Models.PublicInfoModel
+
+@{
+	Layout = "_Layout";
+
+	Html.AddTitleParts(Model.ProductName);
+	Html.AddTitleParts(T("Products.AskQuestion.Title").Text);
+	Html.AddCustomHeadParts("<meta name=\"robots\" content=\"noindex\">");
+}
+<div class="page ask-question-page">
+	<div class="page-title">
+		<h1>@T("Products.AskQuestion.Title")</h1>
+	</div>
+	<div class="page-body">
+
+		<h2 class="fs-h3">
+			<a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })" class="product">
+				<span>@Model.ProductName</span>
+			</a>
+		</h2>
+
+		@{ Html.RenderPartial("~/Plugins/ObjectCreator.Forms/Views/HtmlForms/PublicInfo.cshtml", Model); }
+
+	</div>
+</div>

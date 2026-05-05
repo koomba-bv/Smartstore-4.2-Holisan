@@ -1,0 +1,90 @@
+﻿@model VideoBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+    Html.AddBodyAttribute("data-file-manager-url", base.FileManagerUrl);
+}
+
+@Html.HiddenFor(model => model.Version)
+
+<div class="adminContent video-block">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Mp4VideoId)
+        </div>
+        <div class="adminData">
+            <div class="input-group">
+                @Html.EditorFor(model => model.Mp4VideoId)
+            </div>
+            @Html.ValidationMessageFor(model => model.Mp4VideoId)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.WebMVideoId)
+        </div>
+        <div class="adminData">
+            <div class="input-group">
+                @Html.EditorFor(model => model.WebMVideoId)
+            </div>
+            @Html.ValidationMessageFor(model => model.WebMVideoId)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.OggVideoId)
+        </div>
+        <div class="adminData">
+            <div class="input-group">
+                @Html.EditorFor(model => model.OggVideoId)
+            </div>
+            @Html.ValidationMessageFor(model => model.OggVideoId)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Loop)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Loop)
+            @Html.ValidationMessageFor(model => model.Loop)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Autoplay)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Autoplay)
+            @Html.ValidationMessageFor(model => model.Autoplay)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayControls)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.DisplayControls)
+            @Html.ValidationMessageFor(model => model.DisplayControls)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.IsMuted)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.IsMuted)
+            @Html.ValidationMessageFor(model => model.IsMuted)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.AspectRatio)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.AspectRatio, Model.AvailableRatios)
+            @Html.ValidationMessageFor(model => model.AspectRatio)
+        </div>
+    </div>
+</div>

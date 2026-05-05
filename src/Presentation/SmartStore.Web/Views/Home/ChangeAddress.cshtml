@@ -1,0 +1,92 @@
+﻿@model ChangeAddressModel
+@using SmartStore.Web.Models.Common;
+@{
+    Layout = "_Layout";
+
+    Html.AddTitleParts(Model.ChangeAddressMetaTitle.HasValue() ? Model.ChangeAddressMetaTitle : T("PageTitle.ChangeAddress").Text);
+    Html.AddMetaDescriptionParts(Model.ChangeAddressMetaDescription);
+    Html.AddMetaKeywordParts(Model.ChangeAddressMetaKeywords);
+}
+
+<div class="page change-address-page">
+	<div class="page-title">
+		<h1 class="h2">@T("PageTitle.ChangeAddress")</h1>
+	</div>
+
+    @{ Html.RenderAction("TopicBlock", "Topic", new { systemName = "ChangeAddress", isLead = true, bodyOnly = true }); }
+
+    <div class="page-body">
+        @if (Model.ChangeAddressSuccessfullySent)
+        {
+            <div class="alert alert-success">
+                @Model.ChangeAddressResult
+            </div>        
+		}
+		else
+		{
+			using (Html.BeginRouteForm("ChangeAddress", FormMethod.Post, new { @class = "changeaddress-form" }))
+			{
+				if (!ViewData.ModelState.IsValid)
+				{
+					@Html.ValidationSummary(false)
+				}
+
+				if (this.EnableHoneypotProtection)
+				{
+					<div class="d-none">
+						@Html.HoneypotField()
+					</div>
+				}
+
+				@Html.ControlGroupFor(model => model.ChangeAddressLastName, required: true, breakpoint: "sm")
+				<br />
+                if (Model.ChangeAddressAddressType.StartsWith("B"))
+                {
+					<h3>@T("ChangeAddressTypeBilling")</h3>
+                }
+                else
+                {
+					<h3>@T("ChangeAddressTypeShipping")</h3>
+                }
+					@Html.ControlGroupFor(model => model.ChangeAddressAddress1, required: true, breakpoint:"sm")
+					@Html.ControlGroupFor(model => model.ChangeAddressZipPostalCode, required: true, breakpoint:"sm")
+					@Html.ControlGroupFor(model => model.ChangeAddressCity, required: true, breakpoint:"sm")
+					@Html.ControlGroupFor(model => model.ChangeAddressCountry, required: true, breakpoint:"sm")
+			
+					<hr />
+					@Html.ControlGroupFor(model => model.ChangeAddressEmail, required: true, breakpoint: "sm")
+					@Html.ControlGroupFor(model => model.ChangeAddressPhoneNumber, required: true, breakpoint:"sm")
+
+					<div class="form-group row">
+						<div class="col col-sm-auto offset-sm-3 text-muted">
+							@T("Common.FormFields.Required.Hint")
+						</div>
+					</div>
+
+					<div class="row justify-content-end">
+						<div class="col-sm-9">
+							@{ Html.RenderWidget("gdpr_consent"); }
+						</div>
+					</div>
+				
+					if (Model.ChangeAddressDisplayCaptcha)
+					{
+						<div class="form-group row">
+							<div class="col col-sm-auto offset-sm-3 captcha-box">
+								@Html.Raw(Html.GenerateCaptcha())
+							</div>
+						</div>
+					}
+                
+					<div class="form-group row">
+						<div class="col col-sm-auto offset-sm-3">
+							<button type="submit" name="send-email" class="btn btn-primary btn-lg btn-block">
+								@T("ChangeAddress.Button")
+							</button>
+						</div>
+					</div>
+            }
+		}
+
+    </div>
+</div>

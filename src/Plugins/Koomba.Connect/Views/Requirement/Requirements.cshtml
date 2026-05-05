@@ -1,0 +1,30 @@
+﻿@model RequirementModel
+
+@if (Model.ChainId > 0)
+{
+    string getRuleUrl = Url.Action("GetRuleView", "Rule");
+    ViewData["Fields"] = Model.Fields;
+    ViewData["RulesProviders"] = Model.RulesProviders;
+    
+    <form></form>
+    <div class="card-deck card-cols-sm-1 card-cols-lg-2 card-cols-xl-3 discountreq-list mt-5">
+        @foreach (var rule in Model.Rules)
+        {
+            Html.RenderPartial("RulePartial", rule);
+        }
+        @{
+            Html.RenderPartial("RulePartial", new RuleModel() {isField = true });
+        }
+    </div>
+
+    <script src="~/Plugins/Koomba.Connect/Scripts/koomba.rule.js"></script>
+}
+else
+{
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @T("Admin.SaveBeforeEdit")
+    </div>
+}

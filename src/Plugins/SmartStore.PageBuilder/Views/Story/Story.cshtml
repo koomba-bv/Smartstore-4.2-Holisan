@@ -1,0 +1,228 @@
+﻿@model StoryModel
+
+@using SmartStore.PageBuilder;
+@using SmartStore.PageBuilder.Models;
+@using SmartStore.PageBuilder.Blocks;
+@using SmartStore.PageBuilder.Services;
+
+@{
+	var mode = Model.ViewMode;
+	var hasContainer = Model.GridContainer.HasValue();
+	var hasContentContainer = Model.GridContentContainer.HasValue();
+	var framed = ViewBag.Framed == true;
+	Layout = framed ? "~/Views/Shared/Layouts/_Layout.Bare.cshtml" : "";
+
+	if (framed)
+	{
+		Html.AddScriptParts(true, "~/Plugins/SmartStore.PageBuilder/Scripts/pagebuilder.grid.js");
+
+		Html.AddBodyCssClass("story-page");
+		if (mode > StoryViewMode.Preview)
+		{
+			Html.AddBodyCssClass("story-page-edit");
+		}
+		if (Model.ThumbnailMode)
+		{
+			Html.AddBodyCssClass("story-thumbnail-mode");
+		}
+	}
+
+	var helper = new StoryHtmlHelper(Model, this.Html, this.Url);
+	var storyParts = helper.GenerateStoryHtmlParts();
+}
+
+@if (hasContainer)
+{
+	@:<div class="g-container container@(Model.GridContainer == "fluid" ? "-fluid" : "")">
+}
+
+<section class="g-stage@(storyParts.StageCssClass)" @(storyParts.StageHtmlAttributes)>
+	@{ helper.RenderBackgroundOverlays(Model.BackgroundModel, null); }
+	@if (hasContentContainer)
+	{
+		@:<div class="g-stage-container container@(Model.GridContentContainer == "fluid" ? "-fluid" : "")">
+	}
+
+	<div class="g-story@(storyParts.StoryCssClass)" @(storyParts.StoryHtmlAttributes)>
+		@if (mode > StoryViewMode.Preview && !Model.IsChildStory)
+		{
+			for (var r = 1; r <= Model.MaxRows; r++)
+			{
+				for (var c = 1; c <= Model.MaxColumns; c++)
+				{
+					<div class="g-block g-block-empty" style="grid-column: @c; grid-row: @r" data-col="@c" data-row="@r">
+						<div class="g-track-edit">
+							@if (r == 1)
+							{
+								<div class="g-track-header g-column-header d-flex no-gutters">
+									<div class="g-track-size col text-center text-truncate"><span class="g-track-size-label">@Model.Column(c - 1)</span></div>
+								</div>
+							}
+							@if ((!WorkContext.WorkingLanguage.Rtl && c == 1) || (WorkContext.WorkingLanguage.Rtl && c == Model.MaxColumns))
+							{
+								<div class="g-track-header g-row-header d-flex no-gutters">
+									<div class="g-track-size col"><span class="g-track-size-label">@Model.Row(r - 1)</span></div>
+								</div>
+							}
+						</div>
+					</div>
+				}
+			}
+		}
+		@foreach (var block in Model.Blocks)
+        {
+            if (!helper.IsBlockVisible(block))
+            {
+                continue;
+            }
+
+            var parts = helper.GenerateBlockHtmlParts(block, T);
+            var isInvalidBlockError = block.Block is ErrorBlock && ((ErrorBlock)block.Block).Exception is InvalidBlockTypeException;
+
+			<article class="g-block@(parts.CssClass)" @(parts.HtmlAttributes)>
+				<div class="g-block-inner@(parts.InnerCssClass)" @(parts.InnerHtmlAttributes)>
+					@{
+						helper.RenderBackgroundOverlays(block.BackgroundModel, block);
+					}
+
+					<div class="g-block-content@(parts.ContentCssClass)" @(parts.ContentHtmlAttributes)>
+						@{
+							var templates = new List<string>(3) { "Public" };
+
+							if (block.Template.HasValue())
+							{
+								templates.Insert(0, block.Template);
+							}
+
+							if (Model.ViewMode == StoryViewMode.GridEdit)
+							{
+								templates.Insert(0, "Preview");
+							}
+
+							try
+							{
+								block.RenderBlock(templates, this.Html);
+							}
+							catch (Exception ex)
+							{
+								var renderException = new RenderBlockException("Error while rendering block type '{0}'.".FormatInvariant(block.Metadata.FriendlyName), ex);
+								var errorBlock = new ErrorBlock { Exception = renderException };
+								<div class="alert alert-danger h-100 m-0 pr-0 pt-0 pb-0">
+									@{ Html.RenderPartial("~/Plugins/SmartStore.PageBuilder/Views/Story/BlockTemplates/Error/Public.cshtml", errorBlock); }
+								</div>
+							}
+						}
+					</div>
+					@if (mode < StoryViewMode.GridEdit && block.LinkHref.HasValue())
+					{
+						<a class="g-block-link" href="@block.LinkHref" @Html.Attr("title", block.Title, block.Title.HasValue())></a>
+					}
+				</div>
+				@if (mode > StoryViewMode.Preview && !Model.IsChildStory)
+				{
+					<div class="g-block-edit">
+                        @if (Model.OrganizeBlocks)
+                        {
+						    <div class="g-sizer g-sizebar g-sizebar-n">
+							    <div class="g-sizer g-sizebar-ne"></div>
+						    </div>
+						    <div class="g-sizer g-sizebar g-sizebar-e"></div>
+						    <div class="g-sizer g-sizebar g-sizebar-s">
+							    <div class="g-sizer g-sizebar-se"></div>
+						    </div>
+                        }
+						<div class="g-block-outline"></div>
+						<div class="g-block-edit-buttons">
+							@if (!isInvalidBlockError)
+							{
+								<a class="btn btn-sm btn-clear btn-no-border btn-action btn-icon" data-action="edit" href="@Url.Action("BlockEditPopup", new { id = block.Id, btnId = "btn-refresh" })" title="@T("Plugins.SmartStore.PageBuilder.EditBlock")">
+									<i class="fa fa-cog"></i>
+								</a>
+							}
+							<a class="btn btn-sm btn-clear btn-no-border btn-action btn-icon" data-action="levelup" href="#" title="@T("Common.MoveUp")">
+								<i class="fa fa-angle-up"></i>
+							</a>
+							<a class="btn btn-sm btn-clear btn-no-border btn-action btn-icon" data-action="leveldown" href="#" title="@T("Common.MoveDown")">
+								<i class="fa fa-angle-down"></i>
+							</a>
+							@if (!isInvalidBlockError)
+							{
+								<a class="btn btn-sm btn-clear btn-no-border btn-action btn-icon" data-action="copy" href="@Url.Action("BlockClone", new { id = block.Id })" title="@T("Plugins.SmartStore.PageBuilder.Copy")">
+									<i class="fa fa-copy"></i>
+								</a>
+							}
+							<a class="btn btn-sm btn-clear btn-no-border btn-to-danger btn-action btn-icon mt-auto" data-action="delete" href="@Url.Action("BlockDelete", new { id = block.Id })" title="@T("Plugins.SmartStore.PageBuilder.DeleteBlock")">
+								<i class="far fa-trash-alt"></i>
+							</a>
+						</div>
+					</div>
+				}
+			</article>
+		}
+	</div>
+
+	@if (hasContentContainer)
+	{
+		@:</div>
+	}
+
+	@EditButton()
+</section>
+
+@if (hasContainer)
+{
+	@:</div>
+}
+
+@if (Model.ViewMode >= StoryViewMode.Preview && !Model.IsChildStory)
+{
+    using (Html.BeginZoneContent("end", key: "pb-story-edit"))
+    {
+        if (Model.ViewMode == StoryViewMode.Preview)
+        {
+            <script>
+                $(function () {
+                    $(window).on('unload', function () {
+                        // so that we can subscribe to the event when in preview mode
+                        window.parent.EventBroker.publishSync("storygrid.unloading");
+                    });
+                });
+            </script>
+        }
+        else
+        {
+            // (Grid)Edit mode
+            var deviceStates = Model.AllDeviceStates.NullEmpty();
+            if (deviceStates.HasValue())
+            {
+                deviceStates = "'" + deviceStates + "'";
+            }
+            else
+            {
+                deviceStates = "null";
+            }
+
+            <script>
+			    $(function () {
+                    SmartStore.StoryGrid = new StoryGrid(@Html.Raw(deviceStates), @(Model.OrganizeBlocks.ToString().ToLower()));
+                    $(window).on('unload', function (e) {
+                        SmartStore.StoryGrid.destroy(); // publishes "storygrid.unloading" internally
+                        delete SmartStore.StoryGrid;
+                    });
+			    });
+            </script>
+
+            Html.RenderPartial("Story.TrackTools");
+        }
+    }
+}
+
+@helper EditButton()
+{
+	if (Model.ViewMode == StoryViewMode.Public && !Model.IsChildStory && CommonServices.Permissions.Authorize(PageBuilderPermissions.Update))
+	{
+		<a href="@Url.Action("Editor", "Story", new { id = Model.Id, area = "SmartStore.PageBuilder" })" class="btn btn-lg btn-icon btn-primary btn-no-border rounded-0 btn-edit-story" title="@T("Common.Edit"): @Model.SystemName" target="_admin">
+			<i class="far fa-cog fa-lg"></i>
+		</a>
+	}
+}

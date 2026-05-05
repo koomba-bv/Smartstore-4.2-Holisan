@@ -1,0 +1,50 @@
+﻿@model string
+
+@using SmartStore.PageBuilder;
+
+@{ 
+    var names = DividerOverlay.EnumerateDividerNames();
+    var id = Html.IdFor(x => Model);
+    var name = Html.NameFor(x => Model);
+}
+
+<script>
+    $(function () {
+        var select = $('#@id');
+        var overlayEditor = select.closest('.overlay-editor');
+
+        select.data('flip', overlayEditor.find('.select-overlay-flip-hidden').val());
+        overlayEditor.on('change', '.select-overlay-flip-hidden', function (e) {
+            select.data('flip', $(this).val()).trigger('change');
+        });
+
+        select.select2({
+            minimumResultsForSearch: 9999,
+            templateResult: function (item) {
+                return renderSelectItem(item, true);
+            },
+            templateSelection: function (item) {
+                return renderSelectItem(item, false);
+            }
+        });
+
+        function renderSelectItem(item, isResult) {
+            var opt = $(item.element);
+            var url = opt.data('imageurl');
+            var flip = opt.parent().data('flip');
+            if (flip) flip = ' ' + flip;
+
+            var html = '<div class="divider-preview{0}{1}"><img class="divider-preview-img" src="{2}" /></div>'.format(opt.is(':selected') ? ' selected' : '', flip, url);
+            return $(html);
+        }
+    });
+</script>
+
+<select id="@id" name="@name" class="form-control noskin select-customtemplate drop-customtemplate select-divider-type">
+    @foreach (var opt in StoryModelHelper.SelectOptions.DividerTypes(T))
+    {
+        <option value="@opt.Value" data-imageurl="@Url.RouteUrl("SmartStore.PageBuilder.DividerPreview", new { name = opt.Value })"@(opt.Value == Model ? " selected" : "")>
+            @opt.Text
+        </option>
+    }
+</select>

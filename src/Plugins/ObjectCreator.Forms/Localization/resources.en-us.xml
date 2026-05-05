@@ -1,0 +1,469 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.HtmlForms" AppendRootKey="false">
+    <Value>Form Configurator</Value>
+  </LocaleResource>
+	<LocaleResource Name="Plugins.SmartStore.Forms" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="AdminInstruction">
+				<Value>
+					<![CDATA[
+
+					  ]]>
+				</Value>
+			</LocaleResource>
+			<LocaleResource Name="MinimumResendNotifyMessage">
+				<Value>Your request has already been sent. Please wait a little before sending the form again.</Value>
+			</LocaleResource>
+			<LocaleResource Name="RequestSentSuccessfully">
+				<Value>Your request has been successfully sent.</Value>
+			</LocaleResource>
+			<LocaleResource Name="SafeBeforeEdit">
+				<Value>The record must be saved before you can add elements.</Value>
+			</LocaleResource>
+			<LocaleResource Name="NoMessageTemplates">
+				<Value>No message templates have been defined for this form.</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnterNameOfMessageTemplate">
+				<Value>Please enter the name of the message template first.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Validation.NoWhiteSpace">
+				<Value>Whitespace isn't allowed.</Value>
+			</LocaleResource>
+			<LocaleResource Name="DefaultTabHeading">
+				<Value>Form</Value>
+			</LocaleResource>
+			<LocaleResource Name="DemoModeHint">
+				<Value>This form is currently only displayed for shop administrators because the plugin is in demo mode.</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabHeading.Grid">
+				<Value>Forms</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabHeading.Settings">
+				<Value>Settings</Value>
+			</LocaleResource>
+			<LocaleResource Name="SendForm">
+				<Value>Submit</Value>
+			</LocaleResource>
+			<LocaleResource Name="AddNewForm">
+				<Value>Add new form</Value>
+			</LocaleResource>
+			<LocaleResource Name="AddNewControl">
+				<Value>Add new control</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabTitleGrid">
+				<Value>Form elements</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabTitleSettings">
+				<Value>Settings</Value>
+			</LocaleResource>
+			<LocaleResource Name="FormDetails">
+				<Value>Form</Value>
+			</LocaleResource>
+			<LocaleResource Name="ControlDetails">
+				<Value>Form element</Value>
+			</LocaleResource>
+			<LocaleResource Name="CreateMessageTemplate">
+				<Value>Create message template</Value>
+			</LocaleResource>
+			<LocaleResource Name="MessageTemplateExists">
+				<Value>The message template already exists. Please choose another name.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Admin.MessageTemplate.Heading">
+				<Value>New form request,</Value>
+			</LocaleResource>
+			<LocaleResource Name="Admin.MessageTemplate.Body">
+				<Value>
+					<![CDATA[
+						the customer <b>{{ Customer.FullName }}</b> has submitted a request.
+					]]>
+				</Value>
+			</LocaleResource>
+			<LocaleResource Name="Customer.MessageTemplate.Heading">
+				<Value>Thank you very much for your inquiry,</Value>
+			</LocaleResource>
+			<LocaleResource Name="Customer.MessageTemplate.Body">
+				<Value>we have received the following data:</Value>
+			</LocaleResource>
+			<LocaleResource Name="ShowTokens">
+				<Value>Show available tokens</Value>
+			</LocaleResource>
+			<LocaleResource Name="HideTokens">
+				<Value>Hide available tokens</Value>
+			</LocaleResource>
+			<LocaleResource Name="Validation.EmailNotValid">
+				<Value>Please enter a valid email address.</Value>
+			</LocaleResource>
+			<LocaleResource Name="FileLinkLabel">
+				<Value>File for {0}</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="MinimumResendInterval">
+				<Value>Interval for resubmission</Value>
+			</LocaleResource>
+			<LocaleResource Name="MinimumResendInterval.Hint">
+				<Value>Specifies the interval (in seconds) that must elapse before the form can be resent.</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnableAdminPreview">
+				<Value>Enable preview</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnableAdminPreview.Hint">
+				<Value>Determines whether disabled forms are visible to administrators.</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="Form" AppendRootKey="false">
+				<Children>
+					<LocaleResource Name="IsActive">
+						<Value>Is active</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsActive.Hint">
+						<Value>Specifies whether the form is active.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsReplacement">
+						<Value>Replacement</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsReplacement.Hint">
+						<Value>Only for developers</Value>
+					</LocaleResource>
+					<LocaleResource Name="Controller">
+						<Value>Controller</Value>
+					</LocaleResource>
+					<LocaleResource Name="Controller.Hint">
+						<Value>Only for developers (Enter the controller name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="Action">
+						<Value>Action</Value>
+					</LocaleResource>
+					<LocaleResource Name="Action.Hint">
+						<Value>Only for developers (Enter the action name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="CustomView">
+						<Value>CustomView</Value>
+					</LocaleResource>
+					<LocaleResource Name="CustomView.Hint">
+						<Value>Only for developers (Enter the view name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="FormDisplayType">
+						<Value>Display type</Value>
+					</LocaleResource>
+					<LocaleResource Name="FormDisplayType.Hint">
+						<Value>Specify here where the form should be displayed.</Value>
+					</LocaleResource>
+					<LocaleResource Name="TopicSystemname">
+						<Value>Topic systemname</Value>
+					</LocaleResource>
+					<LocaleResource Name="TopicSystemname.Hint">
+						<Value>Enter the system name of the topic in which the form should be displayed.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ReplacementFor">
+						<Value>Replacement for</Value>
+					</LocaleResource>
+					<LocaleResource Name="ReplacementFor.Hint">
+						<Value>Specify here the form you want to replace.</Value>
+					</LocaleResource>
+					<LocaleResource Name="EntityIds">
+						<Value>Entity Ids</Value>
+					</LocaleResource>
+					<LocaleResource Name="EntityIds.Hint">
+						<Value>Enter the entity IDs of the products or categories in which the form should be displayed.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ProductTabIndex">
+						<Value>Product tab index</Value>
+					</LocaleResource>
+					<LocaleResource Name="ProductTabIndex.Hint">
+						<Value>Here you specify the position at which the form should be displayed in the product tabs.</Value>
+					</LocaleResource>
+					<LocaleResource Name="WidgetZone">
+						<Value>Widgetzone</Value>
+					</LocaleResource>
+					<LocaleResource Name="WidgetZone.Hint">
+						<Value>Specifies the widget zone in which the form will be displayed.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateCustomer">
+						<Value>Message template (Customer)</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateCustomer.Hint">
+						<Value>Determines the message template that is sent to the customer when the form is submitted.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateAdmin">
+						<Value>Message template (Admin)</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateAdmin.Hint">
+						<Value>Determines the message template that is sent to the shop administrator when the form is submitted.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Title">
+						<Value>Heading</Value>
+					</LocaleResource>
+					<LocaleResource Name="Title.Hint">
+						<Value>Specifies the heading that is displayed above the form.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IntroText">
+						<Value>Introductory text</Value>
+					</LocaleResource>
+					<LocaleResource Name="IntroText.Hint">
+						<Value>Enter a short introductory text here. This text will be displayed above the form.</Value>
+					</LocaleResource>
+					<LocaleResource Name="HasCaptcha">
+						<Value>Display Captcha</Value>
+					</LocaleResource>
+					<LocaleResource Name="HasCaptcha.Hint">
+						<Value>Specifies whether a captcha query is displayed beneath the form.</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayLabelsAboveElems">
+						<Value>Display labels above</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayLabelsAboveElems.Hint">
+						<Value>Determines whether labels will be displayed above the form elements.</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+
+			<LocaleResource Name="FormControl" AppendRootKey="false">
+				<Children>
+          <LocaleResource Name="CheckTrue">
+            <Value>Yes</Value>
+          </LocaleResource>
+          <LocaleResource Name="CheckFalse">
+            <Value>No</Value>
+          </LocaleResource>
+					<LocaleResource Name="IsActive">
+						<Value>Active</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsActive.Hint">
+						<Value>Specifies whether the element is displayed in the form.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ElementType">
+						<Value>Element type</Value>
+					</LocaleResource>
+					<LocaleResource Name="ElementType.Hint">
+						<Value>ElementType</Value>
+					</LocaleResource>
+					<LocaleResource Name="InputType">
+						<Value>Typ</Value>
+					</LocaleResource>
+					<LocaleResource Name="InputType.Hint">
+						<Value>Specify the type of form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ControlId">
+						<Value>Id</Value>
+					</LocaleResource>
+					<LocaleResource Name="ControlId.Hint">
+						<Value>Specify the ID of the form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Name">
+						<Value>Name</Value>
+					</LocaleResource>
+					<LocaleResource Name="Name.Hint">
+						<Value>Specify the Name of the form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Caption">
+						<Value>Caption</Value>
+					</LocaleResource>
+					<LocaleResource Name="Caption.Hint">
+						<Value>Specify the Caption of the form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Options">
+						<Value>Options</Value>
+					</LocaleResource>
+					<LocaleResource Name="Options.Hint">
+						<Value>Specify the options available to the customer for this control.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Value">
+						<Value>Value</Value>
+					</LocaleResource>
+					<LocaleResource Name="Value.Hint">
+						<Value>Specify the Value of the form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Placeholder">
+						<Value>Placeholder</Value>
+					</LocaleResource>
+					<LocaleResource Name="Placeholder.Hint">
+						<Value>Enter a text here that gives the shop visitor an indication of the expected content.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsVisible">
+						<Value>Is visible</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsVisible.Hint">
+						<Value>Specifies whether the element is visible. (hidden).</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsEnabled">
+						<Value>Input allowed (disabled)</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsEnabled.Hint">
+						<Value>Determines whether an entry is possible for the element. (Enabled/Disabled).</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsMandatory">
+						<Value>Is mandatory</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsMandatory.Hint">
+						<Value>Specifies whether the field is a required field.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTokenName">
+						<Value>Message-Token Name</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTokenName.Hint">
+						<Value>Enter the name of the message token that is used in the message template. If no name is specified here, the ID of the form element will be used as the token name.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MandatoryValidationMessage">
+						<Value>Validation message</Value>
+					</LocaleResource>
+					<LocaleResource Name="MandatoryValidationMessage.Hint">
+						<Value>Enter the message which should be displayed to the shop visitor if it is a mandatory field.</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayOrder">
+						<Value>Display order</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayOrder.Hint">
+						<Value>Specifies the order in which the form elements are displayed within the form.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass">
+						<Value>Css icon class</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass.Hint">
+						<Value>Enter the class of an icon to be displayed for the control (e.g. email, edit). A complete list of usable classes can be found at Fontawesome.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass.Addon">
+						<Value>Go to Fontawesome</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes">
+						<Value>Allowed file types</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes.Hint">
+						<Value>Specify the file types that the shop visitor can upload. The file types must be separated by the pipe symbol.</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes.Placeholder">
+            <Value>.jpg,.png,.gif</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadMaxSize">
+						<Value>Maximum file size</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadMaxSize.Hint">
+						<Value>Specifies the maximum file size (in KB) allowed for the upload.</Value>
+					</LocaleResource>
+          <LocaleResource Name="FileUploadMaxSize.Exceeded">
+            <Value>File is too big ({0}KB). Max filesize: {1}KB.</Value>
+          </LocaleResource>
+					<LocaleResource Name="DisplayCurrentDate">
+						<Value>Display current date</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayCurrentDate.Hint">
+						<Value>Specifies whether the current date is displayed as a preselection.</Value>
+					</LocaleResource>
+					<LocaleResource Name="BeginYear">
+						<Value>Starting year</Value>
+					</LocaleResource>
+					<LocaleResource Name="BeginYear.Hint">
+						<Value>Specifies the lower limit of the years that can be selected in the form element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="EndYear">
+						<Value>Final year</Value>
+					</LocaleResource>
+					<LocaleResource Name="EndYear.Hint">
+						<Value>Specifies the upper limit of the years that can be selected in the form element..</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedDay">
+						<Value>Preselected day</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedDay.Hint">
+						<Value>Specifies the day that is preselected when the form element is loaded.</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedMonth">
+						<Value>Preselected month</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedMonth.Hint">
+						<Value>Specifies the month that is preselected when the form element is loaded.</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedYear">
+						<Value>Preselected year</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedYear.Hint">
+						<Value>Specifies the year that is preselected when the form element is loaded.</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="ContactUs" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="Company">
+				<Value>Company</Value>
+			</LocaleResource>
+			<LocaleResource Name="Company.Hint">
+				<Value>Name of your company</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductNumber">
+				<Value>Product number</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductNumber.Hint">
+				<Value>Product number</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street">
+				<Value>Street</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street.Hint">
+				<Value>Your street</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode">
+				<Value>Zip</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode.Hint">
+				<Value>Your zip code</Value>
+			</LocaleResource>
+			<LocaleResource Name="City">
+				<Value>City</Value>
+			</LocaleResource>
+			<LocaleResource Name="City.Hint">
+				<Value>Your city</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone">
+				<Value>Phone</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone.Hint">
+				<Value>Your phonenumber</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="Company.Required">
+				<Value>Please enter the name of your company.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street.Required">
+				<Value>Please enter your street.</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode.Required">
+				<Value>Please enter your zip code.</Value>
+			</LocaleResource>
+			<LocaleResource Name="City.Required">
+				<Value>Please enter your city.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone.Required">
+				<Value>Please enter your phonenumber.</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="Enums.SmartStore.HtmlForms.Domain.FormDisplayType" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="Replacement">
+				<Value>Replacement</Value>
+			</LocaleResource>
+			<LocaleResource Name="Topic">
+				<Value>Topic</Value>
+			</LocaleResource>
+			<LocaleResource Name="Categories">
+				<Value>Category</Value>
+			</LocaleResource>
+			<LocaleResource Name="Products">
+				<Value>Products</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductsInCategories">
+				<Value>Products in Category</Value>
+			</LocaleResource>
+			<LocaleResource Name="Widgetzone">
+				<Value>WidgetZone</Value>
+			</LocaleResource>
+			<LocaleResource Name="Developer">
+				<Value>Developer</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+</Language>

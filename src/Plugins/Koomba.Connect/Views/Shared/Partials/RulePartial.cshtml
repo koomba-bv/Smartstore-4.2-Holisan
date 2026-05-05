@@ -1,0 +1,168 @@
+﻿@model RuleModel
+@using Koomba.Connect.Extensions;
+
+@{
+    string style = "bg-light shadow-sm card x-border-gray discountreq-add";
+    if (Model.Id > 0)
+    {
+        style = "shadow-sm discountreq-item";
+    }
+
+    string switchDisplayClass = "";
+    if(Model.ActionToFieldAvalible == false)
+    {
+        switchDisplayClass = "d-none";
+    }
+}
+
+<form  id="rule-form-@Model.Id" class="rule-container card @style">
+
+    @if (Model.Id > 0)
+    {
+        <div class="card-header text-truncate font-weight-medium d-flex align-items-center py-0 pr-0">
+            <div>Edit Rule</div>
+            <div class="ml-auto">
+                <button type="button" class="btn btn-danger btn-flat btn-icon btn-lg rounded-right"
+                        style="border-bottom-right-radius: 0 !important"
+                        title="@T("Common.Remove")"
+                        name="deleterequirement@Model.Id"
+                        id="deleterequirement@Model.Id"
+                        onclick="DeleteRule(@Model.Id)">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    }
+    <div class="card-body">
+        @if (Model.Id == 0)
+        {
+            <h4 style="margin-bottom:22px" class="font-weight-medium text-primary">Add new rule</h4>
+        }
+        <div class="form-group">
+            @Html.SmartLabelFor(x => x.Order)
+            @Html.EditorFor(x => x.Order, null, "Order_" + Model.Id)
+        </div>
+        @if (Model.isField)
+        {
+            <div class="form-group">
+                @Html.SmartLabelFor(m => m.Field)
+                @Html.DropDownListFor(m => m.Field, (IEnumerable<SelectListItem>)ViewData["Fields"], "Select Field", new { id = "Field_" + Model.Id, name = "Field_" + Model.Id })
+            </div>
+            if (ViewData["SmartFields"] != null)
+            {            
+                <div class="form-group">
+                    @Html.SmartLabelFor(m => m.SmartField)
+                    @Html.DropDownListFor(m => m.SmartField, (IEnumerable<SelectListItem>)ViewData["SmartFields"], "Select Field", new { id = "SmartField_" + Model.Id, name = "SmartField_" + Model.Id })
+                </div>
+            }
+        }
+        @if (Model.Type != Koomba.Connect.Domain.RuleType.Action)
+        {
+            <div class="row">
+                <div class="form-group col-md-8">
+                    @Html.SmartLabelFor(m => m.SystemName)
+                    @Html.DropDownListFor(m => m.SystemName, (IEnumerable<SelectListItem>)ViewData["RulesProviders"], "Select Rule", new { @class = "providerDrop", id = "SystemName_" + Model.Id, name = "SystemName_" + Model.Id, ruleid = Model.Id })
+                </div>
+                <div class="adminContent form-group col-md-2">
+                    <div class="adminContent">
+                        <div class="wide">
+                            <div class="adminTitle">
+                                @Html.SmartLabelFor(m => m.IsOpposite, false, new { @for = "IsOpposite_" + Model.Id })
+                            </div>
+                            <div class="adminData">
+                                @Html.EditorFor(x => x.IsOpposite, null, "IsOpposite_" + Model.Id)
+                                @Html.ValidationMessageFor(m => m.IsOpposite)
+                            </div>
+                        </div>
+                    </div>                 
+                </div>
+                   <div class="adminContent col-md-2">
+                        <div class="wide">
+                            <div class="adminTitle">
+                                @Html.SmartLabelFor(m => m.IsConditionToField, false, new { @for = "IsConditionToField_" + Model.Id })
+                            </div>
+                            <div class="adminData condition-check" ruleid="@Model.Id">
+                                @Html.EditorFor(x => x.IsConditionToField, null, "IsConditionToField_" + Model.Id)
+                                @Html.ValidationMessageFor(m => m.IsConditionToField)
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="form-group">
+                <table class="adminContent" id="providerView_@Model.Id">
+                    @if (Model.Id != 0 && !String.IsNullOrEmpty(Model.RuleActionName) && !Model.IsConditionToField)
+                    {
+                        Html.RenderAction(Model.RuleActionName, "Rule", Model);
+                    }
+                    @if (Model.Id != 0 && !String.IsNullOrEmpty(Model.RuleActionName) && Model.IsConditionToField)
+                    {
+                        Html.RenderAction("InputField", "Rule", Model);
+                    }
+                </table>
+
+            </div>
+        }
+
+        @if (Model.isAction && Model.Type != Koomba.Connect.Domain.RuleType.Condition)
+        {
+            <div class="row">
+                <div class="form-group col-md-10 actionProviderDrop" ruleid=@Model.Id>
+                    @Html.SmartLabelFor(m => m.ActionSystemName)
+                    @Html.Raw(Html.DropDownListForCustom("ActionSystemName_" + Model.Id, (List<SelectListItemCustom>)ViewData["ActionProviders"], Model.ActionSystemName))
+                    @*@Html.DropDownListFor(m => m.ActionSystemName, (IEnumerable<SelectListItem>)ViewData["ActionProviders"], "Select Rule", new { @class = "actionProviderDrop", id = "ActionSystemName_" + Model.Id, name = "ActionSystemName_" + Model.Id, ruleid = Model.Id })*@
+                </div>
+                <div class="form-group adminContent col-md-2 @switchDisplayClass" id="IsActionToFieldCont_@Model.Id">
+                    <div class="adminContent">
+                        <div class="wide">
+                            <div class="adminTitle">
+                                @Html.SmartLabelFor(m => m.IsActionToField, false, new { @for = "IsActionToField_" + Model.Id })
+                            </div>
+                            <div class="adminData action-check" ruleid="@Model.Id">
+                                @Html.EditorFor(x => x.IsActionToField, null, "IsActionToField_" + Model.Id)
+                                @Html.ValidationMessageFor(m => m.IsActionToField)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <table class="adminContent" id="actionProviderView_@Model.Id">
+                    @if (Model.Id != 0 && !String.IsNullOrEmpty(Model.ActionActionName) && !Model.IsActionToField)
+                    {
+                        Html.RenderAction(Model.ActionActionName, "Action", Model);
+                    }
+
+                    @if (Model.Id != 0 && !String.IsNullOrEmpty(Model.ActionActionName) && Model.IsActionToField)
+                    {
+                        Html.RenderAction("InputField", "Action", Model);
+                    }
+
+                </table>
+            </div>
+
+
+        }
+        <div class="form-group">
+            @if (Model.Id > 0)
+            {
+                <button type="button" class="btn btn-warning save-btn btn-save-discount-rule mt-3" onclick="UpdateRule(@Model.Id)">
+                    <i class="fa fa-check"></i>
+                    <span>@T("Admin.Common.Save")</span>
+                </button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary btn-block btn-lg add-btn btn-save-discount-rule mt-3" onclick="AddRule(@Model.Id)">
+                    <i class="fa fa-plus"></i>
+                    <span>@T("Common.AddNew")</span>
+                </button>
+            }
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(".discountreq-add select").prop("selectedIndex", -1);
+</script>

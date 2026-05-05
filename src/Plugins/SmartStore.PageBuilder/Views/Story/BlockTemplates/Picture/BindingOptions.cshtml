@@ -1,0 +1,66 @@
+﻿@model PictureBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+}
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteLinkTarget)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteLinkTarget)
+        @Html.ValidationMessageFor(model => model.OverwriteLinkTarget)
+    </div>
+</div>
+
+<script>
+    function applyDataBinding(mapping) {
+
+        for (var i = 0; mapping.Map.length > i; i++) {
+            var map = mapping.Map[i];
+
+            switch (map.FieldName) {
+                case 'PictureId':
+
+                    // check if field is already bound
+                    if (!$(".binding-info").hasClass("hide"))
+                        break;
+
+                    var pictureCtrl = $("#Block_" + map.FieldName);
+                    var templateCtrl = $("#Block_" + map.FieldName + "_result");
+
+                    // paste template into corresponding field
+                    templateCtrl
+                        //.attr("type", "text")
+                        .attr("name", "Block." + map.FieldName)
+                        .val(map.Template);
+
+                    pictureCtrl.attr("name", "Block." + map.FieldName + ".Upload");
+
+                    // reset uploader
+                    pictureCtrl
+                        .closest(".fu-container")
+                        .find(".fu-buttons .remove")
+                        .trigger("click");
+
+                    // show binding info
+                    $(".binding-info").removeClass("hide")
+                        .find(".template-info")
+                        .html(map.Template);
+
+                    break;
+                case 'LinkHref':
+                    var overwriteLinkTarget = $('#@Html.FieldIdFor(model => model.OverwriteLinkTarget)').is(':checked');
+                    if (overwriteLinkTarget) {
+                        var cntCtrl = $("#" + map.FieldName).val(map.Template).parent();
+                        cntCtrl.find(".link-type[data-type='url']").trigger("click");
+                        cntCtrl.find(".link-control[data-type='url'] input").val(map.Template);
+                    }
+                    break;
+                default:
+            }            
+        }
+    }
+</script>

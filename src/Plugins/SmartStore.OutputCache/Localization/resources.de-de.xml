@@ -1,0 +1,220 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.OutputCache" AppendRootKey="false">
+    <Value>Output Cache (Ausgabecache)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.OutputCache" AppendRootKey="false">
+    <Value>Erlaubt die Zwischenspeicherung ganzer Shop-Seiten und trägt so zu einer erheblichen Performance-Steigerung bei.</Value>
+  </LocaleResource>
+    <LocaleResource Name="Plugins.Permissions.DisplayName.OutputCache" AppendRootKey="false">
+        <Value>Output Cache</Value>
+    </LocaleResource>
+
+  <LocaleResource Name="Plugins.FriendlyName.OutputCacheProvider.Memory" AppendRootKey="false">
+    <Value>Lokaler Speicher</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.FriendlyName.OutputCacheProvider.Database" AppendRootKey="false">
+    <Value>Datenbank</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="AdminInstruction">
+    <Value>
+      <![CDATA[
+        <p>
+          <strong>Nur für erfahrene Anwender!</strong> Die untere Tabelle listet alle speicherbaren Routen. Eine Route setzt sich zusammen aus MVC Area (optional), Controller- und Action-Name (<em>[area/]controller/action</em>).
+          Sowohl Parent- als auch Child-Actions können angegeben werden. Die Ausgabe einer Child-Action wird nur dann als Teil der Seiten-Ausgabe zwischengespeichert, wenn ihre Route auch explizit angegeben wurde.
+          Andernfalls wird die Child-Action bei jedem Request neu ausgeführt und ausgegeben, sogar wenn die Parent-Seite aus dem Cache geladen wurde ("Donut Hole Caching").
+        </p>
+        
+        <p>
+          Um alle Cache-Elemente für eine bestimmte Route zu löschen, klicken Sie <em>Invalidieren</em> in der entsprechenden Zeile.
+          Klicken Sie <em>Route löschen</em>, um eine Route als Ganzes zu entfernen (und sie damit als nicht cachefähig zu definieren).
+          Um die Caching-Dauer einer bestimmten Route zu ändern, klicken Sie in die entspr. Zelle "Dauer".
+          Übernehmen Sie Ihre Änderungen mit einem Klick auf <i>Änderungen speichern</i> oder verwerfen Sie sie mit <i>Änderungen verwerfen</i>.
+        </p>
+      ]]>
+    </Value>
+  </LocaleResource>
+  <LocaleResource Name="AdminInstruction.InvalidateTag">
+    <Value>
+      <![CDATA[
+        <p>
+          Geben Sie eine Komma-getrennte Liste mit Tags ein, deren Cache-Elemente gelöscht werden sollen. Ein Tag setzt sich zusammen aus einem Präfix und einer Entity-ID,
+          z.B. 'p1234' für eine Produkt-Entität mit der ID 1234 (andere Präfixe sind: c = Warengruppe, m = Hersteller, b = Blog, n = News, t = Seite/Inhalt).
+          Nach Tags invalidieren bedeutet im Grunde bspw.: "Lösche alle zwischengespeicherten Seiten, in denen das Produkt mit der ID 1234 auf irgend eine Weise dargestellt wird."
+        </p>
+      ]]>
+    </Value>
+  </LocaleResource>
+
+    <LocaleResource Name="TaskName">
+        <Value>Abgelaufene Output Cache Elemente aus der Datenbank entfernen</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsEnabled">
+    <Value>Ist aktiv</Value>
+  </LocaleResource>
+  <LocaleResource Name="IsEnabled.Hint">
+    <Value>Legt fest, ob Ausgabespeicherung aktiv ist.</Value>
+  </LocaleResource>
+  <LocaleResource Name="ProviderSystemName">
+    <Value>Aktiver Speicheranbieter</Value>
+  </LocaleResource>
+  <LocaleResource Name="ProviderSystemName.Hint">
+    <Value>Bestimmt den aktiven Speicheranbieter. 'Lokaler Speicher' ist am schnellsten, aber nicht geeignet für Webfarmen. Wählen Sie 'Datenbank' oder einen anderen verteilten Speichermechanismus - z.B. 'Redis' -, wenn Sie eine Webfarm betreiben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="DefaultCacheDuration">
+    <Value>Standarddauer der Zwischenspeicherung</Value>
+  </LocaleResource>
+  <LocaleResource Name="DefaultCacheDuration.Hint">
+    <Value>Legt die Dauer in Sekunden fest, die Seiten standardmäßig auf dem Server zwischengespeichert werden sollen.</Value>
+  </LocaleResource>
+  <LocaleResource Name="AutomaticInvalidationEnabled">
+    <Value>Seiten automatisch aktualisieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="AutomaticInvalidationEnabled.Hint">
+    <Value>Legt fest, ob zwischengespeicherte Seiten automatisch aktualisiert werden sollen, wenn mind. eine Abhängigkeit geändert wurde (Abhängigkeiten sind Entitäten wie Produkt, Warengruppe, Blog-Eintrag etc.).</Value>
+  </LocaleResource>
+  <LocaleResource Name="CacheAuthenticatedRequests">
+    <Value>Authentifizierte Requests ebenfalls verarbeiten</Value>
+  </LocaleResource>
+  <LocaleResource Name="CacheAuthenticatedRequests.Hint">
+    <Value>Legt fest, ob das Caching auch dann aktiv ist, wenn der Kunde eingeloggt ist. Beachten Sie jedoch, dass lediglich nach Kundengruppen variiert wird, nicht nach einzelnen Kunden. Deaktivieren Sie diese Option, wenn ihr Shop kundenspezifischen Content generiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="IgnoreNoCache">
+    <Value>'no-cache' Header ignorieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="IgnoreNoCache.Hint">
+    <Value>Legt fest, ob Seiten trotz 'Content-cache: no-cache' Header aus dem Zwischenspeicher geladen werden sollen. Empfohlen zum Testen.</Value>
+  </LocaleResource>
+  <LocaleResource Name="DebugMode">
+    <Value>Debug-Modus</Value>
+  </LocaleResource>
+  <LocaleResource Name="DebugMode.Hint">
+    <Value>Gibt allgemeine Informationen im Response Header aus ((X-SmartStore-Cached-On, X-SmartStore-Cached-Until))</Value>
+  </LocaleResource>
+  <LocaleResource Name="Routes">
+    <Value>Routen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Invalidation">
+    <Value>Invalidierung</Value>
+  </LocaleResource>
+  <LocaleResource Name="TagName">
+    <Value>Tag Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Button.InvalidateRoute">
+    <Value>Invalidieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Button.InvalidateTag">
+    <Value>Tags invalidieren</Value>
+  </LocaleResource>
+  <LocaleResource Name="Button.DeleteRoute">
+    <Value>Route löschen</Value>
+  </LocaleResource>
+  
+
+  <LocaleResource Name="AllRoutes">
+    <Value>Alle Routen</Value>
+  </LocaleResource>
+  <LocaleResource Name="RouteDetails">
+    <Value>Routendetails</Value>
+  </LocaleResource>
+  <LocaleResource Name="CacheItemDetails">
+    <Value>Cache-Element Details</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteAllItems">
+    <Value>Cache leeren</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvalidateRouteItems">
+    <Value>Cache-Elemente für Route {0} löschen</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvalidateSingleCacheItem">
+    <Value>Cache-Element löschen</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteRoute">
+    <Value>Route {0} löschen</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="Item.CachedOnUtc">
+    <Value>Erstellt am</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.ExpiresOnUtc">
+    <Value>Gültig bis</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.CacheKey">
+    <Value>Cache Key</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.RouteKey">
+    <Value>Route Key</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.Url">
+    <Value>URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.QueryString">
+    <Value>Querystring</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.Duration">
+    <Value>Dauer</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.Theme">
+    <Value>Theme</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.StoreId">
+    <Value>Store ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.LanguageId">
+    <Value>Sprach ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.CurrencyId">
+    <Value>Währungs ID</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.CustomerRoles">
+    <Value>Kundengruppen</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.ContentType">
+    <Value>Content Type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Item.Content">
+    <Value>Inhalt</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Stats">
+    <Value>Statistik</Value>
+  </LocaleResource>
+  <LocaleResource Name="Route">
+    <Value>Route</Value>
+  </LocaleResource>
+  <LocaleResource Name="Duration">
+    <Value>Dauer</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="DeleteRoute.UnknownError">
+    <Value>Beim Löschen der Route ist ein unbekannter Fehler aufgetreten.</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteRoute.Success">
+    <Value>Die Route {0} wurde erfolgreich gelöscht.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="InvalidateRoute.UnknownError">
+    <Value>Beim Löschen der Cache-Elemente ist ein unbekannter Fehler aufgetreten.</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvalidateRoute.Success">
+    <Value>Für die Route {0} wurden {1} Cache-Elemente erfolgreich gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="AddRoute">
+    <Value>Route hinzufügen</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="AddRoute.AlreadyExists">
+    <Value>Route kann nicht hinzugefügt werden, da sie bereits existiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="AddRoute.Success">
+    <Value>Route wurde erfolgreich zugefügt.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="InvalidateByTag.Success">
+    <Value>{0} Cache-Elemente wurden erfolgreich gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvalidateByTag.NoItemsFound">
+    <Value>Für dieses Tag wurden keine Cache-Elemente gefunden.</Value>
+  </LocaleResource>
+
+</Language>

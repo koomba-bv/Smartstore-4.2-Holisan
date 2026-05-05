@@ -1,0 +1,332 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+    <LocaleResource Name="Plugins.FriendlyName.SmartStore.MegaSearch" AppendRootKey="false">
+        <Value>MegaSearch</Value>
+    </LocaleResource>
+    <LocaleResource Name="Plugins.Description.SmartStore.MegaSearch" AppendRootKey="false">
+        <Value>Komponenten für die Katalogsuche, einschließlich Lucene.Net Volltextsuche.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Plugins.Permissions.DisplayName.MegaSearch" AppendRootKey="false">
+        <Value>MegaSearch</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="AdminInstruction">
+        <Value>
+            <![CDATA[Allgemeine Einstellungen zur Suche werden unter <a href="{0}" class="alert-link">Einstellungen &gt; Suche</a> festgelegt.]]>
+        </Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexNotExists">
+        <Value>Der Suchindex existiert nicht.</Value>
+    </LocaleResource>
+    <LocaleResource Name="CollectorNotExists">
+        <Value>Für den Indexbereich '{0}' existiert kein Kollektor.</Value>
+    </LocaleResource>
+    <LocaleResource Name="TaskName">
+        <Value>Katalog Suchindex aktualisieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="ForumTaskName">
+        <Value>Forum Suchindex aktualisieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="BuildIndexAlreadyInUse">
+        <Value>Der Suchindex kann nicht erstellt werden, da er bereits verwendet wird.</Value>
+    </LocaleResource>
+    <LocaleResource Name="DeleteIndexAlreadyInUse">
+        <Value>Der Suchindex kann nicht gelöscht werden, da er bereits verwendet wird.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Rebuild">
+        <Value>Reindexieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="ContinueRebuild">
+        <Value>Reindexierung fortsetzen</Value>
+    </LocaleResource>
+    <LocaleResource Name="CreateIndexNow">
+        <Value>Index jetzt erstellen</Value>
+    </LocaleResource>
+    <LocaleResource Name="ProgressInfo">
+        <Value>{0}: Indexiere {1} {2} von {3}</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerProgressInfo">
+        <Value>{0} Vorschläge bei Segment {1} von {2} mit {3} Dokumenten</Value>
+    </LocaleResource>
+    <LocaleResource Name="Selection">
+        <Value>Auswahl</Value>
+    </LocaleResource>
+    <LocaleResource Name="FieldBoost">
+        <Value>Suchfeld-Gewichtung</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysis">
+        <Value>Textanalyse</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostNote">
+        <Value>Gewichten Sie Felder, um die Reihenfolge von Suchtreffern zu beeinflussen. Im Falle eines Treffers im betreffenden Feld reiht ein höherer Wert das Produkt weiter vorne in der Liste der Suchtreffer ein.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexRebuildWarning">
+        <Value>Änderungen an dieser Einstellung werden erst nach einer Reindexierung wirksam.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AdvancedTextAnalysisNote">
+        <Value>Diese Einstellungen steuern, wie die zu durchsuchenden Texte intern bei Indexierung und Suche verarbeitet werden. Änderungen zur Textanalyse werden erst nach einer Reindexierung wirksam!</Value>
+    </LocaleResource>
+    <LocaleResource Name="AttributesNote">
+        <Value>Änderungen an den Einstellungen für Attribute werden erst nach einer Reindexierung wirksam!</Value>
+    </LocaleResource>
+    <LocaleResource Name="NoFurtherSettings">
+        <Value>Keine weiteren Einstellungen verfügbar.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowSettings">
+        <Value>Zeige Einstellungen</Value>
+    </LocaleResource>
+    <LocaleResource Name="HideSettings">
+        <Value>Verberge Einstellungen</Value>
+    </LocaleResource>
+    <LocaleResource Name="TopCategories">
+        <Value>Warengruppen</Value>
+    </LocaleResource>
+    <LocaleResource Name="TopManufacturers">
+        <Value>Marken</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Standard" AppendRootKey="false">
+        <Value>Standard (Lucene.Net Standardtrennung und -Filterung)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Whitespace" AppendRootKey="false">
+        <Value>Whitespace (nur bei Leerzeichen trennen, keine Filterung)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Keyword" AppendRootKey="false">
+        <Value>Keyword (keine Trennung, keine Filterung)</Value>
+    </LocaleResource>
+    <LocaleResource Name="Enums.SmartStore.MegaSearch.TextAnalysisType.Classic" AppendRootKey="false">
+        <Value>Classic (Lucene.Net klassische Trennung und Filterung)</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="SearchIndex">
+        <Value>Suchindex</Value>
+    </LocaleResource>
+    <LocaleResource Name="Status">
+        <Value>Status</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShouldRebuild">
+        <Value>Reindexierung erforderlich</Value>
+    </LocaleResource>
+    <LocaleResource Name="DocumentCount">
+        <Value>Dokumente</Value>
+    </LocaleResource>
+    <LocaleResource Name="LastIndexedDate">
+        <Value>Letzte Indexierung</Value>
+    </LocaleResource>
+    <LocaleResource Name="LastIndexingDuration">
+        <Value>Dauer</Value>
+    </LocaleResource>
+    <LocaleResource Name="Fields">
+        <Value>Felder</Value>
+    </LocaleResource>
+    <LocaleResource Name="Terms">
+        <Value>Terms</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="MustRebuildNoIndex">
+        <Value>Führe komplette Reindexierung durch, obwohl eine Aktualisierung angefordert wurde. Grund: Index '{0}' existiert nicht.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildGlobalChanges">
+        <Value>Führe komplette Reindexierung durch, obwohl eine Aktualisierung angefordert wurde. Grund: Einige globale Änderungen wirken sich auf den gesamten Index-Bestand aus.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildManyBacklogs">
+        <Value>Führe komplette Reindexierung durch, obwohl eine Aktualisierung angefordert wurde. Grund: Sehr viele Änderungen, die sich auf den Index '{0}' auswirken.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MustRebuildExpiration">
+        <Value>Führe komplette Reindexierung durch, obwohl eine Aktualisierung angefordert wurde. Grund: Index '{0}' wurde zu lange nicht aktualisiert.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SkippingUpdateNoItems">
+        <Value>Setze Index-Aktualisierung aus. Grund: Keine Änderungen am Datenbestand.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndexNotModified">
+        <Value>Index wurde nicht geändert. Grund: Keine Änderungen am Datenbestand.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="ActiveScopes">
+        <Value>Aktive Indizes</Value>
+    </LocaleResource>
+    <LocaleResource Name="ActiveScopes.Hint">
+        <Value>Legt die aktiven Suchindizes fest.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AlwaysRebuildIndex">
+        <Value>Index immer neu erstellen</Value>
+    </LocaleResource>
+    <LocaleResource Name="AlwaysRebuildIndex.Hint">
+        <Value>Legt fest, ob der Suchindex durch die geplante Aufgabe stets neu erstellt anstatt aktualisiert werden soll.</Value>
+    </LocaleResource>
+    <LocaleResource Name="AutomaticProductUpdatedEnabled">
+        <Value>Änderungen am Datenbestand beobachten</Value>
+    </LocaleResource>
+    <LocaleResource Name="AutomaticProductUpdatedEnabled.Hint">
+        <Value>Legt fest, ob Änderungen am Datenbestand beobachtet werden sollen, um diese bei der nächsten Indexierung mit in den Suchindex aufzunehmen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowHitCounts">
+        <Value>Trefferanzahl anzeigen</Value>
+    </LocaleResource>
+    <LocaleResource Name="ShowHitCounts.Hint">
+        <Value>Legt fest, ob bei Filtern bzw. Facetten die jeweilige Trefferanzahl angezeigt werden soll.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableVariantAttributeFilters">
+        <Value>Filter für Produktattribute aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableVariantAttributeFilters.Hint">
+        <Value>Legt fest, ob Filter bzw. Facetten für Produktattribute aktiviert sind. Diese Einstellung ist nur unter Verwendung des 'MegaSearchPlus' Plugins wirksam.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableSpecificationAttributeFilters">
+        <Value>Filter für Spezifikationsattribute aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableSpecificationAttributeFilters.Hint">
+        <Value>Legt fest, ob Filter bzw. Facetten für Spezifikationsattribute aktiviert sind. Diese Einstellung ist nur unter Verwendung des 'MegaSearchPlus' Plugins wirksam.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IgnoreAttributeFilteringOnProductLevel">
+        <Value>"Filtern zulassen" auf Produktebene ignorieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="IgnoreAttributeFilteringOnProductLevel.Hint">
+        <Value>Legt fest, ob "Filtern zulassen" auf Produktebene ignoriert werden soll. Dies kann die Facettierung der Attribute beschleunigen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndentCategoryFilters">
+        <Value>Warengruppenfilter einrücken</Value>
+    </LocaleResource>
+    <LocaleResource Name="IndentCategoryFilters.Hint">
+        <Value>Legt fest, ob Warengruppenfilter eingerückt dargestellt werden sollen.</Value>
+    </LocaleResource>
+    
+    <LocaleResource Name="IsSpellCheckerActive">
+        <Value>Vorschläge aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsSpellCheckerActive.Hint">
+        <Value>Legt fest, ob auf Basis des Suchbegriffs Vorschläge mit ähnlichen Begriffen unter "Meinten Sie" bzw. "Verwandte Suchbegriffe" angezeigt werden sollen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxIndexedSuggestions">
+        <Value>Maximal zu indexierende Vorschläge</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxIndexedSuggestions.Hint">
+        <Value>Legt die maximale Anzahl zu indexierender Vorschläge fest. 0 bedeutet, dass alle Vorschläge indexiert werden.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxSuggestions">
+        <Value>Maximale Anzahl Vorschläge</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxSuggestions.Hint">
+        <Value>Legt die maximale Anzahl anzuzeigender Vorschläge fest.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMinQueryLength">
+        <Value>Minimale Länge des Suchbegriffs</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMinQueryLength.Hint">
+        <Value>Legt die minimale Länge des Suchbegriffs fest. Bei einer geringeren Länge werden keine Vorschläge angezeigt.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxHitCount">
+        <Value>Maximale Trefferanzahl</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerMaxHitCount.Hint">
+        <Value>Legt die maximale Anzahl von Suchtreffern fest, bis zu der Vorschläge angezeigt werden.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerRelatedTerms">
+        <Value>Verwandte Suchbegriffe anzeigen</Value>
+    </LocaleResource>
+    <LocaleResource Name="SpellCheckerRelatedTerms.Hint">
+        <Value>Legt fest, ob bei einer erfolgreichen Suche verwandte Suchbegriffe angezeigt werden sollen.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="IsTopCategoriesActive">
+        <Value>Top-Warengruppen aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopCategoriesActive.Hint">
+        <Value>Legt fest, ob zu einem Suchbegriff Vorschläge für Warengruppen angezeigt werden sollen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopCategories">
+        <Value>Maximale Vorschläge</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopCategories.Hint">
+        <Value>Legt die maximale Anzahl der angezeigten Warengruppen fest.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopManufacturersActive">
+        <Value>Top-Hersteller aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsTopManufacturersActive.Hint">
+        <Value>Legt fest, ob zu einem Suchbegriff Vorschläge für Hersteller/Marken angezeigt werden sollen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopManufacturers">
+        <Value>Maximale Vorschläge</Value>
+    </LocaleResource>
+    <LocaleResource Name="MaxTopManufacturers.Hint">
+        <Value>Legt die maximale Anzahl der angezeigten Hersteller/Marken fest.</Value>
+    </LocaleResource>
+
+    <LocaleResource Name="DefaultAnalysisPlaceholder">
+        <Value>Automatisch (sprachspezifische Verarbeitung)</Value>
+    </LocaleResource>
+    <LocaleResource Name="DefaultAnalysis">
+        <Value>Textanalyse</Value>
+    </LocaleResource>
+    <LocaleResource Name="DefaultAnalysis.Hint">
+        <Value>Legt die zu verwendende Textanalyse fest. Empfohlen wird "Automatisch (sprachspezifische Verarbeitung)". Bei manchen Feldern wie SKU und Produkt-Tag ist ein auf dieses Feld zugeschnittene Analyse vorgegeben. Diese Einstellung ist nur für den Katalogindex wirksam. Der Forumsindex wird immer sprachspezifisch verarbeitet.</Value>
+    </LocaleResource>
+    <LocaleResource Name="MinTermLength">
+        <Value>Minimale Wortlänge</Value>
+    </LocaleResource>
+    <LocaleResource Name="MinTermLength.Hint">
+        <Value>Legt die minimale Länge zu berücksichtigender Wörter (sog. Terms) fest. "2" ist der empfohlene Wert. Wörter mit einer geringeren Länge werden ignoriert. Ein erhöhter Wert kann die Anzahl der Suchtreffer deutlich reduzieren.</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsAdvancedTextAnalysisActive">
+        <Value>Erweiterte Textanalyse aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="IsAdvancedTextAnalysisActive.Hint">
+        <Value>Legt fest, ob die erweiterte Textanalyse aktiviert werden soll.</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysisType">
+        <Value>Abweichende Textanalyse</Value>
+    </LocaleResource>
+    <LocaleResource Name="TextAnalysisType.Hint">
+        <Value>Ermöglicht eine abweichende Textanalyse für den Produktnamen (Katalogindex), so wie Betreff und Beitragstext (Forumindex) festzulegen.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Abbreviations">
+        <Value>Abkürzungen</Value>
+    </LocaleResource>
+    <LocaleResource Name="Abbreviations.Hint">
+        <Value>Legt Abkürzungen (z.B. cm, kg, W) fest, um mehr Suchtreffer zu erzielen. Suchbegriffe mit und ohne Leerzeichen werden gefunden.</Value>
+    </LocaleResource>
+    <LocaleResource Name="Synonyms">
+        <Value>Synonyme</Value>
+    </LocaleResource>
+    <LocaleResource Name="Synonyms.Hint">
+        <Value>Ermöglicht die Festlegung von Synonym-Gruppen. Geben Sie pro Zeile alle Werte einer Gruppe durch Komma getrennt ein. Beispiel: notebook,laptop,convertible.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterCustomWords">
+        <Value>Wörterbuch ergänzen</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterCustomWords.Hint">
+        <Value>Sie können das Standardwörterbuch um eigene Wörter ergänzen. Das Wörterbuch ist notwendig, um zusammengesetzte Wörter sinnvoll trennen zu können, damit auch alle Teilwörter gefunden werden (z.B. Sportsonnenbrille > Sport, Sonne, Brille). Geben Sie ein Teil-Wort pro Zeile ein.</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterExceptionWords">
+        <Value>Ausnahmen für zusammengesetzte Wörter</Value>
+    </LocaleResource>
+    <LocaleResource Name="SplitterExceptionWords.Hint">
+        <Value>Legt Wortzusammensetzungen fest, die nicht getrennt werden sollen oder dürfen. Geben Sie ein Wort pro Zeile ein. Benutzen Sie das Pipe-Zeichen |, um die Trennungsstelle zu markieren, Beispiel: Sport|sonnen|brille.</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableBoost">
+        <Value>Gewichtung aktivieren</Value>
+    </LocaleResource>
+    <LocaleResource Name="EnableBoost.Hint">
+        <Value>Aktiviert oder deaktiviert die Gewichtung einzelner Suchfelder.</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostName">
+        <Value>Produktname</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostSku">
+        <Value>SKU</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostShortDescription">
+        <Value>Kurzbeschreibung</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostFullDescription">
+        <Value>Langtext</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostTagNames">
+        <Value>Produkt Tags</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostManufacturers">
+        <Value>Hersteller</Value>
+    </LocaleResource>
+    <LocaleResource Name="BoostCategories">
+        <Value>Warengruppen</Value>
+    </LocaleResource>
+</Language>

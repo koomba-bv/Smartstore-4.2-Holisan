@@ -1,0 +1,45 @@
+﻿<Language Name="English" IsDefault="false" IsRightToLeft="false">
+	<LocaleResource Name="Plugins.FriendlyName.Koomba.MultiTool" AppendRootKey="false">
+		<Value>MultiTool</Value>
+	</LocaleResource>
+	<LocaleResource Name="Plugins.Description.Koomba.MultiTool" AppendRootKey="false">
+		<Value>Detailed description for MultiTool</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Plugins.Koomba.MultiTool" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="AdminInstruction">
+				<Value>
+					<![CDATA[
+						Enter your data below to configure this plugin.
+					]]>
+				</Value>
+			</LocaleResource>
+			<LocaleResource Name="SafetyQuantity">
+				<Value>Safety quantity</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="EnabledAddressFilter">
+				<Value>Enabled address filter</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="HidePriceToGuest">
+				<Value>Hide price to guest</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="EnableAddressType">
+				<Value>Enable address type</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnableAddressTitle">
+				<Value>Enable address title</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnableSalutation">
+				<Value>Enable address salutation</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="MarkAddressAsTemp">
+				<Value>Mark this address as temporary</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+</Language>

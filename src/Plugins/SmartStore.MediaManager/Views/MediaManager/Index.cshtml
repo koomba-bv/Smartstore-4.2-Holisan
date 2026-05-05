@@ -1,0 +1,333 @@
+﻿@model MediaManagerOptions
+
+@using System.Globalization
+@using SmartStore.MediaManager.Models
+
+@{
+    Layout = Model.Popup ? "_AdminPopupLayout" : "_AdminLayout";
+    ViewBag.Title = T("Plugins.FriendlyName.SmartStore.MediaManager").Text;
+
+    Html.AddBodyCssClass("spa-layout mm");
+
+    Html.AddScriptParts(true, "~/bundles/vue");
+    Html.AddScriptParts(true, "~/bundles/mediamanager");
+    Html.AddScriptParts(true, "~/bundles/fileuploader");
+
+    var resRoot = "Plugins.MediaManager.";
+    var clientRes = new Dictionary<string, string>
+    {
+        ["createNew"] = T("Common.New"),
+        ["createFolder"] = T(resRoot + "CreateFolder"),
+        ["createFolderDialog"] = T(resRoot + "CreateFolderDialog"),
+        ["renameFolder"] = T(resRoot + "RenameFolder"),
+        ["deleteFolder"] = T(resRoot + "DeleteFolder"),
+        ["deleteFolderDialog"] = T(resRoot + "DeleteFolderDialog"),
+        ["folderMoved"] = T(resRoot + "FolderMoved"),
+        ["folderCopied"] = T(resRoot + "FolderCopied"),
+        ["folderWithFileDeleted"] = T(resRoot + "FolderWithFileDeleted"),
+        ["folderWithFilesDeleted"] = T(resRoot + "FolderWithFilesDeleted"),
+        ["foldersWithFileDeleted"] = T(resRoot + "FoldersWithFileDeleted"),
+        ["foldersWithFilesDeleted"] = T(resRoot + "FoldersWithFilesDeleted"),
+        ["renameFile"] = T(resRoot + "RenameFile"),
+        ["deleteFile"] = T(resRoot + "DeleteFile"),
+        ["deleteFiles"] = T(resRoot + "DeleteFiles"),
+        ["trashFile"] = T(resRoot + "TrashFile"),
+        ["trashFiles"] = T(resRoot + "TrashFiles"),
+        ["restoreFileError"] = T(resRoot + "RestoreFileError"),
+        ["restoreFilesError"] = T(resRoot + "RestoreFilesError"),
+        ["fileMoved"] = T(resRoot + "FileMoved"),
+        ["filesMoved"] = T(resRoot + "FilesMoved"),
+        ["fileCopied"] = T(resRoot + "FileCopied"),
+        ["filesCopied"] = T(resRoot + "FilesCopied"),
+        ["fileRestored"] = T(resRoot + "FileRestored"),
+        ["filesRestored"] = T(resRoot + "FilesRestored"),
+        ["fileTrashed"] = T(resRoot + "FileTrashed"),
+        ["filesTrashed"] = T(resRoot + "FilesTrashed"),
+        ["fileDeleted"] = T(resRoot + "FileDeleted"),
+        ["filesDeleted"] = T(resRoot + "FilesDeleted"),
+        ["fileInUse"] = T(resRoot + "FileInUse"),
+        ["filesInUse"] = T(resRoot + "FilesInUse"),
+        ["mustCopyFileToAlbum"] = T(resRoot + "MustCopyFileToAlbum"),
+        ["mustCopyFilesToAlbum"] = T(resRoot + "MustCopyFilesToAlbum"),
+        ["viewModeList"] = T(resRoot + "ViewMode.List"),
+        ["viewModeGrid"] = T(resRoot + "ViewMode.Grid"),
+        ["viewModeTiles"] = T(resRoot + "ViewMode.Tiles"),
+        ["mediaTypeImage"] = T("Admin.Configuration.Settings.Media.Type.Image"),
+        ["mediaTypeVideo"] = T("Admin.Configuration.Settings.Media.Type.Video"),
+        ["mediaTypeAudio"] = T("Admin.Configuration.Settings.Media.Type.Audio"),
+        ["mediaTypeDocument"] = T("Admin.Configuration.Settings.Media.Type.Document"),
+        ["mediaTypeText"] = T("Admin.Configuration.Settings.Media.Type.Text"),
+        ["mediaTypeBin"] = T("Admin.Configuration.Settings.Media.Type.Bin"),
+        ["imgSizeXs"] = T(resRoot + "ImgSize.Xs"),
+        ["imgSizeSm"] = T(resRoot + "ImgSize.Sm"),
+        ["imgSizeMd"] = T(resRoot + "ImgSize.Md"),
+        ["imgSizeLg"] = T(resRoot + "ImgSize.Lg"),
+        ["imgSizeXl"] = T(resRoot + "ImgSize.Xl"),
+        ["facetType"] = T(resRoot + "Facet.Type"),
+        ["facetExtension"] = T(resRoot + "Facet.Extension"),
+        ["facetTag"] = T(resRoot + "Facet.Tag"),
+        ["facetImgSize"] = T(resRoot + "Facet.ImgSize"),
+        ["searchTermPlaceholder"] = T(resRoot + "SearchTermPlaceholder"),
+        ["sortByX"] = T(resRoot + "SortByX"),
+        ["reverseSortDir"] = T(resRoot + "ReverseSortDir"),
+        ["detectTracks"] = T(resRoot + "DetectTracks"),
+        ["detectTracksInfo"] = T(resRoot + "DetectTracksInfo"),
+        ["detectTracksComplete"] = T(resRoot + "DetectTracksComplete"),
+        ["thumbSize"] = T(resRoot + "ThumbSize"),
+        ["fileName"] = T(resRoot + "FileName"),
+        ["fileSize"] = T(resRoot + "FileSize"),
+        ["fileDimensions"] = T(resRoot + "FileDimensions"),
+        ["fileDate"] = T(resRoot + "FileDate"),
+        ["fileUpdatedDate"] = T(resRoot + "FileUpdatedDate"),
+        ["fileUrl"] = T(resRoot + "FileUrl"),
+        ["invertSelection"] = T(resRoot + "InvertSelection"),
+        ["cut"] = T("Common.Cut"),
+        ["copy"] = T("Common.Copy"),
+        ["paste"] = T("Common.Paste"),
+        ["selectAll"] = T("Common.SelectAll"),
+        ["edit"] = T("Common.Edit"),
+        ["batchEdit"] = T(resRoot + "BatchEdit"),
+        ["delete"] = T("Common.Delete"),
+        ["deletePermanent"] = T(resRoot + "DeletePermanent"),
+        ["download"] = T("Common.Download"),
+        ["upload"] = T("Common.Upload"),
+        ["rename"] = T("Common.Rename"),
+        ["replace"] = T("Common.Replace"),
+        ["save"] = T("Common.Save"),
+        ["cancel"] = T("Common.Cancel"),
+        ["close"] = T("Common.Close"),
+        ["resume"] = T("Common.Resume"),
+        ["preview"] = T("Admin.Common.Preview"),
+        ["standard"] = T("Admin.Common.Standard"),
+        ["noFilesFound"] = T(resRoot + "NoFilesFound"),
+        ["restore"] = T(resRoot + "RestoreFile"),
+        ["selectMedia"] = T(resRoot + "SelectMedia"),
+        ["alt"] = T(resRoot + "AltAttribute"),
+        ["title"] = T(resRoot + "Title"),
+        ["tags"] = T(resRoot + "Tags"),
+        ["tracks"] = T(resRoot + "Tracks"),
+        ["show"] = T("Admin.Common.Show"),
+        ["noTracksFound"] = T(resRoot + "NoTracksFound"),
+        ["noFileSelected"] = T(resRoot + "NoFileSelected"),
+        ["confirmAndSave"] = T(resRoot + "ConfirmAndSave"),
+        ["fuMessage"] = T(resRoot + "FuMessage"),
+        ["entity"] = T("Admin.Common.Entity"),
+        ["entityId"] = T("Admin.Common.Entity.Fields.Id"),
+        ["statusWindowCollpase"] = T("FileUploader.StatusWindow.Collapse.Title"),
+        ["cancelUpload"] = T(resRoot + "CancelUpload"),
+        ["concurrentSelectionError"] = T(resRoot + "ConcurrentSelectionError"),
+        ["errorHidden"] = T(resRoot + "ErrorHidden"),
+        ["errorsHidden"] = T(resRoot + "ErrorsHidden"),
+        ["listIsEmpty"] = T("Common.ListIsEmpty"),
+        ["refresh"] = T("Common.Refresh")
+    };
+}
+
+<script>
+    var res = window.Res.Media = {
+	    @foreach (var res in clientRes) {<text>"@(Html.Raw(res.Key))": @Html.Raw(res.Value.EncodeJsString()),</text>}
+    };
+
+    res['ctrlKey'] = window.Res['Common.CtrlKey'];
+    res['shiftKey'] = window.Res['Common.ShiftKey'];
+    res['altKey'] = window.Res['Common.AltKey'];
+    res['delKey'] = window.Res['Common.DelKey'];
+    res['enterKey'] = window.Res['Common.EnterKey'];
+    res['escKey'] = window.Res['Common.EscKey'];
+
+    $(function () {
+        initializeMediaManager();
+    });
+</script>
+
+<script id="deleteFolderPrompt" type="text/html">
+    <div>
+        <p>@T(resRoot + "DeleteFolderContentDialog")</p>
+        <div class="mt-4 filehandling-options">
+            <div class="form-check my-2">
+                <input class="form-check-input" id="filehandling-softdelete" name="filehandling" type="radio" value="0" checked="checked">
+                <label for="filehandling-softdelete" class="form-check-label">@T(resRoot + "MoveFilesToTrash")</label>
+            </div>
+            <div class="form-check my-2">
+                <input class="form-check-input" id="filehandling-movetoroot" name="filehandling" type="radio" value="1">
+                <label for="filehandling-movetoroot" class="form-check-label">@T(resRoot + "MoveFilesToAlbum")</label>
+            </div>
+            <div class="form-check my-2">
+                <input class="form-check-input" id="filehandling-delete" name="filehandling" type="radio" value="2">
+                <label for="filehandling-delete" class="form-check-label">@T(resRoot + "DeleteFilesPermanent")</label>
+            </div>
+        </div>
+    </div>
+</script>
+
+@Html.AntiForgeryToken()
+
+<div id="media-manager" class="m-window d-flex flex-column"
+     data-popup="@Model.Popup.ToString().ToLower()"
+     data-pick-mode="@((Model.Popup && Model.PickMode).ToString().ToLower())"
+     data-multi-select="@Model.MultiSelect.ToString().ToLower()"
+     data-path="@(Model.Path.NullEmpty() ?? "file")"
+     data-enable-search="@Model.EnableSearch.ToString().ToLower()"
+     data-type-filter="@Model.TypeFilter"
+     data-root-url="@Url.Content("~/mediamanager/")"
+     data-max-filesize="@Model.MaxFileSize">
+    <input type="hidden" id="url_upload" value="@Url.Action("Upload", "Media", new { isTransient = false, path = "catalog", area = "Admin" })" />
+    <input type="hidden" id="url_folders" value="@Url.Action("Folders")" />
+    <input type="hidden" id="url_files" value="@Url.Action("Files")" />
+    <input type="hidden" id="url_counts" value="@Url.Action("CountFiles")" />
+    <input type="hidden" id="url_delete_files" value="@Url.Action("DeleteFiles")" />
+    <input type="hidden" id="url_restore_files" value="@Url.Action("RestoreFiles")" />
+    <input type="hidden" id="url_rename_file" value="@Url.Action("RenameFile")" />
+    <input type="hidden" id="url_replace_file" value="@Url.Action("ReplaceFile")" />
+    <input type="hidden" id="url_move_files" value="@Url.Action("MoveFiles")" />
+    <input type="hidden" id="url_copy_files" value="@Url.Action("CopyFiles")" />
+    <input type="hidden" id="url_download_files" value="@Url.Action("DownloadFiles")" />
+    <input type="hidden" id="url_download_folder" value="@Url.Action("DownloadFolder")" />
+    <input type="hidden" id="url_create_folder" value="@Url.Action("CreateFolder")" />
+    <input type="hidden" id="url_rename_folder" value="@Url.Action("RenameFolder")" />
+    <input type="hidden" id="url_move_folder" value="@Url.Action("MoveFolder")" />
+    <input type="hidden" id="url_copy_folder" value="@Url.Action("CopyFolder")" />
+    <input type="hidden" id="url_delete_folder" value="@Url.Action("DeleteFolder")" />
+    <input type="hidden" id="url_extensions" value="@Url.Action("Extensions")" />
+    <input type="hidden" id="url_tags" value="@Url.Action("Tags")" />
+    <input type="hidden" id="url_tracks" value="@Url.Action("Tracks")" />
+    <input type="hidden" id="url_edit_file" value="@Url.Action("EditFile")" />
+    <input type="hidden" id="url_save_file" value="@Url.Action("SaveFile")" />
+    <input type="hidden" id="url_detect_tracks" value="@Url.Action("DetectTracks")" />
+    <input type="hidden" id="url_conflict_resolver" value="@Url.Action("FileConflictResolutionDialog", "Media", new { area = "admin" })" />
+
+    @* Body *@
+    <section id="m-body" class="flex-grow-1 w-100 d-flex flex-row">
+        <aside id="m-folders" class="m-pane@(!Model.Popup ? " alpha" : "")" v-bind:style="{ 'width': leftPaneWidth }">
+            <m-folders :folders="folders" :selected-folder="selectedFolder"></m-folders>
+        </aside>
+
+        <div class="resizer" v-on:resized="emit('paneResized', $event.detail)"></div>
+
+        <main id="m-files" class="m-pane">
+            <m-files :query="query" :files="files" :thumb-size="@Model.DefaultThumbSize.ToString(CultureInfo.InvariantCulture)"></m-files>
+        </main>
+
+        <div class="resizer resize-next" v-on:resized="emit('paneResized', $event.detail)"></div>
+
+        <aside id="m-view" class="m-pane@(!Model.Popup ? " omega" : "")" v-bind:style="{ 'width': rightPaneWidth }">
+            <m-viewer :files="files" :selected-files="selectedFiles" :languages-count="@Model.LanguagesCount"></m-viewer>
+        </aside>
+    </section>
+
+    @* Context menu *@
+    <div class="dropdown-menu dropdown-menu-flex m-contextmenu"
+         v-bind:class="{ 'show': menu.show }"
+         v-bind:style="{ 'left': menu.x + 'px', 'top': menu.y + 'px' }"
+         v-on:mousedown.stop=""
+         v-on:click="onMenuClick">
+
+        @* Folder Menu *@
+        <template v-if="menu.type === 'folder'">
+            <a v-show="menu.canAdd" href="#" class="dropdown-item" v-on:click.prevent="emit('createFolder', menu.context)">
+                <i class="fa fa-fw fa-plus"></i>
+                <span>{{ T.createFolder }}...</span>
+            </a>
+            <a href="#" class="dropdown-item" v-bind:class="{ 'disabled': menu.context && menu.context.numFiles == 0 }" v-on:click.prevent="downloadFolder(menu.context)">
+                <i class="fa fa-fw fa-download"></i>
+                <span>{{ T.download }}</span>
+            </a>
+            <template v-if="menu.canDetectTracks">
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item" v-on:click.prevent="emit('detectTracks', menu.context)">
+                    <i class="fa fa-fw fa-link"></i>
+                    <span>{{ T.detectTracks }}...</span>
+                </a>
+            </template>
+            <template v-if="menu.canMove || menu.canPaste">
+                <div class="dropdown-divider"></div>
+                <a v-show="menu.canMove" href="#" class="dropdown-item" v-on:click.prevent="setClipboardData('cut', 'folder', menu.context)">
+                    <i class="fa fa-fw fa-cut"></i>
+                    <span>{{ T.cut }}</span>
+                    <em>{{ T.ctrlKey }}+X</em>
+                </a>
+                <a v-show="menu.canMove" href="#" class="dropdown-item" v-on:click.prevent="setClipboardData('copy', 'folder', menu.context)">
+                    <i class="fa fa-fw fa-copy"></i>
+                    <span>{{ T.copy }}</span>
+                    <em>{{ T.ctrlKey }}+C</em>
+                </a>
+                <a v-show="menu.canPaste" href="#" class="dropdown-item paste" v-bind:class="{ 'disabled': !clipboard.data }" v-on:click.prevent="onPaste">
+                    <i class="far fa-fw fa-clipboard"></i>
+                    <span>{{ T.paste }}</span>
+                    <em>{{ T.ctrlKey }}+V</em>
+                </a>
+            </template>
+            <template v-if="menu.canRename || menu.canDelete">
+                <div class="dropdown-divider"></div>
+                <a v-show="menu.canRename" href="#" class="dropdown-item" v-on:click.prevent="emit('renameFolder', menu.context)">
+                    <i class="fas fa-fw fa-pencil-alt"></i>
+                    <span>{{ T.rename }}</span>
+                </a>
+                <a v-show="menu.canDelete" href="#" class="dropdown-item" v-on:click.prevent="emit('deleteFolder', menu.context)">
+                    <i class="far fa-fw fa-trash-alt"></i>
+                    <span>{{ T.delete }}</span>
+                    <em>{{ T.delKey }}</em>
+                </a>
+            </template>
+        </template>
+
+        @* File Menu *@
+        <template v-if="menu.type === 'file'">
+            <template v-if="popup && pickMode">
+                <a href="#" class="dropdown-item" v-on:click.prevent="close">
+                    <i class="fa fa-check"></i>
+                    <span>{{ T.selectMedia }}</span>
+                </a>
+                <div class="dropdown-divider"></div>
+            </template>
+            <a :href="selectedFiles.length === 1 ? selectedFiles[0].url : '#'" class="dropdown-item" v-bind:class="{ 'disabled': selectedFiles.length !== 1 }" target="mm_fileviewer">
+                <i class="far fa-fw fa-eye"></i>
+                <span>{{ T.preview }}</span>
+            </a>
+            <a href="#" class="dropdown-item" v-on:click.prevent="downloadFiles(selectedFiles)">
+                <i class="fa fa-fw fa-download"></i>
+                <span>{{ T.download }}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item" v-on:click.prevent="setClipboardData('cut', 'file', selectedFiles)">
+                <i class="fa fa-fw fa-cut"></i>
+                <span>{{ T.cut }}</span>
+                <em>{{ T.ctrlKey }}+X</em>
+            </a>
+            <a href="#" class="dropdown-item" v-on:click.prevent="setClipboardData('copy', 'file', selectedFiles)">
+                <i class="fa fa-fw fa-copy"></i>
+                <span>{{ T.copy }}</span>
+                <em>{{ T.ctrlKey }}+C</em>
+            </a>
+            <a href="#" class="dropdown-item paste" v-bind:class="{ 'disabled': !clipboard.data }" v-on:click.prevent="onPaste">
+                <i class="far fa-fw fa-clipboard"></i>
+                <span>{{ T.paste }}</span>
+                <em>{{ T.ctrlKey }}+V</em>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a v-show="canRestoreSelectedFiles" href="#" class="dropdown-item" v-on:click.prevent="emit('restoreFiles')">
+                <i class="fas fa-fw fa-trash-restore"></i>
+                <span>{{ T.restore }}</span>
+            </a>
+            <a href="#" class="dropdown-item" v-bind:class="{ 'disabled': selectedFiles.length !== 1 }" v-on:click="emit('renameFile')">
+                <i class="fas fa-fw fa-pencil-alt"></i>
+                <span>{{ T.rename }}</span>
+            </a>
+
+            <a href="#" class="dropdown-item" v-bind:class="{ 'disabled': selectedFiles.length !== 1 }" v-on:click="emit('replaceFile')">
+                <i class="fas fa-fw fa-exchange-alt"></i>
+                <span>{{ T.replace }}</span>
+            </a>
+
+            <a v-show="selectedFolder && selectedFolder.path !== '?trash'" href="#" class="dropdown-item" v-on:click.prevent="emit('deleteFiles', false)">
+                <i class="far fa-fw fa-trash-alt"></i>
+                <span>{{ T.delete }}</span>
+                <em>{{ T.delKey }}</em>
+            </a>
+            <a href="#" class="dropdown-item" v-on:click.prevent="emit('deleteFiles', true)">
+                <i class="fas fa-fw fa-times"></i>
+                <span>{{ T.deletePermanent }}</span>
+            </a>
+        </template>
+    </div>
+</div>

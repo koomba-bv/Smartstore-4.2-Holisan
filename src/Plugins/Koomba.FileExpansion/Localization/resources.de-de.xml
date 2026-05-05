@@ -1,0 +1,49 @@
+﻿<Language Name="Deutsch"  IsRightToLeft="false">
+
+	<LocaleResource Name="Plugins.FriendlyName.Koomba.FileExpansion" AppendRootKey="false">
+		<Value>Dateierweiterung</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="Title">
+		<Value>Titel</Value>
+	</LocaleResource>
+		<LocaleResource Name="Name">
+		<Value>Name</Value>
+	</LocaleResource>
+	<LocaleResource Name="FileName">
+		<Value>Dokument</Value>
+	</LocaleResource>
+	<LocaleResource Name="Type">
+		<Value>Type</Value>
+	</LocaleResource>
+	<LocaleResource Name="Sort">
+		<Value>Symbol</Value>
+	</LocaleResource>
+	<LocaleResource Name="Language">
+		<Value>Sprache</Value>
+	</LocaleResource>
+	<LocaleResource Name="DisplayOrder">
+		<Value>Reihenfolge</Value>
+	</LocaleResource>
+	<LocaleResource Name="IsActive">
+		<Value>IstAktiv</Value>
+	</LocaleResource>
+	<LocaleResource Name="File_Add_Button">
+		<Value>Datei hinzufügen</Value>
+	</LocaleResource>
+	<LocaleResource Name="File_upload_tab_name">
+		<Value>Datei-Upload</Value>
+	</LocaleResource>
+	<LocaleResource Name="Documents_tab_name">
+		<Value>Unterlagen</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="LicenceTrialTime">
+		<Value>Das Plugin befindet sich im Testmodus. Der Testmodus läuft ab am:</Value>
+	</LocaleResource>
+
+	<LocaleResource Name="TrialExpired">
+		<Value>Testzeit abgelaufen</Value>
+	</LocaleResource>
+
+</Language>

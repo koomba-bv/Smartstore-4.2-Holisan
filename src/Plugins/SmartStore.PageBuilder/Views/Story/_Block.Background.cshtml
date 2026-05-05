@@ -1,0 +1,18 @@
+﻿@model BlockContainer
+
+@using SmartStore.PageBuilder;
+
+<div class="accordion overlay-editor-root sortable-list mb-3" id="block-overlays-editor" data-url-add="@Url.Action("OverlayAdd")">
+    @if (Model.BackgroundModel.Overlays != null)
+    {
+        for (int i = 0; i < Model.BackgroundModel.Overlays.Count; i++)
+        {
+            var overlay = Model.BackgroundModel.Overlays[i];
+            @Html.Action("OverlayEditor", new { overlay = overlay, expanded = false, region = "Block" })
+        }
+    }
+</div>
+
+<div class="dropdown add-overlay-dropdown" data-region="Block">
+    @{ Html.RenderPartial("Overlay.Chooser"); }
+</div>

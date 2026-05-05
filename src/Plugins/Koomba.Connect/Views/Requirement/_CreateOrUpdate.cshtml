@@ -1,0 +1,57 @@
+﻿@model ChainRuleModel
+
+@using Telerik.Web.Mvc.UI;
+@*@using SmartStore.Web.Framework.UI;*@
+
+@Html.ValidationSummary(false)
+@Html.HiddenFor(model => model.Id)
+@Html.SmartStore().TabStrip().Name("discount-edit").Style(TabsStyle.Material).Items(x =>
+{
+    x.Add().Text("Settings").Content(TabSettings()).Selected(true);
+    x.Add().Text("Requirements").Content("Requirements", "Requirement", null);
+})
+
+@helper TabSettings()
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.IsActive)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.IsActive)
+                @Html.ValidationMessageFor(m => m.IsActive)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.ExecuteType)
+            </td>
+            @if (Model.Id > 0)
+            {
+                <td class="adminData">
+                    <span class="form-control-plaintext">
+                        @Model.ExecuteType
+                        @Html.HiddenFor(x=>x.ExecuteType)
+                    </span>
+                </td>
+            }
+            else
+            {
+                <td class="adminData">
+                    @Html.DropDownListForEnum(x => x.ExecuteType)
+                    @Html.ValidationMessageFor(m => m.ExecuteType)
+                </td>
+            }
+        </tr>
+        @*<tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.CronExpression)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(m => m.CronExpression)
+                @Html.ValidationMessageFor(m => m.CronExpression)
+            </td>
+        </tr>*@
+    </table>
+}

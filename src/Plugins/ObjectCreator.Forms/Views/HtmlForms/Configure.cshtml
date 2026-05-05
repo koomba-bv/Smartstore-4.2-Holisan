@@ -1,0 +1,118 @@
+﻿@model SmartStore.HtmlForms.Models.ConfigurationModel
+@using SmartStore.Web.Framework;
+@using SmartStore.HtmlForms.Models;
+@using Telerik.Web.Mvc;
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = "";
+}
+
+<div class="plugin-actions">
+	<button type="submit" name="save" value="save" class="btn btn-warning">
+		<i class="fa fa-check"></i>
+		<span>@T("Admin.Common.Save")</span>
+	</button>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.SmartStore().TabStrip().Name("forms-config").Style(TabsStyle.Material).Position(TabsPosition.Top).Items(x =>
+    {
+        x.Add().Text(T("Plugins.SmartStore.Forms.TabHeading.Grid").Text).Content(TabFormGrid()).Selected(true);
+        x.Add().Text(T("Plugins.SmartStore.Forms.TabHeading.Settings").Text).Content(TabSettings());
+    })
+}
+
+@helper TabFormGrid()
+{
+	@*<div class="alert alert-info">
+		@Html.Raw(@T("Plugins.SmartStore.Forms.AdminInstruction"))
+	</div>*@
+
+	<div>
+		@(Html.Telerik().Grid<ConfigurationDetailsModel>()
+			.Name("html-form-grid")
+			.DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+			.DataBinding(dataBinding => dataBinding
+				.Ajax()
+				.Select("HtmlFormList", "HtmlForms", new { area = "ObjectCreator.Forms" })
+				.Delete("HtmlFormDelete", "HtmlForms", new { area = "ObjectCreator.Forms" })
+			)
+			.Columns(columns =>
+			{
+				columns.Bound(x => x.Name)
+					.ClientTemplate("<a href='" + @Url.Action("Edit", "HtmlForms", new { area = "ObjectCreator.Forms" }) + "?id=<#= Id #>'><#= Name #></a>")
+					.Template(x => "<a href='" + @Url.Action("Edit", "HtmlForms", new { id = x.Id, area = "ObjectCreator.Forms" }) + "'>" + x.Name + "</a>")
+					.Width(200);
+				columns.Bound(x => x.IsActive)
+					.Template(item => @Html.SymbolForBool(item.IsActive))
+					.ClientTemplate(@Html.SymbolForBool("IsActive"))
+					.Width(50)
+					.Centered();
+				columns.Bound(x => x.MessageTemplateAdmin)
+					.Width(200)
+					.Template(x => Html.ActionLink(x.MessageTemplateAdmin.HasValue() ? x.MessageTemplateAdmin : T("Plugins.SmartStore.Forms.CreateMessageTemplate").Text, "Edit", new { id = x.MessageTemplateAdminId, controller = "MessageTemplate", area = "Admin" }))
+					.ClientTemplate("<a href='" + Url.Action("Edit", new { area = "Admin", controller = "MessageTemplate" }) + "/<#= MessageTemplateAdminId #>'><#= MessageTemplateAdmin #></a>");
+				columns.Bound(x => x.MessageTemplateCustomer)
+					.Width(200)
+					.Template(x => Html.ActionLink(x.MessageTemplateCustomer.HasValue() ? x.MessageTemplateCustomer : T("Plugins.SmartStore.Forms.CreateMessageTemplate").Text, "Edit", new { id = x.MessageTemplateCustomerId, controller = "MessageTemplate", area = "Admin" }))
+					.ClientTemplate("<a href='" + Url.Action("Edit", new { area = "Admin", controller = "MessageTemplate" }) + "/<#= MessageTemplateCustomerId #>'><#= MessageTemplateCustomer #></a>");
+				columns.Bound(x => x.HasCaptcha)
+					.Template(item => @Html.SymbolForBool(item.HasCaptcha))
+					.ClientTemplate(@Html.SymbolForBool("IsActive"))
+					.Width(50)
+					.Centered();
+				columns.Command(commands =>
+				{
+					commands.Custom("edit-html-form").Text(T("Common.Edit"));
+					commands.Delete().Localize(T);
+				}).Width("12%").HtmlAttributes(new { align = "right" });
+			})
+			.ToolBar(commands =>
+			{
+				commands.Custom().Text(T("Plugins.SmartStore.Forms.AddNewForm").Text).Action("Create", "HtmlForms").HtmlAttributes(new { @class = "btn btn-primary" });
+			}))
+	</div>
+}
+
+@helper TabSettings()
+{
+	//Not needed yet, current settings can be global for all stores
+	@*@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })*@
+
+	<table class="adminContent">
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MinimumResendInterval)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.MinimumResendInterval)
+				@Html.ValidationMessageFor(model => model.MinimumResendInterval)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.EnableAdminPreview)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.EnableAdminPreview)
+				@Html.ValidationMessageFor(model => model.EnableAdminPreview)
+			</td>
+		</tr>
+	</table>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#html-form-grid').on('click', '.t-grid-edit-html-form', function (e) {
+			e.preventDefault();
+            var grid = $('#html-form-grid').data('tGrid');
+			var tr = $(this).closest('tr');
+			var id = grid.dataItem(tr).Id;
+            var href = '@Url.Action("Edit", "HtmlForms", new { area = "ObjectCreator.Forms" })?id=' + id + '&btnId=btnRefresh&formId=html-form-grid';
+
+			location.replace(href);
+
+			return false;
+		});
+	});
+</script>

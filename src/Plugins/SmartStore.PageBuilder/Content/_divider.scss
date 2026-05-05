@@ -1,0 +1,51 @@
+﻿/// <reference path="public.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/shared/_variables-shared.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/shared/_mixins.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Themes/Flex/Content/_variables.scss" />
+/// <reference path="../../../Presentation/SmartStore.Web/Content/bs4/scss/bootstrap.scss" />
+
+
+// SVG Masks
+// ------------------------------------
+
+.bg-divider {
+    opacity: 1 !important;
+    top: -1px; // fix floating number issue
+    bottom: -1px; // fix floating number issue
+    left: -1px;
+    right: -1px;
+    --mask-opacity: 0.5;
+    --mask-color: var(--body-bg, #fff);
+}
+
+.divider {
+    position: absolute; 
+    display: block; 
+    left: 0;
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    height: var(--mask-height, 10vw);
+    min-height: var(--mask-min-height, initial);
+    max-height: var(--mask-max-height, none);
+}
+
+.divider-o1 {
+    fill-opacity: var(--mask-opacity);
+}
+
+.divider-o2 {
+    fill-opacity: calc(var(--mask-opacity) * 0.6);
+}
+
+.divider-o3 {
+    fill-opacity: calc(var(--mask-opacity) * 0.3);
+}
+
+.divider-o4 {
+    fill-opacity: calc(var(--mask-opacity) * 0.15);
+}
+
+.divider-g {
+    fill: var(--mask-color);
+}

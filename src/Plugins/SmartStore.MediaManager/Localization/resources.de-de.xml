@@ -1,0 +1,305 @@
+﻿<Language Name="Deutsch" IsDefault="true" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.SmartStore.MediaManager" AppendRootKey="false">
+    <Value>Medien-Manager</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Description.SmartStore.MediaManager" AppendRootKey="false">
+    <Value>Leistungsfähiger Browser für Mediendateien</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Permissions.DisplayName.MediaManager" AppendRootKey="false">
+    <Value>Medien-Manager</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ShortName">
+    <Value>Medien</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="AllFiles">
+    <Value>Alle Dateien</Value>
+  </LocaleResource>
+  <LocaleResource Name="Albums">
+    <Value>Alben</Value>
+  </LocaleResource>
+  <LocaleResource Name="Folders">
+    <Value>Ordner</Value>
+  </LocaleResource>
+  <LocaleResource Name="OrphanedFiles">
+    <Value>Verwaist</Value>
+  </LocaleResource>
+  <LocaleResource Name="OrphanedFiles.Hint">
+    <Value>Dateien, die von keiner Entität referenziert werden.</Value>
+  </LocaleResource>
+  <LocaleResource Name="TransientFiles">
+    <Value>Flüchtig</Value>
+  </LocaleResource>
+  <LocaleResource Name="TransientFiles.Hint">
+    <Value>Dateien, die beim nächsten Aufräumvorgang gelöscht werden.</Value>
+  </LocaleResource>
+  <LocaleResource Name="UnassignedFiles">
+    <Value>Ungeordnet</Value>
+  </LocaleResource>
+  <LocaleResource Name="UnassignedFiles.Hint">
+    <Value>Dateien, die keinem Ordner zugeordnet sind.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="CreateFolder">
+    <Value>Neuer Ordner</Value>
+  </LocaleResource>
+  <LocaleResource Name="CreateFolderDialog">
+    <Value>Neuen Ordner in {0} anlegen.</Value>
+  </LocaleResource>
+  <LocaleResource Name="RenameFolder">
+    <Value>Ordner umbenennen</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolder">
+    <Value>Ordner löschen</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolderDialog">
+    <Value>Möchten Sie den Ordner {0} wirklich löschen?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFolderContentDialog">
+    <Value>Dieser Vorgang löscht {0} und alle Unterordner. Bitte legen Sie noch fest, wie mit enthaltenen Dateien verfahren werden soll.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderCopied">
+    <Value>Der Ordner {0} wurde erfolgreich nach {1} kopiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderMoved">
+    <Value>Der Ordner {0} wurde erfolgreich nach {1} verschoben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderWithFileDeleted">
+    <Value>Der Ordner {0} und die Datei {1} wurden gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FolderWithFilesDeleted">
+    <Value>Der Ordner {0} und {1} Dateien wurden gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoldersWithFileDeleted">
+    <Value>{0} Ordner und die Datei {1} wurden gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoldersWithFilesDeleted">
+    <Value>{0} Ordner und {1} Dateien wurden gelöscht.</Value>
+  </LocaleResource>
+  
+  <LocaleResource Name="RenameFile">
+    <Value>Datei umbenennen</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFile">
+    <Value>Sind Sie sicher, dass Sie die Datei {0} UNWIDERRUFLICH löschen möchten?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFiles">
+    <Value>Sind Sie sicher, dass Sie diese {0} ausgewählten Dateien UNWIDERRUFLICH löschen möchten?</Value>
+  </LocaleResource>
+  <LocaleResource Name="TrashFile">
+    <Value>Möchten Sie die Datei {0} wirklich in den Papierkorb verschieben?</Value>
+  </LocaleResource>
+  <LocaleResource Name="TrashFiles">
+    <Value>Möchten Sie diese {0} ausgewählten Dateien wirklich in den Papierkorb verschieben?</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="MoveFilesToTrash">
+    <Value>Dateien in den Papierkorb verschieben</Value>
+  </LocaleResource>
+  <LocaleResource Name="MoveFilesToAlbum">
+    <Value>Dateien in den Album-Stammordner verschieben</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeleteFilesPermanent">
+    <Value>Dateien endgültig löschen</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="FileSaved">
+    <Value>Die Datei {0} wurde erfolgreich aktualisiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesSaved">
+    <Value>{0} Dateien wurden erfolgreich aktualisiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileTrashed">
+    <Value>Die Datei {0} wurde erfolgreich in den Papierkorb verschoben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesTrashed">
+    <Value>{0} Dateien wurden erfolgreich in den Papierkorb verschoben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDeleted">
+    <Value>Die Datei {0} wurde erfolgreich gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesDeleted">
+    <Value>{0} Dateien wurden erfolgreich gelöscht.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileMoved">
+    <Value>Die Datei {0} wurde erfolgreich nach {1} verschoben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesMoved">
+    <Value>{0} Dateien wurden erfolgreich nach {1} verschoben.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileCopied">
+    <Value>Die Datei {0} wurde erfolgreich nach {1} kopiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesCopied">
+    <Value>{0} Dateien wurden erfolgreich nach {1} kopiert.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileRestored">
+    <Value>Die Datei {0} wurde erfolgreich wiederhergestellt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesRestored">
+    <Value>{0} Dateien wurden erfolgreich wiederhergestellt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileInUse">
+    <Value>Die Datei {0} konnte nicht gelöscht werden, weil Sie in Benutzung ist.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FilesInUse">
+    <Value>{0} Dateien konnten nicht gelöscht werden, weil Sie in Benutzung sind.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="RestoreFileError">
+    <Value>Die Datei {0} kann nicht wiederhergestellt werden, weil Sie keinem Ordner zugeordnet ist. Kopieren Sie diese Datei bitte manuell in einen Ordner Ihrer Wahl.</Value>
+  </LocaleResource>
+  <LocaleResource Name="RestoreFilesError">
+    <Value>{0} Dateien können nicht wiederhergestellt werden, weil Sie keinem Ordner zugeordnet sind. Kopieren Sie diese Dateien bitte manuell in einen Ordner Ihrer Wahl.</Value>
+  </LocaleResource>
+  <LocaleResource Name="MustCopyFileToAlbum">
+    <Value>Die Datei {0} muss in das für diese Auswahl vorgesehene Album {1} kopiert werden. Möchten Sie fortfahren?</Value>
+  </LocaleResource>
+  <LocaleResource Name="MustCopyFilesToAlbum">
+    <Value>{0} Dateien müssen in das für diese Auswahl vorgesehene Album {1} kopiert werden. Möchten Sie fortfahren?</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ViewMode.List">
+    <Value>Details</Value>
+  </LocaleResource>
+  <LocaleResource Name="ViewMode.Grid">
+    <Value>Thumbnails</Value>
+  </LocaleResource>
+  <LocaleResource Name="ViewMode.Tiles">
+    <Value>Kacheln</Value>
+  </LocaleResource>
+  <LocaleResource Name="ThumbSize">
+    <Value>Thumbnailgröße</Value>
+  </LocaleResource>
+  <LocaleResource Name="BrowseMedia">
+    <Value>Medien durchsuchen...</Value>
+  </LocaleResource>
+  <LocaleResource Name="SelectMedia">
+    <Value>Auswählen</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="NoFilesFound">
+    <Value>Keine Dateien gefunden.</Value>
+  </LocaleResource>
+  <LocaleResource Name="InvertSelection">
+    <Value>Auswahl umkehren</Value>
+  </LocaleResource>
+  <LocaleResource Name="RestoreFile">
+    <Value>Wiederherstellen</Value>
+  </LocaleResource>
+  <LocaleResource Name="DeletePermanent">
+    <Value>Endgültig löschen</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="FileName">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileSize">
+    <Value>Größe</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDimensions">
+    <Value>Abmessungen</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileDate">
+    <Value>Datum</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileUpdatedDate">
+    <Value>Änderungsdatum</Value>
+  </LocaleResource>
+  <LocaleResource Name="FileUrl">
+    <Value>URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="AltAttribute">
+    <Value>ALT-Attribut</Value>
+  </LocaleResource>
+  <LocaleResource Name="Title">
+    <Value>Titel</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tags">
+    <Value>Tags</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tracks">
+    <Value>Verweise</Value>
+  </LocaleResource>
+  <LocaleResource Name="NoTracksFound">
+    <Value>Keine Verweise gefunden.</Value>
+  </LocaleResource>
+  <LocaleResource Name="NoFileSelected">
+    <Value>Keine Datei ausgewählt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="BatchEdit">
+    <Value>Alle bearbeiten</Value>
+  </LocaleResource>
+  <LocaleResource Name="ConfirmAndSave">
+    <Value>Sie haben ungesicherte Änderungen ausstehend. Möchten Sie diese jetzt speichern?</Value>
+  </LocaleResource>
+  <LocaleResource Name="CancelUpload">
+    <Value>Sind Sie sicher, dass Sie den aktuellen Upload-Vorgang abbrechen möchten?</Value>
+  </LocaleResource>
+  <LocaleResource Name="ConcurrentSelectionError">
+    <Value>Es können nicht mehr als 500 Elemente auf einmal ausgewählt werden.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ImgSize.Xs">
+    <Value>Sehr klein</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Sm">
+    <Value>Klein</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Md">
+    <Value>Mittel</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Lg">
+    <Value>Groß</Value>
+  </LocaleResource>
+  <LocaleResource Name="ImgSize.Xl">
+    <Value>Sehr groß</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Type">
+    <Value>Typ</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Extension">
+    <Value>Erweiterung</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.Tag">
+    <Value>Tag</Value>
+  </LocaleResource>
+  <LocaleResource Name="Facet.ImgSize">
+    <Value>Bildgröße</Value>
+  </LocaleResource>
+  <LocaleResource Name="SearchTermPlaceholder">
+    <Value>Dateien durchsuchen. Wildcards: * = beliebig viele Zeichen, ? = genau 1 Zeichen.</Value>
+  </LocaleResource>
+  <LocaleResource Name="SortByX">
+    <Value>Sortieren nach: {0}</Value>
+  </LocaleResource>
+  <LocaleResource Name="ReverseSortDir">
+    <Value>Sortierreihenfolge umkehren</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracks">
+    <Value>Verwaiste Dateien ermitteln</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracksInfo">
+    <Value>Diese Operation prüft für jede Datei im Album {0}, ob diese von mindestens einer Daten-Entität referenziert wird. Der Prüfvorgang kann bei sehr großen Datenbeständen einige Zeit in Anspruch nehmen. Möchten Sie fortfahren?</Value>
+  </LocaleResource>
+  <LocaleResource Name="DetectTracksComplete">
+    <Value>Der Scan nach verwaisten Dateien wurde erfolgreich abgeschlossen.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Msg.NoFilesToDownload">
+    <Value>Die Dateiliste war leer.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Msg.TooManyFilesToDownload">
+    <Value>Die Dateiliste war zu groß und wurde auf 1.000 Einträge begrenzt.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FuMessage">
+    <Value>Zum Hochladen Datei hier ablegen oder klicken.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="ErrorHidden">
+    <Value>{0} weiterer Fehler wurde ausgeblendet.</Value>
+  </LocaleResource>
+  <LocaleResource Name="ErrorsHidden">
+    <Value>{0} weitere Fehler wurden ausgeblendet.</Value>
+  </LocaleResource>
+</Language>

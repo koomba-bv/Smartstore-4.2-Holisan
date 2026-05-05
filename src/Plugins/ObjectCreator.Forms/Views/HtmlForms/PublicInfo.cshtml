@@ -1,0 +1,298 @@
+﻿@model SmartStore.HtmlForms.Models.PublicInfoModel
+@using SmartStore.Web.Framework;
+@using SmartStore.Web.Framework.Security;
+@using SmartStore.Services.Localization;
+@{
+    Layout = "";
+}
+
+@foreach (var form in Model.Forms)
+{
+	if (!form.IsActive)
+	{
+		continue;
+	}
+
+	if (Model.IsAdminPreview == true)
+	{
+		<div class="alert alert-danger">
+			@T("Plugins.SmartStore.Forms.DemoModeHint")
+		</div>
+	}
+
+	using (Html.BeginForm(null, null, FormMethod.Post, new { id = form.Name, area = "ObjectCreator.Forms", data_ajax = true }))
+	{
+		<div class="smartstore-forms-form-ctn">
+
+			<div class="mt-5 row">
+				<div class="col-sm-12">
+					<h4>@Html.Raw(form.GetLocalized(x => x.Title))</h4>
+					<p class="lead">
+						@Html.Raw(form.GetLocalized(x => x.IntroText))
+					</p>
+				</div>
+			</div>
+
+			<div class="form-horizontal">
+
+				@if (this.EnableHoneypotProtection)
+				{
+					<div class="d-none">
+						@Html.HoneypotField()
+					</div>
+				}
+
+				@foreach (var control in form.FormControls.OrderBy(x => x.DisplayOrder))
+				{
+					if (!control.IsActive)
+					{
+						continue;
+					}
+
+					if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.Caption)
+					{
+						<fieldset class="content-group mb-0">
+							<legend><span>@control.GetLocalized(x => x.Caption)</span></legend>
+						</fieldset>
+					}
+					else
+					{
+						string isMandatory = control.IsMandatory.ToString().ToLower();
+
+						<div class="form-group mt-1 row">
+							@if (control.InputType != SmartStore.HtmlForms.Domain.InputType.Checkbox)
+							{
+								<label for="@control.ControlId" class="@(form.DisplayLabelsAboveElems ? "col-sm-12" : "col-sm-3") @(control.IsMandatory ? "required" : "") col-form-label">
+									@control.GetLocalized(x => x.Caption)
+								</label>
+							}
+
+							<div class="@(form.DisplayLabelsAboveElems ? "col-sm-12" : "col-sm-9")
+								 @(control.InputType == SmartStore.HtmlForms.Domain.InputType.Checkbox && !form.DisplayLabelsAboveElems ? " offset-sm-3" : "")
+								 @(control.InputType == SmartStore.HtmlForms.Domain.InputType.Radio ? " form-inline" : "")">
+								<div class="input-group">
+
+									@if (control.IconClass.HasValue() && control.ElementType != SmartStore.HtmlForms.Domain.ElementType.Select)
+									{
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon2">
+												<i class="fa fa-@control.IconClass"></i>
+											</span>
+										</div>
+									}
+
+									@if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.TextArea)
+									{
+										<textarea class="form-control"
+												  data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+												  id="@control.ControlId" name="@control.ControlId" placeholder="@control.Placeholder" type="text" value="@control.Value"></textarea>
+									}
+									else if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.Select)
+									{
+										<select id="@control.ControlId" name="@control.ControlId"
+												data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)">
+											<option value="" />
+											@foreach (var option in control.GetLocalized(x => x.Options).Value.SplitSafe(",").ToList())
+											{
+												<option value="@option">@option</option>
+											}
+										</select>
+									}
+									else if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.FileUpload)
+									{
+										Html.RenderPartial("~/Plugins/ObjectCreator.Forms/Views/HtmlForms/FileUpload.cshtml", control);
+									}
+									else if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.Date)
+									{
+										var controlId = control.ControlId;
+										var date = DateTime.UtcNow;
+
+										@Html.DatePickerDropDowns(
+											controlId + "-day",
+											controlId + "-month",
+											controlId + "-year",
+											control.BeginYear,
+											control.EndYear,
+											control.DisplayCurrentDate ? date.Day : control.SelectedDay,
+											control.DisplayCurrentDate ? date.Month : control.SelectedMonth,
+											control.DisplayCurrentDate ? date.Year : control.SelectedYear,
+											true,
+											control.IsEnabled)
+									}
+									else if (control.ElementType == SmartStore.HtmlForms.Domain.ElementType.InfoBox)
+									{
+										<div class="alert alert-@(control.InfoBoxType.ToString().ToLower()) w-100">
+											@control.GetLocalized(x => x.InfoBoxText)
+										</div>
+									}
+									else
+									{
+										if (control.InputType == SmartStore.HtmlForms.Domain.InputType.Email)
+										{
+											<input class="form-control"
+												   data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+												   id="@control.ControlId" name="@control.ControlId" placeholder="@control.GetLocalized(x => x.Placeholder)" type="email" value="@control.Value">
+										}
+										else if (control.InputType == SmartStore.HtmlForms.Domain.InputType.Password)
+										{
+											<input class="form-control"
+												   data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+												   id="@control.ControlId" name="@control.ControlId" placeholder="@control.GetLocalized(x => x.Placeholder)" type="password" value="@control.Value">
+										}
+										else if (control.InputType == SmartStore.HtmlForms.Domain.InputType.Checkbox)
+										{
+											<div class="form-check">
+												<input class="check-box form-check-input"
+													   data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+													   data-val-mustbetrue="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+													   id="@control.ControlId" name="@control.ControlId" placeholder="@control.GetLocalized(x => x.Placeholder)" type="checkbox" value="true">
+
+												<label class="form-check-label" for="@control.ControlId">
+													@control.GetLocalized(x => x.Caption)
+												</label>
+												<input name="@control.ControlId" type="hidden" value="false">
+											</div>
+										}
+										else if (control.InputType == SmartStore.HtmlForms.Domain.InputType.Radio)
+										{
+											var i = 0;
+
+											foreach (var option in control.GetLocalized(x => x.Options).Value.SplitSafe(",").ToList())
+											{
+												var controlId = control.ControlId + (i++);
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" id="@controlId" name="@control.ControlId" type="radio" value="@option" 
+														   @Html.Attr("data-val", isMandatory, i == 1)
+														   @Html.Attr("data-val-required", control.GetLocalized(x => x.MandatoryValidationMessage), i == 1)>
+													<label class="form-check-label" for="@controlId">@option</label>
+												</div>
+											}
+										}
+										else
+										{
+											<input class="form-control"
+												   data-val="@isMandatory" data-val-required="@control.GetLocalized(x => x.MandatoryValidationMessage)"
+												   id="@control.ControlId" name="@control.ControlId" placeholder="@control.GetLocalized(x => x.Placeholder)" type="text" value="@control.Value">
+										}
+									}
+
+								</div>
+								<span class="field-validation-valid" data-valmsg-for="@control.ControlId" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+					}
+				}
+			</div>
+
+			<div class="row justify-content-end">
+				<div class="@(form.DisplayLabelsAboveElems ? "col-sm-12" : "col-sm-9")">
+					@{ Html.RenderWidget("gdpr_consent_small"); }
+				</div>
+			</div>
+
+			@if (form.HasCaptcha && Model.DisplayCaptcha)
+			{
+				<div class="form-group row">
+					<div class="@(form.DisplayLabelsAboveElems ? "col-sm-12" : "offset-sm-3 col-sm-9") captcha-box">
+						@Html.Raw(Html.GenerateCaptcha())
+					</div>
+				</div>
+			}
+
+			<input type="hidden" id="Origin" name="Origin" value="" />
+			<input type="hidden" id="FormId" name="FormId" value="@form.Id" />
+
+			@if (Model.ProductId.HasValue())
+			{
+				<input type="hidden" id="ProductId" name="ProductId" value="@Model.ProductId" />
+			}
+
+
+			<div class="form-group row">
+				<div class="col col-sm-auto@(form.DisplayLabelsAboveElems ? "" : " offset-sm-3")">
+					<button type="button" name="send-email" id="@(form.Name)-btn-send" class="btn btn-primary btn-lg btn-block">
+						@T("Plugins.SmartStore.Forms.SendForm")
+					</button>
+				</div>
+			</div>
+		</div>
+    }
+
+<script>
+
+		$(function () {
+			// register change events and validate checkboxes, radio buttons and file upload
+			$("#@(form.Name) #FileUpload, #@(form.Name) :checkbox, #@(form.Name) input[type=radio], #@(form.Name) select").on("change", function (e) {
+				var el = $(this);
+				var form = el.closest("form");
+                var validator = form.data('validator');
+                if (validator) {
+                    validator.settings.ignore = "";
+
+                    form.validate();
+                    form.valid();
+                }
+			});
+
+	        $("#@(form.Name)-btn-send").on("click", function (e) {
+				var form = $("#@(form.Name)");
+
+				// needed for mandatory file upload validation, else validation will ignore hidden fields
+                var validator = form.data('validator');
+                if (validator) {
+                    validator.settings.ignore = "";
+
+                    form.validate();
+
+                    if (form.valid())
+                        sendForm(form);
+                }
+                else {
+                    sendForm(form);
+                }
+
+				return false;
+			});
+		});
+
+        function sendForm(form) {
+
+			// Trigger ajaxsubmit so recaptcha works.
+			form.trigger('ajaxsubmit');
+
+			// Delay a little so renderGoogleRecaptcha can do its work.
+			_.delay(function () {
+				$.ajax({
+					cache: false,
+					type: "POST",
+					url: "@(Url.Action("PublicInfoPost", "HtmlForms", new { area = "ObjectCreator.Forms" }))",
+					data: form.serialize(),
+					success: function (data) {
+						if (data == "WrongCaptcha")
+						{
+							setTimeout(function(){ location.reload(); }, 1000);
+						}
+						else if (data != "")
+						{
+							location = data;
+						}
+					},
+					error: function (xhr, ajaxOptions, thrownError) {
+						console.log(thrownError);
+					}
+				});
+			}, 100);
+        }
+
+        //$(".smartstore-forms-form-ctn input").on("change", function (e) {
+        //    var form = $(e.target).closest(".smartstore-forms-form-ctn");
+
+        //    form.parents("form").validate({
+        //        submitHandler: function (form) {
+        //            sendForm(form);
+        //        }
+        //    });
+        //});
+
+</script>
+}

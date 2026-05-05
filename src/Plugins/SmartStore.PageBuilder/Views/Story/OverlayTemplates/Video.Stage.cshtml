@@ -1,0 +1,39 @@
+﻿@model VideoOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="form-group form-row">
+    <div class="col-12">
+        @Html.SmartLabelFor(model => model.Mp4VideoId, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-12">
+        @Html.EditorFor(model => model.Mp4VideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.Mp4VideoId)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-12">
+        @Html.SmartLabelFor(model => model.WebMVideoId, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-12">
+        @Html.EditorFor(model => model.WebMVideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.WebMVideoId)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-12">
+        @Html.SmartLabelFor(model => model.OggVideoId, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-12">
+        @Html.EditorFor(model => model.OggVideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.OggVideoId)
+    </div>
+</div>
+<div class="form-group form-row">
+    <div class="col-12">
+        @Html.SmartLabelFor(model => model.Loop, true, new { @class = "col-form-label col-form-label-sm" })
+    </div>
+    <div class="col-12 switcher switcher-sm">
+        @Html.CheckBoxFor(model => model.Loop, new { @class = "form-control" })
+    </div>
+</div>

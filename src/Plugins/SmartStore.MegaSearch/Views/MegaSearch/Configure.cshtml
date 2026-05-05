@@ -1,0 +1,402 @@
+﻿@using SmartStore.MegaSearch;
+@using SmartStore.MegaSearch.Models;
+@using SmartStore.Core.Infrastructure;
+@using SmartStore.Core.Events;
+@using SmartStore.Web.Framework.Events;
+@model ConfigurationModel
+@{
+    Layout = "";
+}
+<div class="plugin-actions">
+	<button type="submit" name="save" class="btn btn-warning" value="save">
+		<i class="fa fa-check"></i>
+		<span>@T("Admin.Common.Save")</span>
+	</button>
+</div>
+
+<div class="alert alert-info">
+	@Html.Raw(T("Plugins.SmartStore.MegaSearch.AdminInstruction", Url.Action("Search", "Setting", new { area = "admin" })))
+</div>
+
+@{ Html.RenderAction("StoreScopeConfiguration", "Setting", new { area = "Admin" }); }
+@Html.ValidationSummary(false)
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="ExpandedScopes" />
+    <div id="ScopeList" class="mb-4">
+	    @{ Html.RenderPartial("_ScopeList"); }
+    </div>
+
+	@(Html.SmartStore().TabStrip().Name("megasearch-config").Style(TabsStyle.Material).Position(TabsPosition.Top).Items(x =>
+	{
+		x.Add().Text(T("Common.General").Text).Content(TabGeneral()).Selected(true);
+		x.Add().Text(T("Plugins.SmartStore.MegaSearch.TextAnalysis").Text).Content(TabTextAnalysis());
+		
+		EngineContext.Current.Resolve<IEventPublisher>().Publish(new TabStripCreated(x, "megasearch-config", this.Html, this.Model));
+	}))
+}
+
+@helper TabGeneral()
+{
+	<table id="MegaSearchSettings" class="adminContent">
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ActiveScopes)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.ActiveScopes, 
+					Html.ListBoxFor(model => model.ActiveScopes, Model.AvailableScopes, new { multiple = "multiple", data_tags = "true" }))
+				@Html.ValidationMessageFor(model => model.ActiveScopes)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.AlwaysRebuildIndex)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.AlwaysRebuildIndex)
+				@Html.ValidationMessageFor(model => model.AlwaysRebuildIndex)
+			</td>
+		</tr>
+		<tr id="AutomaticProductUpdatedEnabledContainer">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.AutomaticProductUpdatedEnabled)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.AutomaticProductUpdatedEnabled)
+				@Html.ValidationMessageFor(model => model.AutomaticProductUpdatedEnabled)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ShowHitCounts)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.ShowHitCounts)
+				@Html.ValidationMessageFor(model => model.ShowHitCounts)
+			</td>
+		</tr>
+		@*<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IndentCategoryFilters)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.IndentCategoryFilters)
+				@Html.ValidationMessageFor(model => model.IndentCategoryFilters)
+			</td>
+		</tr>*@
+
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsSpellCheckerActive)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.IsSpellCheckerActive,
+					Html.CheckBoxFor(model => model.IsSpellCheckerActive, new { data_toggler_for = "#MegaSearchSettings .spell-checker-setting" }))
+				@Html.ValidationMessageFor(model => model.IsSpellCheckerActive)
+
+				<span id="IsSpellCheckerActiveWarning" class="d-none">
+					<span class="text-warning">@T("Plugins.SmartStore.MegaSearch.IndexRebuildWarning")</span>
+				</span>
+			</td>
+		</tr>
+		<tr class="spell-checker-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MaxIndexedSuggestions)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.MaxIndexedSuggestions)
+				@Html.ValidationMessageFor(model => model.MaxIndexedSuggestions)
+			</td>
+		</tr>
+		<tr class="spell-checker-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.SpellCheckerMaxSuggestions)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.SpellCheckerMaxSuggestions)
+				@Html.ValidationMessageFor(model => model.SpellCheckerMaxSuggestions)
+			</td>
+		</tr>
+		<tr class="spell-checker-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.SpellCheckerMinQueryLength)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.SpellCheckerMinQueryLength)
+				@Html.ValidationMessageFor(model => model.SpellCheckerMinQueryLength)
+			</td>
+		</tr>
+		<tr class="spell-checker-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.SpellCheckerMaxHitCount)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.SpellCheckerMaxHitCount)
+				@Html.ValidationMessageFor(model => model.SpellCheckerMaxHitCount)
+			</td>
+		</tr>
+		<tr class="spell-checker-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.SpellCheckerRelatedTerms)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.SpellCheckerRelatedTerms)
+				@Html.ValidationMessageFor(model => model.SpellCheckerRelatedTerms)
+			</td>
+		</tr>
+	</table>
+}
+
+@helper TabTextAnalysis()
+{
+	<table id="MegaSearchTextAnalysis" class="adminContent">
+		<tr>
+			<td colspan="2">
+				<div class="alert alert-info">
+					@T("Plugins.SmartStore.MegaSearch.AdvancedTextAnalysisNote")
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.DefaultAnalysis)
+			</td>
+			<td class="adminData">
+                @Html.SettingEditorFor(model => model.DefaultAnalysis, Html.DropDownListFor(model => model.DefaultAnalysis, Model.AvailableTextAnalysisTypes, T("Plugins.SmartStore.MegaSearch.DefaultAnalysisPlaceholder")))
+				@Html.ValidationMessageFor(model => model.DefaultAnalysis)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MinTermLength)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.MinTermLength)
+				@Html.ValidationMessageFor(model => model.MinTermLength)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsAdvancedTextAnalysisActive)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.IsAdvancedTextAnalysisActive,
+					Html.CheckBoxFor(model => model.IsAdvancedTextAnalysisActive, new { data_toggler_for = "#MegaSearchTextAnalysis .advanced-analysis-setting" }))
+				@Html.ValidationMessageFor(model => model.IsAdvancedTextAnalysisActive)
+			</td>
+		</tr>
+		<tr class="advanced-analysis-setting">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(x => x.TextAnalysisType)
+			</td>
+			<td class="adminData">
+				@Html.SettingEditorFor(model => model.TextAnalysisType, Html.DropDownListFor(model => model.TextAnalysisType, Model.AvailableTextAnalysisTypes))
+				@Html.ValidationMessageFor(x => x.TextAnalysisType)
+			</td>
+		</tr>
+		<tr class="advanced-analysis-setting">
+			<td colspan="2">
+
+				@(Html.LocalizedEditor<ConfigurationModel, ConfigurationLocalizedModel>("advanced-search-localized",
+				@<table class="adminContent p-0">
+					<tr>
+						<td class="adminTitle">
+							@Html.SmartLabelFor(model => model.Locales[item].Abbreviations)
+						</td>
+						<td class="adminData">
+							@Html.ListBoxFor(model => model.Locales[item].Abbreviations, Model.Locales[item].AvailableAbbreviations, new { multiple = "multiple", data_tags = "true" })
+							@Html.ValidationMessageFor(model => model.Locales[item].Abbreviations)
+							@Html.HiddenFor(model => model.Locales[item].LanguageId)
+						</td>
+					</tr>
+					<tr>
+						<td class="adminTitle">
+							@Html.SmartLabelFor(model => model.Locales[item].Synonyms)
+						</td>
+						<td class="adminData wide">
+							@Html.TextAreaFor(model => Model.Locales[item].Synonyms, new { style = "height:150px" })
+							@Html.ValidationMessageFor(model => model.Locales[item].Synonyms)
+						</td>
+					</tr>
+					@if (Model.Locales[item].HasSplitterWordBook)
+					{
+						<tr>
+							<td class="adminTitle">
+								@Html.SmartLabelFor(model => model.Locales[item].SplitterCustomWords)
+							</td>
+							<td class="adminData">
+								@Html.TextAreaFor(model => Model.Locales[item].SplitterCustomWords, new { style = "height:150px" })
+								@Html.ValidationMessageFor(model => model.Locales[item].SplitterCustomWords)
+							</td>
+						</tr>
+						<tr>
+							<td class="adminTitle">
+								@Html.SmartLabelFor(model => model.Locales[item].SplitterExceptionWords)
+							</td>
+							<td class="adminData">
+								@Html.TextAreaFor(model => Model.Locales[item].SplitterExceptionWords, new { style = "height:150px" })
+								@Html.ValidationMessageFor(model => model.Locales[item].SplitterExceptionWords)
+							</td>
+						</tr>
+					}
+				</table>
+				,
+				@<table class="adminContent p-0">
+					<tr>
+						<td class="adminTitle">
+							@Html.SmartLabelFor(model => model.Abbreviations)
+						</td>
+						<td class="adminData">
+							@Html.ListBoxFor(model => model.Abbreviations, Model.AvailableAbbreviations, new { multiple = "multiple", data_tags = "true" })
+							@Html.ValidationMessageFor(model => model.Abbreviations)
+						</td>
+					</tr>
+					<tr>
+						<td class="adminTitle">
+							@Html.SmartLabelFor(model => model.Synonyms)
+						</td>
+						<td class="adminData wide">
+							@Html.TextAreaFor(model => model.Synonyms, new { style = "height:150px" })
+							@Html.ValidationMessageFor(model => model.Synonyms)
+						</td>
+					</tr>
+					@if (Model.HasSplitterWordBook)
+					{
+						<tr>
+							<td class="adminTitle">
+								@Html.SmartLabelFor(model => model.SplitterCustomWords)
+							</td>
+							<td class="adminData">
+								@Html.TextAreaFor(model => Model.SplitterCustomWords, new { style = "height:150px" })
+								@Html.ValidationMessageFor(model => model.SplitterCustomWords)
+							</td>
+						</tr>
+						<tr>
+							<td class="adminTitle">
+								@Html.SmartLabelFor(model => model.SplitterExceptionWords)
+							</td>
+							<td class="adminData">
+								@Html.TextAreaFor(model => Model.SplitterExceptionWords, new { style = "height:150px" })
+								@Html.ValidationMessageFor(model => model.SplitterExceptionWords)
+							</td>
+						</tr>
+					}
+				</table>
+				))
+
+			</td>
+		</tr>
+	</table>
+}
+
+<script>
+	$(function () {
+		// Show/hide field names.
+		$('#ScopeList').on('click', 'button.show-more-fields', function () {
+            var fields = $(this).parent().parent().find('.more-fields').first(),
+                isVisible = fields.is(':visible');
+
+            $(this).find('span').html(isVisible ? @T("Common.ShowMore").JsText : @T("Common.ShowLess").JsText);
+            $(this).find('i').removeClass(isVisible ? 'fa-chevron-up' : 'fa-chevron-down').addClass(isVisible ? 'fa-chevron-down' : 'fa-chevron-up');
+			fields.toggleClass('d-none');
+        });
+
+        // Show/hide scope settings.
+        $('#ScopeList').on('click', 'button.scope-settings-button', function () {
+            var scope = $(this).closest('tr').data('scope'),
+                settings = $('#scope-settings-' + scope),
+                isVisible = settings.is(':visible'),
+                elInner = settings.find('.scope-settings-inner');
+
+            if (isVisible) {
+                elInner.slideUp(function () {
+                    settings.hide();
+                });
+            }
+            else {
+                settings.show();
+                elInner.hide().slideDown();
+            }
+
+            $(this).find('span').html(isVisible ? @T("Plugins.SmartStore.MegaSearch.ShowSettings").JsText : @T("Plugins.SmartStore.MegaSearch.HideSettings").JsText);
+            $(this).find('i').removeClass(isVisible ? 'fa-chevron-up' : 'fa-chevron-down').addClass(isVisible ? 'fa-chevron-down' : 'fa-chevron-up');
+        });
+
+		// Always rebuild index changed.
+		$('#@(Html.FieldIdFor(x => x.AlwaysRebuildIndex))').change(function () {
+			$('#AutomaticProductUpdatedEnabledContainer').toggle(!$(this).is(':checked'));
+		}).trigger('change');
+
+
+		// Show/hide rebuild index warning
+		$('#@(Html.FieldIdFor(x => x.IsSpellCheckerActive))').change(function () {
+			$('#IsSpellCheckerActiveWarning').toggleClass('d-none', !$(this).is(':checked'));
+		});
+		$('#@(Html.FieldIdFor(x => x.EnableVariantAttributeFilters)), #@(Html.FieldIdFor(x => x.EnableSpecificationAttributeFilters)), #@(Html.FieldIdFor(x => x.IgnoreAttributeFilteringOnProductLevel))').change(function () {
+			$('#AttributesRebuildWarning').removeClass('d-none');
+		});
+
+        // Hold collapse state when saving settings.
+        $('button[type=submit][name=save]').click(function (e) {
+            var expandedScopes = $('tr.scope-settings:visible').map(function() {
+                return $(this).data('scope');
+            }).get();
+
+            $('input[name=ExpandedScopes]').val(expandedScopes);
+        });
+
+		// Reset boost values.
+		$('#ResetBoostValues').click(function (e) {
+			e.preventDefault();
+			if (confirm(@T("Admin.Common.AskToProceed").JsText)) {
+				var form = '<form id="ResetBoostValuesForm" action="' + $(this).data('url') + '" method="post"></form>';
+				$('body').append(form);
+				$('#ResetBoostValuesForm').submit();
+			}
+			return false;
+		});
+
+		// Execute indexing command.
+		$('#ScopeList').on('click', 'a.index-command:not(.disabled)', function (e) {
+            e.preventDefault();
+			$(this).doPostData({
+				ask: @T("Admin.Common.AskToProceed").JsText
+			});
+			return false;
+        });
+
+		SmartStore.Admin.TaskWatcher.startWatching({
+			context: $('#ScopeList'),
+			elementsSelector: '.task-progress',
+			defaultProgressMessage: @T("Admin.System.ScheduleTasks.RunNow.IsRunning").JsText,
+			pollUrl: '@Url.Action("GetRunningTasks", "ScheduleTask", new { area = "admin" })',
+            onTaskStarted: function (task, el) {
+                var tr = el.closest('tr');
+
+				tr.find('.index-info').addClass('hide');
+                tr.find('.btn-group, .btn-block').addClass('hide');
+                tr.find('.btn-cancel-task').removeClass('hide');
+			},
+			onTaskCompleted: function (taskId, el) {
+                var tr = el.closest('tr');
+
+                tr.find('.btn-cancel-task').addClass('hide');
+                tr.find('.index-info').removeClass('hide');
+                tr.find('.btn-group').removeClass('hide');
+
+				_.delay(function () {
+					$({}).doAjax({
+						type: 'GET',
+						url: '@Url.Action("ScopeList", "MegaSearch", new { area = MegaSearchPlugin.SystemName })',
+						callbackSuccess: function (response) {
+                            $('#ScopeList').html(response);
+                            applyCommonPlugins('#ScopeList');
+						}
+					});
+				}, 200);
+			}
+		});
+	});
+</script>

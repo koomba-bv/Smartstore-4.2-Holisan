@@ -1,0 +1,182 @@
+﻿
+@model Koomba.FileExpansion.Models.ProductFileModel
+
+@using SmartStore.Web.Framework.UI;
+@using SmartStore.Utilities;
+@using System.Web.Mvc;
+
+@{
+	string AddFileUlr = ViewBag.AddFileUrl;
+}
+<style>
+	#ProductFileGrid .t-last a {
+		visibility: visible;
+	}
+</style>
+<form enctype="multipart/form-data" method="post" onsubmit="return ajaxPost(this)" id="ProductFileForm">
+	<table class="adminContent">
+		@Html.HiddenFor(m => m.ProductID)
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Title)
+			</td>
+			<td class="adminData" style="font-weight: bold">
+				@Html.EditorFor(m => m.Title)
+				@Html.ValidationMessageFor(m => m.Title)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Name)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(m => m.Name)
+				@Html.ValidationMessageFor(m => m.Name)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.FileName)
+			</td>
+			<td class="adminData fileupload">
+				@Html.EditorFor(model => model.MediaFileId, new { entityId = Model.ProductID, entityType = "FileExpansion" })
+				@*<span class="btn btn-secondary fileinput-button">
+			<i class="fa fa-upload"></i>
+			<span>Upload a file</span>
+			<input type="file" id="File" name="File" required>
+		</span>
+		<span id="File_name"></span>*@
+				@*<input type="file" name="File" />*@
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Type)
+			</td>
+			<td class="adminData">
+				@Html.DropDownList("Type", new List<SelectListItem>
+				{new SelectListItem{ Text="A", Value = "A" },
+				new  SelectListItem{ Text="B", Value = "B" },
+				new  SelectListItem{ Text="C", Value = "C" },
+				new  SelectListItem{ Text="D", Value = "D" } })
+				@Html.ValidationMessageFor(m => m.Type)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Sort)
+			</td>
+			<td class="adminData">
+				@Html.DropDownList("Sort", new List<SelectListItem>
+				{new SelectListItem{ Text="Adobe PDF", Value = "0" },
+				new  SelectListItem{ Text="Document", Value = "1" },
+				new  SelectListItem{ Text="Setting", Value = "2" },
+				new  SelectListItem{ Text="Image", Value = "3" },
+				new  SelectListItem{ Text="Certificate", Value ="4"} })
+				@Html.ValidationMessageFor(m => m.Sort)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Language)
+			</td>
+			<td class="adminData">
+				@Html.DropDownList("Language", new List<SelectListItem>
+				{new SelectListItem{ Text="EN", Value = "EN" },
+				new  SelectListItem{ Text="DE", Value = "DE" },
+				new  SelectListItem{ Text="FR", Value = "FR" },
+				new  SelectListItem{ Text="NL", Value = "NL" } })
+				@Html.ValidationMessageFor(m => m.Language)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.DisplayOrder)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(m => m.DisplayOrder)
+				@Html.ValidationMessageFor(m => m.DisplayOrder)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(m => m.IsActive)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(m => m.IsActive)
+				@Html.ValidationMessageFor(m => m.IsActive)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				&nbsp;
+			</td>
+			<td class="adminData">
+				<button type="submit" name="add-product-file" id="add-product-file" class="btn btn-primary">
+					<i class="fa fa-plus"></i>
+					<span>@T("Plugins.Koomba.FileExpansion.File_Add_Button")</span>
+				</button>
+			</td>
+		</tr>
+	</table>
+</form>
+
+@(Html.Telerik().Grid<Koomba.FileExpansion.Models.ProductFileGridModel>()
+					.Name("ProductFileGrid")
+					.DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+					.Columns(columns =>
+					{
+						columns.Bound(x => x.Grid_Title);
+						columns.Bound(x => x.Grid_Name);
+						columns.Bound(x => x.Grid_FileName).ClientTemplate("<a href ='<#= Grid_DownloadUrl #>' download><#= Grid_FileName #></a>").ReadOnly();
+						columns.Bound(x => x.Grid_Type).Width(100).Centered();
+						columns.Bound(x => x.Grid_Sort).Width(100).Centered();
+						columns.Bound(x => x.Grid_Language).Width(100).Centered();
+						columns.Bound(x => x.Grid_DisplayOrder).Width(100).Centered();
+						columns.Bound(x => x.Grid_IsActive).Width(100).Centered();
+						columns.Command(commands =>
+						{
+							commands.Edit();
+							commands.Delete();
+						}).Width(50);
+					})
+					.Editable(x =>
+					{
+						x.Mode(GridEditMode.InLine);
+					})
+					.DataBinding(dataBinding => dataBinding
+					.Ajax()
+					.Select("Files_Read", "FileExpansion", new RouteValueDictionary() { { "Namespaces", "Koomba.FileExpansion.Controllers" }, { "area", "Koomba.FileExpansion" } })
+					.Update("Files_Update", "FileExpansion", new RouteValueDictionary() { { "Namespaces", "Koomba.FileExpansion.Controllers" }, { "area", "Koomba.FileExpansion" } })
+					.Delete("Files_Delete", "FileExpansion", new RouteValueDictionary() { { "Namespaces", "Koomba.FileExpansion.Controllers" }, { "area", "Koomba.FileExpansion" } })
+					)
+					.EnableCustomBinding(true)
+)
+
+<script>
+	function ajaxPost(formData) {
+		var ajaxConfig = {
+			type: "post",
+			url: "@AddFileUlr",
+			data: new FormData(formData),
+			success: function (ress) {
+                formData.reset();
+                $("#ProductFileForm .fu-remove").click();
+				$("#ProductFileGrid").find(".t-refresh").click();
+				$("#select2-Language-container .select2-option").text($("#Language option:selected").text());
+				$("#select2-Sort-container .select2-option").text($("#Sort option:selected").text());
+				$("#select2-Type-container .select2-option").text($("#Type option:selected").text());				
+				
+			},
+			contentType: false,
+			processData: false
+		}
+		$.ajax(ajaxConfig);
+		return false;
+	}
+
+	$("#File").change(function (e) {
+		//var fileName = e.target.files[0].name;
+		//$("#File_name").text(fileName);
+	});
+</script>

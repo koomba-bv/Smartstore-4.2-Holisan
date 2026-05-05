@@ -1,0 +1,10 @@
+﻿FriendlyName: MediaManager
+SystemName: SmartStore.MediaManager
+Description: Powerful explorer for media files
+Group: CMS
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: SmartStore AG
+DisplayOrder: 1
+FileName: SmartStore.MediaManager.dll
+ResourceRootKey: Plugins.MediaManager

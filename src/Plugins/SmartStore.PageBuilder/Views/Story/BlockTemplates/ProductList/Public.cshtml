@@ -1,0 +1,52 @@
+﻿@model ProductListBlock
+
+@using SmartStore.PageBuilder.Blocks;
+
+@{ 
+    if (Model.ProductSummaryModel == null || Model.ProductSummaryModel.PagedList.TotalCount == 0)
+    {
+        return;
+    }
+
+    var containerCssClasses = new List<string> { "g-block-product-list" };
+    var listCssClasses = new List<string> { "artlist" };
+
+    if (Model.ProductListDisplayType == ProductListDisplayType.List)
+    {
+        listCssClasses.Add("artlist-lines");
+    }
+    else if (Model.ProductListDisplayType == ProductListDisplayType.Grid || Model.ProductListDisplayType == ProductListDisplayType.Slider)
+    {
+        listCssClasses.Add("artlist-grid");
+
+        if (Model.BoxedStyleItems)
+        {
+            listCssClasses.Add("artlist-boxed");
+        }
+
+        var colspan = (int)Model.ItemsPerRow;
+        listCssClasses.Add(colspan != 1 ? "artlist-{0}-cols".FormatInvariant(colspan) : "artlist-1-col");
+    }
+
+    if (Model.ProductListDisplayType == ProductListDisplayType.Slider)
+    {
+        containerCssClasses.Add("artlist-carousel");
+    }
+    if (Model.GrayscaleItems)
+    {
+        containerCssClasses.Add("grayscale-items");
+    }
+    if (Model.DisplayBadges)
+    {
+        containerCssClasses.Add("no-badges");
+    }
+}
+
+<div class="@String.Join(" ", containerCssClasses)">
+    <div class="@String.Join(" ", listCssClasses)" data-slides-to-show="@Model.SlideItemsDisplayCount" data-slides-to-scroll="@Model.SlideItemsSlideCount">
+        @foreach (var product in Model.ProductSummaryModel.Items)
+        {
+            Html.RenderPartial("Product.List.Item", product);
+        }
+    </div>
+</div>

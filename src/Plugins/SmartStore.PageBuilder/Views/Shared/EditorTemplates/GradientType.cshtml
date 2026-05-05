@@ -1,0 +1,18 @@
+﻿@model GradientType
+
+@using SmartStore.PageBuilder;
+
+@{
+    var isRadial = Model == GradientType.Radial;
+    var id = Html.IdFor(x => x);
+    var size = GetMetadata<string>("size");
+}
+
+<div class="btn-group btn-group-toggle select-gradient-type d-flex@(size.HasValue() ? " btn-group-" + size : "")" data-toggle="buttons">
+    <label class="btn btn-light w-50@(!isRadial ? " active" : "")">
+        @Html.RadioButtonFor(x => x, nameof(GradientType.Linear)) @T("Plugins.SmartStore.PageBuilder.Overlays.Gradient.Linear")
+    </label>
+    <label class="btn btn-light w-50@(isRadial ? " active" : "")">
+        @Html.RadioButtonFor(x => x, nameof(GradientType.Radial)) @T("Plugins.SmartStore.PageBuilder.Overlays.Gradient.Radial")
+    </label>
+</div>

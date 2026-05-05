@@ -1,0 +1,24 @@
+﻿@model ErrorBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+	if (Model.Exception == null)
+	{
+		return;
+	}
+}
+
+<div class="text-danger">
+	<div>
+		@Model.Exception.Message
+	</div>
+
+	@if (Model.Exception.InnerException != null)
+	{
+		<div class="font-weight-medium mt-3 pb-2">Inner Exception:</div>
+		<pre>
+			@Model.Exception.InnerException
+		</pre>
+	}
+</div>

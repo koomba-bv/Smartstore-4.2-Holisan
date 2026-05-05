@@ -1,0 +1,162 @@
+﻿@using SmartStore.Web.Framework;
+@model SmartStore.MegaMenu.Models.ConfigurationModel
+@{
+    Layout = "";
+}
+	
+@{ Html.RenderAction("StoreScopeConfiguration", "Setting", new { area = "Admin" }); }
+
+<script>
+    $(function () {
+        // Display type
+        var fieldDisplayType = $("#@Html.FieldIdFor(model => model.BrandDisplayType)");
+        fieldDisplayType.on("change", toogleDisplayControls);
+        fieldDisplayType.trigger("change");
+
+        function toogleDisplayControls() {
+            var type = fieldDisplayType.val();
+
+            if (type == "Simple") {
+                $('.simple-display').show();
+                $('.advanced-display').hide();
+            }
+            else {
+                $('.simple-display').hide();
+                $('.advanced-display').show();
+            }
+		}
+    });
+</script>
+
+<div class="plugin-actions">
+    <button type="submit" name="save" class="btn btn-warning" value="save">
+        <i class="fa fa-check"></i>
+		<span>@T("Admin.Common.Save")</span>
+    </button>
+</div>
+
+<div class="alert alert-info">
+    @Html.Raw(@T("Plugins.SmartStore.MegaMenu.AdminInstruction"))
+</div>
+
+@using (Html.BeginForm())
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.IsActive)
+            </td>
+            <td class="adminData">
+				@Html.SettingEditorFor(model => model.IsActive,
+					Html.CheckBoxFor(model => model.IsActive, new { data_toggler_for = "#mega-menu-settings" }))
+                @Html.ValidationMessageFor(model => model.IsActive)
+            </td>
+        </tr>
+	</table>
+	<table id="mega-menu-settings" class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.ProductRotatorCycle)
+            </td>
+            <td class="adminData">
+                @Html.SettingEditorFor(model => model.ProductRotatorCycle,
+					Html.CheckBoxFor(model => model.ProductRotatorCycle, new { data_toggler_for = "#product-rotator" }))
+                @Html.ValidationMessageFor(model => model.ProductRotatorCycle)
+            </td>
+        </tr>
+		<tbody id="product-rotator">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.ProductRotatorDuration)
+				</td>
+				<td class="adminData">
+					@Html.SettingEditorFor(model => model.ProductRotatorDuration)
+					@Html.ValidationMessageFor(model => model.ProductRotatorDuration)
+				</td>
+			</tr>
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.ProductRotatorInterval)
+				</td>
+				<td class="adminData">
+					@Html.SettingEditorFor(model => model.ProductRotatorInterval)
+					@Html.ValidationMessageFor(model => model.ProductRotatorInterval)
+				</td>
+			</tr>
+		</tbody>
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.MenuMinHeight)
+            </td>
+            <td class="adminData">
+                @Html.SettingEditorFor(model => model.MenuMinHeight, null, new { postfix = T("Common.Pixel").Text })
+                @Html.ValidationMessageFor(model => model.MenuMinHeight)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <div class="admin-config-group">
+                    <div class="title">@T("Plugins.SmartStore.MegaMenu.BrandDropdownConfigurationHeading")</div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.DisplayBrandMenu)
+            </td>
+            <td class="adminData">
+                @Html.SettingEditorFor(model => model.DisplayBrandMenu,
+					Html.CheckBoxFor(model => model.DisplayBrandMenu, new { data_toggler_for = ".brand-setting" }))
+                @Html.ValidationMessageFor(model => model.DisplayBrandMenu)
+            </td>
+        </tr>
+        <tr class="brand-setting">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.BrandLinkPlacement)
+            </td>
+			<td class="adminData">
+				@Html.EnumSettingEditorFor(model => model.BrandLinkPlacement)
+				@Html.ValidationMessageFor(model => model.BrandLinkPlacement)
+			</td>
+        </tr>
+        <tr class="brand-setting">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.BrandDisplayType)
+            </td>
+			<td class="adminData">
+				@Html.EnumSettingEditorFor(model => model.BrandDisplayType)
+				@Html.ValidationMessageFor(model => model.BrandDisplayType)
+			</td>
+        </tr>
+
+        <tr class="brand-setting advanced-display">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.BrandSortOrderTextual)
+            </td>
+			<td class="adminData">
+				@Html.EnumSettingEditorFor(model => model.BrandSortOrderTextual)
+				@Html.ValidationMessageFor(model => model.BrandSortOrderTextual)
+			</td>
+        </tr>
+        <tr class="brand-setting">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.BrandSortOrderGraphical)
+            </td>
+            <td class="adminData">
+				@Html.EnumSettingEditorFor(model => model.BrandSortOrderGraphical)
+                @Html.ValidationMessageFor(model => model.BrandSortOrderGraphical)
+            </td>
+        </tr>
+        <tr class="brand-setting simple-display">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.BrandRows)
+            </td>
+            <td class="adminData">
+				@Html.EnumSettingEditorFor(model => model.BrandRows)
+                @Html.ValidationMessageFor(model => model.BrandRows)
+            </td>
+        </tr>
+    </table>
+}

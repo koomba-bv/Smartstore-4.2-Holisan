@@ -1,0 +1,42 @@
+﻿@model ConnectionModel
+@using Telerik.Web.Mvc.UI;
+
+@{
+    Layout = null;
+}
+@if (Model.Id > 0)
+{
+    @(Html.Telerik().Grid<ChainRuleModel>()
+        .Name("ConnectionGrid")
+        .DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+        .Columns(columns =>
+        {
+            columns.Bound(x => x.ExecuteTypeName);
+            //columns.Bound(x => x.CronExpression);
+            columns.Bound(x => x.IsActive).Width(100).ClientTemplate(@Html.SymbolForBool("IsActive")).Centered();
+            columns.Bound(x => x.Id)
+			    .Centered()
+                .Width(150)
+			    .Template(x => Html.ActionLink(T("Admin.Common.Edit").Text, "Edit", new { id = x.Id, connectionId = x.ConnectionId }, new { @class = "t-button" }))
+			    .ClientTemplate("<a href=\"" + Url.Action("Edit") + "?id=<#= Id #>&connectionId=<#= ConnectionId #>\" class=\"t-button\">" + T("Admin.Common.Edit").Text + "</a>")
+			    .Title(String.Empty)
+			    .HtmlAttributes(new { align = "right", @class = "omega" });
+        })
+        .ToolBar(x => x.Custom().Url(Url.Action("Create", "Requirement", new { connectionId = Model.Id })).Text("Create"))
+        .DataBinding(dataBinding => dataBinding
+            .Ajax()
+            .Select("Rule_Read", "Requirement", new { connectionId = Model.Id })
+            .Delete("Rule_Delete", "Requirement")
+        )
+        .EnableCustomBinding(true)
+    )
+}
+else
+{
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @T("Admin.SaveBeforeEdit")
+    </div>
+}

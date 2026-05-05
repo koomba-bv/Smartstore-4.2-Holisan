@@ -1,0 +1,61 @@
+﻿@model Koomba.Mollie.Models.PaymentLinkModel
+@using SmartStore.Web.Framework;
+@{
+    Layout = "_AdminLayout";
+ 
+}
+
+
+<div class="section-header">
+    <div class="title"">
+        <i class="fa-fw fa-fw far fa-credit-card"></i>
+        Generate payment link        
+    </div>
+  
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="adminContent">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.OrderId)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.OrderId)
+                @Html.ValidationMessageFor(model => model.OrderId)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Amount)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.Amount)
+                @Html.ValidationMessageFor(model => model.Amount)
+            </div>
+        </div>
+
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Link)
+            </div>
+            <div class="adminData" style="padding-top:9px;">
+                <textarea disabled class="form-control" value="@Model.Link">@Model.Link</textarea>
+            </div>
+        </div>
+
+        <div class="adminRow">
+            <div class="adminTitle">
+              
+            </div>
+            <div class="adminData">
+                <button type="submit" name="save" value="save" class="btn btn-warning">
+                    <i class="fa fa-check"></i>
+                    <span>Generate Link</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}

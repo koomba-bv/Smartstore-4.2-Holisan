@@ -1,0 +1,175 @@
+﻿@model CategoryListBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+<script>
+    $(function () {
+
+        $("#@Html.FieldIdFor(model => model.CategoryDisplayType)").change(toggleDisplayType);
+
+        toggleDisplayType();
+
+        function toggleDisplayType() {
+            var selectedDisplayType = $("#@Html.FieldIdFor(model => model.CategoryDisplayType)").val();
+            
+            if (selectedDisplayType == 'Grid') {
+                $('.pnlItemsPerRow').show();
+                $('.pnlSlideItemsDisplayCount').hide();
+                $('.pnlSlideItemsSlideCount').hide();
+            }
+            else if (selectedDisplayType == 'Slider') {
+                $('.pnlItemsPerRow').hide();
+                $('.pnlSlideItemsDisplayCount').show();
+                $('.pnlSlideItemsSlideCount').show();
+            }
+        }
+
+        $("#@Html.FieldIdFor(model => model.CategoryPickingType)").change(togglePickingType);
+
+        togglePickingType();
+
+        function togglePickingType() {
+            var selectedPickingType = $("#@Html.FieldIdFor(model => model.CategoryPickingType)").val();
+            
+            if (selectedPickingType == 'Parent') {
+                $('#parent-category-picker').show();
+                $('#explicit-category-picker').hide();
+            }
+            else {
+                $('#parent-category-picker').hide();
+                $('#explicit-category-picker').show();
+            }
+        }
+
+        $("#reset-explicit-categoryids").on("click", function (e) {
+            e.preventDefault();
+            $("#@Html.FieldIdFor(model => model.CategoryIds)").val("");
+        });
+    });
+</script>
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CategoryPickingType)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.CategoryPickingType)
+            @Html.ValidationMessageFor(model => model.CategoryPickingType)
+        </div>
+    </div>
+    <div id="parent-category-picker" class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ParentCategoryId)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(x => x.ParentCategoryId)
+            @Html.ValidationMessageFor(model => model.ParentCategoryId)
+        </div>
+    </div>
+    <div id="explicit-category-picker" class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CategoryIds)
+        </div>
+        <div class="adminData">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.CategoryIds, new { @readonly = "readonly" })
+                <span class="input-group-append">
+                    <a class="btn btn-secondary" id="reset-explicit-categoryids" title="@T("Admin.Common.Reset")">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </span>
+                <span class="input-group-append">
+                    @(Html.SmartStore().EntityPicker()
+                        .For(x => x.CategoryIds)
+                        .MaxItems(100)
+                        .EntityType("category")
+                        .DialogTitle(T("Common.Entity.SelectCategory").Text.EncodeJsString('\'', false))
+                        .Caption(T("Admin.Common.Search").Text.EncodeJsString('\'', false)))
+                </span>
+                @Html.ValidationMessageFor(model => model.CategoryIds)
+            </div>
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CategoryDisplayType)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.CategoryDisplayType)
+            @Html.ValidationMessageFor(model => model.CategoryDisplayType)
+        </div>
+    </div>
+    <div class="adminRow pnlSlideItemsDisplayCount">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SlideItemsDisplayCount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SlideItemsDisplayCount)
+            @Html.ValidationMessageFor(model => model.SlideItemsDisplayCount)
+        </div>
+    </div>
+    <div class="adminRow pnlSlideItemsSlideCount">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SlideItemsSlideCount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SlideItemsSlideCount)
+            @Html.ValidationMessageFor(model => model.SlideItemsSlideCount)
+        </div>
+    </div>
+    <div class="adminRow pnlItemsPerRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ItemsPerRow)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ItemsPerRow)
+            @Html.ValidationMessageFor(model => model.ItemsPerRow)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.MaxItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.MaxItems)
+            @Html.ValidationMessageFor(model => model.MaxItems)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.GrayscaleItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.GrayscaleItems)
+            @Html.ValidationMessageFor(model => model.GrayscaleItems)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.BoxedStyleItems)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.BoxedStyleItems)
+            @Html.ValidationMessageFor(model => model.BoxedStyleItems)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayTitle)
+        </div>
+        <div class="adminData">
+            @Html.CheckBoxFor(model => model.DisplayTitle, new { data_toggler_for = "#pnlTitleDisplayType" })
+            @Html.ValidationMessageFor(model => model.DisplayTitle)
+        </div>
+    </div>
+    <div id="pnlTitleDisplayType" class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TitleDisplayType)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.TitleDisplayType)
+            @Html.ValidationMessageFor(model => model.TitleDisplayType)
+        </div>
+    </div>
+</div>

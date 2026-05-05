@@ -1,0 +1,24 @@
+﻿@model InputFieldModel
+
+@{ 
+    string id = Model.InputId + "Value_" + Model.RuleId;
+}
+
+<tr class="wide">
+    <td class="adminTitle">
+        @Html.SmartLabelFor(model => model.Value)
+    </td>
+    <td class="adminData">
+        <div>
+            <div>               
+                @Html.DropDownListFor(x => x.Value , Model.Fields, "Select Field", new { id = id } )
+            </div>
+        </div>
+    </td>
+</tr>
+
+
+<script>
+    $("#@id").val("@Model.Value");
+   // $("#@id").selectWrapper();
+</script>

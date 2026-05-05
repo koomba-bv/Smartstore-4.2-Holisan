@@ -1,0 +1,51 @@
+﻿@using SmartStore.Web.Models.Catalog;
+@using SmartStore.Collections;
+@using SmartStore.MegaMenu.Models;
+
+@model TreeNode<MenuItem>
+
+@{ 
+	var dropdownModel = Model.GetMetadata<MegaMenuDropdownModel>("MegamenuModel", true);
+	var rows = dropdownModel.BrandRows;
+	var brands = Model.SelectNodes(x => x.Value.ImageUrl.HasValue()).Take(8 * rows - 1);
+}
+
+<div id="dropdown-menu-brand" class="" data-id="brand" data-display-rotator="false">
+    <div class="dropdown-menu mega-menu-dropdown">
+
+        <div class="artlist artlist-grid artlist-8-cols artlist-boxed block-body px-3 pt-3 pb-0 mb-0">
+			@foreach (var node in brands)
+			{
+				@RenderBrand(node);
+			}
+
+            <div class="art show-all-items d-flex p-0">
+                <a href="@Url.RouteUrl("ManufacturerList")" class="show-all-items-link">
+                    <i class="fa fa-ellipsis-h fa-lg"></i>
+                    <span>@T("Homepage.Brands.ShowAll")</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@helper RenderBrand(TreeNode<MenuItem> node)
+{
+	var menuItem = node.Value;
+	var url = menuItem.GenerateUrl(this.Url);
+
+	<article class="art" data-id="@menuItem.EntityId">
+		<div class="art-picture-block">
+			<a class="art-picture img-center-container" href="@url" title="@menuItem.Text">
+				<img src="@menuItem.ImageUrl" alt="@menuItem.Text" />
+			</a>
+		</div>
+
+		<div class="art-genericname">
+			<a href="@url" title="@menuItem.Text">
+				<span @Html.LanguageAttributes(menuItem.Rtl, WorkContext.WorkingLanguage)>@menuItem.Text</span>
+			</a>
+		</div>
+	</article>
+}

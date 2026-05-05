@@ -1,0 +1,10 @@
+﻿FriendlyName: Mollie
+SystemName: Koomba.Mollie
+Group: Payment
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: KOOMBA
+DisplayOrder: 1
+FileName: Koomba.Mollie.dll
+ResourceRootKey: Plugins.Koomba.Mollie
+Url: 

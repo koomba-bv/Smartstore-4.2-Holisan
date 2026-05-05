@@ -1,0 +1,151 @@
+﻿@model HtmlBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+}
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteTitle)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteTitle)
+        @Html.ValidationMessageFor(model => model.OverwriteTitle)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteTagline)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteTagline)
+        @Html.ValidationMessageFor(model => model.OverwriteTagline)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteSubtitle)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteSubtitle)
+        @Html.ValidationMessageFor(model => model.OverwriteSubtitle)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteBody)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteBody)
+        @Html.ValidationMessageFor(model => model.OverwriteBody)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteButtonTarget)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteButtonTarget)
+        @Html.ValidationMessageFor(model => model.OverwriteButtonTarget)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OverwriteLinkTarget)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.OverwriteLinkTarget)
+        @Html.ValidationMessageFor(model => model.OverwriteLinkTarget)
+    </div>
+</div>
+
+<script>
+    function applyDataBinding(mapping) {
+
+        for (var i = 0; mapping.Map.length > i; i++) {
+            var map = mapping.Map[i];
+
+            // Check corresponding setting before overwriting values
+            switch (map.FieldName) {
+                case 'Title':
+                    var overwriteTitle = $('#@Html.FieldIdFor(model => model.OverwriteTitle)').is(':checked');
+                    if (overwriteTitle) 
+                        overwriteField(map);
+                    break;
+                case 'TagLine':
+                    var overwriteTagline = $('#@Html.FieldIdFor(model => model.OverwriteTagline)').is(':checked');
+                    if (overwriteTagline) 
+                        overwriteField(map);
+                    break;
+                case 'SubTitle':
+                    var overwriteSubtitle = $('#@Html.FieldIdFor(model => model.OverwriteSubtitle)').is(':checked');
+                    if (overwriteSubtitle) 
+                        overwriteField(map);
+                    break;
+                case 'Body':
+                    var overwriteBody = $('#@Html.FieldIdFor(model => model.OverwriteBody)').is(':checked');
+                    if (overwriteBody) {
+                        overwriteField(map);
+
+                        // reinit html editor
+						var ctrl = $("#Block_" + map.FieldName).val(map.Template);
+                        if (ctrl.hasClass("summernote-editor")) {
+
+                            var preview = ctrl.parent().find(".note-editor-preview");
+
+                            if (preview.length > 0) {
+                                // if editor is preview
+                                preview.html(map.Template);
+                                preview.removeClass("empty");
+                            }
+                            else {
+                                // if editor is expanded
+                                ctrl.summernote('code', map.Template);
+                            }
+                        }
+                    }
+                    break;
+                case 'ButtonLink':
+                    var overwriteButton = $('#@Html.FieldIdFor(model => model.OverwriteButtonTarget)').is(':checked');
+                    if (overwriteButton) {
+                        
+                        // activate button display
+                        var isActive = $("#Block_IsButtonActive").is(':checked');
+                        if (!isActive) 
+                            $("label[for='Block_IsButtonActive']").trigger("click");
+                        
+                        // write button text if empty
+                        var ctrlBtnText = $("#Block_ButtonText");
+                        if (ctrlBtnText.val() == "") 
+                            ctrlBtnText.val(@T("Plugins.SmartStore.PageBuilder.Html.DefaultButtonText").JsText);
+                        
+                        // overwrite link value & set link type to url
+						var cntCtrl = $("#Block_" + map.FieldName).val(map.Template).parent();
+                        cntCtrl.find(".link-type[data-type='url']").trigger("click");
+                        cntCtrl.find(".link-control[data-type='url'] input").val(map.Template);
+                    }
+                    break;
+                case 'LinkHref':
+                    var overwriteLinkTarget = $('#@Html.FieldIdFor(model => model.OverwriteLinkTarget)').is(':checked');
+                    if (overwriteLinkTarget) {
+                        var cntCtrl = $("#" + map.FieldName).val(map.Template).parent();
+                        cntCtrl.find(".link-type[data-type='url']").trigger("click");
+                        cntCtrl.find(".link-control[data-type='url'] input").val(map.Template);
+                    }
+                    break;
+                default:
+            }            
+        }
+    }
+
+    function overwriteField(map) {
+		$("#Block_" + map.FieldName).val(map.Template);
+        // clear all localized values
+        $(".locale-editor-content").not(':first').each(function (e) {
+            var $el = $(this);
+			$el.find("[id$='" + map.FieldName + "']").val("");
+        });
+    }
+
+</script>

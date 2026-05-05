@@ -1,0 +1,89 @@
+﻿@model SmartStore.HtmlForms.Domain.HtmlFormControlRecord
+@using SmartStore.Core;
+@using SmartStore.Core.Infrastructure;
+@using SmartStore.Utilities;
+@using SmartStore.Services.Localization;
+@{
+	Layout = "";
+	var storeUrl = EngineContext.Current.Resolve<IWebHelper>().GetStoreLocation(false);
+	var clientId = "upload" + CommonHelper.GenerateRandomInteger();
+	var containerId = clientId + "container";
+	var controlId = Model.ControlId;
+	var uploadedFileGuid = new Guid();
+	var fileName = String.Empty;
+}
+
+<div id="@containerId" class="w-100">
+	<div class="fu-container">
+		<div class="dropzone-container">
+			<div class="fu-thumb fu-filename rounded" @*data-current-filename="@(Model.UploadedFileName)"*@></div>
+			<input id="@(controlId)" name="@(controlId)" type="hidden" class="hidden" data-fileupload="true"
+				   data-val="@Model.IsMandatory.ToString().ToLower()" data-val-required="@Model.GetLocalized(x => x.MandatoryValidationMessage)" />
+			<div class="fu-controls">
+				@(Html.SmartStore().FileUploader()
+					.Name(clientId)
+					.UploadUrl(Url.Action("UploadFile", "HtmlForms", new { area = "ObjectCreator.Forms", maxSize = Model.FileUploadMaxSize }))
+					.ShowBrowseMedia(false)
+					.TypeFilter(Model.FileUploadTypes.HasValue() ? Model.FileUploadTypes : ".png")
+					.ShowBrowseMedia(false)
+					//.ShowRemoveButton(Model.UploadedFileGuid.HasValue())
+					.ShowRemoveButtonAfterUpload(true)
+					.UploadText(T("Common.FileUploader.Upload"))
+					.OnUploadCompletedHandlerName("onFileUploaded" + clientId)
+					.OnFileRemoveHandlerName("onFileRemoved" + clientId)
+					.Multifile(false)
+                    .HasTemplatePreview(true)
+                    .DownloadEnabled(true)
+				)
+			</div>
+		</div>
+
+		<div class="fu-progress">
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>
+		</div>
+	</div>
+
+	@*<div class="uploaded-file mt-2 hide"></div>*@
+</div>
+
+<script type="text/javascript">
+
+	window['onCompleted@(clientId)'] = function (e, el, data) {
+		var result = data.result;
+		if (!result.success) {
+			displayNotification(result.message, "error");
+		}
+	};
+
+	window['onFileUploaded@(clientId)'] = function (file, result, progress) {
+		
+		if (result.downloadGuid) {
+			setUploadedFile(result.downloadGuid, file.name, "@(containerId)");
+		}
+
+		if (result.success) {
+			displayNotification(result.message, "success");
+		}
+		else {
+			displayNotification(result.message, "error");
+		}
+	};
+
+	window['onFileRemoved@(clientId)'] = function (e, el) {
+		$('#@containerId .hidden').val('').trigger("change");
+		//$('#@containerId .uploaded-file').empty().hide();
+	}
+
+    function setUploadedFile(downloadGuid, fileName, containerId) {
+        if (!_.isEmpty(downloadGuid) && downloadGuid !== '0') {
+            $('#' + containerId + ' .hidden').val(downloadGuid);
+
+        	var downloadLink = "@storeUrl" + "download/getfileupload/?downloadId=" + downloadGuid;
+        	var fileLink = '<a href="' + downloadLink + '" class="fileuploadattribute" rel="nofollow">' + fileName + '</a>';
+
+            $('#' + containerId + ' .fu-message').html(fileLink);
+        }
+    }
+</script>

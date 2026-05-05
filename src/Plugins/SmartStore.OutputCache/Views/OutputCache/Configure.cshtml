@@ -1,0 +1,450 @@
+﻿@model SmartStore.OutputCache.Settings.OutputCacheSettings
+
+@using SmartStore.Web.Framework;
+@using Telerik.Web.Mvc.UI;
+@using SmartStore.OutputCache;
+@using SmartStore.Core.Caching;
+
+<div class="plugin-actions">
+    <button id="SaveConfigButton" type="submit" name="save" class="btn btn-warning" value="save">
+        <i class="fa fa-check"></i>
+		<span>@T("Admin.Common.Save")</span>
+    </button>
+</div>
+
+@(Html.SmartStore().TabStrip().Name("generalsettings-edit").Style(TabsStyle.Material).Position(TabsPosition.Top).Items(x =>
+{
+    x.Add().Text(T("Common.General").Text).Content(@TabGeneral()).Selected(true);
+    x.Add().Text(T("Plugins.OutputCache.Stats").Text).Content(@TabStatistics());
+}))
+
+@helper TabGeneral()
+{
+    var availableProviders = (IEnumerable<SelectListItem>)ViewBag.AvailableProviders;
+    Html.RenderAction("StoreScopeConfiguration", "Setting", new { area = "Admin" });
+        
+    <form method="POST" action="@Url.Action("ConfigurePlugin", "Plugin", new { area = "Admin", systemName = "SmartStore.OutputCache" })" novalidate="novalidate">
+        <table class="adminContent">
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.IsEnabled)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.IsEnabled)
+                    @Html.ValidationMessageFor(model => model.IsEnabled)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.ProviderSystemName)
+                </td>
+                <td class="adminData">
+					@Html.SettingEditorFor(model => model.ProviderSystemName, Html.DropDownListFor(model => model.ProviderSystemName, availableProviders))
+                    @Html.ValidationMessageFor(model => model.ProviderSystemName)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.DefaultCacheDuration)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.DefaultCacheDuration, null, new { postfix = T("Time.Seconds").Text })
+                    @Html.ValidationMessageFor(model => model.DefaultCacheDuration)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.AutomaticInvalidationEnabled)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.AutomaticInvalidationEnabled)
+                    @Html.ValidationMessageFor(model => model.AutomaticInvalidationEnabled)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.CacheAuthenticatedRequests)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.CacheAuthenticatedRequests)
+                    @Html.ValidationMessageFor(model => model.CacheAuthenticatedRequests)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.IgnoreNoCache)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.IgnoreNoCache)
+                    @Html.ValidationMessageFor(model => model.IgnoreNoCache)
+                </td>
+            </tr>
+            <tr>
+                <td class="adminTitle">
+                    @Html.SmartLabelFor(model => model.DebugMode)
+                </td>
+                <td class="adminData">
+                    @Html.SettingEditorFor(model => model.DebugMode)
+                    @Html.ValidationMessageFor(model => model.DebugMode)
+                </td>
+            </tr>
+        </table>
+    </form>
+
+	<div class="admin-config-group">
+		<div class="head">@T("Plugins.OutputCache.Routes")</div>
+	</div>
+
+    <div class="alert alert-warning alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+        @Html.Raw(@T("Plugins.OutputCache.AdminInstruction"))
+    </div>
+
+    @(Html.Telerik().Grid<CacheableRoute>()
+		.Name("cacheable-route-grid")
+		.DataKeys(x =>
+		{
+			x.Add(y => y.Route).RouteKey("Route");
+		})
+		.ToolBar(commands =>
+		{
+			commands.SubmitChanges();
+			commands.Custom()
+				.Text(T("Plugins.OutputCache.AddRoute"))
+				.Name("add-route")
+				.HtmlAttributes(new { href = "#addrecord-window", id = "addrecord-button", data_toggle = "modal", @class = "btn btn-primary" });
+		})
+		.Columns(columns =>
+		{
+			columns.Bound(x => x.Route)
+				.ReadOnly()
+				.Title(T("Plugins.OutputCache.Route"))
+				.ClientTemplate("<#= Route #>");
+
+			columns.Bound(x => x.Duration)
+				.Width(320)
+				.Title(T("Plugins.OutputCache.Duration"));
+
+			columns.Bound(x => x.Route)
+				.Title("")
+				.ReadOnly()
+				.Centered()
+				.Width(150)
+				.ClientTemplate("<a href='#' data-route-name='<#= encodeURIComponent(Route) #>' title='"
+					+ T("Plugins.OutputCache.InvalidateRouteItems").Text.FormatInvariant("<#= Route #>") + "' data-toggle='tooltip' class='btn btn-secondary invalidate-route'><i class='fa fa-recycle'></i><span>" + T("Plugins.OutputCache.Button.InvalidateRoute") + "</span></a>"
+					+ "<a href='#' data-route-name='<#= encodeURIComponent(Route) #>' title='"
+					+ T("Plugins.OutputCache.DeleteRoute").Text.FormatInvariant("<#= Route #>") + "' data-toggle='tooltip' class='btn btn-danger delete-route-record ml-1'><i class='far fa-trash-alt'></i><span>" + T("Plugins.OutputCache.Button.DeleteRoute") + "</span></a>");
+		})
+		.DataBinding(dataBinding =>
+			dataBinding.Ajax()
+				.Select("AllRoutesSelect", "OutputCache")
+				.Update("AllRoutestSave", "OutputCache")
+				.Insert("RouteItemInsert", "OutputCache")
+		)
+		.Editable(editing => editing.Mode(GridEditMode.InCell))
+		.ClientEvents(events => events.OnDataBound("onRouteDataBound"))
+		.EnableCustomBinding(true)
+		.PreserveGridState())
+
+
+Html.SmartStore().Window()
+   .Name("addrecord-window")
+   .Title(T("Plugins.OutputCache.AddRoute"))
+   .Content(
+        @<text>
+            <table class="adminContent">
+                <tr>
+                    <td class="adminTitle">
+						@Html.SmartLabel("route-name", T("Plugins.OutputCache.Route"))
+                    </td>
+                    <td class="adminData">
+						@Html.TextBox("route-name", "")
+                    </td>
+                </tr>
+                <tr>
+                    <td class="adminTitle">
+						@Html.SmartLabel("route-duration", T("Plugins.OutputCache.Duration"))
+                    </td>
+                    <td class="adminData">
+						@Html.TextBox("route-duration", "")
+                    </td>
+                </tr>
+            </table>
+        </text>)
+    .FooterContent(
+        @<text>
+            <button type="button" class="btn btn-secondary btn-flat" data-dismiss="modal">
+				<span>@T("Admin.Common.Cancel")</span>
+			</button>
+			<button id="add-route-record" type="button" class="btn btn-primary">
+				<i class="fa fa-plus"></i>
+				<span>@T("Common.AddNew")</span>
+			</button>
+        </text>)
+	.Render();
+	
+    <form method="POST" action="@Url.Action("InvalidateByTag", "OutputCache", new { area = "SmartStore.OutputCache" })" novalidate="novalidate">
+        <table class="adminContent">
+			<tr>
+				<td colspan="2">
+					<div class="admin-config-group">
+						<div class="title">@T("Plugins.OutputCache.Invalidation")</div>
+						<div class="text-muted">
+							@Html.Raw(@T("Plugins.OutputCache.AdminInstruction.InvalidateTag"))
+						</div>
+					</div>
+				</td>
+			</tr>
+            <tr>
+                <td class="adminTitle">
+					@Html.SmartLabel("tag-name", T("Plugins.OutputCache.TagName"))
+                </td>
+                <td class="adminData">
+					@Html.TextBox("tag-name", "")
+                </td>
+            </tr>
+			<tr>
+                <td class="adminTitle">&nbsp;</td>
+                <td class="adminData">
+					<button type="submit" class="btn btn-danger">
+						<i class='fa fa-recycle'></i>
+						<span>@T("Plugins.OutputCache.Button.InvalidateTag")</span>
+					</button>
+                </td>
+			</tr>
+        </table>
+    </form>
+}
+
+@helper OutputCacheItemGridCommands(Grid<OutputCacheItem> grid)
+{
+	<button type="submit" id="delete-selected" class="btn btn-secondary">
+		<i class="far fa-trash-alt"></i>
+		<span>@T("Admin.Common.DeleteSelected")</span>
+	</button>
+	<a class="btn btn-danger" href="@Url.Action("DeleteAll", "OutputCache", new { area = "SmartStore.OutputCache" })" onclick='return confirm(@T("Admin.Common.AreYouSure").JsText);'>
+		<i class="far fa-trash-alt"></i>
+		<span>@T("Plugins.OutputCache.DeleteAllItems")</span>
+	</a>
+}
+
+
+@helper TabStatistics()
+{
+	<div>
+		@(Html.Telerik().Grid<OutputCacheItem>()
+				.Name("cacheitem-grid")
+				.ClientEvents(events => events.OnDataBound("onDataBound"))
+				.DataKeys(x =>
+				{
+					x.Add(y => y.CacheKey).RouteKey("CacheKey");
+				})
+				.Columns(columns =>
+				{
+					columns.Bound(x => x.CacheKey)
+						.ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= CacheKey #>' class='checkboxGroups'/>")
+						.Title("<input id='mastercheckbox' type='checkbox'/>")
+						.Width(50)
+						.HtmlAttributes(new { style = "text-align:center" })
+						.HeaderHtmlAttributes(new { style = "text-align:center" });
+
+					columns.Bound(x => x.CacheKey)
+						.ClientTemplate("<a href='" + Url.Action("ItemDetails", "OutputCache", new { area = "SmartStore.OutputCache" }) + "?cacheKey=<#= encodeURIComponent(CacheKey) #>'><#= CacheKey #></a>");
+					//.ClientTemplate("<a href='../../OutputCache/ItemDetails?cacheKey=<#= encodeURIComponent(CacheKey) #>'><#= CacheKey #></a>");
+
+					columns.Bound(x => x.CachedOnUtc)
+						.Title(T("Plugins.OutputCache.Item.CachedOnUtc"));
+					columns.Bound(x => x.ExpiresOnUtc)
+						.Title(T("Plugins.OutputCache.Item.ExpiresOnUtc"));
+					columns.Bound(x => x.Theme)
+						.Title(T("Plugins.OutputCache.Item.Theme"));
+					columns.Bound(x => x.StoreId)
+						.Title(T("Plugins.OutputCache.Item.StoreId"));
+					columns.Bound(x => x.LanguageId)
+						.Title(T("Plugins.OutputCache.Item.LanguageId"));
+					columns.Bound(x => x.CurrencyId)
+						.Title(T("Plugins.OutputCache.Item.CurrencyId"));
+
+					//columns.Bound(x => x.CacheKey)
+					//    .ClientTemplate("<a href='ItemDetails?cacheKey=<#= encodeURIComponent(CacheKey) #>'><i class='fa-icon'></i></a>");
+
+				})
+				.Pageable(settings => settings.PageSize(100).Position(GridPagerPosition.Both))
+				.DataBinding(dataBinding => dataBinding.Ajax().Select("ItemList", "OutputCache"))
+				.EnableCustomBinding(true)
+				.ToolBar(commands => commands.Template(OutputCacheItemGridCommands))
+				.PreserveGridState())
+	</div>
+}
+
+<script>
+    var selectedIds = [];
+
+    $(function () {
+        // Add route record.
+        $('#add-route-record').click(function (e) {
+			var dialog = $('#addrecord-window');
+			dialog.modal('toggle');
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("AddNewRoute", "OutputCache", new { area = "SmartStore.OutputCache" }))",
+                data: {
+                    routeName: dialog.find("#route-name").val(),
+                    routeDuration: dialog.find("#route-duration").val()
+                },
+                complete: function (data) {
+                    var grid = $('#cacheable-route-grid').data('tGrid');
+                    //grid.currentPage = 1; //new search. Set page size to 1
+                    grid.ajaxRequest();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                },
+                traditional: true
+            });
+
+            return false;
+        });
+
+        // "Delete selected" button.
+        $('#delete-selected').click(function (e) {
+
+            var postData = {
+                selectedIds: selectedIds
+            };
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("DeleteSelected", "OutputCache", new { area = "SmartStore.OutputCache" }))",
+                data: postData,
+                complete: function (data) {
+                    //reload grid
+                    var grid = $('#cacheitem-grid').data('tGrid');
+                    grid.currentPage = 1; //new search. Set page size to 1
+                    grid.ajaxRequest();
+                    //clear selected checkboxes
+                    $('.checkboxGroups').attr('checked', false).change();
+                    selectedIds = [];
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                },
+                traditional: true
+            });
+            return false;
+        });
+
+        $('#mastercheckbox').click(function () {
+            $('.checkboxGroups').attr('checked', $(this).is(':checked')).change();
+        });
+
+        //wire up checkboxes.
+        $(document).on('change', '#cacheitem-grid input[type=checkbox][id!=mastercheckbox]', function (e) {
+            var $check = $(this);
+            if ($check.is(":checked") == true) {
+                var checked = jQuery.inArray($check.val(), selectedIds);
+                if (checked == -1) {
+                    //add id to selectedIds.
+                    selectedIds.push($check.val());
+                }
+            }
+            else {
+                var checked = jQuery.inArray($check.val(), selectedIds);
+                if (checked > -1) {
+                    //remove id from selectedIds.
+                    selectedIds = $.grep(selectedIds, function (item, index) {
+                        return item != $check.val();
+                    });
+                }
+            }
+            updateMasterCheckbox();
+        });
+    });
+
+    function onDataBound(e) {
+
+        $('#cacheitem-grid input[type=checkbox][id!=mastercheckbox]').each(function () {
+            var currentId = $(this).val();
+            var checked = jQuery.inArray(currentId, selectedIds);
+            //set checked based on if current checkbox's value is in selectedIds.
+            $(this).attr('checked', checked > -1);
+        });
+
+        updateMasterCheckbox();
+    }
+
+    function updateMasterCheckbox() {
+        var numChkBoxes = $('#cacheitem-grid input[type=checkbox][id!=mastercheckbox]').length;
+        var numChkBoxesChecked = $('#cacheitem-grid input[type=checkbox][checked][id!=mastercheckbox]').length;
+        $('#mastercheckbox').attr('checked', numChkBoxes == numChkBoxesChecked && numChkBoxes > 0);
+    }
+
+    function onRouteDataBound() {
+
+        $('.invalidate-route').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("InvalidateRoute", "OutputCache", new { area = "SmartStore.OutputCache" }))",
+                data: { route: $(this).data('route-name') },
+                complete: function (data) {
+                    var grid = $('#cacheable-route-grid').data('tGrid');
+                    grid.ajaxRequest();
+
+                    var retData = JSON.parse(data.responseText);
+
+                    if (retData.success == true) {
+                        displayNotification(retData.retMsg, "success");
+                    }
+                    else {
+                        displayNotification(retData.retMsg, "error");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                },
+                traditional: true
+            });
+
+            return false;
+        });
+
+        $('.delete-route-record').on('click', function (e) {
+            e.preventDefault();
+
+            var confirmed = confirm(@T("Admin.Common.AreYouSure").JsText);
+            if (confirmed == false) return;
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.Action("DeleteRoute", "OutputCache", new { area = "SmartStore.OutputCache" }))",
+                data: { route: $(this).data('route-name') },
+                complete: function (data) {
+                    var grid = $('#cacheable-route-grid').data('tGrid');
+                    grid.ajaxRequest();
+
+                    var retData = JSON.parse(data.responseText);
+
+                    if (retData.success == true) {
+                        displayNotification(retData.retMsg, "success");
+                    }
+                    else {
+                        displayNotification(retData.retMsg, "error");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                },
+                traditional: true
+            });
+
+            return false;
+        });
+    }
+</script>

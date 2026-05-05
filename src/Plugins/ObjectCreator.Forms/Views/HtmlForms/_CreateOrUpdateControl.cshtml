@@ -1,0 +1,536 @@
+﻿@model FormControlDetailsModel
+@using SmartStore.Web.Framework;
+@using SmartStore.HtmlForms.Models;
+@using SmartStore.HtmlForms.Domain;
+
+@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title =  T("Plugins.SmartStore.Forms.ControlDetails").Text + ":" + Model.Name.Truncate(60, "...");
+}
+
+@using (Html.BeginForm())
+{
+	<div class="section-header">
+		<div class="title">
+			<i class="fa fa-link"></i>
+			@T("Plugins.SmartStore.Forms.ControlDetails"): <span title="@Model.Name">@Model.Name.Truncate(60, "...")</span>
+			<a href="@Url.Action("Edit", "HtmlForms", new { id = Model.FormId, area = "ObjectCreator.Forms" })">(@T("Admin.Common.BackToList"))</a>
+		</div>
+		<div class="options">
+			<button id="save-control" type="submit" name="save" class="btn btn-warning" value="save">
+				<i class="fa fa-check"></i>
+				<span>@T("Admin.Common.Save")</span>
+			</button>
+			@if(Model.Id != 0)
+			{ 
+				<a href="@Url.Action("DeleteControl", "HtmlForms", new { id = Model.Id, area = "ObjectCreator.Forms" })" id="delete-single" name="delete-single" value="delete_single" class="btn btn-danger btn-to-danger" style="color:#fff">
+					<i class="fa fa-trash-o"></i>
+					<span>@T("Admin.Common.Delete")</span>
+				</a>
+			}
+		</div>
+	</div>
+
+	<script>
+		$(function () {
+		
+			$("#@Html.FieldIdFor(model => model.ElementType)").on("change", toogleElementTypeControls);
+			$("#@Html.FieldIdFor(model => model.InputType)").on("change", toogleInputTypeControls);
+			$("#@Html.FieldIdFor(model => model.IsMandatory)").on("click", toogleValidationMessage);
+
+			function toogleValidationMessage() {
+				var validate = $("#@Html.FieldIdFor(model => model.IsMandatory):checked").val();
+
+				if (validate == "true") {
+					$("#form-control-localized-mandatory").closest(".locale-editor").show();
+				}
+				else {
+					$("#form-control-localized-mandatory").closest(".locale-editor").hide();
+				}
+			}
+
+			function toogleInputTypeControls() {
+				var type = $("#@Html.FieldIdFor(model => model.InputType)").val();
+				switch (type)
+				{
+					case "Radio":
+						$('.elemOptions').show();
+						break;
+					default:
+				}
+			}
+
+			function toogleElementTypeControls() {
+				var type = $("#@Html.FieldIdFor(model => model.ElementType)").val();
+
+				switch (type)
+				{
+					case "Caption":
+						$('.elemInputType').hide();
+						$('.elemCaption').show();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemValue').hide();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemIsMandatory').hide();
+						$('.elemMessageTokenName').hide();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						$("#form-control-localized-mandatory").closest(".locale-editor").hide();
+						break;
+					case "InfoBox":
+						$('.elemInputType').hide();
+						$('.elemCaption').show();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemValue').hide();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemIsMandatory').hide();
+						$('.elemMessageTokenName').hide();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').show();
+						$('.elemInfoBoxText').show();
+						$('.pnlDate').hide();
+						$("#form-control-localized-mandatory").closest(".locale-editor").hide();
+						break;
+					case "Input":
+						$('.elemInputType').show();
+						$('.elemCaption').show();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').show();
+						$('.elemIsVisible').show();
+						$('.elemIsEnabled').show();
+						$('.elemIsMandatory').show();
+						$('.elemMandatoryValidationMessage').show();
+						$('.elemMessageTokenName').show();
+						$('.elemIconClass').show();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						break;
+					case "Select":
+						$('.elemInputType').hide();
+						$('.elemCaption').show();
+						$('.elemOptions').show();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemIsMandatory').show();
+						$('.elemMandatoryValidationMessage').show();
+						$('.elemMessageTokenName').show();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						break;
+					case "TextArea":
+						$('.elemInputType').hide();
+						$('.elemCaption').show();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').show();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemIsMandatory').show();
+						$('.elemMandatoryValidationMessage').show();
+						$('.elemMessageTokenName').show();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						break;
+					case "FileUpload":
+						$('.elemInputType').hide();
+						$('.elemCaption').show();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemValue').hide();
+						$('.elemIsMandatory').show();
+						$('.elemMandatoryValidationMessage').show();
+						$('.elemMessageTokenName').show();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').show();
+						$('.elemFileUploadTypes').show();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						break;
+					case "Button":
+						$('.elemInputType').hide();
+						$('.elemCaption').hide();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').hide();
+						$('.elemIsMandatory').hide();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemMessageTokenName').hide();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemIconClass').show();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.pnlDate').hide();
+						break;
+					case "Date":
+						$('.elemInputType').hide();
+						$('.elemCaption').hide();
+						$('.elemOptions').hide();
+						$('.elemPlaceholder').hide();
+						$('.elemIsVisible').hide();
+						$('.elemIsEnabled').show();
+						$('.elemIsMandatory').hide();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemMessageTokenName').show();
+						$('.elemMandatoryValidationMessage').hide();
+						$('.elemIconClass').hide();
+						$('.elemFileUploadMaxSize').hide();
+						$('.elemFileUploadTypes').hide();
+						$('.elemInfoBoxType').hide();
+						$('.elemInfoBoxText').hide();
+						$('.elemValue').hide();
+						$('.pnlDate').show();
+						break;
+					default:
+						// input
+				}
+			}
+
+			toogleElementTypeControls();
+			toogleInputTypeControls();
+			toogleValidationMessage();
+		});
+	</script>
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.FormId)
+
+	<table class="adminContent">
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsActive)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.IsActive)
+				@Html.ValidationMessageFor(model => model.IsActive)
+			</td>
+		</tr>
+		<tr class="pnlReplacementData">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ControlId)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.ControlId)
+				@Html.ValidationMessageFor(model => model.ControlId)
+			</td>
+		</tr>
+		<tr>
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.ElementType)
+			</td>
+			<td class="adminData">
+				@Html.DropDownListForEnum(model => model.ElementType)
+				@Html.ValidationMessageFor(model => model.ElementType)
+			</td>
+		</tr>
+		<tr class="elemInputType pnlWidgetZone">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.InputType)
+			</td>
+			<td class="adminData">
+				@Html.DropDownListForEnum(model => model.InputType)
+				@Html.ValidationMessageFor(model => model.InputType)
+			</td>
+		</tr>
+		<tr class="elemName pnlReplacementData">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.Name)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
+			</td>
+		</tr>
+		<tr class="elemName elemInfoBoxType">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.InfoBoxType)
+			</td>
+			<td class="adminData">
+				@Html.DropDownListForEnum(model => model.InfoBoxType)
+				@Html.ValidationMessageFor(model => model.InfoBoxType)
+			</td>
+		</tr>
+		<tbody class="pnlDate">
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.DisplayCurrentDate)
+				</td>
+				<td class="adminData">
+					@Html.CheckBoxFor(m => m.DisplayCurrentDate, new { data_toggler_for = ".pnlDateValues", data_toggler_reverse = true })
+					@Html.ValidationMessageFor(model => model.DisplayCurrentDate)
+				</td>
+			</tr>
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.BeginYear)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.BeginYear)
+					@Html.ValidationMessageFor(model => model.BeginYear)
+				</td>
+			</tr>
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.EndYear)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.EndYear)
+					@Html.ValidationMessageFor(model => model.EndYear)
+				</td>
+			</tr>
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.SelectedDay)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.SelectedDay)
+					@Html.ValidationMessageFor(model => model.SelectedDay)
+				</td>
+			</tr>
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.SelectedMonth)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.SelectedMonth)
+					@Html.ValidationMessageFor(model => model.SelectedMonth)
+				</td>
+			</tr>
+			<tr class="elemName">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.SelectedYear)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.SelectedYear)
+					@Html.ValidationMessageFor(model => model.SelectedYear)
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	@(Html.LocalizedEditor<FormControlDetailsModel, FormControlDetailsLocalizedModel>("form-control-localized",
+		@<table class="adminContent">
+			<tr class="elemCaption pnlReplacementData">
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Locales[item].Caption)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.Locales[item].Caption)
+					@Html.ValidationMessageFor(model => model.Locales[item].Caption)
+					@Html.HiddenFor(model => model.Locales[item].LanguageId)
+				</td>
+			</tr>
+		 	<tr class="elemOptions">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.Locales[item].Options)
+		 		</td>
+		 		<td class="adminData">
+		 			@Html.ListBoxFor(model => model.Locales[item].Options, Model.Locales[item].AvailableOptions, new { multiple = "multiple", data_tags = "true" })
+				</td>
+			</tr>
+		 	<tr class="elemPlaceholder">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.Locales[item].Placeholder)
+		 		</td>
+		 		<td class="adminData">
+		 			@Html.EditorFor(model => model.Locales[item].Placeholder)
+		 			@Html.ValidationMessageFor(model => model.Locales[item].Placeholder)
+				 </td>
+			 </tr>
+			 <tr class="elemInfoBoxText">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.Locales[item].InfoBoxText)
+		 		</td>
+		 		<td class="adminData wide">
+		 			@Html.EditorFor(model => model.Locales[item].InfoBoxText, "Html")
+		 			@Html.ValidationMessageFor(model => model.Locales[item].InfoBoxText)
+				 </td>
+			 </tr>
+		</table>
+		,
+		@<table class="adminContent">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Caption)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.Caption)
+					@Html.ValidationMessageFor(model => model.Caption)
+				</td>
+			</tr>
+		 	<tr class="elemOptions">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.Options)
+		 		</td>
+		 		<td class="adminData">
+		 			@Html.ListBoxFor(model => model.Options, Model.AvailableOptions, new { multiple = "multiple", data_tags = "true" })
+				</td>
+			 </tr>
+			 <tr class="elemPlaceholder">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.Placeholder)
+		 		</td>
+		 		<td class="adminData">
+		 			@Html.EditorFor(model => model.Placeholder)
+		 			@Html.ValidationMessageFor(model => model.Placeholder)
+				 </td>
+			 </tr>
+			 <tr class="elemInfoBoxText">
+		 		<td class="adminTitle">
+		 			@Html.SmartLabelFor(model => model.InfoBoxText)
+		 		</td>
+		 		<td class="adminData wide">
+		 			@Html.EditorFor(model => model.InfoBoxText, "Html")
+		 			@Html.ValidationMessageFor(model => model.InfoBoxText)
+				 </td>
+			 </tr>
+		</table>
+	))
+
+	<table class="adminContent">
+		<tr class="elemValue">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.Value)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.Value)
+				@Html.ValidationMessageFor(model => model.Value)
+			</td>
+		</tr>
+		<tr class="elemIsVisible">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsVisible)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.IsVisible)
+				@Html.ValidationMessageFor(model => model.IsVisible)
+			</td>
+		</tr>
+		<tr class="elemIsEnabled">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsEnabled)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.IsEnabled)
+				@Html.ValidationMessageFor(model => model.IsEnabled)
+			</td>
+		</tr>
+		<tr class="elemIsMandatory">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.IsMandatory)
+			</td>
+			<td class="adminData">
+				@Html.CheckBoxFor(m => m.IsMandatory, new { data_toggler_for = ".elemMandatoryValidationMessage" })
+				@Html.ValidationMessageFor(model => model.IsMandatory)
+			</td>
+		</tr>
+	</table>
+	@(Html.LocalizedEditor<FormControlDetailsModel, FormControlDetailsLocalizedModel>("form-control-localized-mandatory",
+		@<table class="adminContent">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.Locales[item].MandatoryValidationMessage)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.Locales[item].MandatoryValidationMessage)
+					@Html.ValidationMessageFor(model => model.Locales[item].MandatoryValidationMessage)
+					@Html.HiddenFor(model => model.Locales[item].LanguageId)
+				</td>
+			</tr>
+		</table>
+		,
+		@<table class="adminContent">
+			<tr>
+				<td class="adminTitle">
+					@Html.SmartLabelFor(model => model.MandatoryValidationMessage)
+				</td>
+				<td class="adminData">
+					@Html.EditorFor(model => model.MandatoryValidationMessage)
+					@Html.ValidationMessageFor(model => model.MandatoryValidationMessage)
+				</td>
+			</tr>
+		</table>
+	))
+	<table class="adminContent">
+		<tr class="elemMessageTokenName">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.MessageTokenName)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.MessageTokenName)
+				@Html.ValidationMessageFor(model => model.MessageTokenName)
+			</td>
+		</tr>
+		<tr class="elemDisplayOrder">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.DisplayOrder)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.DisplayOrder)
+				@Html.ValidationMessageFor(model => model.DisplayOrder)
+			</td>
+		</tr>
+		<tr class="elemFileUploadMaxSize">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.FileUploadMaxSize)
+			</td>
+			<td class="adminData">
+				@Html.EditorFor(model => model.FileUploadMaxSize)
+				@Html.ValidationMessageFor(model => model.FileUploadMaxSize)
+			</td>
+		</tr>
+		<tr class="elemFileUploadTypes">
+			<td class="adminTitle">
+				@Html.SmartLabelFor(model => model.FileUploadTypes)
+			</td>
+			<td class="adminData">
+				@Html.TextBoxFor(model => model.FileUploadTypes, new { placeholder = T("Plugins.SmartStore.Forms.FormControl.FileUploadTypes.Placeholder") })
+				@Html.ValidationMessageFor(model => model.FileUploadTypes)
+			</td>
+		</tr>
+        <tr class="elemIconClass">
+            <td class="adminTitle">
+                @Html.SmartLabelFor(model => model.IconClass)
+            </td>
+            <td class="adminData">
+				<div class="input-group">
+					@Html.EditorFor(model => model.IconClass)
+					<span class="input-group-append">
+						<a class="btn btn-secondary" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" title="@T("Plugins.SmartStore.Forms.FormControl.IconClass.Addon")">
+							<i class="fa fa-font-awesome"></i>
+						</a>
+					</span>
+				</div>
+                @Html.ValidationMessageFor(model => model.IconClass)
+            </td>
+        </tr>
+    </table>
+}

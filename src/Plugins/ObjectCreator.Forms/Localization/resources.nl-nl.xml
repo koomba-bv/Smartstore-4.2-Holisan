@@ -1,0 +1,435 @@
+﻿<Language Name="Nederlands" IsDefault="false" IsRightToLeft="false">
+  <LocaleResource Name="Plugins.FriendlyName.HtmlForms" AppendRootKey="false">
+    <Value>Form Configurator</Value>
+  </LocaleResource>
+	<LocaleResource Name="Plugins.SmartStore.Forms" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="AdminInstruction">
+				<Value>
+					<![CDATA[
+					  ]]>
+				</Value>
+			</LocaleResource>
+			<LocaleResource Name="MinimumResendNotifyMessage">
+				<Value>Je aanvraag is al verzonden. Wacht alsjeblieft even om het formulier opnieuw te verzenden.</Value>
+			</LocaleResource>
+			<LocaleResource Name="RequestSentSuccessfully">
+				<Value>Je aanvraag is succesvol verzonden.</Value>
+			</LocaleResource>
+			<LocaleResource Name="SafeBeforeEdit">
+				<Value>Dit record moet worden opgeslagen voordat je elementen kunt toevoegen.</Value>
+			</LocaleResource>
+			<LocaleResource Name="NoMessageTemplates">
+				<Value>Er zijn geen berichtsjablonen gedefinieerd voor dit formulier.</Value>
+			</LocaleResource>
+			<LocaleResource Name="EnterNameOfMessageTemplate">
+				<Value>Vul alsjeblieft eerst de naam in van het berichtsjabloon.</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabHeading.Grid">
+				<Value>Formulieren</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabHeading.Settings">
+				<Value>Instellingen</Value>
+			</LocaleResource>
+			<LocaleResource Name="SendForm">
+				<Value>Verzenden</Value>
+			</LocaleResource>
+			<LocaleResource Name="AddNewForm">
+				<Value>Nieuw formulier toevoegen</Value>
+			</LocaleResource>
+			<LocaleResource Name="AddNewControl">
+				<Value>Nieuwe control toevoegen</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabTitleGrid">
+				<Value>Formulier elementen</Value>
+			</LocaleResource>
+			<LocaleResource Name="TabTitleSettings">
+				<Value>Instellingen</Value>
+			</LocaleResource>
+			<LocaleResource Name="FormDetails">
+				<Value>Formulier</Value>
+			</LocaleResource>
+			<LocaleResource Name="ControlDetails">
+				<Value>Formulier element</Value>
+			</LocaleResource>
+			<LocaleResource Name="CreateMessageTemplate">
+				<Value>Creëer berichtsjabloon</Value>
+			</LocaleResource>
+			<LocaleResource Name="MessageTemplateExists">
+				<Value>Dit berichtsjabloon bestaat al. Kies alsjeblieft een andere naam.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Admin.MessageTemplate.Heading">
+				<Value>Nieuw aanvraagformulier,</Value>
+			</LocaleResource>
+			<LocaleResource Name="Admin.MessageTemplate.Body">
+				<Value>
+					<![CDATA[
+						de klant <b>{{ Customer.FullName }}</b> heeft een aanvraag gedaan.
+					]]>
+				</Value>
+			</LocaleResource>
+			<LocaleResource Name="Customer.MessageTemplate.Heading">
+				<Value>Hartelijk bedankt voor je aanvraag,</Value>
+			</LocaleResource>
+			<LocaleResource Name="Customer.MessageTemplate.Body">
+				<Value>we hebben de volgende gegevens ontvangen:</Value>
+			</LocaleResource>
+			<LocaleResource Name="ShowTokens">
+				<Value>Toon beschikbare tokens</Value>
+			</LocaleResource>
+			<LocaleResource Name="HideTokens">
+				<Value>Verberg beschikbare tokens</Value>
+			</LocaleResource>
+			<LocaleResource Name="Validation.EmailNotValid">
+				<Value>Voer alsjeblieft een geldig e-mailadres in.</Value>
+			</LocaleResource>
+			<LocaleResource Name="FileLinkLabel">
+				<Value>Bestand voor {0}</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="Form" AppendRootKey="false">
+				<Children>
+					<LocaleResource Name="IsActive">
+						<Value>Is actief</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsActive.Hint">
+						<Value>Geeft aan of het formulier actief is.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Name">
+						<Value>Naam</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsReplacement">
+						<Value>Vervangend formulier</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsReplacement.Hint">
+						<Value>Alleen voor ontwikkelaars</Value>
+					</LocaleResource>
+					<LocaleResource Name="Controller">
+						<Value>Controller</Value>
+					</LocaleResource>
+					<LocaleResource Name="Controller.Hint">
+						<Value>Alleen voor ontwikkelaars (Enter the controller name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="Action">
+						<Value>Actie</Value>
+					</LocaleResource>
+					<LocaleResource Name="Action.Hint">
+						<Value>Alleen voor ontwikkelaars (Enter the action name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="CustomView">
+						<Value>CustomView</Value>
+					</LocaleResource>
+					<LocaleResource Name="CustomView.Hint">
+						<Value>Alleen voor ontwikkelaars (Enter the view name for which a view was defined in the plugin.)</Value>
+					</LocaleResource>
+					<LocaleResource Name="FormDisplayType">
+						<Value>Display type</Value>
+					</LocaleResource>
+					<LocaleResource Name="FormDisplayType.Hint">
+						<Value>Geef hier aan waar het formulier getoond moet worden.</Value>
+					</LocaleResource>
+					<LocaleResource Name="TopicSystemname">
+						<Value>Topic systeemnaam</Value>
+					</LocaleResource>
+					<LocaleResource Name="TopicSystemname.Hint">
+						<Value>Voer de systeemnaam van het Topic in waar het formulier getoond moet worden.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ReplacementFor">
+						<Value>Vervanging voor</Value>
+					</LocaleResource>
+					<LocaleResource Name="ReplacementFor.Hint">
+						<Value>Geef hier op welk formulier je wilt vervangen.</Value>
+					</LocaleResource>
+					<LocaleResource Name="EntityIds">
+						<Value>Entity Ids</Value>
+					</LocaleResource>
+					<LocaleResource Name="EntityIds.Hint">
+						<Value>Enter the entity IDs of the products or categories in which the form should be displayed.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ProductTabIndex">
+						<Value>Product tab index</Value>
+					</LocaleResource>
+					<LocaleResource Name="ProductTabIndex.Hint">
+						<Value>Here you specify the position at which the form should be displayed in the product tabs.</Value>
+					</LocaleResource>
+					<LocaleResource Name="WidgetZone">
+						<Value>Widgetzone</Value>
+					</LocaleResource>
+					<LocaleResource Name="WidgetZone.Hint">
+						<Value>Geef hier de widget zone op waarin je het formulier wilt tonen.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateCustomer">
+						<Value>Berichtsjabloon (Klant)</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateCustomer.Hint">
+						<Value>Geef hier het berichtsjabloon op dat naar de klant wordt verstuurd als het formulier wordt ingevuld.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateAdmin">
+						<Value>Berichtsjabloon (Admin)</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTemplateAdmin.Hint">
+						<Value>Geef hier het berichtsjabloon op dat naar de administrator wordt verstuurd als het formulier wordt ingevuld.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Title">
+						<Value>Titel</Value>
+					</LocaleResource>
+					<LocaleResource Name="Title.Hint">
+						<Value>Geef de titel op die boven het formulier wordt getoond.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IntroText">
+						<Value>Inleiding</Value>
+					</LocaleResource>
+					<LocaleResource Name="IntroText.Hint">
+						<Value>Geef hier een korte inleidende tekst op die boven het formulier wordt getoond.</Value>
+					</LocaleResource>
+					<LocaleResource Name="HasCaptcha">
+						<Value>Toon Captcha</Value>
+					</LocaleResource>
+					<LocaleResource Name="HasCaptcha.Hint">
+						<Value>Geef op of captcha getoond moet worden onder het formulier.</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayLabelsAboveElems">
+						<Value>Toon labels</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayLabelsAboveElems.Hint">
+						<Value>Geef aan of de labels boven de elemeneten getoond moeten worden.</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+
+			<LocaleResource Name="FormControl" AppendRootKey="false">
+				<Children>
+					<LocaleResource Name="IsActive">
+						<Value>Actief</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsActive.Hint">
+						<Value>Geeft aan of een element wordt getond in het formulier.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ElementType">
+						<Value>Element type</Value>
+					</LocaleResource>
+					<LocaleResource Name="ElementType.Hint">
+						<Value>ElementType</Value>
+					</LocaleResource>
+					<LocaleResource Name="InputType">
+						<Value>Input type</Value>
+					</LocaleResource>
+					<LocaleResource Name="InputType.Hint">
+						<Value>Geeft aan welk type input dit element bevat.</Value>
+					</LocaleResource>
+					<LocaleResource Name="ControlId">
+						<Value>Id</Value>
+					</LocaleResource>
+					<LocaleResource Name="ControlId.Hint">
+						<Value>Geef een ID op voor dit formulier element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Name">
+						<Value>Naam</Value>
+					</LocaleResource>
+					<LocaleResource Name="Name.Hint">
+						<Value>Geef de naam van het formulier op.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Caption">
+						<Value>Koptekst</Value>
+					</LocaleResource>
+					<LocaleResource Name="Caption.Hint">
+						<Value>Geef de koptekst van het formulier element op.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Opties">
+						<Value>Options</Value>
+					</LocaleResource>
+					<LocaleResource Name="Options.Hint">
+						<Value>Geef de beschikbare opties op.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Value">
+						<Value>Waarde</Value>
+					</LocaleResource>
+					<LocaleResource Name="Value.Hint">
+						<Value>Geef de waarde op van dit formulier element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="Placeholder">
+						<Value>Placeholder</Value>
+					</LocaleResource>
+					<LocaleResource Name="Placeholder.Hint">
+						<Value>Geeft hier een tekst op met een aanwijzing voor de klant.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsVisible">
+						<Value>Zichtbaar</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsVisible.Hint">
+						<Value>Geeft aan of het element zichtbaar is. (verborgen).</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsEnabled">
+						<Value>Input toegestaan (uitgeschakeld)</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsEnabled.Hint">
+						<Value>Geeft aan of input is toegestaan voor dit element. (Ingeschakeld/Uitgeschakeld).</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsMandatory">
+						<Value>Is verplicht</Value>
+					</LocaleResource>
+					<LocaleResource Name="IsMandatory.Hint">
+						<Value>Geeft aan of het veld verplicht is.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTokenName">
+						<Value>Message-Token Naam</Value>
+					</LocaleResource>
+					<LocaleResource Name="MessageTokenName.Hint">
+						<Value>Geeft de naam op van het message token dat wordt gebruikt in het berichtsjabloon. Als er geen naam wordt opgegevens wordt het ID gebruikt als message token.</Value>
+					</LocaleResource>
+					<LocaleResource Name="MandatoryValidationMessage">
+						<Value>Validatie bericht</Value>
+					</LocaleResource>
+					<LocaleResource Name="MandatoryValidationMessage.Hint">
+						<Value>Geeft het bericht op dat getoond moet worden aan de klant als een veld verplicht is.</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayOrder">
+						<Value>Weergave volgorde</Value>
+					</LocaleResource>
+					<LocaleResource Name="DisplayOrder.Hint">
+						<Value>Geeft de volgende aan van de elementen in het formulier.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass">
+						<Value>Css icoon class</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass.Hint">
+						<Value>Geef de class op van het icoon dat moet worden getoond (bijv. email, edit). De complete lijst classes vindt je op Fontawesome.</Value>
+					</LocaleResource>
+					<LocaleResource Name="IconClass.Addon">
+						<Value>Ga naar Fontawesome</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes">
+						<Value>Toegestane bestand types</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes.Hint">
+						<Value>Geeft aan welke bestand types een klant mag uploaden. De bestandtypes moeten worden gescheiden door een pipe (|) symbool.</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadTypes.Placeholder">
+            <Value>.jpg,.png,.gif</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadMaxSize">
+						<Value>Maximum bestandgrootte</Value>
+					</LocaleResource>
+					<LocaleResource Name="FileUploadMaxSize.Hint">
+						<Value>Geef de maximum bestandgrootte (in KB) op voor upload.</Value>
+					</LocaleResource>
+					
+					<LocaleResource Name="BeginYear">
+						<Value>Laagste jaar</Value>
+					</LocaleResource>
+					<LocaleResource Name="BeginYear.Hint">
+						<Value>Geeft het laagste jaar aan dat kan worden geselecteerd voor het formulier element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="EndYear">
+						<Value>hoogste jaar</Value>
+					</LocaleResource>
+					<LocaleResource Name="EndYear.Hint">
+						<Value>Geeft het hoogstejaar aan dat kan worden geselecteerd voor het formulier element.</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedDay">
+						<Value>Voorgeselecteerde dag</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedDay.Hint">
+						<Value>Geeft de voorgeselecteerde dag aan.</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedMonth">
+						<Value>Voorgeselecteerde maand</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedMonth.Hint">
+						<Value>Geeft de voorgeselecteerde maand aan.</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedYear">
+						<Value>Voorgeselecteerde jaar</Value>
+					</LocaleResource>
+					<LocaleResource Name="SelectedYear.Hint">
+						<Value>Geeft de voorgeselecteerde jaar aan.</Value>
+					</LocaleResource>
+				</Children>
+			</LocaleResource>
+
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="ContactUs" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="Company">
+				<Value>Bedrijfsnaam</Value>
+			</LocaleResource>
+			<LocaleResource Name="Company.Hint">
+				<Value>De naam van je bedrijf</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductNumber">
+				<Value>Product nummer</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductNumber.Hint">
+				<Value>Product nummer</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street">
+				<Value>Straat en huisnummer</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street.Hint">
+				<Value>Straat en huisnummer</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode">
+				<Value>Postcode</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode.Hint">
+				<Value>Geef je postcode op</Value>
+			</LocaleResource>
+			<LocaleResource Name="City">
+				<Value>Plaatsnaam</Value>
+			</LocaleResource>
+			<LocaleResource Name="City.Hint">
+				<Value>De plaatsnaam van je bedrijf</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone">
+				<Value>Telefoonnummer</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone.Hint">
+				<Value>Je telefoonnummer</Value>
+			</LocaleResource>
+
+			<LocaleResource Name="Company.Required">
+				<Value>Geef de naam van je bedrijf op.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Street.Required">
+				<Value>Geef je straat en huisnummer op.</Value>
+			</LocaleResource>
+			<LocaleResource Name="ZipCode.Required">
+				<Value>Geef je postcode op.</Value>
+			</LocaleResource>
+			<LocaleResource Name="City.Required">
+				<Value>Geef de plaatsnaam van je bedrijf op.</Value>
+			</LocaleResource>
+			<LocaleResource Name="Phone.Required">
+				<Value>Geef je telefoonummer opr.</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+
+	<LocaleResource Name="Enums.SmartStore.HtmlForms.Domain.FormDisplayType" AppendRootKey="false">
+		<Children>
+			<LocaleResource Name="Replacement">
+				<Value>Replacement</Value>
+			</LocaleResource>
+			<LocaleResource Name="Topic">
+				<Value>Topic</Value>
+			</LocaleResource>
+			<LocaleResource Name="Categories">
+				<Value>Category</Value>
+			</LocaleResource>
+			<LocaleResource Name="Products">
+				<Value>Products</Value>
+			</LocaleResource>
+			<LocaleResource Name="ProductsInCategories">
+				<Value>Products in Category</Value>
+			</LocaleResource>
+			<LocaleResource Name="Widgetzone">
+				<Value>WidgetZone</Value>
+			</LocaleResource>
+			<LocaleResource Name="Developer">
+				<Value>Developer</Value>
+			</LocaleResource>
+		</Children>
+	</LocaleResource>
+</Language>

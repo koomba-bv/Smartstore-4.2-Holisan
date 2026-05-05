@@ -1,0 +1,203 @@
+﻿@model FontAwesomeModel
+
+@using SmartStore.PageBuilder;
+
+<div class="adminRow">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.Icon)
+	</div>
+	<div class="adminData">
+		@{ Html.RenderPartial("FontAwesomeIcon", Model); }
+	</div>
+</div>
+
+<div class="adminRow">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.Size)
+	</div>
+	<div class="adminData">
+		@Html.DropDownListFor(model => model.Size, StoryModelHelper.SelectOptions.IconSizes(T), T("Common.Unspecified"))
+
+		<div class="icon-preview d-flex bg-secondary p-2">
+			<i class="fas fa-@Model.Icon"></i>
+		</div>
+
+		@Html.ValidationMessageFor(model => model.Size)
+	</div>
+</div>
+
+<div class="adminRow">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.Color)
+	</div>
+	<div class="adminData">
+		@Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.IconColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+		@Html.ValidationMessageFor(model => model.Color)
+	</div>
+</div>
+<div class="adminRow pnlIconOpacity">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.IconOpacity)
+	</div>
+	<div class="adminData">
+		@Html.EditorFor(model => model.IconOpacity, new { @class = "color-opacity-slider", min = 0m, max = 1m, step = 0.01m })
+		@Html.ValidationMessageFor(model => model.IconOpacity)
+	</div>
+</div>
+<div class="adminRow">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.FrameIcon)
+	</div>
+	<div class="adminData">
+		@Html.DropDownListFor(model => model.FrameIcon, StoryModelHelper.SelectOptions.FrameIcons(T), T("Common.Unspecified"), new { @class = "noskin" })
+		@Html.ValidationMessageFor(model => model.FrameIcon)
+	</div>
+</div>
+<div class="adminRow pnlFrameColor">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.FrameColor)
+	</div>
+	<div class="adminData">
+		@Html.DropDownListFor(model => model.FrameColor, StoryModelHelper.SelectOptions.IconColors(T, GetThemeVariable("brand-colors")), new { @class = "theme-color-chooser" })
+		@Html.ValidationMessageFor(model => model.FrameColor)
+	</div>
+</div>
+<div class="adminRow pnlFrameOpacity">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.FrameOpacity)
+	</div>
+	<div class="adminData">
+		@Html.EditorFor(model => model.FrameOpacity, new { @class = "color-opacity-slider", min = 0m, max = 1m, step = 0.01m })
+		@Html.ValidationMessageFor(model => model.FrameOpacity)
+	</div>
+</div>
+<div class="adminRow">
+	<div class="adminTitle">
+		@Html.SmartLabelFor(model => model.Rotation)
+	</div>
+	<div class="adminData">
+		<div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+			@foreach (var item in StoryModelHelper.SelectOptions.IconRotationTypes(T))
+			{
+				<label class="btn btn-secondary tooltip-toggle@(item.Value == Model.Rotation ? " active" : "")" data-placement="top" title="@item.Text">
+					<input type="radio"
+						   name="@Html.FieldNameFor(x => x.Rotation)"
+						   value="@item.Value"
+						   autocomplete="off" @(item.Value == Model.Rotation ? "checked" : "")> <i class="fas fa-shield-alt @item.Value"></i>
+				</label>
+			}
+		</div>
+
+		<div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+			@foreach (var item in StoryModelHelper.SelectOptions.IconAnimationTypes(T))
+			{
+				<label class="btn btn-secondary tooltip-toggle@(item.Value == Model.AnimationType ? " active" : "")" data-placement="top" title="@item.Text">
+					<input type="radio"
+						   name="@Html.FieldNameFor(x => x.AnimationType)"
+						   value="@item.Value"
+						   autocomplete="off" @(item.Value == Model.AnimationType ? "checked" : "")> <i class="fas fa-spinner @item.Value"></i>
+				</label>
+			}
+		</div>
+
+		@Html.ValidationMessageFor(model => model.Rotation)
+	</div>
+</div>
+
+@using (Html.BeginZoneContent("end", key: "pb-fa-script"))
+{
+	<script>
+		$(function () {
+			$("#@Html.FieldIdFor(model => model.Size)").on("change", setCurrentPreviewSize);
+
+			setCurrentPreviewSize();
+
+			function setCurrentPreviewSize() {
+				var currentSize = $("#@Html.FieldIdFor(model => model.Size)").val();
+				var allIconClasses = "fa-xs fa-sm fa-lg fa-2x fa-3x fa-4x fa-5x fa-7x fa-10x";
+				var iconPreview = $(".icon-preview > i").removeClass(allIconClasses).addClass(currentSize);
+			}
+
+			$("#@Html.FieldIdFor(model => model.Style) input").on("change", setCurrentPreviewStyle);
+
+			setCurrentPreviewStyle();
+
+			function setCurrentPreviewStyle() {
+				var currentStyle = $("#@Html.FieldIdFor(model => model.Style) input:checked").val(),
+					allStyleClasses = "fas far fal fab",
+					iconPreview = $(".icon-preview > i").removeClass(allStyleClasses),
+					select = $("#@Html.FieldIdFor(model => model.Icon)"),
+					selectedIcon = select.val(),
+					selectedOption = select.find(":selected"),
+					map = select.data('icons');
+
+				var isBrand = (map[selectedIcon] || {}).isBrandIcon;
+
+				if (isBrand) {
+					currentStyle = "fab";
+				}
+
+				if (!currentStyle) {
+					currentStyle = "fas";
+				}
+
+				iconPreview.addClass(currentStyle);
+			};
+
+			$("#@Html.FieldIdFor(model => model.Icon)").on('change', function () {
+				var selectedIcon = $("#@Html.FieldIdFor(model => model.Icon)").val();
+				var iconPreview = $(".icon-preview");
+
+				iconPreview.html('<i class="fas fa-' + selectedIcon + '"></i>');
+
+				setCurrentPreviewSize();
+				setCurrentPreviewStyle();
+			});
+
+			$("#@Html.FieldIdFor(model => model.FrameIcon)").change(toggleFrameIcon);
+
+			toggleFrameIcon();
+
+			function toggleFrameIcon() {
+				var selectedFrame = $("#@Html.FieldIdFor(model => model.FrameIcon)").val();
+
+				if (selectedFrame == '') {
+					$('.pnlFrameColor').hide();
+					$('.pnlFrameOpacity').hide();
+				}
+				else {
+					$('.pnlFrameColor').show();
+					$('.pnlFrameOpacity').show();
+				}
+			}
+
+			$('#@(Html.FieldIdFor(x => x.FrameIcon))').selectWrapper({
+				minimumResultsForSearch: 50,
+				templateResult: formatFrameIcon,
+				templateSelection: formatFrameIcon
+			});
+
+			function formatFrameIcon(item, select) {
+				try {
+					if (item.id.length > 0) {
+						var option = $(item.element),
+							html = '<span class="choice-item">';
+
+						if (option.length === 0) {
+							option = select.find('option[value="' + item.id + '"]');
+						}
+
+						html += '<i class="' + item.id + ' fa-fw mr-2 fs-h6"></i>';
+						html += item.text;
+
+						html += '</span>';
+						return $(html);
+					}
+				}
+				catch (e) { }
+
+				return item.text;
+			}
+		});
+	</script>
+}

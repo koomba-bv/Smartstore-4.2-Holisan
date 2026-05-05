@@ -1,0 +1,39 @@
+﻿@model VideoOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Mp4VideoId)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.Mp4VideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.Mp4VideoId)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.WebMVideoId)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.WebMVideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.WebMVideoId)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.OggVideoId)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.OggVideoId, new { transientUpload = true })
+        @Html.ValidationMessageFor(model => model.OggVideoId)
+    </div>
+</div>
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.Loop)
+    </div>
+    <div class="adminData">
+        @Html.CheckBoxFor(model => model.Loop)
+    </div>
+</div>

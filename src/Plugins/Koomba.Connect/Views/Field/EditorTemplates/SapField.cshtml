@@ -1,0 +1,13 @@
+﻿<select
+    name="SapField"
+    id="SapField"
+    class="form-control"
+    style="min-width: 200px"
+    data-select-url='@Url.Action("AllSapFields", "Field", new { connectionId = Request.Params["id"] })'>
+</select>
+
+<script>
+    $(function () {
+        $('#SapField').selectWrapper();
+    });
+</script>

@@ -1,0 +1,187 @@
+﻿@using SmartStore.Core.Infrastructure
+@using SmartStore.Services.Helpers
+@model SmartStore.Core.Caching.OutputCacheItem
+@{
+    Layout = "_AdminLayout";
+	var dateTimeHelper = EngineContext.Current.Resolve<IDateTimeHelper>();
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <i class="fa fa-link"></i>
+            @T("Plugins.OutputCache.CacheItemDetails"): <span title="@Model.CacheKey">@Model.CacheKey.Truncate(60, "...")</span>
+			<a href="@Url.Action("ConfigurePlugin", "Plugin", new { area = "Admin", systemName = "SmartStore.OutputCache" })">(@T("Admin.Common.BackToList"))</a>
+        </div>
+        <div class="options">
+            <button type="submit" id="delete-single" name="delete-single" value="delete_single" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+				<span>@T("Plugins.OutputCache.InvalidateSingleCacheItem")</span>
+            </button>
+        </div>
+    </div>
+
+    <input type="hidden" name="cache-item" id="cache-item" value="@Uri.EscapeUriString(Model.CacheKey)" />
+
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.CachedOnUtc, "Plugins.OutputCache.Item.CachedOnUtc")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@dateTimeHelper.ConvertToUserTime(@Model.CachedOnUtc, DateTimeKind.Utc).ToNativeString()
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.ExpiresOnUtc, "Plugins.OutputCache.Item.ExpiresOnUtc")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@dateTimeHelper.ConvertToUserTime(@Model.ExpiresOnUtc, DateTimeKind.Utc) (@((Model.ExpiresOnUtc - DateTime.UtcNow).Prettify().ReplaceNativeDigits()))
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.CacheKey, "Plugins.OutputCache.Item.CacheKey")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.CacheKey
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.RouteKey, "Plugins.OutputCache.Item.RouteKey")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.RouteKey
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Url, "Plugins.OutputCache.Item.Url")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					<a href="@(Model.Url + Model.QueryString.EmptyNull())" target="_blank">@(Model.Url + Model.QueryString.EmptyNull())</a>
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Duration, "Plugins.OutputCache.Item.Duration")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.Duration
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Theme, "Plugins.OutputCache.Item.Theme")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.Theme
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.StoreId, "Plugins.OutputCache.Item.StoreId")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.StoreId
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.LanguageId, "Plugins.OutputCache.Item.LanguageId")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.LanguageId
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.CurrencyId, "Plugins.OutputCache.Item.CurrencyId")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.CurrencyId
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.CustomerRoles, "Plugins.OutputCache.Item.CustomerRoles")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.CustomerRoles
+				</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Tags, "Plugins.OutputCache.Item.Tags")
+            </td>
+            <td class="adminData">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Tagname</th>
+								<th scope="col">@T("Plugins.OutputCache.Button.InvalidateTag")</th>
+							</tr>
+						</thead>
+						@foreach (var tag in Model.Tags)
+						{
+							<tr>
+								<td style="padding-right: 20px">@tag</td>
+								<td>
+									<a href="@Url.Action("InvalidateByTag", "OutputCache", new { area = "SmartStore.OutputCache", tag = tag })">
+										@T("Plugins.OutputCache.Button.InvalidateTag")
+									</a>
+								</td>
+							</tr>
+						}
+					</table>
+				</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.ContentType, "Plugins.OutputCache.Item.ContentType")
+            </td>
+            <td class="adminData">
+				<div class="form-control-plaintext">
+					@Model.ContentType
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+				@Html.SmartLabelFor(m => m.Content, "Plugins.OutputCache.Item.Content")
+            </td>
+            <td class="adminData">
+                <pre style="height: 300px; overflow: auto">@Model.Content</pre>
+            </td>
+        </tr>
+    </table>
+}

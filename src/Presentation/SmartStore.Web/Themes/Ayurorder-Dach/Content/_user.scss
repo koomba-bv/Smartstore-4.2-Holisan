@@ -1,0 +1,33 @@
+//
+// Customize the (child) theme here with css overrides
+// or new selectors (for users)
+// --------------------------------------------------
+
+// Colors
+// Green: #81ae44;
+// Purple: ##a46497;
+
+// General
+// Géén account aanmaken mogelijk
+.col-12.col-md-5.col-lg-6.col-xl-7.order-md-first {
+    display:none;
+}
+
+// Header
+// Footer
+#newsletter-subscribe-block .form-check-label, #newsletter-subscribe-block .form-check-label a {
+    color: #fff;
+}
+
+.container.footer-bottom a {
+    color: #fff;
+}
+
+// Homepage
+.lead {
+    font-size: .9375rem;
+}
+
+// Partlist
+
+// Partdetail

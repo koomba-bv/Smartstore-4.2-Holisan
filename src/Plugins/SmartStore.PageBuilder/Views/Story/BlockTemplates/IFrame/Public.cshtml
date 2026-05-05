@@ -1,0 +1,12 @@
+﻿@model FrameBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+	if (!Model.Src.HasValue())
+	{
+		return;
+	}
+}
+
+<iframe src="@Model.Src" class="g-frame" frameborder="0"></iframe>

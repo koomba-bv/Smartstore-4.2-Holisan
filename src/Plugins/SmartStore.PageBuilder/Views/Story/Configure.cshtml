@@ -1,0 +1,231 @@
+﻿@model ConfigurationModel
+
+@using SmartStore.Web.Framework;
+@using SmartStore.PageBuilder.Models;
+@using Telerik.Web.Mvc.UI;
+@using SmartStore.Web.Framework.UI
+
+@{
+    Layout = "";
+    var importUploadId = CommonHelper.GenerateRandomInteger().ToString();
+}
+
+<div class="plugin-actions">
+	<a href="javascript:void(0)" id="btn-add-story" class="btn btn-primary" data-url="@Url.Action("Templates", new { area = "SmartStore.PageBuilder" })">
+		<i class="fa fa-plus"></i>
+		<span>@T("Admin.Common.AddNew")</span>
+	</a>
+    <a href="javascript:void(0)" id="btn-story-import" class="btn btn-secondary">
+		<i class="fa fa-download"></i>
+		<span>@T("Common.Import")</span>
+	</a>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+	<div class="row mt-3 grid-filter">
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabelFor(model => model.SearchSystemName)
+            @Html.EditorFor(x => x.SearchSystemName)
+        </div>
+
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabelFor(model => model.SearchWidgetZones)
+            @Html.EditorFor(x => x.SearchWidgetZones)
+        </div>
+
+        <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabelFor(model => model.SearchPublished)
+            @Html.EditorFor(model => Model.SearchPublished, new { @class = "form-control sf" })
+        </div>
+
+		<div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+            @Html.SmartLabel(string.Empty, string.Empty)
+			<button type="submit" id="btnSearch" value="btnSearch" class="btn btn-secondary btn-block">
+				<span>@T("Admin.Common.ApplyFilter")</span>
+			</button>
+		</div>
+	</div>
+}
+
+<div>
+	@(Html.Telerik().Grid<StoryGridModel>()
+            .Name("story-grid")
+            .Columns(columns =>
+            {
+                columns.Bound(x => x.SystemName)
+                    .ClientTemplate("<a href='" + Url.Action("Editor", new { area = "SmartStore.PageBuilder" }) + "/<#= Id #>'><#= SystemName #></a>");
+                columns.Bound(x => x.Targets)
+                    .ClientTemplate("<#= Targets #>");
+                columns.Bound(x => x.WidgetZone)
+                    .ClientTemplate("<#= WidgetZone #>");
+                columns.Bound(x => x.NumBlocks)
+                    .ClientTemplate("<#= NumBlocks #>")
+                    .Centered();
+				columns.Bound(x => x.LimitedToStores)
+					.ClientTemplate(Html.SymbolForBool("LimitedToStores"))
+					.Hidden(Model.AvailableStores.Count <= 1)
+					.Centered();
+                columns.Bound(x => x.IsPublished)
+                    .ClientTemplate(Html.SymbolForBool("IsPublished"))
+                    .Centered();
+                columns.Bound(x => x.DisplayOrder)
+                    .Centered();
+            })
+            .Sortable(x =>
+            {
+                x.SortMode(GridSortMode.MultipleColumn);
+                x.AllowUnsort(true);
+                x.OrderBy(o =>
+                {
+                    o.Add(y => y.DisplayOrder);
+                    o.Add(y => y.SystemName);
+                });
+            })
+            .DataBinding(dataBinding => dataBinding.Ajax().Select("StoryList", "Story",  new { area = "SmartStore.PageBuilder" }))
+            .ClientEvents(events => events.OnRowDataBound("onRowDataBound").OnDataBinding("onDataBinding"))
+            .Pageable(settings => settings.PageSize(Model.GridPageSize).Position(GridPagerPosition.Both))
+            .PreserveGridState()
+            .EnableCustomBinding(true))
+</div>
+
+@{Html.SmartStore().Window()
+	.Name("story-import-dialog")
+	.Title(T("Plugins.SmartStore.PageBuilder.Story.Import"))
+	.Content(@<text>
+        <form method="POST" action="@Url.Action("Import", "Story", new { area = "SmartStore.PageBuilder" })">
+			<p class="text-muted">
+				@T("Plugins.SmartStore.PageBuilder.Story.ImportNote")
+			</p>
+			<div>
+			    <div class="form-check">
+				    @Html.CheckBox("isPublished", false, new { @class = "form-check-input" })
+				    <label class="form-check-label" for="isPublished">@T("Plugins.SmartStore.PageBuilder.Field.IsPublished")</label>
+			    </div>
+			    <div class="form-check">
+				    @Html.CheckBox("noDuplicateStories", true, new { @class = "form-check-input" })
+				    <label class="form-check-label" for="noDuplicateStories">@T("Plugins.SmartStore.PageBuilder.Story.NoDuplicateStories")</label>
+			    </div>
+				<div class="mt-2">
+					<input type="hidden" name="FileName" />
+					@(Html.SmartStore().FileUploader()
+						.Name(importUploadId)
+						.UploadUrl(Url.Action("ImportFileUpload", "Story", new { area = "SmartStore.PageBuilder" }))
+						.TypeFilter(".story")
+                        .ShowBrowseMedia(false)
+						.ShowRemoveButton(false)
+						.ShowRemoveButtonAfterUpload(true)
+						.UploadText(T("Admin.DataExchange.Import.FileUpload").Text)
+						.OnUploadCompletedHandlerName("onFileUploaded" + importUploadId)
+                        .OnFileRemoveHandlerName("onFileRemoved" + importUploadId)
+                        .Multifile(false)
+					)
+				</div>
+			</div>
+        </form>
+	</text>)
+	.FooterContent(@<text>
+		<button class="btn btn-secondary btn-flat" data-dismiss="modal">
+            <span>@T("Common.Cancel")</span>
+        </button>
+		<button type="button" class="btn btn-primary" disabled="disabled">
+            <span>@T("Common.OK")</span>
+        </button>
+	</text>)
+	.Render();
+}
+
+@{Html.SmartStore().Window()
+	.Name("story-template-dialog")
+	.Title(T("Plugins.SmartStore.PageBuilder.Story.AddNew"))
+    .Size(WindowSize.Flex)
+	.BodyHtmlAttributes(new { @class = "bg-light" })
+	.FooterContent(@<text>
+		<button class="btn btn-secondary btn-flat" data-dismiss="modal">@T("Common.Cancel")</button>
+	</text>)
+	.Render();
+}
+
+<script>
+    window['onFileUploaded@(importUploadId)'] = function (file, response, progress) {
+        if (!_.isEmpty(response.tempFile)) {
+            var dialog = $('#story-import-dialog');
+            dialog.find('input[name=FileName]').val(response.tempFile);
+            dialog.find('.btn-primary').prop('disabled', false);
+        }
+        else if (!_.isEmpty(response.error)) {
+            displayNotification(response.error, 'error');
+        }
+    };
+
+    window['onFileRemoved@(importUploadId)'] = function (e, el) {
+        var dialog = $('#story-import-dialog');
+        dialog.find('input[name=FileName]').val('');
+        dialog.find('.btn-primary').prop('disabled', true);
+    };
+
+    function onRowDataBound(e) {
+	    if (!e.dataItem.IsPublished) {
+		    $(e.row).find('td').wrapInner('<span class="muted" />');
+	    }
+    }
+
+    function onDataBinding(e) {
+		var searchModel = {
+            SearchSystemName: $('#@Html.FieldIdFor(model => model.SearchSystemName)').val(),
+            SearchWidgetZones: $('#@Html.FieldIdFor(model => model.SearchWidgetZones)').val(),
+            SearchPublished: $('#@Html.FieldIdFor(model => model.SearchPublished)').val()
+		};
+		e.data = searchModel;
+    }
+
+    $(function () {
+
+        // search filter
+		$('#btnSearch').click(function () {
+			//search
+            var grid = $('#story-grid').data('tGrid');
+			grid.currentPage = 1; //new search. Set page size to 1
+			grid.ajaxRequest();
+			return false;
+		});
+
+		$("#@Html.FieldIdFor(model => model.SearchSystemName)").keydown(function (event) {
+			if (event.keyCode == 13) {
+				$("#btnSearch").click();
+				return false;
+			}
+		});
+
+	    // Show import dialog.
+        $(document).on('click', '#btn-story-import', function (e) {
+            e.preventDefault();
+	        $('#story-import-dialog').modal('show');
+            return false;
+        });
+
+	    // Submit import form.
+        $('#story-import-dialog').on('click', '.btn-primary', function () {
+            $(this).prop('disabled', true).prepend('<i class="fa fa-fw fa-spinner fa-spin"></i>');
+            $('#story-import-dialog').find('form:first').submit();
+        });
+
+        // Show template dialog.
+        $(document).on('click', '#btn-add-story', function (e) {
+            e.preventDefault();
+            var dialog = $('#story-template-dialog');
+            dialog.find('.modal-body').html(window.createCircularSpinner(50, true));
+
+            $.ajax({
+                type: 'GET',
+                url: $(this).data('url'),
+                success: function (response) {
+                    dialog.find('.modal-body').html(response);
+                }
+            });
+
+            dialog.modal('show');
+            return false;
+        });
+    });
+</script>

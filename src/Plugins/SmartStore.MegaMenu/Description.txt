@@ -1,0 +1,10 @@
+﻿FriendlyName: Mega Menu
+SystemName: SmartStore.MegaMenu
+Group: CMS
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: SmartStore AG
+DisplayOrder: 1
+FileName: SmartStore.MegaMenu.dll
+ResourceRootKey: Plugins.SmartStore.MegaMenu
+Url: http://www.smartstore.com/de/net#section-pricing

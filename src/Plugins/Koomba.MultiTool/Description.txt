@@ -1,0 +1,10 @@
+﻿FriendlyName: MultiTool
+SystemName: Koomba.MultiTool
+Group: Misc
+Version: 4.2.0.2
+MinAppVersion: 4.2.0
+Author: KOOMBA
+DisplayOrder: 1
+FileName: Koomba.MultiTool.dll
+ResourceRootKey: Plugins.Koomba.MultiTool
+Url: 

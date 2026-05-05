@@ -1,0 +1,62 @@
+﻿@model FacetGroup
+
+@using SmartStore.Core.Search.Facets
+@using SmartStore.Services.Search.Extensions;
+
+@{ 
+	var facets = Model.Facets.Where(x => x.Published);
+
+	var hasColorOrImage = facets.Any(x => x.Value.Color.HasValue() || x.Value.PictureUrl.HasValue());
+	if (hasColorOrImage)
+	{
+		facets = facets.Where(x => x.Value.Color.HasValue() || x.Value.PictureUrl.HasValue());
+	}
+
+	if (!facets.Any())
+	{
+		return;
+	}
+}
+
+<div class="facet-body-inner">
+	<div class="choice-boxes">
+		<ul class="choice-box-group choice-box-group-sm">
+			@foreach (var facet in facets)
+			{
+				var val = facet.Value;
+				string css = null;
+
+				var hasColor = val.Color.HasValue() && val.Color != "transparent";
+				if (hasColor)
+				{
+					css = "background-color: " + val.Color + ";";
+				}
+
+				if (val.PictureUrl.HasValue())
+				{
+					css += "background-image: url('" + val.PictureUrl + "');";
+				}
+
+				var label = val.Label ?? val.ToString();
+				if (facet.HitCount > 0)
+				{
+					label += " (" + facet.HitCount.ToString("N0") + ")";
+				}
+
+				<li class="choice-box" data-href="@Url.FacetToggle(facet)">
+					<label class="choice-box-label">
+						<input class="facet-control-native choice-box-control-native" type="@(Model.IsMultiSelect ? "checkbox" : "radio")" value="@facet.Value.ToString()" @Html.Attr("checked", "checked", facet.Value.IsSelected)>
+						<span class="choice-box-content tooltip-toggle" title="@label">
+							<span class="choice-box-element"@Html.Attr("style", css, css.HasValue())>
+								@if (!css.HasValue())
+								{
+									<span class="choice-box-text">@val.Label</span>
+								}
+							</span>
+						</span>
+					</label>
+				</li>
+			}
+		</ul>
+	</div>
+</div>

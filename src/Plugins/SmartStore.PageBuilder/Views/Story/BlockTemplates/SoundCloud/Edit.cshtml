@@ -1,0 +1,106 @@
+﻿@model SoundCloudBlock
+
+@using SmartStore.PageBuilder;
+@using SmartStore.PageBuilder.Blocks
+
+<div class="adminContent">
+	<div class="adminRow">
+		<div class="adminTitle">
+			@Html.SmartLabelFor(model => model.Src)
+		</div>
+		<div class="adminData">
+			@Html.EditorFor(model => model.Src)
+			@Html.ValidationMessageFor(model => model.Src)
+		</div>
+	</div>
+    <div class="adminRow d-none">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Autoplay)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Autoplay)
+            @Html.ValidationMessageFor(model => model.Autoplay)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Color)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Color, "Color")
+            @Html.ValidationMessageFor(model => model.Color)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Buying)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Buying)
+            @Html.ValidationMessageFor(model => model.Buying)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Sharing)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Sharing)
+            @Html.ValidationMessageFor(model => model.Sharing)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Download)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.Download)
+            @Html.ValidationMessageFor(model => model.Download)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ShowArtwork)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ShowArtwork)
+            @Html.ValidationMessageFor(model => model.ShowArtwork)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ShowPlaycount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ShowPlaycount)
+            @Html.ValidationMessageFor(model => model.ShowPlaycount)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ShowUser)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ShowUser)
+            @Html.ValidationMessageFor(model => model.ShowUser)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.StartTrack)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.StartTrack)
+            @Html.ValidationMessageFor(model => model.StartTrack)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SingleActive)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SingleActive)
+            @Html.ValidationMessageFor(model => model.SingleActive)
+        </div>
+    </div>
+</div>

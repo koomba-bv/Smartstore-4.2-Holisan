@@ -1,0 +1,555 @@
+﻿@model MediaGalleryBlock
+
+@using SmartStore.PageBuilder;
+@using SmartStore.PageBuilder.Blocks;
+@using SmartStore.Services.Media;
+
+@{
+    int? result = 0;
+    var mediaFiles = new List<GalleryMediaFile>();
+    if (Model.MediaIds.HasValue())
+    {
+        var fileIds = Model.MediaIds.ToIntArray();
+        var files = this.CommonServices.Resolve<IMediaService>().GetFilesByIds(fileIds).ToList();
+        mediaFiles = files.Select((value, index) =>
+            new GalleryMediaFile
+            {
+                MediaFileId = value.Id,
+                MediaFile = value.File,
+                DisplayOrder = index
+            }).ToList();
+    }
+
+    var aspectRatios = new List<SelectListItem>();
+    aspectRatios.Add(new SelectListItem { Text = "1:1", Value = "1by1", Selected = Model.SelectedAspectRatio == "1by1" });
+    aspectRatios.Add(new SelectListItem { Text = "2:1", Value = "2by1", Selected = Model.SelectedAspectRatio == "2by1" });
+    aspectRatios.Add(new SelectListItem { Text = "4:3", Value = "4by3", Selected = Model.SelectedAspectRatio == "4by3" });
+    aspectRatios.Add(new SelectListItem { Text = "5:4", Value = "5by4", Selected = Model.SelectedAspectRatio == "5by4" });
+    aspectRatios.Add(new SelectListItem { Text = "16:9", Value = "16by9", Selected = Model.SelectedAspectRatio == "16by9" });
+    aspectRatios.Add(new SelectListItem { Text = "16:10", Value = "16by10", Selected = Model.SelectedAspectRatio == "16by10" });
+    aspectRatios.Add(new SelectListItem { Text = "21:9", Value = "21by9", Selected = Model.SelectedAspectRatio == "21by9" });
+}
+
+<div class="adminContent g-media-gallery-edit">
+    <div class="adminRow">
+        <div class="adminData wide">
+            <div class="g-gallery-preview-container mb-3">
+                @Html.EditorFor(model => result, "Media", new
+                {
+                    transientUpload = true,
+                    path = "pagebuilder",
+                    multifile = true,
+                    uploadedFiles = mediaFiles,
+                    typeFilter = "image,video"
+                })
+                @Html.HiddenFor(model => model.MediaIds, new { @id = "gallery-media-ids" })
+            </div>
+
+            <a class="g-gallery-preview-toggle btn btn-outline-light btn-clear w-100 mb-4">
+                <i class="fa g-gallery-preview-toggle-icon"></i>
+                <span class="g-gallery-preview-toggle-text">
+                    <span class="preview-toggle-more">@T("Common.ShowMore")</span>
+                    <span class="preview-toggle-less d-none">@T("Common.ShowLess")</span>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Style)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListForEnum(model => model.Style, new { @id = "gallery-style" })
+            @Html.ValidationMessageFor(model => model.Style)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-media-size">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.MediaSize)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.MediaSize)
+            @Html.ValidationMessageFor(model => model.MediaSize)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-column-count">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.ColumnCount)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.ColumnCount)
+            @Html.ValidationMessageFor(model => model.ColumnCount)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-object-fit">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Fit)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Fit, StoryModelHelper.SelectOptions.BackgroundSizes(T, false).Where(x => x.Value != "auto"))
+            @Html.ValidationMessageFor(model => model.Fit)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-align-horizontal">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.HorizontalAlign)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.HorizontalAlign, StoryModelHelper.SelectOptions.GridJustifyContent(T), T("Common.Unspecified"))
+            @Html.ValidationMessageFor(model => model.HorizontalAlign)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-hover">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.HoverEffect)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.HoverEffect, StoryModelHelper.SelectOptions.BoxHoverEffects(T), T("Common.Unspecified"))
+            @Html.ValidationMessageFor(model => model.HoverEffect)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-aspect-ratio">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SelectedAspectRatio)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.SelectedAspectRatio, aspectRatios)
+            @Html.ValidationMessageFor(model => model.SelectedAspectRatio)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-interval">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.SlideInterval)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.SlideInterval)
+            @Html.ValidationMessageFor(model => model.SlideInterval)
+        </div>
+    </div>
+    <div class="adminRow" id="gallery-indicators">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.DisplayIndicators)
+        </div>
+        <div class="adminData">
+            @Html.CheckBoxFor(model => model.DisplayIndicators)
+            @Html.ValidationMessageFor(model => model.DisplayIndicators)
+        </div>
+    </div>
+    <div id="gallery-zoomer">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Zoomer)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.Zoomer)
+                @Html.ValidationMessageFor(model => model.Zoomer)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.HideGalleryNavigation)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.HideGalleryNavigation)
+                @Html.ValidationMessageFor(model => model.HideGalleryNavigation)
+            </div>
+        </div>
+    </div>
+    <div id="gallery-paddings">
+        <div class="admin-config-group">
+            <div class="title">@T("Plugins.SmartStore.PageBuilder.Gallery.Padding")</div>
+        </div>
+        <div class="adminRow" id="gallery-gap">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Gap)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.Gap)
+                @Html.ValidationMessageFor(model => model.Gap)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Padding)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.Padding)
+                @Html.ValidationMessageFor(model => model.Padding)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BackgroundColor)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.BackgroundColor, StoryModelHelper.SelectOptions.BackgroundColors(T, GetThemeVariable("brand-colors")), T("Plugins.SmartStore.PageBuilder.Options.Translucent"), new { @class = "theme-color-chooser" })
+                @Html.ValidationMessageFor(model => model.BackgroundColor)
+            </div>
+        </div>
+    </div>
+    <div id="gallery-border-shadow">
+        <div class="admin-config-group">
+            <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.BorderAndShadow")</div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BorderWidth)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.BorderWidth)
+                @Html.ValidationMessageFor(model => model.BorderWidth)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BorderColor)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.BorderColor,
+               StoryModelHelper.SelectOptions.BorderColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+                @Html.ValidationMessageFor(model => model.BorderColor)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.BorderRadius)
+            </div>
+            <div class="adminData">
+                @Html.DropDownListFor(model => model.BorderRadius, StoryModelHelper.SelectOptions.BorderRadii(T), T("Common.Unspecified"))
+                @Html.ValidationMessageFor(model => model.BorderRadius)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.DropShadow)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.DropShadow, new { data_toggler_for = "#gallery-drop-shadow" })
+            </div>
+        </div>
+        <div id="gallery-drop-shadow">
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.DropShadowColor)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.DropShadowColor,
+                   StoryModelHelper.SelectOptions.DropShadowColors(T, GetThemeVariable("brand-colors")), T("Admin.Common.Standard"), new { @class = "theme-color-chooser" })
+                    @Html.ValidationMessageFor(model => model.DropShadowColor)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.DropShadowSize)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.DropShadowSize, StoryModelHelper.SelectOptions.DropShadowSizes(T))
+                    @Html.ValidationMessageFor(model => model.DropShadowSize)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gallery-flat">
+        <div class="admin-config-group">
+            <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Flat")</div>
+            <p class="text-muted">
+                @T("Plugins.SmartStore.PageBuilder.BlockBox.FlatInfo")
+            </p>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.Flat)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.Flat)
+            </div>
+        </div>
+    </div>
+    <div id="gallery-reveal">
+        <div class="admin-config-group">
+            <div class="title">@T("Plugins.SmartStore.PageBuilder.Block.Reveal")</div>
+            <p class="text-muted">
+                @T("Plugins.SmartStore.PageBuilder.Block.Reveal.Intro")
+            </p>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.RevealEnabled)
+            </div>
+            <div class="adminData">
+                @Html.CheckBoxFor(model => model.RevealEnabled, new { data_toggler_for = "#gallery-effect-reveal" })
+            </div>
+        </div>
+        <div id="gallery-effect-reveal">
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealEffect)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.RevealEffect, StoryModelHelper.SelectOptions.RevealEffects(T))
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealEasing)
+                </div>
+                <div class="adminData">
+                    @Html.DropDownListFor(model => model.RevealEasing, StoryModelHelper.SelectOptions.RevealEasings(T))
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealDuration)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.RevealDuration)
+                    @Html.ValidationMessageFor(model => model.RevealDuration)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealDelay)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.RevealDelay)
+                    @Html.ValidationMessageFor(model => model.RevealDelay)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.AccumulateDelay)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.AccumulateDelay)
+                    @Html.ValidationMessageFor(model => model.AccumulateDelay)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealDistance)
+                </div>
+                <div class="adminData">
+                    @Html.TextBoxFor(model => model.RevealDistance, new { placeholder = "100px" })
+                    @Html.ValidationMessageFor(model => model.RevealDistance)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealOffset)
+                </div>
+                <div class="adminData">
+                    @Html.EditorFor(model => model.RevealOffset, new { placeholder = "120", postfix = "px" })
+                    @Html.ValidationMessageFor(model => model.RevealOffset)
+                </div>
+            </div>
+            <div class="adminRow">
+                <div class="adminTitle">
+                    @Html.SmartLabelFor(model => model.RevealOnce)
+                </div>
+                <div class="adminData">
+                    @Html.CheckBoxFor(model => model.RevealOnce)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        // Configuration options display handling
+        const styleEl = $('#gallery-style');
+        const zoomerEl = $('#gallery-zoomer');
+        const revealEl = $('#gallery-reveal');
+        const flatEl = $('#gallery-flat');
+        const hoverEl = $('#gallery-hover');
+        const gapEl = $('#gallery-gap');
+        const colEl = $('#gallery-column-count');
+        const fitEl = $('#gallery-object-fit');
+        const mediaSizeEl = $('#gallery-media-size');
+        const indicatorsEl = $('#gallery-indicators');
+        const intervalEl = $('#gallery-interval');
+        const alignHorizontalEl = $('#gallery-align-horizontal');
+        const borderShadow = $('#gallery-border-shadow');
+        const paddings = $('#gallery-paddings');
+        const aspectRatio = $('#gallery-aspect-ratio');
+
+        var toggleContextSettings = function () {
+            const selectedValue = styleEl.find('option:selected').val();
+            switchOff(hoverEl, selectedValue, 'Gallery', 'Slider');
+            switchOff(revealEl, selectedValue, 'Gallery', 'Slider');
+            switchOff(flatEl, selectedValue, 'Gallery', 'Slider');
+            switchOff(gapEl, selectedValue, 'Slider', 'Gallery');
+            switchOff(paddings, selectedValue, 'Gallery')
+            switchOff(borderShadow, selectedValue, 'Gallery')
+            switchOn(fitEl, selectedValue, 'Grid');
+            switchOn(mediaSizeEl, selectedValue, 'Grid', 'Justify');
+            switchOn(zoomerEl, selectedValue, 'Gallery');
+            switchOn(colEl, selectedValue, 'Masonry');
+            switchOn(indicatorsEl, selectedValue, 'Slider');
+            switchOn(intervalEl, selectedValue, 'Slider');
+            switchOn(alignHorizontalEl, selectedValue, 'Justify');
+            switchOn(aspectRatio, selectedValue, 'Slider', 'Gallery');
+        }
+
+        toggleContextSettings();
+        styleEl.on('change', toggleContextSettings);
+
+        const fuContainer = $(this).find('.fu-container');
+        const previewContainer = fuContainer.find('.preview-container');
+        const previewTemplate = fuContainer.find('.file-preview-template');
+        const dropzone = Dropzone.forElement(fuContainer[0]);
+        const hiddenField = document.getElementById('gallery-media-ids');
+        const buttonEl = $('.g-gallery-preview-toggle');
+        const buttonTextMoreEl = buttonEl.find('.preview-toggle-more');
+        const buttonTextLessEl = buttonEl.find('.preview-toggle-less');
+        const galleryContainer = $('.g-gallery-preview-container');
+        const dropzoneHeight = $('.dropzone-target').outerHeight();
+        const previewRowHeight = 180 + dropzoneHeight;
+
+        // Expand / hide preview button listener
+        buttonEl.on('click', function (e) {
+            galleryContainer.toggleClass('show');
+            if (galleryContainer.hasClass('show')) {
+                galleryContainer.css('maxHeight', previewContainer.outerHeight(true) + dropzoneHeight);
+                buttonTextMoreEl.addClass('d-none');
+                buttonTextLessEl.removeClass('d-none');
+            }
+            else {
+                galleryContainer.css('maxHeight', previewRowHeight);
+                buttonTextMoreEl.removeClass('d-none');
+                buttonTextLessEl.addClass('d-none');
+            }
+        });
+
+        // Display only the first row, display button when more are available > somewhat faulty on new upload / selection
+        const previewContainerSize = previewContainer.outerHeight(true) + dropzoneHeight;
+        if (previewContainerSize <= previewRowHeight) {
+            buttonEl.addClass("d-none");
+        }
+
+        previewContainer.on('sort', function (e, ui) {
+            if (!hiddenField) return;
+
+            // Get mediaIds as array
+            const array = hiddenField.value.split(',');
+            // Get media Id of element to reposition
+            const sortId = array[e.originalEvent.oldIndex];
+
+            // Repositioning - remove from old position & insert in new position
+            array.splice(e.originalEvent.oldIndex, 1);
+            array.splice(e.originalEvent.newIndex, 0, sortId);
+
+            // Save new order as string in hidden input field
+            hiddenField.value = array.join(',');
+        });
+
+        dropzone.on('successmultiple', function (files, response, progress) {
+
+            // Get entity id from response
+            if (response.length) {
+                files.forEach(function (file, i) {
+                    file.id = response[i].id;
+                });
+            }
+            else {
+                files[0].id = response.id;
+            }
+
+            files.forEach(file => addFileToGallery(file));
+        });
+
+        fuContainer.on('mediaselected', function (e, files) {
+            files.forEach(file => addFileToGallery(file));
+        });
+
+        fuContainer.on('click', '.delete-entity-picture', function (e) {
+            const previewThumb = $(this).closest('.dz-image-preview')[0];
+            removeMediaFromGallery(previewThumb);
+        });
+
+        const addFileToGallery = function (file) {
+            // Display button to toggle preview container display
+            if (parseInt(galleryContainer.css('maxHeight'), 10) > previewRowHeight) {
+                buttonEl.removeClass("d-none");
+            }
+
+            if (!hiddenField || file.status === "error") return;
+
+            createMediaPreview(file)
+
+            // Add file id to hidden input field
+            const id = file.media.id + ",";
+            hiddenField.value = (hiddenField.value + id);
+
+            // Display and expand preview container
+            galleryContainer.addClass('show');
+            galleryContainer.css('maxHeight', previewContainer.outerHeight(true) + dropzoneHeight);
+        }
+
+        const createMediaPreview = function (file) {
+            // Create a preview for each new file or get existing
+            const elPreview = file.previewElement ? $(file.previewElement) : $(previewTemplate.html());
+            elPreview
+                .attr('data-media-id', file.media.id)
+                .attr('data-media-name', file.name)
+                .attr('data-entity-id', file.id)
+                .removeClass('d-none dz-processing')
+                .addClass('dz-success');
+
+            elPreview.find('.fu-file-info-name').html(file.name);
+            elPreview.find('.file-img').attr('src', file.dataURL || file.media.thumbUrl);
+            elPreview.find('.progress-bar').addClass('d-none');
+
+            // Eventhandler to remove/unassign media
+            elPreview.on('click', '.delete-entity-picture', { 'element': elPreview[0] }, function (e) {
+                removeMediaFromGallery(e.data.element);
+            });
+
+            file.previewElement = elPreview;
+            previewContainer.append(elPreview);
+        }
+
+        const removeMediaFromGallery = function (previewThumb) {
+            if (!hiddenField || !previewThumb) return;
+
+            const mediaId = previewThumb.dataset.mediaId;
+            const array = hiddenField.value.split(',');
+            if (!array.includes(mediaId)) return;
+
+            // Remove media ids from hidden input and delete previewThumb
+            array.splice(array.indexOf(mediaId), 1);
+            hiddenField.value = array.join(',');
+            previewThumb.remove();
+
+            // Hide button if files preview container height is to small
+            if (previewContainer.outerHeight(true) <= previewRowHeight) {
+                buttonEl.addClass("d-none");
+            }
+
+            // File must be removed from dropzone if it was added in current queue
+            if (dropzone.files.length > 0) {
+                const file = dropzone.files.find(file => file.media.id == mediaId);
+                if (file) {
+                    dropzone.removeFile(file);
+                }
+            }
+        }
+    });
+
+    const switchOn = function (el, value, ...compare) {
+        el.toggleClass('d-none', !checkDisplay(value, compare))
+    }
+
+    const switchOff = function (el, value, ...compare) {
+        el.toggleClass('d-none', checkDisplay(value, compare))
+    }
+
+    const checkDisplay = function (value, compare) {
+        for (var i = 0; i < compare.length; i++) {
+            if (compare[i].toLowerCase() == value.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+</script>

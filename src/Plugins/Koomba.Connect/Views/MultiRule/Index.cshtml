@@ -1,0 +1,35 @@
+﻿@model MultiRuleModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["RulesProviders"] = Model.RulesProviders;
+    ViewData["ActionProviders"] = Model.ActionProviders;
+    ViewData["Fields"] = Model.Fields;
+    ViewBag.Title = T("Plugins.Koomba.Connect.FieldMap.EditRule").Text;
+}
+
+<div class="section-header">
+    <div class="title">
+        @T("Plugins.Koomba.Connect.FieldMap.EditRule")
+        <a href="@Url.Action("Edit", "Configuration", new { id = Model.ConnectionId })">(@T("Plugins.Koomba.Connect.Connection.BackToList"))</a>
+    </div>
+</div>
+
+@Html.HiddenFor(model => model.MultiRuleListId)
+@Html.HiddenFor(model => model.ConnectionId)
+@Html.HiddenFor(x => x.Type)
+<div class="card-deck card-cols-sm-1 card-cols-lg-2 card-cols-xl-3 discountreq-list mt-5">
+    @foreach (var rule in Model.Rules)
+    {
+        Html.RenderPartial("RulePartial", rule);
+    }
+    @{
+        Html.RenderPartial("RulePartial", new RuleModel() {
+            isAction = true,
+            isField = true, 
+            Type = Model.Type,
+            ConnectionId=Model.ConnectionId });
+    }
+</div>
+
+<script src="~/Plugins/Koomba.Connect/Scripts/koomba.rule.js"></script>

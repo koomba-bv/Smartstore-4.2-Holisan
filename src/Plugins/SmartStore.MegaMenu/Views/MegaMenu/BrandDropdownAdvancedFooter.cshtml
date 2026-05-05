@@ -1,0 +1,41 @@
+﻿@model TreeNode<MenuItem>
+
+@using SmartStore.Web.Models.Catalog;
+@using SmartStore.Collections;
+@using SmartStore.MegaMenu.Models;
+@using SmartStore.MegaMenu.Settings;
+
+@{
+	var dropdownModel = Model.GetMetadata<MegaMenuDropdownModel>("MegamenuModel", true);
+	var rows = 2;
+	var nodes = Model.Children
+		.Where(x => x.Value.ImageUrl.HasValue())
+		.Take(13 * rows);
+
+	if (dropdownModel.FooterBrandSortOrder == BrandSortOrder.Alphabetical)
+	{
+		nodes = nodes.OrderBy(x => x.Value.Text).ToList();
+	}
+}
+
+<div class="brand-menu-footer px-3">
+	<div class="row flex-wrap justify-content-between">
+		@foreach (var node in nodes)
+		{
+			@RenderBrand(node);
+		}
+	</div>
+</div>
+
+@helper RenderBrand(TreeNode<MenuItem> node)
+{
+	var menuItem = node.Value;
+	var url = menuItem.GenerateUrl(this.Url);
+
+	<div class="col brand-menu-footer-thumb-col">
+		<a class="img-center-container" href="@url" title="@menuItem.Text">
+			<img src="@menuItem.ImageUrl" alt="@menuItem.Text" class="img-fluid brand-menu-footer-thumb" />
+		</a>
+	</div>
+}
+

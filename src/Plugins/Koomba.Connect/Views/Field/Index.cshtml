@@ -1,0 +1,108 @@
+﻿@model ConnectionModel
+
+@using Telerik.Web.Mvc.UI;
+	
+<table class="adminContent mb-2">
+    <tr class="pnlKeyLogic">
+        <td class="adminTitle">
+            @Html.SmartLabelFor(m => m.KeyLogic)
+        </td>
+        <td class="adminData">
+            @Html.DropDownListForEnum(x => x.KeyLogic)
+            @Html.ValidationMessageFor(m => m.KeyLogic)
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.SmartLabelFor(m => m.AllowDeleteProductSpecificationAttribute)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(x => x.AllowDeleteProductSpecificationAttribute)
+            @Html.ValidationMessageFor(m => m.AllowDeleteProductSpecificationAttribute)
+        </td>
+    </tr>
+    @if (Model.SynchronizeType == Koomba.Connect.Domain.SynchronizeType.Export && Model.SmartType == Koomba.Connect.Domain.SmartType.Order)
+    {
+        <tr>
+            <td class="adminTitle">
+                @Html.SmartLabelFor(m => m.IgnoredProductIds)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(x => x.IgnoredProductIds)
+                @Html.ValidationMessageFor(m => m.IgnoredProductIds)
+            </td>
+        </tr>
+    }
+</table>
+
+@if (Model.Id > 0)
+{
+    <script>
+        function onFieldMapEdit(e) {
+            if (e.mode == "edit") {
+                $('#SapField')
+                    .data('select-selected-id', e.dataItem['SapFieldId'])
+                    .data('select-init-text', e.dataItem['SapField'])
+                    .val(e.dataItem['SapFieldId'])
+                    .trigger('change');
+
+                $('#SmartField')
+                    .data('select-selected-id', e.dataItem['SmartFieldId'])
+                    .data('select-init-text', e.dataItem['SmartField'])
+                    .val(e.dataItem['SmartFieldId'])
+                    .trigger('change');
+            }
+        }       
+    </script>
+
+    <div>
+        @(Html.Telerik().Grid<FieldMapModel>()
+			.Name("fieldmap-grid")
+			.DataKeys(keys => keys.Add(x => x.Id).RouteKey("Id"))
+			.Columns(columns =>
+			{
+				columns.Bound(x => x.SapField);
+				columns.Bound(x => x.SmartField);
+				columns.Bound(x => x.DefaultValue).Width(100);
+				columns.Bound(x => x.IsIgnored).Width(100).ClientTemplate(@Html.SymbolForBool("IsIgnored")).Centered();
+
+				if (Model.Id > 0 && Model.SynchronizeType == Koomba.Connect.Domain.SynchronizeType.Import)
+				{
+					columns.Bound(x => x.IsKeyColumn).Width(100).ClientTemplate(@Html.SymbolForBool("IsKeyColumn")).Centered();
+				}
+
+				columns.Bound(x => x.RuleCount)
+					.ClientTemplate("<a href=\"" + Url.Action("FieldRules","Field") + "?id=<#= Id #>&connectionId=" + Model.Id + "\" class=\"t-button\">" + "<#= RuleCount #>" + "</a>")
+					.Centered()
+					.ReadOnly();
+
+				columns.Command(commands =>
+				{
+					commands.Edit();
+					commands.Delete();
+				}).Width(50);
+			})
+			.Editable(x =>
+			{
+				x.Mode(GridEditMode.InLine);
+			})
+			.DataBinding(dataBinding => dataBinding
+				.Ajax()
+				.Select("List", "Field", new { connectionId = Model.Id })
+				.Insert("Insert", "Field", new { connectionId = Model.Id })
+				.Update("Update", "Field", new { connectionId = Model.Id })
+				.Delete("Delete", "Field", new { connectionId = Model.Id })
+			)
+			.ToolBar(commands => commands.Insert())
+			.Pageable(settings => settings.PageSize(25).Position(GridPagerPosition.Both))
+			.ClientEvents(events => events.OnEdit("onFieldMapEdit"))
+			.EnableCustomBinding(true)
+        )
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        @T("Admin.SaveBeforeEdit")
+    </div>
+}

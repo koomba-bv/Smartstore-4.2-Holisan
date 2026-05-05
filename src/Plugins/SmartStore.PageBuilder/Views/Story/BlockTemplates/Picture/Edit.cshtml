@@ -1,0 +1,80 @@
+﻿@model PictureBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{
+    var fitSelectItems = new[]
+    {
+        new SelectListItem { Text = "fill", Value = "fill" },
+        new SelectListItem { Text = "contain", Value = "contain" },
+        new SelectListItem { Text = "cover", Value = "cover" },
+        new SelectListItem { Text = "none", Value = "none" },
+        new SelectListItem { Text = "scale-down", Value = "scale-down" }
+    };
+
+    var loadingBehaviours = new List<SelectListItem>()
+    {
+        new SelectListItem {Text = "lazy", Value = "lazy" },
+        new SelectListItem {Text = "eager", Value = "eager" }
+    };
+}
+
+@Html.HiddenFor(model => model.BindEntityId)
+@Html.HiddenFor(model => model.BindEntityName)
+
+<div class="adminContent">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.PictureId)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.PictureId, "BindablePicture", new { transientUpload = true, path = "pagebuilder" })
+            @Html.ValidationMessageFor(model => model.PictureId)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.PictureSize)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.PictureSize)
+            @Html.ValidationMessageFor(model => model.PictureSize)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Fit)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Fit, fitSelectItems, T("Plugins.SmartStore.PageBuilder.Picture.NoFit"))
+            @Html.ValidationMessageFor(model => model.Fit)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.LoadingBehaviour)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.LoadingBehaviour, loadingBehaviours, T("Common.Auto"))
+            @Html.ValidationMessageFor(model => model.LoadingBehaviour)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CssClass)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.CssClass)
+            @Html.ValidationMessageFor(model => model.CssClass)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.CssStyle)
+        </div>
+        <div class="adminData">
+            @Html.TextAreaFor(model => model.CssStyle)
+            @Html.ValidationMessageFor(model => model.CssStyle)
+        </div>
+    </div>
+</div>

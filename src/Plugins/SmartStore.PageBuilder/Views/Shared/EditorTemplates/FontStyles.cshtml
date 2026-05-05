@@ -1,0 +1,141 @@
+﻿@model FontStylesModel
+
+@using SmartStore.PageBuilder;
+
+@{
+    var displaySpacing = ViewBag.DisplaySpacing != false;
+    var displayColor = ViewBag.DisplayColor != false;
+    var displayBgColor = ViewBag.DisplayBgColor != false;
+    var displayFontWeight = ViewBag.DisplayFontWeight != false;
+    var displayTextTransform = ViewBag.DisplayTextTransform != false;
+    var displayTextItalic = ViewBag.DisplayTextItalic != false;
+}
+
+@if (displaySpacing)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Spacing)
+        </div>
+        <div class="adminData">
+            <div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+                @foreach (var item in StoryModelHelper.SelectOptions.Margins(T))
+                {
+                    <label class="btn btn-secondary tooltip-toggle@(Convert.ToInt16(item.Value) == Model.Spacing ? " active" : "")" data-placement="top" title="@item.Text">
+                        <input type="radio"
+                               name="@Html.FieldNameFor(x => x.Spacing)"
+                               value="@item.Value"
+                               autocomplete="off" @(Convert.ToInt16(item.Value) == Model.Spacing ? "checked" : "")> @item.Value
+                        </label>
+                    }
+            </div>
+
+            @Html.ValidationMessageFor(model => model.Spacing)
+        </div>
+    </div>
+}
+
+@if (displayColor)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Color)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Color, StoryModelHelper.SelectOptions.TextColors(T), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+            @Html.ValidationMessageFor(model => model.Color)
+        </div>
+    </div>
+}
+
+@if (displayBgColor)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.BgColor)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.BgColor, StoryModelHelper.SelectOptions.BackgroundColors(T, GetThemeVariable("brand-colors")), T("Common.Unspecified"), new { @class = "theme-color-chooser" })
+            @Html.ValidationMessageFor(model => model.BgColor)
+        </div>
+    </div>
+}
+
+@if (displayFontWeight)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Weight)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Weight, StoryModelHelper.SelectOptions.FontWeights(T), T("Common.Unspecified"))
+            @Html.ValidationMessageFor(model => model.Weight)
+        </div>
+    </div>
+}
+
+@if (displayTextTransform)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TextTransform)
+        </div>
+        <div class="adminData wide">
+            <div class="btn-group btn-group-toggle unselectable" data-toggle="buttons">
+                @foreach (var item in StoryModelHelper.SelectOptions.FontTransforms(T))
+                {
+                    <label class="btn btn-secondary @(item.Value == Model.TextTransform ? "active" : "") @item.Value">
+                        <input type="radio"
+                               name="@Html.FieldNameFor(x => x.TextTransform)"
+                               value="@item.Value"
+                               autocomplete="off" @(item.Value == Model.TextTransform ? "checked" : "")> @item.Text
+                        </label>
+                    }
+            </div>
+
+            @Html.ValidationMessageFor(model => model.TextTransform)
+        </div>
+    </div>
+}
+
+@if (displayTextItalic)
+{
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.TextItalic)
+        </div>
+        <div class="adminData">
+            @Html.CheckBoxFor(model => model.TextItalic)
+            @Html.ValidationMessageFor(model => model.TextItalic)
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+		$('#@(Html.FieldIdFor(x => x.Weight))').selectWrapper({
+            templateResult: selectFontWeight
+		});
+
+        function selectFontWeight(item) {
+            try {
+				if (item.id.length > 0) {
+					var option = $(item.element),
+                        html = '<div class="' + item.id + ' fs-h6">';
+
+					if (option.length === 0) {
+						option = $('select[name="@(Html.FieldNameFor(x => x.Weight))"]').find('option[value="' + item.id + '"]');
+                    }
+
+					html += item.text;
+
+					html += '</div>';
+                    return $(html);
+				}
+			}
+            catch (e) { }
+
+			return item.text;
+		}
+	});
+</script>

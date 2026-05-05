@@ -1,0 +1,11 @@
+﻿FriendlyName: FileExpansion
+Description: FileExpansion
+Group: Data
+SystemName: Koomba.FileExpansion
+Version: 4.2.0
+MinAppVersion: 4.2.0
+DisplayOrder: 0
+Author: KOOMBA
+FileName: Koomba.FileExpansion.dll
+ResourceRootKey: Plugins.Koomba.FileExpansion
+Url: https://koomba.eu

@@ -1,0 +1,21 @@
+﻿@model PictureBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+	if (Model.PictureModel == null)
+	{
+		return;
+	}
+
+	var cssClass = "g-image";
+	if (Model.Fit.HasValue())
+	{
+		cssClass += " fit-" + Model.Fit;
+	}
+}
+
+<div class="g-media@(Model.CssClass.HasValue() ? " " + Model.CssClass : "")" @Html.Attr("style", Model.CssStyle, Model.CssStyle.HasValue())>
+	<img class="@cssClass" src="@Model.PictureModel.ImageUrl" alt="@Model.PictureModel.Title" title="@Model.PictureModel.Title" 
+		 @Html.Attr("loading", Model.LoadingBehaviour, Model.LoadingBehaviour.HasValue()) />
+</div>

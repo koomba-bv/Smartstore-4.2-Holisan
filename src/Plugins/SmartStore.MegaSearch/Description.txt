@@ -1,0 +1,11 @@
+﻿FriendlyName: MegaSearch
+Description: Components for the catalog search, including Lucene full-text search.
+SystemName: SmartStore.MegaSearch
+Group: Performance
+Version: 4.2.0
+MinAppVersion: 4.2.0
+Author: SmartStore AG
+DisplayOrder: 1
+FileName: SmartStore.MegaSearch.dll
+ResourceRootKey: Plugins.SmartStore.MegaSearch
+Url: http://www.smartstore.com/de/net#section-pricing

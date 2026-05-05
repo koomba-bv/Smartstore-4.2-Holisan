@@ -1,0 +1,47 @@
+﻿@model VideoBlock
+
+@using SmartStore.PageBuilder.Blocks
+
+@{ 
+    if (Model.Mp4File == null && Model.WebMFile == null && Model.OggFile == null)
+    {
+        return;
+    }
+
+    var defaultVideoLink = "";
+
+    if (Model.Mp4File != null)
+    {
+        defaultVideoLink = Model.Mp4File.GetUrl();
+    }
+    else if (Model.WebMFile != null)
+    {
+        defaultVideoLink = Model.WebMFile.GetUrl();
+    }
+    else
+    {
+        defaultVideoLink = Model.OggFile.GetUrl();
+    }
+}
+
+<div class="g-video embed-responsive embed-responsive-@Model.AspectRatio">
+    <video class="g-video-tag embed-responsive-item"@(Model.DisplayControls ? " controls" : "")@(Model.IsMuted ? " muted" : "")@(Model.Autoplay ? " autoplay" : "")@(Model.Loop ? " loop" : "")>
+        @if (Model.Mp4File != null)
+        {
+            <source src="@Model.Mp4File.GetUrl()" type="video/mp4">
+        }
+        @if (Model.WebMFile != null)
+        {
+            <source src="@Model.WebMFile.GetUrl()" type="video/webm">
+        }
+        @if (Model.OggFile != null)
+        {
+            <source src="@Model.OggFile.GetUrl()" type="video/ogg">
+        }
+
+        <p>
+            Your browser doesn't support HTML5 videos.
+            Here is a <a href="@defaultVideoLink">link to the video</a> instead.
+        </p>
+    </video>
+</div>

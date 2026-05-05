@@ -1,0 +1,97 @@
+﻿@model ImageOverlay
+
+@using SmartStore.PageBuilder;
+
+<div class="adminRow">
+    <div class="adminTitle">
+        @Html.SmartLabelFor(model => model.PictureId)
+    </div>
+    <div class="adminData">
+        @Html.EditorFor(model => model.PictureId, new { transientUpload = true, path = "pagebuilder" })
+        @Html.ValidationMessageFor(model => model.PictureId)
+    </div>
+</div>
+<div id="pnl-bgimg-props">
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.PictureSize)
+        </div>
+        <div class="adminData">
+            @Html.EditorFor(model => model.PictureSize)
+            @Html.ValidationMessageFor(model => model.PictureSize)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Position)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Position, StoryModelHelper.SelectOptions.BackgroundPositions(T))
+            @Html.ValidationMessageFor(model => model.Position)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Repeat)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Repeat, StoryModelHelper.SelectOptions.BackgroundRepeats(T), T("Plugins.SmartStore.PageBuilder.BackgroundRepeat.NoRepeat"))
+            @Html.ValidationMessageFor(model => model.Repeat)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Attachment)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Attachment, StoryModelHelper.SelectOptions.BackgroundAttachments(T))
+            @Html.ValidationMessageFor(model => model.Attachment)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Size)
+        </div>
+        <div class="adminData">
+            @Html.DropDownListFor(model => model.Size, StoryModelHelper.SelectOptions.BackgroundSizes(T))
+            @Html.ValidationMessageFor(model => model.Size)
+        </div>
+    </div>
+    <div class="adminRow">
+        <div class="adminTitle">
+            @Html.SmartLabelFor(model => model.Parallax)
+        </div>
+        <div class="adminData">
+            @Html.CheckBoxFor(model => model.Parallax, new { data_toggler_for = "#pnl-bg-parallax" })
+        </div>
+    </div>
+    <div id="pnl-bg-parallax">
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.ParallaxSpeedFactor)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.ParallaxSpeedFactor)
+                @Html.ValidationMessageFor(model => model.ParallaxSpeedFactor)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.ParallaxOffset)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.ParallaxOffset)
+                @Html.ValidationMessageFor(model => model.ParallaxOffset)
+            </div>
+        </div>
+        <div class="adminRow">
+            <div class="adminTitle">
+                @Html.SmartLabelFor(model => model.ParallaxFilter)
+            </div>
+            <div class="adminData">
+                @Html.EditorFor(model => model.ParallaxFilter, new { placeholder = T("Plugins.SmartStore.PageBuilder.Parallax.Filter.Hint").Text })
+                @Html.ValidationMessageFor(model => model.ParallaxFilter)
+            </div>
+        </div>
+    </div>
+</div>

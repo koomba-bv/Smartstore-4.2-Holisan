@@ -1,0 +1,186 @@
+﻿@using SmartStore.Utilities;
+@using SmartStore.Core.Search;
+@using SmartStore.MegaSearch.Models;
+@model ConfigurationModel
+
+<table class="table admin-table scope-list">
+	<thead>
+		<tr>
+			<th style="width: 210px;">@T("Plugins.SmartStore.MegaSearch.SearchIndex")</th>
+            <th class="text-center" style="width: 100px;">@T("Common.IsActive")</th>
+			<th style="width: 150px;">@T("Plugins.SmartStore.MegaSearch.Status")</th>
+			<th>@T("Plugins.SmartStore.MegaSearch.LastIndexedDate")</th>
+			<th class="text-center">@T("Plugins.SmartStore.MegaSearch.DocumentCount")</th>
+			<th style="width: 460px;">@T("Plugins.SmartStore.MegaSearch.Fields")</th>
+			<th style="width: 100px;">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Scopes)
+		{
+			<tr class="@(item.Status == IndexingStatus.Unavailable ? "disabled" : "") @(item.IsActive ? "" : "muted")" data-scope="@item.Scope">
+				<td>
+					<div class="font-weight-medium">
+                        @item.LocalizedName
+                    </div>
+                    <div class="mt-1">
+						<button type="button" class="btn btn-outline-light btn-sm font-weight-normal scope-settings-button">
+                            <span>@T(item.SettingsExpanded ? "Plugins.SmartStore.MegaSearch.HideSettings" : "Plugins.SmartStore.MegaSearch.ShowSettings")</span>
+                            <i class="fa @(item.SettingsExpanded ? "fa-chevron-up" : "fa-chevron-down")"></i>
+						</button>
+                    </div>
+				</td>
+                <td class="text-center">
+                    @Html.SymbolForBool(item.IsActive)
+                </td>
+				<td>
+					@item.StatusLocalized
+				</td>
+				<td>
+                    <div class="progress-info">
+                        <div class="task-progress text-muted" data-task-id="@item.ScheduleTaskId" data-running="@(item.IsTaskRunning ? "true" : "false")"></div>
+                    </div>
+					<div class="index-info">
+						@if (item.LastIndexedDate.HasValue)
+						{
+							if (item.Error.HasValue())
+							{
+								<div>@item.LastIndexedDate.Value.ToString("g")</div>
+								<div class="text-danger mt-2 font-weight-medium">@T("Common.Error"):</div>
+								<pre class="prettyprint xlang-java mt-1 mb-0" style="max-height: 200px; white-space: pre-wrap;"><strong>@T("Common.Error"): </strong> <span>@item.Error</span></pre>
+							}
+							else
+							{
+								<div><span>@T("Admin.Common.SuccessfulOn"): </span><span>@item.LastIndexedDate.Value.ToString("g")</span></div>
+								<div class="muted">@item.LastIndexedDateFriendly</div>
+								if (item.LastIndexingDurationFriendly.HasValue())
+								{
+									<div>@T("Plugins.SmartStore.MegaSearch.LastIndexingDuration"): @item.LastIndexingDurationFriendly</div>
+								}
+								if (item.ShouldRebuild || !item.IsModified)
+								{
+									<div class="mt-1">
+										@if (!item.IsModified)
+										{
+											<div>
+												<i class="fa fa-exclamation-triangle text-info"></i>
+												<span class="text-info">@T("Plugins.SmartStore.MegaSearch.IndexNotModified")</span>
+											</div>
+										}
+										@if (item.ShouldRebuild)
+										{
+											<div>
+												<i class="fa fa-exclamation-triangle text-warning"></i>
+												<span class="text-warning">@T("Plugins.SmartStore.MegaSearch.ShouldRebuild")</span>
+												(<a class="index-command" href="javascript:void(0)" data-url="@Url.Action("Indexing", new { scope = item.Scope, command = "rebuild" })">@T("Plugins.SmartStore.MegaSearch.Rebuild")</a>)
+											</div>
+										}
+									</div>
+								}
+							}
+						}
+						else
+						{
+							<div class="muted">@T("Common.Never")</div>
+						}
+					</div>
+				</td>
+				<td class="text-center">
+					<div>@item.DocumentCount.ToString("N0")</div>
+                    @if (item.IndexSize > 0)
+                    {
+                        <div>@T("Common.Size"): @Prettifier.BytesToString(item.IndexSize)</div>
+                    }
+				</td>
+				<td>
+					@if (item.Fields.Length > 3)
+					{
+						<div>
+							<span>@string.Join(", ", item.Fields.Take(3))</span><span class="d-none more-fields">, @string.Join(", ", item.Fields.Skip(3))</span>
+                            <div class="mt-1">
+                                <button type="button" class="btn btn-outline-light btn-sm font-weight-normal show-more-fields">
+                                    <span>@T("Common.ShowMore")</span>
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                            </div>
+						</div>
+					}
+					else if (item.Fields.Length > 0)
+					{
+						<div>@string.Join(", ", item.Fields)</div>
+					}
+					else
+					{
+						<div class="muted">@Html.SymbolForBool(false)</div>
+					}
+				</td>
+				<td style="text-align: right;">
+					@if (item.Status <= IndexingStatus.Idle)
+                    {
+                        if (item.Exists)
+                        {
+							<div class="btn-group">
+								<button type="button" class="btn btn-secondary dropdown-toggle no-chevron px-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-fw fa-lg fa-ellipsis-h"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item index-command" href="javascript:void(0)" data-url="@Url.Action("Indexing", new { scope = item.Scope, command = "rebuild" })">
+										<i class="fa fa-fw fa-cog"></i>
+										<span>@T("Plugins.SmartStore.MegaSearch.Rebuild")</span>
+									</a>
+                                    @if (item.LastAddedDocumentId != 0)
+                                    {
+									    <a class="dropdown-item index-command" href="javascript:void(0)" data-url="@Url.Action("Indexing", new { scope = item.Scope, command = "continue" })">
+										    <i class="fa fa-fw fa-forward"></i>
+										    <span>@T("Plugins.SmartStore.MegaSearch.ContinueRebuild")</span>
+									    </a>
+                                    }
+									<a class="dropdown-item index-command@(item.ShouldRebuild ? " disabled" : "")" href="javascript:void(0)" data-url="@Url.Action("Indexing", new { scope = item.Scope, command = "update" })">
+										<i class="fa fa-fw fa-sync"></i>
+										<span>@T("Admin.Common.Update")</span>
+									</a>
+
+									<div class="dropdown-divider"></div>
+
+									<a class="dropdown-item" href="@Url.Action("Edit", "ScheduleTask", new { id = item.ScheduleTaskId, returnUrl = Request.RawUrl, area = "admin" })">
+										<i class="far fa-fw fa-clock"></i>
+										<span>@T("Admin.System.ScheduleTasks.EditTask")</span>
+									</a>
+									@if (item.Status != IndexingStatus.Unavailable)
+                                    {
+										<div class="dropdown-divider"></div>
+
+										<a class="dropdown-item index-command" href="javascript:void(0)" data-url="@Url.Action("DeleteIndex", new { scope = item.Scope })">
+											<i class="far fa-fw fa-trash-alt"></i>
+											<span>@T("Admin.Common.Delete")</span>
+										</a>
+                                    }
+								</div>
+							</div>
+                        }
+                        else
+                        {
+							<a class="btn btn-block btn-success index-command" href="javascript:void(0)" data-url="@Url.Action("Indexing", new { scope = item.Scope, command = "rebuild" })">
+								<i class="fa fa-cog"></i>
+								<span>@T("Plugins.SmartStore.MegaSearch.CreateIndexNow")</span>
+							</a>
+							<a class="btn btn-secondary btn-block" href="@Url.Action("Edit", "ScheduleTask", new { id = item.ScheduleTaskId, returnUrl = Request.RawUrl, area = "admin" })">
+								<i class="far fa-fw fa-clock"></i>
+								<span>@T("Admin.System.ScheduleTasks.EditTask")</span>
+							</a>
+                        }
+                    }
+					<a href="@Url.Action("CancelJob", "ScheduleTask", new { id = item.ScheduleTaskId, returnUrl = Request.RawUrl, area = "admin" })" 
+                        class="btn btn-danger btn-sm btn-cancel-task@(item.IsTaskRunning ? "" : " hide")" onclick='return confirm(@T("Admin.Common.AskToProceed").JsText);'>
+						@T("Common.Cancel")
+					</a>
+				</td>
+			</tr>
+            <tr id="scope-settings-@(item.Scope)" class="scope-settings@(item.SettingsExpanded ? "" : " hide")" data-scope="@item.Scope">
+                <td colspan="7" class="border-0">
+                    @{ Html.RenderPartial("_{0}ScopeSettings".FormatInvariant(item.Scope)); }
+                </td>
+            </tr>
+		}
+	</tbody>
+</table>

@@ -1,4 +1,5 @@
 ﻿using SmartStore.Core;
+using SmartStore.Core.Data;
 using SmartStore.Core.Domain.Catalog;
 using SmartStore.Core.Domain.Common;
 using SmartStore.Core.Domain.Customers;
@@ -101,6 +102,7 @@ namespace SmartStore.Web.Controllers
         private readonly RewardPointsSettings _rewardPointsSettings;
         private readonly MediaExceptionFactory _exceptionFactory;
         private readonly CatalogHelper _helper;
+        private readonly IDbContext _dbContext;
         #endregion
 
         #region Constructors
@@ -153,7 +155,8 @@ namespace SmartStore.Web.Controllers
             ProductUrlHelper productUrlHelper,
             RewardPointsSettings rewardPointsSettings,
             MediaExceptionFactory exceptionFactory,
-            CatalogHelper helper)
+            CatalogHelper helper,
+            IDbContext dbContext)
         {
             _productService = productService;
             _workContext = workContext;
@@ -204,6 +207,7 @@ namespace SmartStore.Web.Controllers
             _rewardPointsSettings = rewardPointsSettings;
             _exceptionFactory = exceptionFactory;
             _helper = helper;
+            _dbContext = dbContext;
         }
 
         #endregion
@@ -1657,6 +1661,7 @@ namespace SmartStore.Web.Controllers
 
             //save item
             var cartType = (ShoppingCartType)shoppingCartTypeId;
+            _dbContext.DetachEntity(product);
             product.Price = 0;
 
             var addToCartContext = new AddToCartContext

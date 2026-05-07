@@ -918,6 +918,10 @@ namespace SmartStore.Services.Catalog
                 {
                     finalPrice = shoppingCartItem.Item.CustomerEnteredPrice;
                 }
+                else if (shoppingCartItem.Item.AttributesXml == "<FreeProduct/>")
+                {
+                    finalPrice = decimal.Zero;
+                }
                 else if (product.ProductType == ProductType.BundledProduct && product.BundlePerItemPricing)
                 {
                     if (shoppingCartItem.ChildItems != null)

@@ -229,6 +229,7 @@ namespace SmartStore.Web.Models.ShoppingCart
         {
             public ProductSummaryModel FreeItems { get; set; }          // KOOMBA
             public bool ExistsInCart { get; set; } = false;             // KOOMBA
+            public int SelectedProductId { get; set; } = 0;            // KOOMBA
         }
         #endregion
     }

@@ -1054,11 +1054,11 @@ namespace SmartStore.Web.Controllers
                     return;
 
                 model.FreeProducts.FreeItems = _helper.MapProductSummaryModel(freeProducts, new ProductSummaryMappingSettings());
-                model.FreeProducts.ExistsInCart = freeProducts.Any(fp =>
-                {
-                    var matchingCartItem = cart.FirstOrDefault(c => c.Item.ProductId == fp.Id);
-                    return matchingCartItem != null;
-                });                               
+                var selectedFreeCartItem = cart.FirstOrDefault(c =>
+                    freeProducts.Any(fp => fp.Id == c.Item.ProductId) &&
+                    c.Item.AttributesXml == "<FreeProduct/>");
+                model.FreeProducts.ExistsInCart = selectedFreeCartItem != null;
+                model.FreeProducts.SelectedProductId = selectedFreeCartItem?.Item.ProductId ?? 0;
             }
             else
             {
@@ -1661,13 +1661,11 @@ namespace SmartStore.Web.Controllers
 
             //save item
             var cartType = (ShoppingCartType)shoppingCartTypeId;
-            _dbContext.DetachEntity(product);
-            product.Price = 0;
 
             var addToCartContext = new AddToCartContext
             {
                 Product = product,
-                VariantQuery = new ProductVariantQuery(),
+                AttributesXml = "<FreeProduct/>",
                 CartType = cartType,
                 CustomerEnteredPrice = 0,
                 Quantity = 1,

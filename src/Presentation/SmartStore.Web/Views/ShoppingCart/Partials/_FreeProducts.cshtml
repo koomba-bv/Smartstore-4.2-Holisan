@@ -67,9 +67,10 @@
         border: 1px solid #ccc;
         border-radius: .5rem;
         padding: .875rem;
-        transition: border-color 0.3s, box-shadow 0.3s;
+        transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
         min-width:0;
         background: #fff;
+        cursor: pointer;
     }
 
     .art-name, .art-description {
@@ -86,6 +87,8 @@
     .art-card:hover {
         border-color: #81ae44;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        transform: scale(1.03);
+        cursor: pointer;
     }
 
     .art-card--disabled {
